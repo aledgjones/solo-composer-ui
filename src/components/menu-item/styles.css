@@ -1,0 +1,18 @@
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 40px;
+    padding: 0 20px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.menu-item--clickable:hover {
+    background-color: rgb(235, 235, 235);
+}
+
+.menu-item--selected {
+    background-color: var(--primary-500-bg) !important;
+    color: var(--primary-500-fg) !important;
+}

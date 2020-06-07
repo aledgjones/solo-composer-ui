@@ -1,0 +1,30 @@
+.transport {
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.transport__timestamp {
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 0px 20px;
+    height: 36px;
+    border-radius: 3px;
+    border: 1px solid var(--background-500-bg);
+    color: var(--background-200-fg);
+}
+
+.transport__controls {
+    display: flex;
+    padding: 6px 0 6px 20px;
+}
+
+.transport__metronome {
+    display: flex;
+    padding: 0 20px;
+}
+
+.transport__icon {
+    margin-right: 20px;
+}

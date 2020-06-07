@@ -1,41 +1,62 @@
-import { Engine, ThemeMode } from "solo-composer-parser";
+import { useState, useEffect, useMemo } from "react";
+import { Engine, ThemeMode, InstrumentAutoCountStyle, View, PlayerType, NoteLength } from "solo-composer-parser";
 import * as equal from "fast-deep-equal";
-import { useState, useEffect, useMemo, useRef } from "react";
 import shortid from "shortid";
 
-export interface Shade {
-    background: string;
-    foreground: string;
+interface Patches {
+    [expression: string]: string;
 }
 
-export interface Pallet {
-    shade_200: Shade;
-    shade_300: Shade;
-    shade_400: Shade;
-    shade_500: Shade;
-    shade_600: Shade;
-    shade_700: Shade;
-    shade_800: Shade;
+interface Player {
+    key: string;
+    player_type: PlayerType;
+    instruments: string[];
+    name?: string;
+}
+
+interface Flow {
+    key: string;
+    title: string;
+    players: string[];
+    tick_length: NoteLength;
+    length: number;
 }
 
 interface State {
-    meta: {
-        title: string;
-        composer: string;
-        created: number;
-    };
     app: {
-        theme: {
-            mode: ThemeMode;
-
-            pallets: {
-                background: Pallet;
-                primary: Pallet;
-                highlight: Pallet;
-                error: Pallet;
+        theme: ThemeMode;
+        audition: boolean;
+    };
+    playback: {
+        metronome: boolean;
+    };
+    score: {
+        meta: {
+            title: string;
+            composer: string;
+            created: number;
+        };
+        config: {
+            auto_count_style: {
+                solo: InstrumentAutoCountStyle;
+                section: InstrumentAutoCountStyle;
             };
         };
-        audition: boolean;
+        flows: {
+            order: string[];
+            by_key: {
+                [key: string]: Flow;
+            };
+        };
+        players: {
+            order: string[];
+            by_key: {
+                [key: string]: Player;
+            };
+        };
+    };
+    ui: {
+        view: View;
     };
 }
 
@@ -73,11 +94,32 @@ export function useActions() {
                 audition: (value: boolean) => store.set_audition(value),
                 theme: (value: ThemeMode) => store.set_theme(value)
             },
+            playback: {
+                metronome: (value: boolean) => store.set_metronome(value)
+            },
             score: {
                 meta: {
                     title: (value: string) => store.set_title(value),
                     composer: (value: string) => store.set_composer(value)
+                },
+                config: {
+                    auto_count_style: {
+                        solo: (value: InstrumentAutoCountStyle) => store.set_auto_count_style_solo(value),
+                        section: (value: InstrumentAutoCountStyle) => store.set_auto_count_style_section(value)
+                    }
+                },
+                player: {
+                    create: (player_type: PlayerType): string => store.create_player(player_type),
+                    assign_instrument: (player_key: string, instrument_key: string): string => {
+                        return store.assign_instrument(player_key, instrument_key);
+                    }
+                },
+                instrument: {
+                    create: (id: string): { patches: Patches; key: string } => store.create_instrument(id)
                 }
+            },
+            ui: {
+                view: (value: View) => store.set_view(value)
             }
         };
     }, []);

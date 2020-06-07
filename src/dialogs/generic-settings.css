@@ -1,0 +1,59 @@
+.generic-settings {
+    height: calc(100vh - 80px);
+    max-height: 500px;
+}
+
+.generic-settings__header {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.generic-settings__content {
+    display: flex;
+    height: calc(100% - 56px);
+}
+
+.generic-settings__left-panel {
+    width: 250px;
+    overflow: auto;
+    padding: 8px;
+}
+
+.generic-settings__right-panel {
+    position: relative;
+    width: calc(100% - 250px);
+    overflow: auto;
+}
+
+.generic-settings__section {
+    padding: 20px;
+}
+
+.generic-settings__buttons {
+    height: 56px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-top: 1px solid rgb(175, 175, 175);
+    padding: 0 12px;
+}
+
+.generic-settings__spacer {
+    flex-grow: 1;
+}
+
+.generic-settings__input-with-img {
+    display: flex;
+    align-items: flex-start;
+}
+
+.generic-settings__input-with-img .ui-input {
+    flex-grow: 1;
+}
+
+.generic-settings__example {
+    margin-right: 20px;
+    border: 1px solid rgb(175, 175, 175);
+}

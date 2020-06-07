@@ -1,10 +1,18 @@
 const path = require("path");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     entry: "./bootstrap.ts",
     devtool: "inline-source-map",
+    plugins: [
+        new CleanWebpackPlugin(),
+        new CopyWebpackPlugin({
+            patterns: [{ from: "public" }]
+        }),
+        new MiniCssExtractPlugin()
+    ],
     module: {
         rules: [
             {
@@ -14,7 +22,7 @@ module.exports = {
             },
             {
                 test: /\.css$/i,
-                use: [{ loader: "style-loader", options: { injectType: "linkTag" } }, { loader: "file-loader" }]
+                use: [{ loader: MiniCssExtractPlugin.loader }, { loader: "css-loader" }]
             }
         ]
     },
@@ -25,11 +33,5 @@ module.exports = {
         path: path.resolve(__dirname, "dist"),
         filename: "bootstrap.js"
     },
-    mode: "development",
-    plugins: [
-        new CleanWebpackPlugin(),
-        new CopyWebpackPlugin({
-            patterns: [{ from: "public" }]
-        })
-    ]
+    mode: "development"
 };

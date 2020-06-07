@@ -1,0 +1,20 @@
+.ui-textarea__container {
+    display: block;
+}
+
+.ui-textarea__display {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.ui-textarea__slave {
+    position: relative;
+    white-space: pre-line;
+    pointer-events: none;
+    width: 100%;
+    visibility: hidden;
+    min-height: 54px;
+}
