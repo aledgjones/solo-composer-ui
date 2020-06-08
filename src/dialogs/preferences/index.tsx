@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-import "../generic-settings.css";
 import { Dialog, Button, Subheader, Select, Option, ListItem, Label, Switch } from "../../ui";
-import { useActions, useStore } from "../../use-store";
+import { useActions, useStore, ThemeMode } from "../../use-store";
 import { MenuItem } from "../../components/menu-item";
-import { ThemeMode } from "solo-composer-parser";
+
+import "../generic-settings.css";
 
 enum Page {
     General,
@@ -25,10 +25,16 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
         <div className="generic-settings">
             <div className="generic-settings__content">
                 <div className="generic-settings__left-panel">
-                    <MenuItem selected={page === Page.General} onClick={() => setPage(Page.General)}>
+                    <MenuItem
+                        selected={page === Page.General}
+                        onClick={() => setPage(Page.General)}
+                    >
                         General
                     </MenuItem>
-                    <MenuItem selected={page === Page.NoteInput} onClick={() => setPage(Page.NoteInput)}>
+                    <MenuItem
+                        selected={page === Page.NoteInput}
+                        onClick={() => setPage(Page.NoteInput)}
+                    >
                         Note Input &amp; Editing
                     </MenuItem>
                 </div>

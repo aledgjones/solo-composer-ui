@@ -1,0 +1,56 @@
+.flow-item {
+    position: relative;
+    display: inline-block;
+    color: white;
+    height: 96px;
+    margin-right: 8px;
+    border-radius: 3px;
+    background-color: var(--background-600-bg);
+    color: var(--background-600-fg);
+    min-width: 280px;
+}
+
+.flow-item--active {
+    background-color: var(--primary-700-bg);
+    color: var(--primary-700-fg);
+}
+
+.flow-item--selected {
+    background-color: var(--primary-500-bg);
+    color: var(--primary-500-fg);
+    z-index: 100 !important;
+}
+
+.flow-item--editing {
+    background-color: var(--primary-600-bg);
+    color: var(--primary-600-fg);
+}
+
+.flow-item.ui-sortable-item--sorting {
+    transition: transform 0.2s;
+}
+
+.flow-item.ui-sortable-item--active {
+    transition: transform 0s;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+
+.flow-item__header {
+    display: flex;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+}
+
+.flow-item__name {
+    flex-grow: 1;
+    display: inline-block;
+    background-color: transparent;
+    line-height: 32px;
+    color: inherit;
+}
+
+.flow-item__name[readonly] {
+    pointer-events: none;
+}

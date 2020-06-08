@@ -1,7 +1,11 @@
-import React, { FC } from "react";
-import { PlayerType } from "solo-composer-parser";
-import { useTitle } from "../ui";
-import { useActions } from "../use-store";
+import React, { FC, useState } from "react";
+import { mdiCogOutline } from "@mdi/js";
+import { useTitle, Icon } from "../ui";
+import { useActions, PlayerType } from "../use-store";
+import { Panel } from "../components/panel";
+import { SetupSettings } from "../dialogs/setup-settings";
+import { FlowList } from "./flow-list";
+import { Selection } from "./selection";
 
 import "./styles.css";
 
@@ -9,27 +13,33 @@ const Setup: FC = () => {
     const actions = useActions();
     useTitle("Solo Composer | Setup");
 
+    // local selection is good -- we don't need to keep on nav.
+    const [selection, setSelection] = useState<Selection>(null);
+    const [typeSelector, setTypeSelector] = useState<boolean>(false);
+    const [instrumentSelector, setInstrumentSelector] = useState<boolean>(false);
+    const [settings, setSettings] = useState<boolean>(false);
+
     return (
         <>
-            <button onClick={() => actions.score.player.create(PlayerType.Solo)}>Create Player</button>
-            <button
-                onClick={() => {
-                    const playerKey = actions.score.player.create(PlayerType.Solo);
-                    const { key: instrumentKey, patches } = actions.score.instrument.create("strings.violin");
-                    console.log(instrumentKey, patches);
-                    actions.score.player.assign_instrument(playerKey, instrumentKey);
-                }}
-            >
-                Create PLayer / Instrument
-            </button>
+            <Panel>
+                <div className="panel__wrapper" />
+                <div className="panel__wrapper panel__wrapper--settings">
+                    <Icon
+                        className="panel__tool"
+                        path={mdiCogOutline}
+                        size={24}
+                        onClick={() => setSettings(true)}
+                    />
+                </div>
+            </Panel>
+
+            <div className="setup__content">
+                <FlowList selection={selection} onSelect={setSelection} />
+            </div>
+
+            <SetupSettings width={900} open={settings} onClose={() => setSettings(false)} />
         </>
     );
-
-    // // local selection fine, we don't need to keep this after nav.
-    // const [selection, setSelection] = useState<Selection>(null);
-    // const [typeSelector, setTypeSelector] = useState<boolean>(false);
-    // const [instrumentSelector, setInstrumentSelector] = useState<boolean>(false);
-    // const [settings, setSettings] = useState<boolean>(false);
 
     // const onTypeSelected = useCallback(
     //     (type?: PlayerType) => {

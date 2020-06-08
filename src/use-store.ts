@@ -1,25 +1,58 @@
 import { useState, useEffect, useMemo } from "react";
-import { Engine, ThemeMode, InstrumentAutoCountStyle, View, PlayerType, NoteLength } from "solo-composer-parser";
+import {
+    Engine,
+    ThemeMode,
+    InstrumentAutoCountStyle,
+    View,
+    PlayerType,
+    NoteLength
+} from "solo-composer-engine";
 import * as equal from "fast-deep-equal";
 import shortid from "shortid";
 
-interface Patches {
+export { ThemeMode } from "solo-composer-engine";
+export { InstrumentAutoCountStyle } from "solo-composer-engine";
+export { View } from "solo-composer-engine";
+export { PlayerType } from "solo-composer-engine";
+export { NoteLength } from "solo-composer-engine";
+
+export interface Patches {
     [expression: string]: string;
 }
 
-interface Player {
+export interface Player {
     key: string;
     player_type: PlayerType;
     instruments: string[];
     name?: string;
 }
 
-interface Flow {
+export interface Entries {
+    order: string[];
+    by_key: { [key: string]: any }; // The typing stop here we will never actually use these js side.
+}
+
+export interface Track {
+    key: string;
+    entries: Entries;
+}
+
+export interface Stave {
+    key: string;
+    lines: number;
+    mater: Track;
+    tracks: string[];
+}
+
+export interface Flow {
     key: string;
     title: string;
     players: string[];
     tick_length: NoteLength;
     length: number;
+
+    staves: { [key: string]: Stave };
+    tracks: { [key: string]: Track };
 }
 
 interface State {
@@ -104,9 +137,18 @@ export function useActions() {
                 },
                 config: {
                     auto_count_style: {
-                        solo: (value: InstrumentAutoCountStyle) => store.set_auto_count_style_solo(value),
-                        section: (value: InstrumentAutoCountStyle) => store.set_auto_count_style_section(value)
+                        solo: (value: InstrumentAutoCountStyle) =>
+                            store.set_auto_count_style_solo(value),
+                        section: (value: InstrumentAutoCountStyle) =>
+                            store.set_auto_count_style_section(value)
                     }
+                },
+                flow: {
+                    create: () => store.create_flow(),
+                    rename: (flow_key: string, title: string) => store.rename_flow(flow_key, title),
+                    reorder: (old_index: number, new_index: number) =>
+                        store.reorder_flow(old_index, new_index),
+                    remove: (flow_key: string) => store.remove_flow(flow_key)
                 },
                 player: {
                     create: (player_type: PlayerType): string => store.create_player(player_type),
@@ -115,7 +157,8 @@ export function useActions() {
                     }
                 },
                 instrument: {
-                    create: (id: string): { patches: Patches; key: string } => store.create_instrument(id)
+                    create: (id: string): { patches: Patches; key: string } =>
+                        store.create_instrument(id)
                 }
             },
             ui: {

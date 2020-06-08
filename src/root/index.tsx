@@ -1,6 +1,5 @@
 import React, { FC, useEffect, Suspense } from "react";
-import { useStore, useActions } from "../use-store";
-import { ThemeMode, View } from "solo-composer-parser";
+import { useStore, useActions, ThemeMode, View } from "../use-store";
 import { Tabs, useTheme, merge, Tab, useLog } from "../ui";
 import { FileMenu } from "./file-menu";
 import { Transport } from "./transport";

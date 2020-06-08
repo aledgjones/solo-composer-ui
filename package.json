@@ -12,8 +12,6 @@
     "devDependencies": {
         "@types/big.js": "^4.0.5",
         "@types/color": "^3.0.1",
-        "@types/lodash.isboolean": "^3.0.6",
-        "@types/lodash.isnumber": "^3.0.6",
         "@types/lodash.isobject": "^3.0.6",
         "@types/lodash.isstring": "^4.0.6",
         "@types/react": "16.9.35",
@@ -33,19 +31,19 @@
     },
     "dependencies": {
         "@mdi/js": "^5.3.45",
+        "@types/react-inspector": "^4.0.0",
         "app-reset": "^1.0.2",
         "big.js": "^5.2.2",
         "color": "^3.1.2",
         "fast-deep-equal": "3.1.1",
-        "lodash.isboolean": "^3.0.3",
-        "lodash.isnumber": "^3.0.3",
         "lodash.isobject": "^3.0.2",
         "lodash.isstring": "^4.0.1",
-        "react": "^0.0.0-experimental-33c3af284",
-        "react-dom": "^0.0.0-experimental-33c3af284",
+        "react": "0.0.0-experimental-33c3af284",
+        "react-dom": "0.0.0-experimental-33c3af284",
+        "react-inspector": "^5.0.1",
         "shortid": "2.2.15",
         "showdown": "^1.9.1",
         "showdown-highlight": "^2.1.4",
-        "solo-composer-parser": "file:../solo-composer-parser/pkg"
+        "solo-composer-engine": "file:../solo-composer-engine/pkg"
     }
 }
