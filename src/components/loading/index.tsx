@@ -10,19 +10,7 @@ interface Props {
 
 export const Loading: FC<Props> = ({ style }) => {
     return (
-        <div
-            className="fallback"
-            style={{
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                height: "100%",
-                width: "100%",
-                paddingLeft: 64,
-                ...style
-            }}
-        >
+        <div className="loading" style={style}>
             <Panel />
             <Spinner color="var(--background-500-fg)" size={24} />
         </div>

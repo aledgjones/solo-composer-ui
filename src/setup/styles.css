@@ -1,8 +1,24 @@
-.setup__content {
-    position: fixed;
-    width: calc(100vw - 64px);
-    height: calc(100vh - 48px);
-    overflow: auto;
-    top: 48px;
-    left: 64px;
+.setup {
+    display: flex;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding-left: 64px;
+}
+
+.setup__middle {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.setup__view {
+    flex-grow: 1;
+    max-height: calc(100vh - 208px);
+    position: relative;
+}
+
+.setup__middle {
+    border-left: solid 4px var(--background-400-bg);
+    border-right: solid 4px var(--background-400-bg);
 }

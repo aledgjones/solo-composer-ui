@@ -1,10 +1,12 @@
 import React, { FC, useState } from "react";
 import { mdiCogOutline } from "@mdi/js";
 import { useTitle, Icon } from "../ui";
-import { useActions, PlayerType } from "../use-store";
+import { useActions } from "../use-store";
 import { Panel } from "../components/panel";
 import { SetupSettings } from "../dialogs/setup-settings";
 import { FlowList } from "./flow-list";
+import { LayoutList } from "./layout-list";
+import { RenderRegion } from "../components/render-region";
 import { Selection } from "./selection";
 
 import "./styles.css";
@@ -33,8 +35,12 @@ const Setup: FC = () => {
                 </div>
             </Panel>
 
-            <div className="setup__content">
-                <FlowList selection={selection} onSelect={setSelection} />
+            <div className="setup">
+                <div className="setup__middle">
+                    <RenderRegion className="setup__view">{/* <RenderWriteMode /> */}</RenderRegion>
+                    <FlowList selection={selection} onSelect={setSelection} />
+                </div>
+                <LayoutList />
             </div>
 
             <SetupSettings width={900} open={settings} onClose={() => setSettings(false)} />

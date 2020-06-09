@@ -1,0 +1,13 @@
+.render-region {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-blend-mode: screen;
+    background-attachment: fixed;
+    background-color: var(--primary-400-bg);
+}
+
+.light .render-region {
+    background-color: var(--primary-800-bg);
+}
