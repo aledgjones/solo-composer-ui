@@ -26,14 +26,10 @@ export const About = Dialog<Props>(({ onClose }) => {
             </div>
             <Content className="about__content">
                 <p className="about__paragraph">
-                    This project is very much an experimental work in progress. Things <b>will</b>{" "}
-                    break, not exist, make no sense and crash! This project is greatly inspired by
-                    the amazing work the people at Steinberg are doing on{" "}
-                    <a
-                        rel="noopener noreferrer"
-                        href="https://new.steinberg.net/dorico/"
-                        target="_blank"
-                    >
+                    This project is very much an experimental work in progress. Things <b>will</b> break, not exist,
+                    make no sense and crash! This project is greatly inspired by the amazing work the people at
+                    Steinberg are doing on{" "}
+                    <a rel="noopener noreferrer" href="https://new.steinberg.net/dorico/" target="_blank">
                         Dorico
                     </a>
                     .
@@ -42,12 +38,16 @@ export const About = Dialog<Props>(({ onClose }) => {
             <Content className="about__versions">
                 <Subheader>Versions</Subheader>
                 <p className="about__version">
-                    <span className="about__grow">Application UI</span>
+                    <span className="about__grow">Application</span>
                     <span>{pkg.version}</span>
                 </p>
                 <p className="about__version">
                     <span className="about__grow">Application Engine</span>
                     <span>{pkg.version}</span>
+                </p>
+                <p className="about__version">
+                    <span className="about__grow">Rendering Engine (React.js)</span>
+                    <span>@experimantal</span>
                 </p>
                 <p className="about__version">
                     <span className="about__grow">Audio Engine (Tone.js)</span>
