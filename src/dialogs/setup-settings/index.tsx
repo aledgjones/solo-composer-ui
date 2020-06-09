@@ -38,10 +38,10 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
                                 className="generic-settings__section"
                                 style={{ paddingBottom: 20 }}
                             >
-                                <Subheader>instrument numbering</Subheader>
+                                <Subheader>instrument numbering style</Subheader>
                                 <Select
                                     margin
-                                    label="Style for solo players"
+                                    label="Solo players"
                                     value={config.auto_count_style.solo}
                                     onChange={(val: InstrumentAutoCountStyle) =>
                                         actions.score.config.auto_count_style.solo(val)
@@ -67,7 +67,7 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
                                     </Option>
                                 </Select>
                                 <Select
-                                    label="Style for section players"
+                                    label="Section players"
                                     value={config.auto_count_style.section}
                                     onChange={(val: InstrumentAutoCountStyle) =>
                                         actions.score.config.auto_count_style.section(val)

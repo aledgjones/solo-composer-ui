@@ -1,0 +1,81 @@
+.about__header {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 20px;
+    background-color: rgb(235, 235, 235);
+    color: var(--primary-500-bg);
+}
+
+.about__logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 20px 60px 20px;
+    background-color: rgb(235, 235, 235);
+    border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.about__logo-img {
+    height: 64px;
+    width: 64px;
+    margin-bottom: 12px;
+}
+
+.about__logo-text {
+    font-size: 24px;
+    line-height: 0.9em;
+    text-align: center;
+    color: var(--primary-500-bg);
+    font-weight: bold;
+    font-family: "Josefin Sans", sans-serif;
+    text-transform: uppercase;
+}
+
+.about__logo-text p:nth-child(1) {
+    position: relative;
+    left: 2px;
+    letter-spacing: 3.5px;
+    font-weight: 600;
+}
+
+.about__logo-text p:nth-child(2) {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.about__content {
+    padding-bottom: 0;
+}
+
+.about__version {
+    display: flex;
+    font-size: 14px;
+    font-family: "Courier New", Courier, monospace;
+}
+
+.about__grow {
+    flex-grow: 1;
+}
+
+.about__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 48px;
+    padding: 0 20px;
+}
+
+.about__paragraph b {
+    font-weight: bold;
+}
+
+.about__paragraph a {
+    color: var(--primary-500-bg);
+}
+
+.about__paragraph a:hover {
+    text-decoration: underline;
+}

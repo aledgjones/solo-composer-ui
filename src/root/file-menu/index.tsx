@@ -1,10 +1,22 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { mdiMenu } from "@mdi/js";
-import { Icon, Card, Content, Subheader, Label, List, ListItem, Divider, Button, merge } from "../../ui";
+import {
+    Icon,
+    Card,
+    Content,
+    Subheader,
+    Label,
+    List,
+    ListItem,
+    Divider,
+    Button,
+    merge
+} from "../../ui";
 import { Preferences } from "../../dialogs/preferences";
 import { useStore } from "../../use-store";
 
 import "./styles.css";
+import { About } from "../../dialogs/about";
 
 export const FileMenu: FC = () => {
     const meta = useStore((s) => s.score.meta);
@@ -39,7 +51,12 @@ export const FileMenu: FC = () => {
         <>
             <div className="file-menu__container" ref={element}>
                 {!open && update && <div className="file-menu__dot file-menu__dot--badge" />}
-                <Icon className="file-menu__icon" path={mdiMenu} size={24} onClick={() => setOpen((o) => !o)} />
+                <Icon
+                    className="file-menu__icon"
+                    path={mdiMenu}
+                    size={24}
+                    onClick={() => setOpen((o) => !o)}
+                />
                 {open && (
                     <Card className="file-menu">
                         <Content className="file-menu__current">
@@ -78,8 +95,8 @@ export const FileMenu: FC = () => {
                 )}
             </div>
 
-            {/* <Help open={help} width={500} onClose={() => setHelp(false)} />
-            <About width={400} open={about} onClose={() => setAbout(false)} /> */}
+            {/* <Help open={help} width={500} onClose={() => setHelp(false)} /> */}
+            <About width={400} open={about} onClose={() => setAbout(false)} />
             <Preferences open={preferences} width={900} onClose={() => setPreferences(false)} />
         </>
     );

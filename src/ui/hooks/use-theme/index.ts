@@ -9,9 +9,10 @@ export function useTheme(color: string) {
         if (metaThemeColor) {
             metaThemeColor.setAttribute("content", color);
         } else {
-            const el = document.createElement('meta');
-            el.setAttribute('name', 'theme-color');
-            el.setAttribute('content', color);
+            const el = document.createElement("meta");
+            el.setAttribute("name", "theme-color");
+            el.setAttribute("content", color);
+            document.head.appendChild(el);
         }
     }, [color]);
 }
