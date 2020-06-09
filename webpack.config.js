@@ -8,9 +8,7 @@ module.exports = {
     devtool: "inline-source-map",
     plugins: [
         new CleanWebpackPlugin(),
-        new CopyWebpackPlugin({
-            patterns: [{ from: "public" }]
-        }),
+        new CopyWebpackPlugin({ patterns: [{ from: "public" }] }),
         new MiniCssExtractPlugin()
     ],
     module: {

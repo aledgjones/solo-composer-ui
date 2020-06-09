@@ -1,22 +1,12 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { mdiMenu } from "@mdi/js";
-import {
-    Icon,
-    Card,
-    Content,
-    Subheader,
-    Label,
-    List,
-    ListItem,
-    Divider,
-    Button,
-    merge
-} from "../../ui";
+import { Icon, Card, Content, Subheader, Label, List, ListItem, Divider, Button } from "../../ui";
+import { About } from "../../dialogs/about";
+import { Help } from "../../dialogs/help";
 import { Preferences } from "../../dialogs/preferences";
 import { useStore } from "../../use-store";
 
 import "./styles.css";
-import { About } from "../../dialogs/about";
 
 export const FileMenu: FC = () => {
     const meta = useStore((s) => s.score.meta);
@@ -95,7 +85,7 @@ export const FileMenu: FC = () => {
                 )}
             </div>
 
-            {/* <Help open={help} width={500} onClose={() => setHelp(false)} /> */}
+            <Help open={help} width={500} onClose={() => setHelp(false)} />
             <About width={400} open={about} onClose={() => setAbout(false)} />
             <Preferences open={preferences} width={900} onClose={() => setPreferences(false)} />
         </>

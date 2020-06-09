@@ -6,7 +6,6 @@ interface InputBaseProps {
     className?: string;
     style?: CSSProperties;
     type: string;
-    color: string;
     margin?: boolean;
     label: string;
     required?: boolean;
@@ -50,4 +49,9 @@ export interface SearchInputProps extends InputBaseProps {
     value: string;
 }
 
-export type InputProps = TextInputProps | PasswordInputProps | EmailInputProps | SearchInputProps | NumberInputProps;
+export type InputProps =
+    | TextInputProps
+    | PasswordInputProps
+    | EmailInputProps
+    | SearchInputProps
+    | NumberInputProps;

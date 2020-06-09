@@ -1,10 +1,7 @@
 .markdown-content h1,
 .markdown-content h2,
 .markdown-content h3,
-.markdown-content h4 {
-    margin-bottom: 20px;
-}
-
+.markdown-content h4,
 .markdown-content p {
     margin-bottom: 20px;
 }
@@ -57,5 +54,4 @@
 
 .markdown-content ol {
     color: rgb(0, 0, 0, 0.7);
-    list-style: upper-roman;
 }
