@@ -1,7 +1,7 @@
-import React, { FC, useMemo } from "react";
+import React, { FC } from "react";
 import { mdiPlus } from "@mdi/js";
 import { Icon, SortableContainer } from "../../ui";
-import { useActions, useStore } from "../../use-store";
+import { useStore, actions } from "../../../store";
 import { FlowItem } from "../flow-item";
 import { Selection, SelectionType } from "../selection";
 
@@ -13,16 +13,12 @@ interface Props {
 }
 
 export const FlowList: FC<Props> = ({ selection, onSelect }) => {
-    const actions = useActions();
-    const flows = useStore((s) =>
-        s.score.flows.order.map((key) => {
+    const flows = useStore((s) => {
+        return s.score.flows.order.map((key) => {
             return s.score.flows.by_key[key];
-        })
-    );
-
-    const width = useMemo(() => {
-        return `calc(${100 / flows.length}% - 8px)`;
-    }, [flows.length]);
+        });
+    });
+    const width = `calc(${100 / flows.length}% - 8px)`;
 
     return (
         <div className="flow-list">
@@ -33,7 +29,7 @@ export const FlowList: FC<Props> = ({ selection, onSelect }) => {
                     path={mdiPlus}
                     onClick={() => {
                         const key = actions.score.flow.create();
-                        onSelect({ key, type: SelectionType.flow });
+                        onSelect({ key, type: SelectionType.Flow });
                     }}
                 />
             </div>

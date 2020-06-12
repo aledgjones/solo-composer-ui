@@ -1,7 +1,6 @@
-import React, { MouseEvent, CSSProperties, FC, useMemo } from "react";
+import React, { MouseEvent, CSSProperties, FC } from "react";
 
 import { merge } from "../../utils/merge";
-import { useForeground } from "../../hooks/use-foreground";
 import { Spinner } from "../spinner";
 
 import "./styles.css";
@@ -22,7 +21,17 @@ interface Props {
 /**
  * Button component with optional outline-only styling.
  */
-export const Button: FC<Props> = ({ id, className, style, children, compact, outline, disabled, working, onClick }) => {
+export const Button: FC<Props> = ({
+    id,
+    className,
+    style,
+    children,
+    compact,
+    outline,
+    disabled,
+    working,
+    onClick
+}) => {
     return (
         <button
             id={id}

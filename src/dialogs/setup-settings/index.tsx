@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Dialog, Subheader, Select, Option, Label, Button } from "../../ui";
-import { useActions, useStore, InstrumentAutoCountStyle } from "../../use-store";
+import { useStore, actions, InstrumentAutoCountStyle } from "../../../store";
 import { MenuItem } from "../../components/menu-item";
 
 import "../generic-settings.css";
@@ -15,8 +15,6 @@ interface Props {
 
 export const SetupSettings = Dialog<Props>(({ onClose }) => {
     const [page, setPage] = useState<Page>(Page.StaveLabels);
-
-    const actions = useActions();
     const config = useStore((s) => s.score.config);
 
     return (

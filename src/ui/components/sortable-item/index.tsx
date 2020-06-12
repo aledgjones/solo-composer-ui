@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext, MutableRefObject, useMemo, useLayoutEffect } from "react";
+import React, { useRef, useEffect, useContext, MutableRefObject, useLayoutEffect } from "react";
 import shortid from "shortid";
 
 import { SortableContext, Items } from "../sortable-container/context";
@@ -16,20 +16,27 @@ interface Props {
     handle?: MutableRefObject<HTMLDivElement | null>;
 }
 
-export const SortableItem: SuperFC<HTMLDivElement, Props> = ({ index, handle, className, onPointerDown, children, ...props }) => {
+export const SortableItem: SuperFC<HTMLDivElement, Props> = ({
+    index,
+    handle,
+    className,
+    onPointerDown,
+    children,
+    ...props
+}) => {
     const ref = useRef<HTMLDivElement>(null);
 
     // set a fixed key for the duration of the items life
-    const key = useMemo(() => shortid(), []);
+    const key = useRef(shortid());
     const { config, items, setItems } = useContext(SortableContext);
 
     // if exists, the index has changed so update else register with the container
     useLayoutEffect(() => {
         ref.current?.style.removeProperty("transform");
-        setItems(items => {
+        setItems((items) => {
             return {
                 ...items,
-                [key]: { key, index, sorting: false, active: false, ref }
+                [key.current]: { key: key.current, index, sorting: false, active: false, ref }
             };
         });
     }, [key, index, ref, setItems]);
@@ -37,8 +44,8 @@ export const SortableItem: SuperFC<HTMLDivElement, Props> = ({ index, handle, cl
     // cleanup on item destroyed
     useEffect(() => {
         return () => {
-            setItems(items => {
-                const { [key]: item, ...others } = items;
+            setItems((items) => {
+                const { [key.current]: item, ...others } = items;
                 return others;
             });
         };
@@ -54,7 +61,7 @@ export const SortableItem: SuperFC<HTMLDivElement, Props> = ({ index, handle, cl
 
     const onDown = useDragHandler<{ x: number; y: number; offsetItemsBy: number; moveTo: number }>(
         {
-            onDown: e => {
+            onDown: (e) => {
                 if (onPointerDown) {
                     onPointerDown(e as any);
                 }
@@ -72,13 +79,13 @@ export const SortableItem: SuperFC<HTMLDivElement, Props> = ({ index, handle, cl
                     }
                 }
 
-                setItems(items => {
+                setItems((items) => {
                     return Object.entries(items).reduce<Items>((output, [itemKey, item]) => {
                         return {
                             ...output,
                             [itemKey]: {
                                 ...item,
-                                active: itemKey === key,
+                                active: itemKey === key.current,
                                 sorting: true
                             }
                         };
@@ -90,7 +97,9 @@ export const SortableItem: SuperFC<HTMLDivElement, Props> = ({ index, handle, cl
                     x: e.screenX,
                     y: e.screenY,
                     offsetItemsBy:
-                        config.direction === "x" ? getAbsoluteWidth(ref.current) : getAbsoluteHeight(ref.current),
+                        config.direction === "x"
+                            ? getAbsoluteWidth(ref.current)
+                            : getAbsoluteHeight(ref.current),
                     moveTo: index
                 };
             },
@@ -101,9 +110,9 @@ export const SortableItem: SuperFC<HTMLDivElement, Props> = ({ index, handle, cl
                         item.ref.current?.style.setProperty(
                             "transform",
                             `translate3d(${
-                            itemKey === key
-                                ? e.screenX - init.x
-                                : getOffset(item, init.moveTo, index, init.offsetItemsBy)
+                                itemKey === key.current
+                                    ? e.screenX - init.x
+                                    : getOffset(item, init.moveTo, index, init.offsetItemsBy)
                             }px, 0px, 0px)`
                         );
                     });
@@ -113,9 +122,9 @@ export const SortableItem: SuperFC<HTMLDivElement, Props> = ({ index, handle, cl
                         item.ref.current?.style.setProperty(
                             "transform",
                             `translate3d(0px, ${
-                            itemKey === key
-                                ? e.screenY - init.y
-                                : getOffset(item, init.moveTo, index, init.offsetItemsBy)
+                                itemKey === key.current
+                                    ? e.screenY - init.y
+                                    : getOffset(item, init.moveTo, index, init.offsetItemsBy)
                             }px, 0px)`
                         );
                     });
@@ -124,10 +133,10 @@ export const SortableItem: SuperFC<HTMLDivElement, Props> = ({ index, handle, cl
             onEnd: (_e, init) => {
                 // if no move
                 if (init.moveTo === index) {
-                    Object.values(items).forEach(item => {
+                    Object.values(items).forEach((item) => {
                         item.ref.current?.style.removeProperty("transform");
                     });
-                    setItems(items => {
+                    setItems((items) => {
                         return Object.entries(items).reduce<Items>((output, [itemKey, item]) => {
                             return {
                                 ...output,
@@ -147,7 +156,7 @@ export const SortableItem: SuperFC<HTMLDivElement, Props> = ({ index, handle, cl
         [key, config, items, index, handle, onPointerDown]
     );
 
-    const item = items[key];
+    const item = items[key.current];
 
     return (
         <div
@@ -155,7 +164,10 @@ export const SortableItem: SuperFC<HTMLDivElement, Props> = ({ index, handle, cl
             onPointerDown={onDown}
             className={merge(
                 "ui-sortable-item",
-                { "ui-sortable-item--sorting": item?.sorting, "ui-sortable-item--active": item?.active },
+                {
+                    "ui-sortable-item--sorting": item?.sorting,
+                    "ui-sortable-item--active": item?.active
+                },
                 className
             )}
             {...props}

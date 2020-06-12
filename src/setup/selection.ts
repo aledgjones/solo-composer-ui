@@ -1,7 +1,7 @@
 export enum SelectionType {
-    player = 1,
-    flow,
-    layout
+    Player,
+    Flow,
+    Layout
 }
 
 export type Selection = {

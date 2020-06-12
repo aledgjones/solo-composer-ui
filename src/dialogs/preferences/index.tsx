@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import { Dialog, Button, Subheader, Select, Option, ListItem, Label, Switch } from "../../ui";
-import { useActions, useStore, ThemeMode } from "../../use-store";
+import { useStore, ThemeMode, actions } from "../../../store";
 import { MenuItem } from "../../components/menu-item";
 
 import "../generic-settings.css";
@@ -16,7 +16,6 @@ interface Props {
 }
 
 export const Preferences = Dialog<Props>(({ onClose }) => {
-    const actions = useActions();
     const [theme, audition] = useStore((s) => [s.app.theme, s.app.audition]);
 
     const [page, setPage] = useState<Page>(Page.General);

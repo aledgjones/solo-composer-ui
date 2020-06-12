@@ -11,8 +11,8 @@
 }
 
 .flow-item--active {
-    background-color: var(--primary-700-bg);
-    color: var(--primary-700-fg);
+    background-color: var(--background-700-bg);
+    color: var(--background-700-fg);
 }
 
 .flow-item--selected {

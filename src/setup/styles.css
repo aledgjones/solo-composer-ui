@@ -9,7 +9,7 @@
 .setup__middle {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    width: calc(100% - 700px);
 }
 
 .setup__view {

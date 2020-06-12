@@ -4,7 +4,7 @@ import { Icon, Card, Content, Subheader, Label, List, ListItem, Divider, Button 
 import { About } from "../../dialogs/about";
 import { Help } from "../../dialogs/help";
 import { Preferences } from "../../dialogs/preferences";
-import { useStore } from "../../use-store";
+import { useStore } from "../../../store";
 
 import "./styles.css";
 

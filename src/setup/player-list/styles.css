@@ -1,4 +1,4 @@
-.layout-list {
+.player-list {
     height: 100%;
     width: 350px;
     flex-shrink: 0;
@@ -6,16 +6,24 @@
     color: var(--background-500-fg);
 }
 
-.layout-list__header {
+.player-list__header {
     display: flex;
     align-items: center;
     height: 48px;
+    color: white;
     padding: 0px 24px;
     flex-shrink: 0;
     background-color: var(--background-400-bg);
     color: var(--background-400-fg);
 }
 
-.layout-list__label {
+.player-list__label {
     flex-grow: 1;
+}
+
+.player-list__content {
+    height: calc(100% - 48px);
+    padding: 8px 8px 0 8px;
+    overflow: auto;
+    white-space: nowrap;
 }

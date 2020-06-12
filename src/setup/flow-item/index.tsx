@@ -1,15 +1,7 @@
-import React, {
-    useCallback,
-    useMemo,
-    MouseEvent,
-    FC,
-    useRef,
-    CSSProperties,
-    useState
-} from "react";
+import React, { useCallback, MouseEvent, FC, useRef, CSSProperties, useState } from "react";
 import { mdiDeleteOutline, mdiFileDocumentOutline, mdiPencilOutline } from "@mdi/js";
-import { SortableItem, merge, Icon } from "../../ui";
-import { Flow, useActions } from "../../use-store";
+import { SortableItem, merge, Icon, Checkbox } from "../../ui";
+import { actions, Flow } from "../../../store";
 import { Selection, SelectionType } from "../selection";
 
 import "./styles.css";
@@ -26,25 +18,13 @@ interface Props {
 export const FlowItem: FC<Props> = ({ index, flow, selection, style, onSelect }) => {
     const handle = useRef<HTMLDivElement>(null);
     const input = useRef<HTMLInputElement>(null);
-    const actions = useActions();
 
     const [editing, setEditing] = useState(false);
-
-    const selected: boolean = useMemo(() => {
-        return !!selection && selection.key === flow.key;
-    }, [selection, flow.key]);
-
-    const active: boolean = useMemo(() => {
-        return (
-            !!selection &&
-            selection.type === SelectionType.player &&
-            flow.players.includes(selection.key)
-        );
-    }, [selection, flow.players]);
-
-    const onSelectFlow = useCallback(() => {
-        onSelect({ key: flow.key, type: SelectionType.flow });
-    }, [flow.key, onSelect]);
+    const selected = selection && selection.key === flow.key;
+    const active: boolean =
+        selection &&
+        selection.type === SelectionType.Player &&
+        flow.players.includes(selection.key);
 
     const onCheckboxChange = useCallback(
         (value: boolean) => {
@@ -95,10 +75,13 @@ export const FlowItem: FC<Props> = ({ index, flow, selection, style, onSelect })
                 "flow-item--active": active
             })}
             style={style}
-            onClick={onSelectFlow}
+            onClick={() => onSelect({ key: flow.key, type: SelectionType.Flow })}
         >
             <div className="flow-item__header">
-                <div onPointerDown={onSelectFlow} ref={handle}>
+                <div
+                    onPointerDown={() => onSelect({ key: flow.key, type: SelectionType.Flow })}
+                    ref={handle}
+                >
                     <Icon style={{ marginRight: 12 }} path={mdiFileDocumentOutline} size={24} />
                 </div>
 
@@ -128,11 +111,11 @@ export const FlowItem: FC<Props> = ({ index, flow, selection, style, onSelect })
                     </>
                 )}
 
-                {/* {!!selection && selection.type !== SelectionType.flow && (
+                {selection && selection.type !== SelectionType.Flow && (
                     <div onClick={(e) => e.stopPropagation()}>
-                        <Checkbox color="white" value={active} onChange={onCheckboxChange} />
+                        <Checkbox value={active} onChange={onCheckboxChange} />
                     </div>
-                )} */}
+                )}
             </div>
         </SortableItem>
     );

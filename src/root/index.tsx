@@ -1,5 +1,5 @@
 import React, { FC, useEffect, Suspense } from "react";
-import { useStore, useActions, ThemeMode, View } from "../use-store";
+import { useStore, actions, ThemeMode, View } from "../../store";
 import { Tabs, useTheme, merge, Tab, useLog } from "../ui";
 import { FileMenu } from "./file-menu";
 import { Transport } from "./transport";
@@ -13,9 +13,7 @@ const Setup = React.lazy(() => import("../setup"));
 // const Play = React.lazy(() => import("../../routes/play"));
 
 export const Root: FC = () => {
-    const actions = useActions();
     const [view, theme, store] = useStore((s) => [s.ui.view, s.app.theme, s]);
-    console.log(theme, ThemeMode.Light);
     useTheme(theme === ThemeMode.Light ? "#ffffff" : "#101010");
     useLog(store, "store");
 

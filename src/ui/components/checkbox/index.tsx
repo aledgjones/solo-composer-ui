@@ -13,7 +13,6 @@ interface Props {
     style?: CSSProperties;
 
     value: boolean;
-    color: string;
     margin?: boolean;
     disabled?: boolean;
     onChange: (value: boolean) => void;
@@ -22,10 +21,16 @@ interface Props {
 /**
  * Chackbox component for boolean values.
  */
-export const Checkbox: FC<Props> = ({ id, className, style, children, value, color, onChange, disabled, margin }) => {
-    const onCheckboxChange = useCallback(() => onChange(!value), [value, onChange]);
-    const fg = useForeground(color);
-
+export const Checkbox: FC<Props> = ({
+    id,
+    className,
+    style,
+    children,
+    value,
+    onChange,
+    disabled,
+    margin
+}) => {
     return (
         <div
             id={id}
@@ -39,16 +44,9 @@ export const Checkbox: FC<Props> = ({ id, className, style, children, value, col
                 className
             )}
             style={style}
-            onClick={onCheckboxChange}
+            onClick={() => onChange(!value)}
         >
-            <div
-                className="ui-checkbox__inner"
-                style={{
-                    marginRight: children ? 20 : 0,
-                    borderColor: value ? color : undefined,
-                    backgroundColor: value ? color : undefined
-                }}
-            >
+            <div className="ui-checkbox__inner" style={{ marginRight: children ? 20 : 0 }}>
                 {value && <Icon size={16} className="ui-checkbox__icon" path={mdiCheck} />}
             </div>
             {children && <div className="ui-checkbox__label">{children}</div>}

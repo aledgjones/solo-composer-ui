@@ -1,25 +1,52 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useCallback } from "react";
 import { mdiCogOutline } from "@mdi/js";
 import { useTitle, Icon } from "../ui";
-import { useActions } from "../use-store";
+import { actions, PlayerType } from "../../store";
 import { Panel } from "../components/panel";
 import { SetupSettings } from "../dialogs/setup-settings";
 import { FlowList } from "./flow-list";
 import { LayoutList } from "./layout-list";
 import { RenderRegion } from "../components/render-region";
-import { Selection } from "./selection";
+import { PlayerList } from "./player-list";
+import { Selection, SelectionType } from "./selection";
+import { PlayerTypePicker } from "../dialogs/player-type-picker";
+import { InstrumentPicker } from "../dialogs/instrument-picker";
 
 import "./styles.css";
 
 const Setup: FC = () => {
-    const actions = useActions();
     useTitle("Solo Composer | Setup");
 
     // local selection is good -- we don't need to keep on nav.
     const [selection, setSelection] = useState<Selection>(null);
-    const [typeSelector, setTypeSelector] = useState<boolean>(false);
-    const [instrumentSelector, setInstrumentSelector] = useState<boolean>(false);
+    const [typePicker, setTypePicker] = useState<boolean>(false);
+    const [instrumentPicker, setInstrumentPicker] = useState<boolean>(false);
     const [settings, setSettings] = useState<boolean>(false);
+
+    const onTypeSelected = useCallback(
+        (type: PlayerType) => {
+            setTypePicker(false);
+            const player_key = actions.score.player.create(type);
+            setSelection({ key: player_key, type: SelectionType.Player });
+            setInstrumentPicker(true);
+        },
+        [actions.score.player]
+    );
+
+    const onSelectInstrument = useCallback(
+        (id: string) => {
+            if (selection) {
+                // const channel = actions.playback.sampler.createChannel();
+                const instrument = actions.score.instrument.create(id);
+
+                actions.score.player.assign_instrument(selection.key, instrument.key);
+                // actions.playback.sampler.assignInstrument(instrument.key, channel);
+                // actions.playback.sampler.load(channel, def);
+            }
+            setInstrumentPicker(false);
+        },
+        [selection, actions.score.instrument, actions.score.player, actions.sampler]
+    );
 
     return (
         <>
@@ -36,6 +63,13 @@ const Setup: FC = () => {
             </Panel>
 
             <div className="setup">
+                <PlayerList
+                    selection={selection}
+                    onSelect={setSelection}
+                    onAddInstrument={() => false} // <== TO DO
+                    onCreatePlayer={() => setTypePicker(true)}
+                />
+
                 <div className="setup__middle">
                     <RenderRegion className="setup__view">{/* <RenderWriteMode /> */}</RenderRegion>
                     <FlowList selection={selection} onSelect={setSelection} />
@@ -43,88 +77,21 @@ const Setup: FC = () => {
                 <LayoutList />
             </div>
 
+            <PlayerTypePicker
+                width={400}
+                open={typePicker}
+                onCancel={() => setTypePicker(false)}
+                onSelect={onTypeSelected}
+            />
+            <InstrumentPicker
+                width={900}
+                open={instrumentPicker}
+                onSelect={onSelectInstrument}
+                onCancel={() => setInstrumentPicker(false)}
+            />
             <SetupSettings width={900} open={settings} onClose={() => setSettings(false)} />
         </>
     );
-
-    // const onTypeSelected = useCallback(
-    //     (type?: PlayerType) => {
-    //         setTypeSelector(false);
-    //         if (type) {
-    //             const playerKey = actions.score.players.create(type);
-    //             setSelection({ key: playerKey, type: SelectionType.player });
-    //             setInstrumentSelector(true);
-    //         }
-    //     },
-    //     [actions.score.players]
-    // );
-
-    // const onAddInstrument = useCallback(() => {
-    //     setInstrumentSelector(true);
-    // }, []);
-
-    // const onSelectInstrument = useCallback(
-    //     (def: InstrumentDef) => {
-    //         if (selection) {
-    //             const channel = actions.playback.sampler.createChannel();
-    //             const instrument = actions.score.instruments.create(def);
-
-    //             actions.score.players.assignInstrument(selection.key, instrument.key);
-    //             actions.playback.sampler.assignInstrument(instrument.key, channel);
-    //             actions.playback.sampler.load(channel, def);
-    //         }
-    //         setInstrumentSelector(false);
-    //     },
-    //     [selection, actions.score.instruments, actions.score.players, actions.playback.sampler]
-    // );
-
-    // return (
-    //     <>
-    //         <Panel>
-    //             <div className="panel__wrapper" />
-    //             <div className="panel__wrapper panel__wrapper--settings">
-    //                 <Icon
-    //                     className="panel__tool"
-    //                     path={mdiCogOutline}
-    //                     size={24}
-    //                     color={theme.background[400].fg}
-    //                     onClick={() => setSettings(true)}
-    //                 />
-    //             </div>
-    //         </Panel>
-
-    //         <div className="setup" style={{ backgroundColor: theme.background[500].bg }}>
-    //             <PlayerList
-    //                 selection={selection}
-    //                 onSelect={setSelection}
-    //                 onCreatePlayer={() => setTypeSelector(true)}
-    //                 onAddInstrument={onAddInstrument}
-    //             />
-    //             <div
-    //                 className="setup__middle"
-    //                 style={{
-    //                     borderRight: `solid 4px ${theme.background[400].bg}`,
-    //                     borderLeft: `solid 4px ${theme.background[400].bg}`
-    //                 }}
-    //             >
-    //                 <RenderRegion className="setup__view">
-    //                     <RenderWriteMode />
-    //                 </RenderRegion>
-    //                 <FlowList selection={selection} onSelect={setSelection} />
-    //             </div>
-    //             <LayoutList />
-    //         </div>
-
-    //         <PlayerTypeSelector width={400} open={typeSelector} onClose={onTypeSelected} />
-    //         <InstrumentSelector
-    //             width={900}
-    //             open={instrumentSelector}
-    //             onSelect={onSelectInstrument}
-    //             onCancel={() => setInstrumentSelector(false)}
-    //         />
-    //         <SetupSettings width={900} open={settings} onClose={() => setSettings(false)} />
-    //     </>
-    // );
 };
 
 export default Setup;
