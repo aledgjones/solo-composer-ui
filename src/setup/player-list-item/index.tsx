@@ -14,13 +14,14 @@ import {
 import { Selection, SelectionType } from "../selection";
 import { SortableItem, merge, Icon, SortableContainer } from "../../ui";
 import { Text } from "../../components/text";
+import { InstrumentItem } from "../instrument-item";
 
 interface Props {
     index: number;
     player: Player;
     instruments: { [key: string]: Instrument };
     counts: { [key: string]: number };
-    count_styles: { solo: InstrumentAutoCountStyle; section: InstrumentAutoCountStyle };
+    count_style: InstrumentAutoCountStyle;
     selected: boolean;
     expanded: boolean;
 
@@ -33,7 +34,7 @@ export const PlayerItem: FC<Props> = ({
     player,
     instruments,
     counts,
-    count_styles,
+    count_style,
     selected,
     expanded,
     onSelect,
@@ -62,7 +63,7 @@ export const PlayerItem: FC<Props> = ({
         [onSelect, actions.score.player, player.key]
     );
 
-    const name = usePlayerName(player, instruments, counts, count_styles);
+    const name = usePlayerName(player, instruments, counts, count_style);
     const icon = usePlayerIcon(player);
 
     return (
@@ -114,22 +115,26 @@ export const PlayerItem: FC<Props> = ({
                 <SortableContainer
                     direction="y"
                     className="player-item__list"
-                    onEnd={(oldIndex: number, newIndex: number) => {
-                        // actions.score.instruments.reorder(player.key, oldIndex, newIndex); <=== TO DO
-                    }}
+                    onEnd={(oldIndex: number, newIndex: number) =>
+                        actions.score.instrument.reorder(player.key, oldIndex, newIndex)
+                    }
                 >
-                    {/* {player.instruments.map((key, i) => {
+                    {player.instruments.map((key, i) => {
                         return (
                             <InstrumentItem
                                 key={key}
                                 index={i}
-                                onSelect={onSelectPlayer}
+                                onSelect={() =>
+                                    onSelect({ key: player.key, type: SelectionType.Player })
+                                }
                                 selected={selected}
                                 instrument={instruments[key]}
+                                player_key={player.key}
                                 count={counts[key]}
+                                count_style={count_style}
                             />
                         );
-                    })} */}
+                    })}
                 </SortableContainer>
             )}
         </SortableItem>

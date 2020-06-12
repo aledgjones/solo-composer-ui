@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { mdiPlus } from "@mdi/js";
 import { Icon, SortableContainer } from "../../ui";
 import { Selection } from "../selection";
-import { useStore, actions, useCounts } from "../../../store";
+import { useStore, actions, useCounts, PlayerType, InstrumentAutoCountStyle } from "../../../store";
 import { PlayerItem } from "../player-list-item";
 
 import "./styles.css";
@@ -47,7 +47,11 @@ export const PlayerList: FC<Props> = ({ selection, onSelect, onAddInstrument, on
                         player={player}
                         instruments={instruments}
                         counts={counts}
-                        count_styles={count_styles}
+                        count_style={
+                            player.player_type === PlayerType.Solo
+                                ? count_styles.solo
+                                : count_styles.section
+                        }
                         selected={selection && player.key === selection.key}
                         expanded={expanded[player.key + "-setup"]}
                         onSelect={onSelect}

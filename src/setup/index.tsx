@@ -66,7 +66,7 @@ const Setup: FC = () => {
                 <PlayerList
                     selection={selection}
                     onSelect={setSelection}
-                    onAddInstrument={() => false} // <== TO DO
+                    onAddInstrument={() => setInstrumentPicker(true)} // <== TO DO
                     onCreatePlayer={() => setTypePicker(true)}
                 />
 

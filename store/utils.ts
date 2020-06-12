@@ -25,11 +25,25 @@ export const useCounts = (players: Player[], instruments: { [key: string]: Instr
     }, [players, instruments]);
 };
 
+export function useInstrumentName(
+    auto_count_style: InstrumentAutoCountStyle,
+    instrument: Instrument,
+    count?: number
+) {
+    return useMemo(() => {
+        if (count) {
+            return instrument.long_name + count_to_string(auto_count_style, count);
+        } else {
+            return instrument.long_name;
+        }
+    }, [instrument, count]);
+}
+
 export function usePlayerName(
     player: Player,
     instruments: { [key: string]: Instrument },
     counts: { [key: string]: number },
-    auto_count_styles: { solo: InstrumentAutoCountStyle; section: InstrumentAutoCountStyle }
+    auto_count_style: InstrumentAutoCountStyle
 ) {
     return useMemo(() => {
         if (player.instruments.length === 0) {
@@ -45,14 +59,7 @@ export function usePlayerName(
                 const isFirst = i === 0;
                 const isLast = i === len - 1;
                 const count = counts[key];
-                const name =
-                    instruments[key].long_name +
-                    count_to_string(
-                        player.player_type === PlayerType.Solo
-                            ? auto_count_styles.solo
-                            : auto_count_styles.section,
-                        count
-                    );
+                const name = instruments[key].long_name + count_to_string(auto_count_style, count);
                 if (isFirst) {
                     return name;
                 } else if (isLast) {
