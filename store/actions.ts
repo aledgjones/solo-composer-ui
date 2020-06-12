@@ -36,6 +36,10 @@ export const actions = {
             rename: (flow_key: string, title: string) => store.rename_flow(flow_key, title),
             reorder: (old_index: number, new_index: number) =>
                 store.reorder_flow(old_index, new_index),
+            assign_player: (flow_key: string, player_key: string) =>
+                store.assign_player(flow_key, player_key),
+            unassign_player: (flow_key: string, player_key: string) =>
+                store.unassign_player(flow_key, player_key),
             remove: (flow_key: string) => store.remove_flow(flow_key)
         },
         player: {

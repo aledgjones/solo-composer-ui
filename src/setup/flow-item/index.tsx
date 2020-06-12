@@ -31,11 +31,9 @@ export const FlowItem: FC<Props> = ({ index, flow, selection, style, onSelect })
             if (selection) {
                 const playerKey = selection.key;
                 if (value) {
-                    console.log("Player Assigned: " + playerKey);
-                    // actions.score.flows.assignPlayer(flow.key, playerKey);
+                    actions.score.flow.assign_player(flow.key, playerKey);
                 } else {
-                    console.log("Player Removed: " + playerKey);
-                    // actions.score.flows.removePlayer(flow.key, playerKey);
+                    actions.score.flow.unassign_player(flow.key, playerKey);
                 }
             }
         },
