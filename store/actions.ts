@@ -43,7 +43,8 @@ export const actions = {
             assign_instrument: (player_key: string, instrument_key: string): string =>
                 store.assign_instrument(player_key, instrument_key),
             reorder: (old_index: number, new_index: number) =>
-                store.reorder_player(old_index, new_index)
+                store.reorder_player(old_index, new_index),
+            remove: (player_key: string) => store.remove_player(player_key)
         },
         instrument: {
             create: (id: string): CreateInstrumentReturn => store.create_instrument(id),

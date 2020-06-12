@@ -57,7 +57,7 @@ export const PlayerItem: FC<Props> = ({
     const onRemove = useCallback(
         (e: MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation();
-            // actions.score.player.remove(player.key); <==== TO DO
+            actions.score.player.remove(player.key);
             onSelect(null);
         },
         [onSelect, actions.score.player, player.key]
