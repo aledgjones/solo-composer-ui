@@ -5,8 +5,8 @@
     --primary-300-fg: #ffffff;
     --primary-400-bg: #00508e;
     --primary-400-fg: #ffffff;
-    --primary-500-bg: #0064b1;
-    --primary-500-fg: #ffffff;
+    --primary-500-bg: #33c1ff;
+    --primary-500-fg: #101010;
     --primary-600-bg: #1a74b9;
     --primary-600-fg: #ffffff;
     --primary-700-bg: #3383c1;
@@ -36,13 +36,13 @@
 }
 
 .ui-dark {
-    --background-200-bg: #101010;
+    --background-200-bg: #252429;
     --background-200-fg: #ffffff;
     --background-300-bg: #131313;
     --background-300-fg: #ffffff;
     --background-400-bg: #161616;
     --background-400-fg: #ffffff;
-    --background-500-bg: #1f1f1f;
+    --background-500-bg: #2d2c31;
     --background-500-fg: #ffffff;
     --background-600-bg: #282828;
     --background-600-fg: #ffffff;
@@ -60,11 +60,24 @@
     display: flex;
     align-items: center;
     height: 48px;
-    background-color: var(--background-200-bg);
+    background-color: var(--background-500-bg);
+    border-bottom: 1px solid var(--background-200-bg);
 }
 
 .root__tabs {
     flex-grow: 1;
+}
+
+.root__history {
+    border-left: 1px solid var(--background-200-bg);
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.root__history-icon {
+    margin-right: 20px;
 }
 
 .root__content {

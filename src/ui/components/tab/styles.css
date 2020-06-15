@@ -19,7 +19,7 @@
 
 .ui-tab--selected {
     transition: color 0.2s 0.1s;
-    color: var(--background-200-fg);
+    color: var(--primary-500-fg);
 }
 
 .ui-tab:focus-visible {

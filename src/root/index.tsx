@@ -1,11 +1,12 @@
 import React, { FC, useEffect, Suspense } from "react";
 import { useStore, actions, ThemeMode, View } from "../../store";
-import { Tabs, useTheme, merge, Tab, useLog } from "../ui";
+import { Tabs, useTheme, merge, Tab, useLog, Icon } from "../ui";
 import { FileMenu } from "./file-menu";
 import { Transport } from "./transport";
 import { Loading } from "../components/loading";
 
 import "./styles.css";
+import { mdiUndo, mdiRedo } from "@mdi/js";
 
 const Setup = React.lazy(() => import("../setup"));
 // const Write = React.lazy(() => import("../../routes/write"));
@@ -14,7 +15,7 @@ const Play = React.lazy(() => import("../play"));
 
 export const Root: FC = () => {
     const [view, theme, store] = useStore((s) => [s.ui.view, s.app.theme, s]);
-    useTheme(theme === ThemeMode.Light ? "#ffffff" : "#101010");
+    useTheme(theme === ThemeMode.Light ? "#ffffff" : "#252429");
     useLog(store, "store");
 
     useEffect(() => {
@@ -44,6 +45,15 @@ export const Root: FC = () => {
                     <Tab value={View.Print}>Publish</Tab>
                 </Tabs>
                 <Transport />
+                <div className="root__history">
+                    <Icon
+                        onClick={() => false}
+                        className="root__history-icon"
+                        size={24}
+                        path={mdiUndo}
+                    />
+                    <Icon onClick={() => false} size={24} path={mdiRedo} />
+                </div>
             </div>
 
             <div className="root__content">
