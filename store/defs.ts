@@ -3,7 +3,8 @@ import {
     InstrumentAutoCountStyle,
     ThemeMode,
     NoteLength,
-    PlayerType
+    PlayerType,
+    PlayTool
 } from "solo-composer-engine";
 
 export interface Patches {
@@ -90,5 +91,6 @@ export interface State {
     ui: {
         view: View;
         expanded: { [key: string]: boolean };
+        play_tool: PlayTool;
     };
 }

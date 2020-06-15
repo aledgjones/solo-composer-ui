@@ -1,4 +1,10 @@
-import { ThemeMode, InstrumentAutoCountStyle, View, PlayerType } from "solo-composer-engine";
+import {
+    ThemeMode,
+    InstrumentAutoCountStyle,
+    View,
+    PlayerType,
+    PlayTool
+} from "solo-composer-engine";
 import { store } from "./use-store";
 import { Patches } from "./defs";
 
@@ -61,6 +67,9 @@ export const actions = {
     ui: {
         view: (value: View) => store.set_view(value),
         expand: (key: string) => store.expand(key),
-        collapse: (key: string) => store.collapse(key)
+        collapse: (key: string) => store.collapse(key),
+        tool: {
+            play: (tool: PlayTool) => store.set_play_tool(tool)
+        }
     }
 };

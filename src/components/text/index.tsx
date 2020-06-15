@@ -1,6 +1,7 @@
 import React, { FC, CSSProperties } from "react";
 
 import "./styles.css";
+import { merge } from "../../ui";
 
 interface Props {
     className?: string;
@@ -21,7 +22,7 @@ export const Text: FC<Props> = ({ className, style, children }) => {
     });
 
     return (
-        <div className={className} style={style}>
+        <div className={merge("text", className)} style={style}>
             {tokens.map((e, i) => {
                 if (e.isToken) {
                     return (

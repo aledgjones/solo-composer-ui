@@ -51,7 +51,7 @@ export const FlowItem: FC<Props> = ({ index, flow, selection, style, onSelect })
 
     const onEdit = useCallback(() => {
         if (input.current) {
-            input.current.focus();
+            input.current.select();
         }
         setEditing(true);
     }, [input]);

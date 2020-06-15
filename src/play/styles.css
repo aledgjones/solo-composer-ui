@@ -1,0 +1,63 @@
+.play {
+    position: relative;
+    height: 100%;
+    width: 100%;
+}
+
+.play__x-fixed {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+}
+
+.play__left-panel {
+    display: flex;
+    width: 406px;
+    min-height: 100%;
+    padding-left: 64px;
+}
+
+.play__controls {
+    width: 100%;
+}
+
+.play__header-select {
+    position: sticky;
+    top: 0;
+    height: 48px;
+    width: 100%;
+    z-index: 10;
+}
+
+.play__select .ui-select__container {
+    padding: 0 4px 0 12px;
+    height: 48px;
+    border: none !important;
+}
+
+.play__select .ui-select__card {
+    color: black;
+}
+
+.play__scrollable {
+    position: absolute;
+    top: 0;
+    padding-left: 406px;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: 1;
+}
+
+.play__ticks {
+    position: sticky;
+    top: 0;
+    z-index: 3;
+}
+
+.play__track-area {
+    padding-top: 8px;
+}
+
+.play__player-controls {
+    padding: 8px 0 0 8px;
+}

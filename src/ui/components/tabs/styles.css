@@ -8,11 +8,10 @@
 
 .ui-tabs__bar {
     position: absolute;
-    bottom: 0;
-    height: 4px;
-    min-width: 90px;
+    bottom: 6px;
     transition: width 0.2s, left 0.2s;
     z-index: 0;
-    background-color: var(--background-500-bg);
-    height: 100%;
+    background-color: var(--primary-500-bg);
+    height: calc(100% - 12px);
+    border-radius: 3px;
 }

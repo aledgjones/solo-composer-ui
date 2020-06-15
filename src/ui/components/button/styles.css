@@ -9,9 +9,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
+    font-size: inherit;
     outline: none;
-    font-family: Roboto, sans-serif;
+    font-family: inherit;
     color: var(--primary-500-fg);
     background-color: var(--primary-500-bg);
     border: none;

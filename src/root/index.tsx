@@ -10,7 +10,7 @@ import "./styles.css";
 const Setup = React.lazy(() => import("../setup"));
 // const Write = React.lazy(() => import("../../routes/write"));
 // const Engrave = React.lazy(() => import("../../routes/engrave"));
-// const Play = React.lazy(() => import("../../routes/play"));
+const Play = React.lazy(() => import("../play"));
 
 export const Root: FC = () => {
     const [view, theme, store] = useStore((s) => [s.ui.view, s.app.theme, s]);
@@ -41,7 +41,7 @@ export const Root: FC = () => {
                     <Tab value={View.Write}>Write</Tab>
                     <Tab value={View.Engrave}>Engrave</Tab>
                     <Tab value={View.Play}>Play</Tab>
-                    <Tab value={View.Print}>Print</Tab>
+                    <Tab value={View.Print}>Publish</Tab>
                 </Tabs>
                 <Transport />
             </div>
@@ -50,9 +50,9 @@ export const Root: FC = () => {
                 <Suspense fallback={<Loading />}>
                     {view === View.Setup && <Setup />}
                     {/* {tab === TabState.write && <Write />}
-                    {tab === TabState.engrave && <Engrave />}
-                    {tab === TabState.play && <Play />}
-                    {tab === TabState.print && <Fallback color={theme.background[500].fg} type="empty" />} */}
+                    {tab === TabState.engrave && <Engrave />} */}
+                    {view === View.Play && <Play />}
+                    {/* {tab === TabState.print && <Fallback color={theme.background[500].fg} type="empty" />} */}
                 </Suspense>
             </div>
         </div>

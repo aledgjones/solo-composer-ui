@@ -1,10 +1,10 @@
 import React, { FC, useMemo, useRef } from "react";
 import { mdiPiano, mdiDeleteOutline } from "@mdi/js";
+import { SortableItem, Icon, merge } from "../../ui";
 import { Text } from "../../components/text";
 import { Instrument, InstrumentAutoCountStyle, useInstrumentName, actions } from "../../../store";
 
 import "./styles.css";
-import { SortableItem, Icon, merge } from "../../ui";
 
 interface Props {
     index: number;
@@ -36,10 +36,9 @@ export const InstrumentItem: FC<Props> = ({
             index={index}
             className={merge("instrument-item", { "instrument-item--selected": selected })}
         >
-            <div ref={handle} onPointerDown={onSelect}>
-                <Icon style={{ marginRight: 16 }} path={mdiPiano} size={24} />
+            <div className="instrument-item__name" ref={handle} onPointerDown={onSelect}>
+                <Text>{name}</Text>
             </div>
-            <Text className="instrument-item__name">{name}</Text>
             {selected && (
                 <>
                     <Icon
