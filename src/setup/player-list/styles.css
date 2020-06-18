@@ -2,19 +2,15 @@
     height: 100%;
     width: 350px;
     flex-shrink: 0;
-    background-color: var(--background-500-bg);
-    color: var(--background-500-fg);
 }
 
 .player-list__header {
     display: flex;
     align-items: center;
     height: 48px;
-    color: white;
     padding: 0px 24px;
     flex-shrink: 0;
-    background-color: var(--background-400-bg);
-    color: var(--background-400-fg);
+    border-bottom: 1px solid var(--background-200);
 }
 
 .player-list__label {

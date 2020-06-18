@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { mdiPlus } from "@mdi/js";
-import { Icon } from "../../ui";
+import { Icon } from "../../../ui";
 
 import "./styles.css";
 

@@ -1,6 +1,5 @@
 .flow-list {
     width: 100%;
-    background-color: var(--background-500-bg);
 }
 
 .flow-list__header {
@@ -10,8 +9,8 @@
     height: 48px;
     padding: 0px 24px;
     flex-shrink: 0;
-    background-color: var(--background-400-bg);
-    color: var(--background-400-fg);
+    border-top: 1px solid var(--background-200);
+    border-bottom: 1px solid var(--background-200);
 }
 
 .flow-list__wrapper {

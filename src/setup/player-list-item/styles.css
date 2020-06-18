@@ -1,15 +1,14 @@
 .player-item {
     position: relative;
     margin-bottom: 8px;
-    border-radius: 3px;
-    background-color: var(--background-600-bg);
-    color: var(--background-600-fg);
+    background-color: var(--background-800);
+    color: var(--foreground-800);
 }
 
 .player-item--selected {
     z-index: 100;
-    background-color: var(--primary-500-bg);
-    color: var(--primary-500-fg);
+    background-color: var(--primary-bg);
+    color: var(--primary-fg);
 }
 
 .player-item.ui-sortable-item--sorting {

@@ -4,14 +4,12 @@
 }
 
 .player-type-selector__box {
-    border-radius: 3px;
     padding: 20px;
-    color: white;
-    width: calc(50% - 10px);
+    width: calc(50% - 8px);
     text-align: center;
     cursor: pointer;
-    background-color: rgb(235, 235, 235);
-    color: rgb(50, 50, 50);
+    background-color: var(--background-800);
+    color: var(--foreground-800);
 }
 
 .player-type-selector__icon {
@@ -19,6 +17,6 @@
 }
 
 .player-type-selector__box--selected {
-    background-color: var(--primary-500-bg);
-    color: var(--primary-500-fg);
+    background-color: var(--primary-bg);
+    color: var(--primary-fg);
 }

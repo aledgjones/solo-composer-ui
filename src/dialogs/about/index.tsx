@@ -1,6 +1,6 @@
 import React from "react";
 import { mdiClose } from "@mdi/js";
-import { Dialog, Icon, Label, Content, Subheader } from "../../ui";
+import { Dialog, Icon, Label, Content, Subheader, Divider } from "../../../ui";
 
 import pkg from "../../../package.json";
 import logo from "./logo-silo.svg";
@@ -13,7 +13,7 @@ interface Props {
 
 export const About = Dialog<Props>(({ onClose }) => {
     return (
-        <>
+        <div className="about">
             <div className="about__header">
                 <Icon path={mdiClose} size={24} onClick={onClose} />
             </div>
@@ -24,6 +24,7 @@ export const About = Dialog<Props>(({ onClose }) => {
                     <p>Music notation everywhere</p>
                 </Label>
             </div>
+            <Divider compact />
             <Content className="about__content">
                 <p className="about__paragraph">
                     This project is very much an experimental work in progress. Things <b>will</b> break, not exist,
@@ -54,6 +55,6 @@ export const About = Dialog<Props>(({ onClose }) => {
                     <span>{pkg.dependencies.tone}</span>
                 </p>
             </Content>
-        </>
+        </div>
     );
 });

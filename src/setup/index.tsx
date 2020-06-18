@@ -1,8 +1,6 @@
 import React, { FC, useState, useCallback } from "react";
-import { mdiCogOutline } from "@mdi/js";
-import { useTitle, Icon } from "../ui";
+import { useTitle, Icon } from "../../ui";
 import { actions, PlayerType } from "../../store";
-import { Panel } from "../components/panel";
 import { SetupSettings } from "../dialogs/setup-settings";
 import { FlowList } from "./flow-list";
 import { LayoutList } from "./layout-list";
@@ -50,18 +48,6 @@ const Setup: FC = () => {
 
     return (
         <>
-            <Panel>
-                <div className="panel__wrapper" />
-                <div className="panel__wrapper panel__wrapper--settings">
-                    <Icon
-                        className="panel__tool"
-                        path={mdiCogOutline}
-                        size={24}
-                        onClick={() => setSettings(true)}
-                    />
-                </div>
-            </Panel>
-
             <div className="setup">
                 <PlayerList
                     selection={selection}

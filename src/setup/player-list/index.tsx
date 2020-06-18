@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { mdiPlus } from "@mdi/js";
-import { Icon, SortableContainer } from "../../ui";
+import { Icon, SortableContainer, useRainbow } from "../../../ui";
 import { Selection } from "../selection";
 import { useStore, actions, useCounts, PlayerType, InstrumentAutoCountStyle } from "../../../store";
 import { PlayerItem } from "../player-list-item";
@@ -35,11 +35,7 @@ export const PlayerList: FC<Props> = ({ selection, onSelect, onAddInstrument, on
                 <span className="player-list__label">Players</span>
                 <Icon size={24} path={mdiPlus} onClick={onCreatePlayer} />
             </div>
-            <SortableContainer
-                direction="y"
-                className="player-list__content"
-                onEnd={actions.score.player.reorder}
-            >
+            <SortableContainer direction="y" className="player-list__content" onEnd={actions.score.player.reorder}>
                 {players.map((player, i) => (
                     <PlayerItem
                         index={i}
@@ -47,11 +43,7 @@ export const PlayerList: FC<Props> = ({ selection, onSelect, onAddInstrument, on
                         player={player}
                         instruments={instruments}
                         counts={counts}
-                        count_style={
-                            player.player_type === PlayerType.Solo
-                                ? count_styles.solo
-                                : count_styles.section
-                        }
+                        count_style={player.player_type === PlayerType.Solo ? count_styles.solo : count_styles.section}
                         selected={selection && player.key === selection.key}
                         expanded={expanded[player.key + "-setup"]}
                         onSelect={onSelect}

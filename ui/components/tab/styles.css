@@ -1,0 +1,26 @@
+.ui-tab {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 16px;
+    min-height: 32px;
+    z-index: 1;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    outline: none;
+    color: var(--foreground-500);
+    transition: color 0.2s;
+}
+
+.ui-tab--selected {
+    transition: color 0.2s 0.1s;
+    color: var(--primary-fg);
+}
+
+.ui-tab:focus-visible {
+    outline: 1px solid currentColor;
+}

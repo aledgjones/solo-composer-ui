@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dialog, Subheader, Select, Option, Label, Button } from "../../ui";
+import { Dialog, Subheader, Select, Option, Label, Button } from "../../../ui";
 import { useStore, actions, InstrumentAutoCountStyle } from "../../../store";
 import { MenuItem } from "../../components/menu-item";
 
@@ -18,13 +18,10 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
     const config = useStore((s) => s.score.config);
 
     return (
-        <div className="generic-settings">
+        <>
             <div className="generic-settings__content">
                 <div className="generic-settings__left-panel">
-                    <MenuItem
-                        selected={page === Page.StaveLabels}
-                        onClick={() => setPage(Page.StaveLabels)}
-                    >
+                    <MenuItem selected={page === Page.StaveLabels} onClick={() => setPage(Page.StaveLabels)}>
                         Numbering
                     </MenuItem>
                 </div>
@@ -32,32 +29,22 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
                 <div className="generic-settings__right-panel">
                     {page === Page.StaveLabels && (
                         <>
-                            <div
-                                className="generic-settings__section"
-                                style={{ paddingBottom: 20 }}
-                            >
+                            <div className="generic-settings__section" style={{ paddingBottom: 20 }}>
                                 <Subheader>instrument numbering style</Subheader>
                                 <Select
                                     margin
-                                    label="Solo players"
                                     value={config.auto_count_style.solo}
                                     onChange={(val: InstrumentAutoCountStyle) =>
                                         actions.score.config.auto_count_style.solo(val)
                                     }
                                 >
-                                    <Option
-                                        value={InstrumentAutoCountStyle.Arabic}
-                                        displayAs="Arabic"
-                                    >
+                                    <Option value={InstrumentAutoCountStyle.Arabic} displayAs="Arabic">
                                         <Label>
                                             <p>Arabic</p>
                                             <p>1, 2, 3...</p>
                                         </Label>
                                     </Option>
-                                    <Option
-                                        value={InstrumentAutoCountStyle.Roman}
-                                        displayAs="Roman"
-                                    >
+                                    <Option value={InstrumentAutoCountStyle.Roman} displayAs="Roman">
                                         <Label>
                                             <p>Roman</p>
                                             <p>I, II, III...</p>
@@ -65,25 +52,18 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
                                     </Option>
                                 </Select>
                                 <Select
-                                    label="Section players"
                                     value={config.auto_count_style.section}
                                     onChange={(val: InstrumentAutoCountStyle) =>
                                         actions.score.config.auto_count_style.section(val)
                                     }
                                 >
-                                    <Option
-                                        value={InstrumentAutoCountStyle.Arabic}
-                                        displayAs="Arabic"
-                                    >
+                                    <Option value={InstrumentAutoCountStyle.Arabic} displayAs="Arabic">
                                         <Label>
                                             <p>Arabic</p>
                                             <p>1, 2, 3...</p>
                                         </Label>
                                     </Option>
-                                    <Option
-                                        value={InstrumentAutoCountStyle.Roman}
-                                        displayAs="Roman"
-                                    >
+                                    <Option value={InstrumentAutoCountStyle.Roman} displayAs="Roman">
                                         <Label>
                                             <p>Roman</p>
                                             <p>I, II, III...</p>
@@ -105,6 +85,6 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
                     Close
                 </Button>
             </div>
-        </div>
+        </>
     );
 });

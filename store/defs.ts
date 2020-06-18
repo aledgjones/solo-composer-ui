@@ -1,11 +1,4 @@
-import {
-    View,
-    InstrumentAutoCountStyle,
-    ThemeMode,
-    NoteLength,
-    PlayerType,
-    PlayTool
-} from "solo-composer-engine";
+import { View, InstrumentAutoCountStyle, ThemeMode, NoteLength, PlayerType, PlayTool } from "solo-composer-engine";
 
 export interface Patches {
     [expression: string]: string;
@@ -65,8 +58,13 @@ export interface State {
     score: {
         meta: {
             title: string;
+            subtitle: string;
             composer: string;
+            arranger: string;
+            lyricist: string;
+            copyright: string;
             created: number;
+            modified: number;
         };
         config: {
             auto_count_style: {

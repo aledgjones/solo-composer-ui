@@ -1,6 +1,5 @@
 import React, { FC, CSSProperties } from "react";
-import { Spinner } from "../../ui";
-import { Panel } from "../panel";
+import { Spinner } from "../../../ui";
 
 import "./styles.css";
 
@@ -11,8 +10,7 @@ interface Props {
 export const Loading: FC<Props> = ({ style }) => {
     return (
         <div className="loading" style={style}>
-            <Panel />
-            <Spinner color="var(--background-500-fg)" size={24} />
+            <Spinner color="var(--foreground-500)" size={24} />
         </div>
     );
 };

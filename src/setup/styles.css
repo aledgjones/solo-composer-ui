@@ -3,7 +3,6 @@
     position: relative;
     height: 100%;
     width: 100%;
-    padding-left: 64px;
 }
 
 .setup__middle {
@@ -19,6 +18,6 @@
 }
 
 .setup__middle {
-    border-left: solid 4px var(--background-400-bg);
-    border-right: solid 4px var(--background-400-bg);
+    border-left: solid 1px var(--background-200);
+    border-right: solid 1px var(--background-200);
 }

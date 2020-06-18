@@ -1,11 +1,15 @@
+.about {
+    overflow: auto;
+    max-height: calc(100vh - 80px);
+}
+
 .about__header {
     height: 56px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
     padding: 0 20px;
-    background-color: rgb(235, 235, 235);
-    color: var(--primary-500-bg);
+    background-color: var(--background-800);
 }
 
 .about__logo {
@@ -13,9 +17,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px 20px 60px 20px;
-    background-color: rgb(235, 235, 235);
-    border-bottom: 1px solid rgb(200, 200, 200);
+    padding: 0 20px 40px 20px;
+    background-color: var(--background-800);
 }
 
 .about__logo-img {
@@ -28,7 +31,6 @@
     font-size: 24px;
     line-height: 0.9em;
     text-align: center;
-    color: var(--primary-500-bg);
     font-weight: bold;
     font-family: "Josefin Sans", sans-serif;
     text-transform: uppercase;
@@ -73,7 +75,7 @@
 }
 
 .about__paragraph a {
-    color: var(--primary-500-bg);
+    color: var(--primary-bg);
 }
 
 .about__paragraph a:hover {

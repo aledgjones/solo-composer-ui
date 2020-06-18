@@ -1,6 +1,6 @@
 import React, { FC, useMemo, useRef } from "react";
 import { mdiPiano, mdiDeleteOutline } from "@mdi/js";
-import { SortableItem, Icon, merge } from "../../ui";
+import { SortableItem, Icon, merge } from "../../../ui";
 import { Text } from "../../components/text";
 import { Instrument, InstrumentAutoCountStyle, useInstrumentName, actions } from "../../../store";
 
@@ -42,6 +42,7 @@ export const InstrumentItem: FC<Props> = ({
             {selected && (
                 <>
                     <Icon
+                        aria-label="Remove Instrument"
                         size={24}
                         path={mdiDeleteOutline}
                         onClick={() => actions.score.instrument.remove(player_key, instrument.key)}

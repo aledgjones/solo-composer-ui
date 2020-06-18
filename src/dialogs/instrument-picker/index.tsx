@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { mdiChevronRight } from "@mdi/js";
-import { Dialog, Icon, Button } from "../../ui";
+import { Dialog, Icon, Button } from "../../../ui";
 import { MenuItem } from "../../components/menu-item";
 import { useDefsList, getFullPathFromPartial } from "../../../store";
 
+import "../generic-settings.css";
 import "./styles.css";
 
 interface Props {
@@ -16,7 +17,6 @@ export const InstrumentPicker = Dialog<Props>(({ onSelect, onCancel }) => {
         return getFullPathFromPartial([]);
     });
     const lists = useDefsList(selection.path);
-    // console.log(selection, lists);
 
     return (
         <div className="instrument-picker">
@@ -26,11 +26,7 @@ export const InstrumentPicker = Dialog<Props>(({ onSelect, onCancel }) => {
                         <div key={i} className="instrument-picker__section">
                             {list.map((item) => {
                                 const selected = item === selection.path[i];
-                                const final = !(
-                                    selected &&
-                                    lists[i + 1] &&
-                                    lists[i + 1].length > 0
-                                );
+                                const final = !(selected && lists[i + 1] && lists[i + 1].length > 0);
 
                                 return (
                                     <MenuItem

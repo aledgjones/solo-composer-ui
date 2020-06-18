@@ -6,23 +6,15 @@
     padding: 0 16px;
     line-height: 1em;
     height: 48px;
-    border-radius: 3px;
-    background-color: var(--background-700-bg);
-    color: var(--background-700-fg);
     margin-bottom: 8px;
+    background-color: var(--background-800-bg);
+    color: var(--background-800-fg);
+    border: 1px solid var(--background-500);
 }
 
 .instrument-item--selected {
-    background-color: var(--primary-600-bg);
-    color: var(--primary-600-fg);
-}
-
-.instrument-item .ui-icon {
-    display: none;
-}
-
-.instrument-item:hover .ui-icon {
-    display: block;
+    background-color: var(--primary-bg);
+    color: var(--primary-fg);
 }
 
 .instrument-item.ui-sortable-item--sorting {

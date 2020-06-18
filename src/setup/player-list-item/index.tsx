@@ -12,7 +12,7 @@ import {
     InstrumentAutoCountStyle
 } from "../../../store";
 import { Selection, SelectionType } from "../selection";
-import { SortableItem, merge, Icon, SortableContainer } from "../../ui";
+import { SortableItem, merge, Icon, SortableContainer } from "../../../ui";
 import { Text } from "../../components/text";
 import { InstrumentItem } from "../instrument-item";
 
@@ -74,10 +74,7 @@ export const PlayerItem: FC<Props> = ({
             onClick={() => onSelect({ key: player.key, type: SelectionType.Player })}
         >
             <div className="player-item__header">
-                <div
-                    onPointerDown={() => onSelect({ key: player.key, type: SelectionType.Player })}
-                    ref={handle}
-                >
+                <div onPointerDown={() => onSelect({ key: player.key, type: SelectionType.Player })} ref={handle}>
                     <Icon style={{ marginRight: 16 }} path={icon} size={24} />
                 </div>
 
@@ -87,14 +84,8 @@ export const PlayerItem: FC<Props> = ({
 
                 {selected && (
                     <>
-                        <Icon
-                            style={{ marginLeft: 12 }}
-                            size={24}
-                            path={mdiDeleteOutline}
-                            onClick={onRemove}
-                        />
-                        {(player.instruments.length === 0 ||
-                            player.player_type === PlayerType.Solo) && (
+                        <Icon style={{ marginLeft: 12 }} size={24} path={mdiDeleteOutline} onClick={onRemove} />
+                        {(player.instruments.length === 0 || player.player_type === PlayerType.Solo) && (
                             <Icon
                                 style={{ marginLeft: 12 }}
                                 path={mdiPlus}
@@ -124,9 +115,7 @@ export const PlayerItem: FC<Props> = ({
                             <InstrumentItem
                                 key={key}
                                 index={i}
-                                onSelect={() =>
-                                    onSelect({ key: player.key, type: SelectionType.Player })
-                                }
+                                onSelect={() => onSelect({ key: player.key, type: SelectionType.Player })}
                                 selected={selected}
                                 instrument={instruments[key]}
                                 player_key={player.key}

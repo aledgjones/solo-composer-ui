@@ -1,12 +1,12 @@
 import React, { FC, useEffect, Suspense } from "react";
+import { mdiUndo, mdiRedo } from "@mdi/js";
 import { useStore, actions, ThemeMode, View } from "../../store";
-import { Tabs, useTheme, merge, Tab, useLog, Icon } from "../ui";
-import { FileMenu } from "./file-menu";
+import { Tabs, useTheme, merge, Tab, useLog, Icon } from "../../ui";
 import { Transport } from "./transport";
 import { Loading } from "../components/loading";
+import { File } from "./file";
 
 import "./styles.css";
-import { mdiUndo, mdiRedo } from "@mdi/js";
 
 const Setup = React.lazy(() => import("../setup"));
 // const Write = React.lazy(() => import("../../routes/write"));
@@ -36,22 +36,17 @@ export const Root: FC = () => {
             })}
         >
             <div className="root__title-bar">
-                <FileMenu />
+                <File />
                 <Tabs className="root__tabs" value={view} onChange={actions.ui.view}>
                     <Tab value={View.Setup}>Setup</Tab>
                     <Tab value={View.Write}>Write</Tab>
                     <Tab value={View.Engrave}>Engrave</Tab>
-                    <Tab value={View.Play}>Play</Tab>
+                    <Tab value={View.Play}>Sequence</Tab>
                     <Tab value={View.Print}>Publish</Tab>
                 </Tabs>
                 <Transport />
                 <div className="root__history">
-                    <Icon
-                        onClick={() => false}
-                        className="root__history-icon"
-                        size={24}
-                        path={mdiUndo}
-                    />
+                    <Icon onClick={() => false} className="root__history-icon" size={24} path={mdiUndo} />
                     <Icon onClick={() => false} size={24} path={mdiRedo} />
                 </div>
             </div>

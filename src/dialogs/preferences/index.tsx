@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
-import { Dialog, Button, Subheader, Select, Option, ListItem, Label, Switch } from "../../ui";
+import { Dialog, Button, Subheader, Select, Option, ListItem, Label, Switch } from "../../../ui";
 import { useStore, ThemeMode, actions } from "../../../store";
 import { MenuItem } from "../../components/menu-item";
 
 import "../generic-settings.css";
+import "./styles.css";
 
 enum Page {
     General,
@@ -21,19 +22,13 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
     const [page, setPage] = useState<Page>(Page.General);
 
     return (
-        <div className="generic-settings">
+        <div className="preferences">
             <div className="generic-settings__content">
                 <div className="generic-settings__left-panel">
-                    <MenuItem
-                        selected={page === Page.General}
-                        onClick={() => setPage(Page.General)}
-                    >
+                    <MenuItem selected={page === Page.General} onClick={() => setPage(Page.General)}>
                         General
                     </MenuItem>
-                    <MenuItem
-                        selected={page === Page.NoteInput}
-                        onClick={() => setPage(Page.NoteInput)}
-                    >
+                    <MenuItem selected={page === Page.NoteInput} onClick={() => setPage(Page.NoteInput)}>
                         Note Input &amp; Editing
                     </MenuItem>
                 </div>
@@ -42,8 +37,8 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
                     {page === Page.General && (
                         <>
                             <div className="generic-settings__section">
-                                <Subheader>General</Subheader>
-                                <Select label="Language" value="en-gb" onChange={() => {}}>
+                                <Subheader>Language</Subheader>
+                                <Select value="en-gb" onChange={() => {}}>
                                     <Option value="en-gb" displayAs="English (UK)">
                                         English (UK)
                                     </Option>
@@ -51,12 +46,7 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
                             </div>
                             <div className="generic-settings__section">
                                 <Subheader>THEME</Subheader>
-                                <Select
-                                    margin
-                                    label="Mode"
-                                    value={theme}
-                                    onChange={(mode: ThemeMode) => actions.app.theme(mode)}
-                                >
+                                <Select margin value={theme} onChange={(mode: ThemeMode) => actions.app.theme(mode)}>
                                     <Option value={ThemeMode.Dark} displayAs="Dark">
                                         <Label>
                                             <p>Dark</p>

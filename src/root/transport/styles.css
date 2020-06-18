@@ -7,11 +7,9 @@
 .transport__timestamp {
     display: flex;
     align-items: center;
-    color: white;
     padding: 0px 20px;
     height: 32px;
-    border: 1px solid var(--background-200-bg);
-    color: var(--background-200-fg);
+    border: 1px solid var(--background-200);
 }
 
 .transport__controls {

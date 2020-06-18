@@ -1,6 +1,6 @@
 import React, { useCallback, MouseEvent, FC, useRef, CSSProperties, useState } from "react";
 import { mdiDeleteOutline, mdiFileDocumentOutline, mdiPencilOutline } from "@mdi/js";
-import { SortableItem, merge, Icon, Checkbox } from "../../ui";
+import { SortableItem, merge, Icon, Checkbox } from "../../../ui";
 import { actions, Flow } from "../../../store";
 import { Selection, SelectionType } from "../selection";
 
@@ -22,9 +22,7 @@ export const FlowItem: FC<Props> = ({ index, flow, selection, style, onSelect })
     const [editing, setEditing] = useState(false);
     const selected = selection && selection.key === flow.key;
     const active: boolean =
-        selection &&
-        selection.type === SelectionType.Player &&
-        flow.players.includes(selection.key);
+        selection && selection.type === SelectionType.Player && flow.players.includes(selection.key);
 
     const onCheckboxChange = useCallback(
         (value: boolean) => {
@@ -51,17 +49,10 @@ export const FlowItem: FC<Props> = ({ index, flow, selection, style, onSelect })
 
     const onEdit = useCallback(() => {
         if (input.current) {
-            input.current.select();
+            input.current.focus();
         }
         setEditing(true);
     }, [input]);
-
-    const onBlur = useCallback(() => {
-        setEditing(false);
-        if (!flow.title) {
-            actions.score.flow.rename(flow.key, "Untitled Flow");
-        }
-    }, [flow.title, actions.score.flow, flow.key]);
 
     return (
         <SortableItem
@@ -76,36 +67,25 @@ export const FlowItem: FC<Props> = ({ index, flow, selection, style, onSelect })
             onClick={() => onSelect({ key: flow.key, type: SelectionType.Flow })}
         >
             <div className="flow-item__header">
-                <div
-                    onPointerDown={() => onSelect({ key: flow.key, type: SelectionType.Flow })}
-                    ref={handle}
-                >
+                <div onPointerDown={() => onSelect({ key: flow.key, type: SelectionType.Flow })} ref={handle}>
                     <Icon style={{ marginRight: 12 }} path={mdiFileDocumentOutline} size={24} />
                 </div>
 
                 <input
                     ref={input}
-                    onBlur={onBlur}
+                    style={{ fontStyle: !editing && !flow.title && "italic" }}
+                    onBlur={() => setEditing(false)}
                     readOnly={!editing}
                     className="flow-item__name"
-                    value={flow.title}
+                    tabIndex={editing ? 0 : -1}
+                    value={editing ? flow.title : flow.title || "Untitled Flow"}
                     onInput={(e: any) => actions.score.flow.rename(flow.key, e.target.value)}
                 />
 
                 {selected && (
                     <>
-                        <Icon
-                            style={{ marginLeft: 12 }}
-                            size={24}
-                            path={mdiPencilOutline}
-                            onClick={onEdit}
-                        />
-                        <Icon
-                            style={{ marginLeft: 12 }}
-                            size={24}
-                            path={mdiDeleteOutline}
-                            onClick={onRemove}
-                        />
+                        <Icon style={{ marginLeft: 12 }} size={24} path={mdiPencilOutline} onClick={onEdit} />
+                        <Icon style={{ marginLeft: 12 }} size={24} path={mdiDeleteOutline} onClick={onRemove} />
                     </>
                 )}
 

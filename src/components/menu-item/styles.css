@@ -3,16 +3,15 @@
     align-items: center;
     justify-content: space-between;
     min-height: 40px;
-    padding: 0 20px;
+    padding: 0 16px;
     cursor: pointer;
-    border-radius: 3px;
 }
 
 .menu-item--clickable:hover {
-    background-color: rgb(235, 235, 235);
+    background-color: var(--background-200);
 }
 
 .menu-item--selected {
-    background-color: var(--primary-500-bg) !important;
-    color: var(--primary-500-fg) !important;
+    background-color: var(--primary-bg) !important;
+    color: var(--primary-fg) !important;
 }

@@ -1,7 +1,7 @@
 import React, { FC, CSSProperties } from "react";
 
 import "./styles.css";
-import { merge } from "../../ui";
+import { merge } from "../../../ui";
 
 interface Props {
     className?: string;

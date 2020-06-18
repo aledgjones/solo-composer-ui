@@ -1,10 +1,4 @@
-export {
-    ThemeMode,
-    InstrumentAutoCountStyle,
-    View,
-    PlayerType,
-    NoteLength
-} from "solo-composer-engine";
+export { ThemeMode, InstrumentAutoCountStyle, View, PlayerType, NoteLength, PlayTool } from "solo-composer-engine";
 
 export * from "./defs";
 export { useStore } from "./use-store";

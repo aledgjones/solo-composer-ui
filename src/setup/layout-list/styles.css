@@ -2,8 +2,6 @@
     height: 100%;
     width: 350px;
     flex-shrink: 0;
-    background-color: var(--background-500-bg);
-    color: var(--background-500-fg);
 }
 
 .layout-list__header {
@@ -12,8 +10,7 @@
     height: 48px;
     padding: 0px 24px;
     flex-shrink: 0;
-    background-color: var(--background-400-bg);
-    color: var(--background-400-fg);
+    border-bottom: 1px solid var(--background-200);
 }
 
 .layout-list__label {

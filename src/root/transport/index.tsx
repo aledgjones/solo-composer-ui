@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { mdiPlay, mdiMetronome, mdiFastForward, mdiRewind, mdiSkipPrevious } from "@mdi/js";
 import { useStore, actions } from "../../../store";
-import { Icon } from "../../ui";
+import { Icon } from "../../../ui";
 
 import "./styles.css";
 
@@ -11,24 +11,9 @@ export const Transport: FC = () => {
     return (
         <div className="transport">
             <div className="transport__controls">
-                <Icon
-                    onClick={() => false}
-                    className="transport__icon"
-                    size={24}
-                    path={mdiSkipPrevious}
-                />
-                <Icon
-                    onClick={() => false}
-                    className="transport__icon"
-                    size={24}
-                    path={mdiRewind}
-                />
-                <Icon
-                    onClick={() => false}
-                    className="transport__icon"
-                    size={24}
-                    path={mdiFastForward}
-                />
+                <Icon onClick={() => false} className="transport__icon" size={24} path={mdiSkipPrevious} />
+                <Icon onClick={() => false} className="transport__icon" size={24} path={mdiRewind} />
+                <Icon onClick={() => false} className="transport__icon" size={24} path={mdiFastForward} />
                 <Icon onClick={() => false} className="transport__icon" size={24} path={mdiPlay} />
             </div>
             <div className="transport__timestamp">

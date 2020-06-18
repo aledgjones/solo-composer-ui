@@ -1,29 +1,17 @@
 .flow-item {
     position: relative;
     display: inline-block;
-    color: white;
     height: 96px;
     margin-right: 8px;
-    border-radius: 3px;
-    background-color: var(--background-600-bg);
-    color: var(--background-600-fg);
+    background-color: var(--background-800);
+    color: var(--foreground-800);
     min-width: 280px;
 }
 
-.flow-item--active {
-    background-color: var(--background-700-bg);
-    color: var(--background-700-fg);
-}
-
 .flow-item--selected {
-    background-color: var(--primary-500-bg);
-    color: var(--primary-500-fg);
+    background-color: var(--primary-bg);
+    color: var(--primary-fg);
     z-index: 100 !important;
-}
-
-.flow-item--editing {
-    background-color: var(--primary-600-bg);
-    color: var(--primary-600-fg);
 }
 
 .flow-item.ui-sortable-item--sorting {

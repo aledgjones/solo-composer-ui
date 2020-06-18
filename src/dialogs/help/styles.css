@@ -1,7 +1,10 @@
+.feedback {
+    position: relative;
+    height: calc(100vh - 80px);
+}
+
 .feedback__header {
-    background-color: rgb(235, 235, 235);
     padding: 0 20px 20px 20px;
-    border-bottom: 1px solid rgb(200, 200, 200);
 }
 
 .feedback__header-text {
@@ -18,13 +21,8 @@
 
 .feedback__content {
     padding: 0 0 20px 0 !important;
-    height: calc(100vh - 205px);
+    height: calc(100% - 125px);
     overflow: auto;
-}
-
-.feedback .ui-label {
-    flex-grow: 1;
-    padding-left: 20px;
 }
 
 .feedback__subheader {
@@ -83,7 +81,6 @@
 }
 
 .help ol li {
-    color: black;
     list-style-type: decimal;
     margin-bottom: 20px;
     padding-left: 12px;
@@ -103,7 +100,6 @@
 .help label {
     position: absolute;
     padding: 8px 12px;
-    border-radius: 3px;
     width: 100px;
     text-align: center;
     text-transform: uppercase;
