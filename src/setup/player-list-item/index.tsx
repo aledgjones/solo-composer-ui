@@ -78,9 +78,9 @@ export const PlayerItem: FC<Props> = ({
                     <Icon style={{ marginRight: 16 }} path={icon} size={24} />
                 </div>
 
-                <Text style={{ whiteSpace: "pre" }} className="player-item__name">
-                    {name}
-                </Text>
+                <p className="player-item__name">
+                    <Text>{name}</Text>
+                </p>
 
                 {selected && (
                     <>

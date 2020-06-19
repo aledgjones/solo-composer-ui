@@ -13,7 +13,7 @@ import { getOffset } from "./get-offset";
 
 interface Props {
     index: number;
-    handle?: MutableRefObject<HTMLDivElement | null>;
+    handle?: MutableRefObject<HTMLElement | null>;
 }
 
 export const SortableItem: SuperFC<HTMLDivElement, Props> = ({
@@ -97,9 +97,7 @@ export const SortableItem: SuperFC<HTMLDivElement, Props> = ({
                     x: e.screenX,
                     y: e.screenY,
                     offsetItemsBy:
-                        config.direction === "x"
-                            ? getAbsoluteWidth(ref.current)
-                            : getAbsoluteHeight(ref.current),
+                        config.direction === "x" ? getAbsoluteWidth(ref.current) : getAbsoluteHeight(ref.current),
                     moveTo: index
                 };
             },

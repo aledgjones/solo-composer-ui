@@ -8,10 +8,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #616161e6;
+    background-color: var(--background-200);
+    color: var(--foreground-200);
     padding: 0 8px;
     font-size: 10px;
-    color: white;
     position: absolute;
     transition: opacity 0.2s, transform 0.2s;
     opacity: 0;
@@ -25,7 +25,7 @@
 }
 
 [data-tooltip-direction="down"]:after {
-    top: 100%;
+    top: calc(100% + 8px);
     left: 50%;
     transform: translate(-50%, -8px) scale(0.9);
 }

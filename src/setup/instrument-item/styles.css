@@ -3,13 +3,13 @@
     display: flex;
     align-items: center;
     height: 28px;
-    padding: 0 16px;
+    padding: 0 16px 0 12px;
     line-height: 1em;
     height: 48px;
     margin-bottom: 8px;
     background-color: var(--background-800-bg);
     color: var(--background-800-fg);
-    border: 1px solid var(--background-500);
+    border: 1px solid var(--background-200);
 }
 
 .instrument-item--selected {

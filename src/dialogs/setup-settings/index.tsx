@@ -1,12 +1,13 @@
 import React, { useState } from "react";
-import { Dialog, Subheader, Select, Option, Label, Button } from "../../../ui";
+import { Dialog, Subheader, Select, Option, Label, Button, ListItem, Switch } from "../../../ui";
 import { useStore, actions, InstrumentAutoCountStyle } from "../../../store";
 import { MenuItem } from "../../components/menu-item";
 
 import "../generic-settings.css";
+import "./styles.css";
 
 enum Page {
-    StaveLabels = 1
+    AutoNumbering = 1
 }
 
 interface Props {
@@ -14,28 +15,44 @@ interface Props {
 }
 
 export const SetupSettings = Dialog<Props>(({ onClose }) => {
-    const [page, setPage] = useState<Page>(Page.StaveLabels);
+    const [page, setPage] = useState<Page>(Page.AutoNumbering);
     const config = useStore((s) => s.score.config);
 
     return (
-        <>
+        <div className="setup-settings">
             <div className="generic-settings__content">
                 <div className="generic-settings__left-panel">
-                    <MenuItem selected={page === Page.StaveLabels} onClick={() => setPage(Page.StaveLabels)}>
-                        Numbering
+                    <MenuItem selected={page === Page.AutoNumbering} onClick={() => setPage(Page.AutoNumbering)}>
+                        Auto Numbering
                     </MenuItem>
                 </div>
 
                 <div className="generic-settings__right-panel">
-                    {page === Page.StaveLabels && (
+                    {page === Page.AutoNumbering && (
                         <>
-                            <div className="generic-settings__section" style={{ paddingBottom: 20 }}>
-                                <Subheader>instrument numbering style</Subheader>
+                            <div className="generic-settings__section">
+                                <Subheader compact>Solo Players</Subheader>
+                            </div>
+
+                            <ListItem
+                                onClick={() =>
+                                    actions.score.config.auto_count.solo.active(!config.auto_count.solo.active)
+                                }
+                            >
+                                <Label>
+                                    <p>Enable auto numbering for Solo Players</p>
+                                    <p>Instruments with the same name will have an auto incrimented number appended</p>
+                                </Label>
+                                <Switch value={config.auto_count.solo.active} />
+                            </ListItem>
+
+                            <div className="generic-settings__section">
+                                <Subheader subtle>Numbering Style</Subheader>
                                 <Select
                                     margin
-                                    value={config.auto_count_style.solo}
+                                    value={config.auto_count.solo.style}
                                     onChange={(val: InstrumentAutoCountStyle) =>
-                                        actions.score.config.auto_count_style.solo(val)
+                                        actions.score.config.auto_count.solo.style(val)
                                     }
                                 >
                                     <Option value={InstrumentAutoCountStyle.Arabic} displayAs="Arabic">
@@ -51,10 +68,27 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
                                         </Label>
                                     </Option>
                                 </Select>
+                            </div>
+                            <div className="generic-settings__section">
+                                <Subheader compact>Section Players</Subheader>
+                            </div>
+                            <ListItem
+                                onClick={() =>
+                                    actions.score.config.auto_count.section.active(!config.auto_count.section.active)
+                                }
+                            >
+                                <Label>
+                                    <p>Enable auto numbering for Section Players</p>
+                                    <p>Instruments with the same name will have an auto incrimented number appended</p>
+                                </Label>
+                                <Switch value={config.auto_count.section.active} />
+                            </ListItem>
+                            <div className="generic-settings__section">
+                                <Subheader subtle>Numbering Style</Subheader>
                                 <Select
-                                    value={config.auto_count_style.section}
+                                    value={config.auto_count.section.style}
                                     onChange={(val: InstrumentAutoCountStyle) =>
-                                        actions.score.config.auto_count_style.section(val)
+                                        actions.score.config.auto_count.section.style(val)
                                     }
                                 >
                                     <Option value={InstrumentAutoCountStyle.Arabic} displayAs="Arabic">
@@ -77,14 +111,11 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
             </div>
 
             <div className="generic-settings__buttons">
-                <Button compact outline>
-                    Reset All
-                </Button>
                 <div className="generic-settings__spacer" />
                 <Button compact onClick={onClose}>
                     Close
                 </Button>
             </div>
-        </>
+        </div>
     );
 });

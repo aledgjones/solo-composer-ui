@@ -29,9 +29,15 @@ export const actions = {
             copyright: (value: string) => store.set_copyright(value)
         },
         config: {
-            auto_count_style: {
-                solo: (value: InstrumentAutoCountStyle) => store.set_auto_count_style_solo(value),
-                section: (value: InstrumentAutoCountStyle) => store.set_auto_count_style_section(value)
+            auto_count: {
+                solo: {
+                    active: (value: boolean) => store.set_auto_count_active_solo(value),
+                    style: (value: InstrumentAutoCountStyle) => store.set_auto_count_style_solo(value)
+                },
+                section: {
+                    active: (value: boolean) => store.set_auto_count_active_section(value),
+                    style: (value: InstrumentAutoCountStyle) => store.set_auto_count_style_section(value)
+                }
             }
         },
         flow: {

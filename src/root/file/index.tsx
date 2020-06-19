@@ -9,6 +9,7 @@ import { useStore } from "../../../store";
 import { Duration } from "../../components/duration";
 
 import "./styles.css";
+import { Text } from "../../components/text";
 
 export const File: FC = () => {
     const { title, modified } = useStore((s) => s.score.meta);
@@ -46,7 +47,13 @@ export const File: FC = () => {
                         </Content>
                         <ListItem className="file-menu__meta">
                             <Label style={{ paddingRight: 16 }}>
-                                {title ? <p>{title}</p> : <p className="file-menu__undefined">Untitled Project</p>}
+                                {title ? (
+                                    <p>
+                                        <Text>{title}</Text>
+                                    </p>
+                                ) : (
+                                    <p className="file-menu__undefined">Untitled Project</p>
+                                )}
                                 <p>
                                     Updated <Duration when={modified} />
                                 </p>

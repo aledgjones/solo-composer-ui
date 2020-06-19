@@ -1,4 +1,4 @@
-import React, { MouseEvent, FC, CSSProperties } from "react";
+import React, { MouseEvent, FC, CSSProperties, MutableRefObject } from "react";
 
 import { merge } from "../../utils/merge";
 

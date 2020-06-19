@@ -47,6 +47,11 @@ export interface Flow {
     tracks: { [key: string]: Track };
 }
 
+export interface AutoCountConfig {
+    active: boolean;
+    style: InstrumentAutoCountStyle;
+}
+
 export interface State {
     app: {
         theme: ThemeMode;
@@ -67,9 +72,9 @@ export interface State {
             modified: number;
         };
         config: {
-            auto_count_style: {
-                solo: InstrumentAutoCountStyle;
-                section: InstrumentAutoCountStyle;
+            auto_count: {
+                solo: AutoCountConfig;
+                section: AutoCountConfig;
             };
         };
         flows: {

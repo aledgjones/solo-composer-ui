@@ -42,6 +42,7 @@
 }
 
 .generic-settings__label {
+    position: relative;
     display: block;
     display: flex;
     align-items: center;
@@ -49,9 +50,10 @@
     width: 160px;
     height: 42px;
     padding-right: 20px;
+    z-index: 10;
 }
 
-.generic-settings__label .ui-icon {
+.generic-settings__label .tag-copier {
     margin: 0 0 0 8px;
 }
 

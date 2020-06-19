@@ -19,7 +19,6 @@ const Setup: FC = () => {
     const [selection, setSelection] = useState<Selection>(null);
     const [typePicker, setTypePicker] = useState<boolean>(false);
     const [instrumentPicker, setInstrumentPicker] = useState<boolean>(false);
-    const [settings, setSettings] = useState<boolean>(false);
 
     const onTypeSelected = useCallback(
         (type: PlayerType) => {
@@ -75,7 +74,6 @@ const Setup: FC = () => {
                 onSelect={onSelectInstrument}
                 onCancel={() => setInstrumentPicker(false)}
             />
-            <SetupSettings width={900} open={settings} onClose={() => setSettings(false)} />
         </>
     );
 };

@@ -1,6 +1,8 @@
 import React, { FC, useState, useCallback } from "react";
 import { mdiTagOutline, mdiCheck } from "@mdi/js";
-import { Icon, copy } from "../../../ui";
+import { Icon, copy, merge } from "../../../ui";
+
+import "./styles.css";
 
 interface Props {
     content: string;
@@ -14,9 +16,13 @@ export const TagCopier: FC<Props> = ({ content }) => {
         setTimeout(() => setWorking(false), 1000);
     }, [content]);
 
-    if (working) {
-        return <Icon style={{ color: "var(--primary-bg" }} size={16} path={mdiCheck} />;
-    } else {
-        return <Icon size={16} path={mdiTagOutline} onClick={trigger} />;
-    }
+    return (
+        <span
+            className={merge("tag-copier", { "tag-copier--working": working })}
+            data-tooltip={content}
+            data-tooltip-direction="down"
+        >
+            <Icon size={16} path={working ? mdiCheck : mdiTagOutline} onClick={trigger} />
+        </span>
+    );
 };

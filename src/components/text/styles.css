@@ -1,12 +1,7 @@
-.text {
-    display: flex;
-    align-items: center;
-}
-
-.text--token {
+.text--symbol {
     padding: 0 0.05em;
-    display: inline-block;
-    line-height: 1em;
-    font-size: 1.5em;
+    line-height: 0; /* center it properly*/
+    font-size: 1.4em;
+    vertical-align: middle;
     font-family: "Bravura";
 }

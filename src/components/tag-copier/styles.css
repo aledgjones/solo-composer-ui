@@ -1,0 +1,11 @@
+.tag-copier {
+    height: 16px;
+}
+
+.tag-copier--working {
+    color: var(--primary-bg);
+}
+
+.tag-copier--working .ui-icon {
+    pointer-events: none;
+}
