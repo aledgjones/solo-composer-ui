@@ -65,4 +65,5 @@ export { error } from "./utils/error";
 export { fileAccepted } from "./utils/file-accepted";
 export { isEmail } from "./utils/is-email";
 export { merge } from "./utils/merge";
+export { modulo } from "./utils/modulo";
 export { wait } from "./utils/wait";

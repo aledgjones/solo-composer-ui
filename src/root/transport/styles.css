@@ -10,6 +10,7 @@
     padding: 0px 20px;
     height: 32px;
     border: 1px solid var(--background-200);
+    margin: 0 20px;
 }
 
 .transport__controls {
@@ -19,9 +20,9 @@
 
 .transport__metronome {
     display: flex;
-    padding: 0 20px;
+    margin-right: 20px;
 }
 
 .transport__icon {
-    margin-right: 20px;
+    margin-right: 12px;
 }

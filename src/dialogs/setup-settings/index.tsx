@@ -46,7 +46,7 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
                                 <Switch value={config.auto_count.solo.active} />
                             </ListItem>
 
-                            <div className="generic-settings__section">
+                            <div style={{ paddingBottom: 0 }} className="generic-settings__section">
                                 <Subheader subtle>Numbering Style</Subheader>
                                 <Select
                                     margin

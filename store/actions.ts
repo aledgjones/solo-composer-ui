@@ -66,6 +66,7 @@ export const actions = {
         view: (value: View) => store.set_view(value),
         expand: (key: string) => store.expand(key),
         collapse: (key: string) => store.collapse(key),
+        keyboard: (instrument_key: string, offset: number) => store.set_keyboard(instrument_key, offset),
         tool: {
             play: (tool: PlayTool) => store.set_play_tool(tool)
         }

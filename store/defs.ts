@@ -94,6 +94,7 @@ export interface State {
     ui: {
         view: View;
         expanded: { [key: string]: boolean };
+        keyboard: { [key: string]: number };
         play_tool: PlayTool;
     };
 }

@@ -14,7 +14,7 @@ export const Transport: FC = () => {
                 <Icon onClick={() => false} className="transport__icon" size={24} path={mdiSkipPrevious} />
                 <Icon onClick={() => false} className="transport__icon" size={24} path={mdiRewind} />
                 <Icon onClick={() => false} className="transport__icon" size={24} path={mdiFastForward} />
-                <Icon onClick={() => false} className="transport__icon" size={24} path={mdiPlay} />
+                <Icon onClick={() => false} size={24} path={mdiPlay} />
             </div>
             <div className="transport__timestamp">
                 <span>0.0.0.000</span>

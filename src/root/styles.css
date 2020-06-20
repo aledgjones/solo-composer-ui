@@ -2,25 +2,28 @@
     --primary-bg: #33c1ff;
     --primary-fg: #252429;
 
+    --black: #252429;
+    --white: #dddddd;
+
     --error: #ff6347;
 }
 
 .ui-light {
     --background-200: #cccccc;
-    --foreground-200: #252429;
+    --foreground-200: var(--black);
     --background-500: #ffffff;
-    --foreground-500: #252429;
+    --foreground-500: var(--black);
     --background-800: #dddddd;
-    --foreground-800: #252429;
+    --foreground-800: var(--black);
 }
 
 .ui-dark {
     --background-200: #252429;
-    --foreground-200: #dddddd;
+    --foreground-200: var(--white);
     --background-500: #2d2c31;
-    --foreground-500: #dddddd;
+    --foreground-500: var(--white);
     --background-800: #38383c;
-    --foreground-800: #dddddd;
+    --foreground-800: var(--white);
 }
 
 .root {
@@ -48,7 +51,7 @@
 }
 
 .root__history-icon {
-    margin-right: 20px;
+    margin-right: 12px;
 }
 
 .root__content {

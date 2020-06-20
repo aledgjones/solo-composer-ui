@@ -1,7 +1,8 @@
-import React, { FC, useState, useMemo, useEffect } from "react";
+import React, { FC, useState } from "react";
 import { mdiCursorDefault, mdiEraser, mdiCogOutline, mdiPen, mdiBoxCutter } from "@mdi/js";
 import { useTitle, useRainbow, Icon, DragScroll, Select, Option } from "../../ui";
 import { useStore, useCounts, actions, PlayTool } from "../../store";
+import { Keyboard } from "./keyboard";
 
 import "./styles.css";
 
@@ -16,7 +17,7 @@ const Play: FC = () => {
         s.ui.play_tool
     ]);
 
-    const [zoom] = useState<number>(1);
+    const [zoom] = useState<number>(1); // horizontal
     const [settings, setSettings] = useState(false);
 
     const [flowKey, setFlowKey] = useState(flows[0].key);
@@ -73,12 +74,13 @@ const Play: FC = () => {
             </div>
 
             <DragScroll className="play__content" x ignore="no-scroll">
-                <div className="play__left-panel no-scroll"></div>
+                <div className="play__left-panel no-scroll">
+                    <Keyboard instrumentKey="foo" />
+                    <Keyboard instrumentKey="bar" />
+                </div>
             </DragScroll>
 
             <div className="play__bottom-panel"></div>
-
-            {/* <PlaySettings open={settings} width={900} onClose={() => setSettings(false)} /> */}
         </>
     );
 };
