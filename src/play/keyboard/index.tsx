@@ -8,9 +8,10 @@ import "./styles.css";
 
 interface Props {
     instrumentKey: string;
+    height: number;
 }
 
-export const Keyboard: FC<Props> = ({ instrumentKey }) => {
+export const Keyboard: FC<Props> = ({ instrumentKey, height }) => {
     const base = useStore((s) => s.ui.keyboard[instrumentKey] || 76, [instrumentKey]);
 
     const onDrag = useDragHandler<{ y: number; base: number }>(
@@ -35,8 +36,8 @@ export const Keyboard: FC<Props> = ({ instrumentKey }) => {
     );
 
     return (
-        <div className="keyboard" onPointerDown={onDrag}>
-            <Keys base={base} />
+        <div className="keyboard" onPointerDown={onDrag} style={{ height: height * SLOT_HEIGHT }}>
+            <Keys base={base} height={height} />
         </div>
     );
 };

@@ -1,0 +1,58 @@
+.fader {
+    position: relative;
+    height: 20px;
+    width: 100%;
+}
+
+.fader__track {
+    position: relative;
+    height: 4px;
+    width: 100%;
+    background-color: var(--background-200);
+}
+
+.fader__handle {
+    position: absolute;
+    top: -6px;
+    height: 16px;
+    width: 24px;
+    transform: translate(-50%, 0);
+    background-color: var(--primary-bg);
+    border: 1px solid var(--primary-fg);
+    z-index: 1;
+    cursor: pointer;
+    outline: none;
+    color: inherit;
+}
+
+.fader__handle:active {
+    cursor: grab;
+}
+
+.fader__handle:focus-visible {
+    outline: 1px solid currentColor;
+}
+
+.fader__handle:after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 50%;
+    height: 10px;
+    width: 1px;
+    transform: translateX(-50%);
+    background-color: var(--primary-fg);
+}
+
+.fader__scale {
+    position: absolute;
+    top: 8px;
+    height: 8px;
+    width: 1px;
+    transform: translateX(-50%);
+    background-color: var(--background-200);
+}
+
+.fader__scale--tall {
+    height: 12px;
+}

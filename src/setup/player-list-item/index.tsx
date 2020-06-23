@@ -1,27 +1,18 @@
-import React, { useCallback, useMemo, MouseEvent, FC, useRef } from "react";
+import React, { useCallback, MouseEvent, FC, useRef } from "react";
 import { mdiChevronDown, mdiPlus, mdiDeleteOutline, mdiChevronUp } from "@mdi/js";
-
-import "./styles.css";
-import {
-    Player,
-    Instrument,
-    actions,
-    PlayerType,
-    usePlayerName,
-    usePlayerIcon,
-    InstrumentAutoCountStyle
-} from "../../../store";
+import { Player, Instrument, actions, PlayerType, usePlayerName, usePlayerIcon, useCountStyle } from "../../../store";
 import { Selection, SelectionType } from "../selection";
 import { SortableItem, merge, Icon, SortableContainer } from "../../../ui";
 import { Text } from "../../components/text";
 import { InstrumentItem } from "../instrument-item";
+
+import "./styles.css";
 
 interface Props {
     index: number;
     player: Player;
     instruments: { [key: string]: Instrument };
     counts: { [key: string]: number };
-    count_style: InstrumentAutoCountStyle;
     selected: boolean;
     expanded: boolean;
 
@@ -34,7 +25,6 @@ export const PlayerItem: FC<Props> = ({
     player,
     instruments,
     counts,
-    count_style,
     selected,
     expanded,
     onSelect,
@@ -63,6 +53,7 @@ export const PlayerItem: FC<Props> = ({
         [onSelect, actions.score.player, player.key]
     );
 
+    const count_style = useCountStyle(player.player_type);
     const name = usePlayerName(player, instruments, counts, count_style);
     const icon = usePlayerIcon(player);
 
@@ -79,7 +70,7 @@ export const PlayerItem: FC<Props> = ({
                 </div>
 
                 <p className="player-item__name">
-                    <Text>{name}</Text>
+                    <Text content={name} />
                 </p>
 
                 {selected && (

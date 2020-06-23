@@ -44,9 +44,7 @@ function injectSym(str: string) {
 }
 
 interface Props {
-    className?: string;
-    style?: CSSProperties;
-    offset?: number;
+    content: string;
 }
 
 /**
@@ -55,10 +53,9 @@ interface Props {
  *
  * "Carinet in B@flat@" -> "Clarinet in B♭"
  */
-export const Text: FC<Props> = ({ className, style, children }) => {
+export const Text: FC<Props> = ({ content }) => {
     const state = useStore((s) => s);
-    const text = children ? children.toString() : "";
-    const replaced = injectVar(text, state);
+    const replaced = injectVar(content, state);
     const tokens = injectSym(replaced);
 
     return (

@@ -22,7 +22,7 @@
     height: 48px !important;
     border: none !important;
     background-color: transparent !important;
-    padding: 0 8px;
+    padding: 0 4px 0 8px;
 }
 
 .play__flow-selector .ui-select__item {
@@ -43,14 +43,25 @@
 }
 
 .play__content {
+    position: relative;
     height: calc(100vh - 124px); /* panels + bottom-bar = (48px * 2) + 28px */
-    background-color: var(--background-800);
 }
 
 .play__left-panel {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 350px;
+    min-height: 100%;
+    padding: 8px 0 0 8px;
+    z-index: 1;
     background-color: var(--background-500);
-    border-right: 1px solid var(--background-200);
+}
+
+.play__right-panel {
+    position: relative;
+    padding: 8px 0 300px 350px;
+    z-index: 0;
     min-height: 100%;
 }
 

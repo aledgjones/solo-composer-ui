@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Dialog, Subheader, Select, Option, Label, Button, ListItem, Switch } from "../../../ui";
-import { useStore, actions, InstrumentAutoCountStyle } from "../../../store";
+import { useStore, actions, AutoCountStyle } from "../../../store";
 import { MenuItem } from "../../components/menu-item";
 
 import "../generic-settings.css";
 import "./styles.css";
 
 enum Page {
-    AutoNumbering = 1
+    AutoNumbering
 }
 
 interface Props {
@@ -31,73 +31,38 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
                     {page === Page.AutoNumbering && (
                         <>
                             <div className="generic-settings__section">
-                                <Subheader compact>Solo Players</Subheader>
-                            </div>
-
-                            <ListItem
-                                onClick={() =>
-                                    actions.score.config.auto_count.solo.active(!config.auto_count.solo.active)
-                                }
-                            >
-                                <Label>
-                                    <p>Enable auto numbering for Solo Players</p>
-                                    <p>Instruments with the same name will have an auto incrimented number appended</p>
-                                </Label>
-                                <Switch value={config.auto_count.solo.active} />
-                            </ListItem>
-
-                            <div style={{ paddingBottom: 0 }} className="generic-settings__section">
-                                <Subheader subtle>Numbering Style</Subheader>
+                                <Subheader>Numbering Style</Subheader>
+                                <Subheader subtle>Solo Player</Subheader>
                                 <Select
                                     margin
-                                    value={config.auto_count.solo.style}
-                                    onChange={(val: InstrumentAutoCountStyle) =>
-                                        actions.score.config.auto_count.solo.style(val)
-                                    }
+                                    value={config.auto_count.solo}
+                                    onChange={(val: AutoCountStyle) => actions.score.config.auto_count.solo(val)}
                                 >
-                                    <Option value={InstrumentAutoCountStyle.Arabic} displayAs="Arabic">
+                                    <Option value={AutoCountStyle.Arabic} displayAs="Arabic">
                                         <Label>
                                             <p>Arabic</p>
                                             <p>1, 2, 3...</p>
                                         </Label>
                                     </Option>
-                                    <Option value={InstrumentAutoCountStyle.Roman} displayAs="Roman">
+                                    <Option value={AutoCountStyle.Roman} displayAs="Roman">
                                         <Label>
                                             <p>Roman</p>
                                             <p>I, II, III...</p>
                                         </Label>
                                     </Option>
                                 </Select>
-                            </div>
-                            <div className="generic-settings__section">
-                                <Subheader compact>Section Players</Subheader>
-                            </div>
-                            <ListItem
-                                onClick={() =>
-                                    actions.score.config.auto_count.section.active(!config.auto_count.section.active)
-                                }
-                            >
-                                <Label>
-                                    <p>Enable auto numbering for Section Players</p>
-                                    <p>Instruments with the same name will have an auto incrimented number appended</p>
-                                </Label>
-                                <Switch value={config.auto_count.section.active} />
-                            </ListItem>
-                            <div className="generic-settings__section">
-                                <Subheader subtle>Numbering Style</Subheader>
+                                <Subheader subtle>Section Player</Subheader>
                                 <Select
-                                    value={config.auto_count.section.style}
-                                    onChange={(val: InstrumentAutoCountStyle) =>
-                                        actions.score.config.auto_count.section.style(val)
-                                    }
+                                    value={config.auto_count.section}
+                                    onChange={(val: AutoCountStyle) => actions.score.config.auto_count.section(val)}
                                 >
-                                    <Option value={InstrumentAutoCountStyle.Arabic} displayAs="Arabic">
+                                    <Option value={AutoCountStyle.Arabic} displayAs="Arabic">
                                         <Label>
                                             <p>Arabic</p>
                                             <p>1, 2, 3...</p>
                                         </Label>
                                     </Option>
-                                    <Option value={InstrumentAutoCountStyle.Roman} displayAs="Roman">
+                                    <Option value={AutoCountStyle.Roman} displayAs="Roman">
                                         <Label>
                                             <p>Roman</p>
                                             <p>I, II, III...</p>

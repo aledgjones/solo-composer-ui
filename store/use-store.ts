@@ -9,7 +9,7 @@ export const store = new Engine((s: any) => {
     listeners.forEach((callback) => callback(s));
 });
 
-export function useStore<T>(splitter: (s: State) => T, deps: string[] = []) {
+export function useStore<T>(splitter: (s: State) => T, deps: any[] = []) {
     const [state, setState] = useState<T>(splitter(store.get()));
 
     useEffect(() => {

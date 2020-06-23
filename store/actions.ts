@@ -1,4 +1,4 @@
-import { ThemeMode, InstrumentAutoCountStyle, View, PlayerType, PlayTool } from "solo-composer-engine";
+import { ThemeMode, AutoCountStyle, View, PlayerType, PlayTool } from "solo-composer-engine";
 import { store } from "./use-store";
 import { Patches } from "./defs";
 
@@ -30,14 +30,8 @@ export const actions = {
         },
         config: {
             auto_count: {
-                solo: {
-                    active: (value: boolean) => store.set_auto_count_active_solo(value),
-                    style: (value: InstrumentAutoCountStyle) => store.set_auto_count_style_solo(value)
-                },
-                section: {
-                    active: (value: boolean) => store.set_auto_count_active_section(value),
-                    style: (value: InstrumentAutoCountStyle) => store.set_auto_count_style_section(value)
-                }
+                solo: (value: AutoCountStyle) => store.set_auto_count_style_solo(value),
+                section: (value: AutoCountStyle) => store.set_auto_count_style_section(value)
             }
         },
         flow: {
@@ -59,7 +53,10 @@ export const actions = {
             create: (id: string): CreateInstrumentReturn => store.create_instrument(id),
             reorder: (player_key: string, old_index: number, new_index: number) =>
                 store.reorder_instrument(player_key, old_index, new_index),
-            remove: (player_key: string, instrument_key: string) => store.remove_instrument(player_key, instrument_key)
+            remove: (player_key: string, instrument_key: string) => store.remove_instrument(player_key, instrument_key),
+            mute: (instrument_key: string) => store.toggle_mute_instrument(instrument_key),
+            solo: (instrument_key: string) => store.toggle_solo_instrument(instrument_key),
+            volume: (instrument_key: string, volume: number) => store.set_volume_instrument(instrument_key, volume)
         }
     },
     ui: {

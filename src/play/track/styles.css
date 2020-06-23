@@ -1,0 +1,16 @@
+.track {
+    position: relative;
+    border-top: 1px solid var(--background-200);
+    border-bottom: 1px solid var(--background-200);
+    background-color: var(--background-800);
+    margin-bottom: 8px;
+}
+
+.track__header {
+    height: 48px;
+}
+
+.track__channel {
+    border-top: 1px solid var(--background-200);
+    background-color: var(--background-800);
+}

@@ -14,7 +14,7 @@ export function useRainbow(count: number) {
             .fill("")
             .map((_entry, i) => {
                 const base = step * i + offset;
-                const color = `hsl(${base > 359 ? base - 359 : base}, 100%, 50%)`;
+                const color = `hsl(${base > 359 ? base - 359 : base}, 85%, 55%)`;
                 return color;
             });
     }, [count]);

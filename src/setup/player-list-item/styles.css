@@ -10,6 +10,7 @@
     z-index: 100;
     background-color: var(--primary-bg);
     color: var(--primary-fg);
+    border: 1px solid var(--primary-fg);
 }
 
 .player-item.ui-sortable-item--sorting {

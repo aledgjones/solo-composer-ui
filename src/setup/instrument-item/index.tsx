@@ -1,8 +1,8 @@
-import React, { FC, useMemo, useRef } from "react";
-import { mdiPiano, mdiDeleteOutline, mdiDrag } from "@mdi/js";
+import React, { FC, useRef } from "react";
+import { mdiDeleteOutline, mdiDrag } from "@mdi/js";
 import { SortableItem, Icon, merge } from "../../../ui";
 import { Text } from "../../components/text";
-import { Instrument, InstrumentAutoCountStyle, useInstrumentName, actions } from "../../../store";
+import { Instrument, AutoCountStyle, useInstrumentName, actions } from "../../../store";
 
 import "./styles.css";
 
@@ -12,7 +12,7 @@ interface Props {
     instrument: Instrument;
     player_key: string;
     count?: number;
-    count_style: InstrumentAutoCountStyle;
+    count_style: AutoCountStyle;
 
     onSelect: () => void;
 }
@@ -27,7 +27,7 @@ export const InstrumentItem: FC<Props> = ({
     onSelect
 }) => {
     const handle = useRef<HTMLDivElement>(null);
-    const name = useInstrumentName(count_style, instrument, count);
+    const name = useInstrumentName(instrument, count, count_style);
 
     return (
         <SortableItem
@@ -36,10 +36,14 @@ export const InstrumentItem: FC<Props> = ({
             className={merge("instrument-item", { "instrument-item--selected": selected })}
         >
             <div ref={handle} onPointerDown={onSelect}>
-                <Icon style={{ marginRight: 20, color: "var(--background-200)" }} path={mdiDrag} size={24} />
+                <Icon
+                    style={{ marginRight: 20, color: selected ? "var(--primary-fg)" : "var(--background-200)" }}
+                    path={mdiDrag}
+                    size={24}
+                />
             </div>
             <p className="instrument-item__name">
-                <Text>{name}</Text>
+                <Text content={name} />
             </p>
             {selected && (
                 <>

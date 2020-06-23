@@ -1,45 +1,45 @@
-import React, { FC, PointerEvent } from "react";
+import React, { FC } from "react";
 import { SLOT_HEIGHT } from "../const";
 import { modulo } from "../../../ui";
 
 interface Props {
     base: number; // MIDIPitch
+    height: number; // number of slots
 }
 
-export const Keys: FC<Props> = ({ base }) => {
-    const height = SLOT_HEIGHT * 24;
-
+export const Keys: FC<Props> = ({ base, height }) => {
+    const base_pattern = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0];
     const base_pattern_offset = 76; // E5
     const offset = base_pattern_offset - base;
-    const base_pattern = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0];
+
+    const white_key_space = (SLOT_HEIGHT * 12) / 7;
+    const black_key_space = SLOT_HEIGHT;
 
     const pattern = [];
-    for (let i = 0; i < base_pattern.length; i++) {
+    for (let i = 0; i < height; i++) {
         const index = modulo(offset + i, base_pattern.length);
         pattern.push(base_pattern[index]);
     }
-
-    const white_key_space = height / 14;
-    const black_key_space = SLOT_HEIGHT;
 
     return (
         <svg
             className="keyboard__keys"
             width="64"
-            height={height}
+            height={SLOT_HEIGHT * height}
             xmlns="http://www.w3.org/2000/svg"
-            viewBox={`0 0 64 ${height}`}
+            viewBox={`0 0 64 ${SLOT_HEIGHT * height}`}
         >
             {/* White Keys */}
-            {Array(15)
+            {Array(pattern.reduce((out, val) => out - val, height + 2))
                 .fill(null)
                 .map((val, i) => {
                     return (
                         <rect
-                            fill="var(--white)"
+                            key={i}
+                            fill="#ffffff"
                             x="-3"
                             y={i * white_key_space - modulo(offset * SLOT_HEIGHT, white_key_space)}
-                            width="59"
+                            width="64"
                             height={white_key_space - 1}
                             rx="3"
                         />
@@ -55,7 +55,7 @@ export const Keys: FC<Props> = ({ base }) => {
                             fill="var(--black)"
                             x="-3"
                             y={black_key_space * i}
-                            width="39"
+                            width="44"
                             height={black_key_space}
                             rx="2.5"
                         />
@@ -75,7 +75,7 @@ export const Keys: FC<Props> = ({ base }) => {
                             fontSize="10"
                             fill="var(--black)"
                             alignmentBaseline="central"
-                            x="40"
+                            x="45"
                             y={
                                 i * (12 * SLOT_HEIGHT) + // space an octave apart
                                 2.5 * white_key_space - // shift to the C
@@ -89,30 +89,4 @@ export const Keys: FC<Props> = ({ base }) => {
                 })}
         </svg>
     );
-
-    // return useMemo(() => {
-    //     const light = "transparent";
-    //     const dark = "#000000";
-
-    //     const keyboardKeys = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0];
-    //     const whiteKeyHeight = (SLOT_HEIGHT * 12) / 7;
-
-    //     const whiteKeys = Array(7)
-    //         .fill("")
-    //         .map((none, i) => {
-    //             return `${light} ${whiteKeyHeight * i}px ${whiteKeyHeight * (i + 1) - 1}px, ${dark} ${
-    //                 whiteKeyHeight * (i + 1) - 1
-    //             }px ${whiteKeyHeight * (i + 1)}px`;
-    //         });
-
-    //     const blackKeys = keyboardKeys.map((key, i) => {
-    //         if (key === 0) {
-    //             return `${light} ${SLOT_HEIGHT * i}px ${SLOT_HEIGHT * (i + 1)}px`;
-    //         } else {
-    //             return `${dark} ${SLOT_HEIGHT * i}px ${SLOT_HEIGHT * (i + 1)}px`;
-    //         }
-    //     });
-
-    //     return `linear-gradient(${whiteKeys.join(",")}), linear-gradient(${blackKeys.join(",")})`;
-    // }, []);
 };

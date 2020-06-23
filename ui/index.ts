@@ -66,4 +66,5 @@ export { fileAccepted } from "./utils/file-accepted";
 export { isEmail } from "./utils/is-email";
 export { merge } from "./utils/merge";
 export { modulo } from "./utils/modulo";
+export { noop } from "./utils/noop";
 export { wait } from "./utils/wait";

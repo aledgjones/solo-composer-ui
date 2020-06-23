@@ -2,9 +2,10 @@ import React, { FC, useState } from "react";
 import { mdiCursorDefault, mdiEraser, mdiCogOutline, mdiPen, mdiBoxCutter } from "@mdi/js";
 import { useTitle, useRainbow, Icon, DragScroll, Select, Option } from "../../ui";
 import { useStore, useCounts, actions, PlayTool } from "../../store";
-import { Keyboard } from "./keyboard";
+import { Controls } from "./controls";
 
 import "./styles.css";
+import { Track } from "./track";
 
 const Play: FC = () => {
     useTitle("Solo Composer | Play");
@@ -21,6 +22,7 @@ const Play: FC = () => {
     const [settings, setSettings] = useState(false);
 
     const [flowKey, setFlowKey] = useState(flows[0].key);
+    const flow = flows.find((flow) => flow.key === flowKey);
 
     const colors = useRainbow(players.length);
     const counts = useCounts(players, instruments);
@@ -70,13 +72,46 @@ const Play: FC = () => {
                         size={24}
                     />
                 </div>
-                <Icon className="play__tool" path={mdiCogOutline} size={24} onClick={() => setSettings(true)} />
             </div>
 
             <DragScroll className="play__content" x ignore="no-scroll">
                 <div className="play__left-panel no-scroll">
-                    <Keyboard instrumentKey="foo" />
-                    <Keyboard instrumentKey="bar" />
+                    {players.map((player, i) => {
+                        if (flow.players.includes(player.key)) {
+                            return player.instruments.map((instrument_key) => {
+                                return (
+                                    <Controls
+                                        key={instrument_key}
+                                        color={colors[i]}
+                                        playerType={player.player_type}
+                                        instrument={instruments[instrument_key]}
+                                        expanded={expanded[instrument_key + "-instrument"]}
+                                        count={counts[instrument_key]}
+                                    />
+                                );
+                            });
+                        } else {
+                            return null;
+                        }
+                    })}
+                </div>
+
+                <div className="play__right-panel">
+                    {players.map((player, i) => {
+                        if (flow.players.includes(player.key)) {
+                            return player.instruments.map((instrument_key) => {
+                                return (
+                                    <Track
+                                        key={instrument_key}
+                                        instrument={instruments[instrument_key]}
+                                        expanded={expanded[instrument_key + "-instrument"]}
+                                    />
+                                );
+                            });
+                        } else {
+                            return null;
+                        }
+                    })}
                 </div>
             </DragScroll>
 

@@ -8,7 +8,7 @@
 }
 
 .ui-list-item--hover:hover {
-    background-color: var(--background-200);
+    background-color: var(--background-800);
 }
 
 .ui-list-item .ui-label {

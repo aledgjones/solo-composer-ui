@@ -16,7 +16,7 @@ const Play = React.lazy(() => import("../play"));
 export const Root: FC = () => {
     const [view, theme, store] = useStore((s) => [s.ui.view, s.app.theme, s]);
     useTheme(theme === ThemeMode.Light ? "#ffffff" : "#252429");
-    useLog(store, "store");
+    // useLog(store, "store");
 
     useEffect(() => {
         if (theme == ThemeMode.Light) {

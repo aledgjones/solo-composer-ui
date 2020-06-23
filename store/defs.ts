@@ -1,4 +1,4 @@
-import { View, InstrumentAutoCountStyle, ThemeMode, NoteLength, PlayerType, PlayTool } from "solo-composer-engine";
+import { View, ThemeMode, NoteLength, PlayerType, PlayTool, AutoCountStyle } from "solo-composer-engine";
 
 export interface Patches {
     [expression: string]: string;
@@ -10,6 +10,10 @@ export interface Instrument {
     long_name: string;
     short_name: string;
     staves: string[];
+
+    volume: number;
+    mute: boolean;
+    solo: boolean;
 }
 
 export interface Player {
@@ -47,11 +51,6 @@ export interface Flow {
     tracks: { [key: string]: Track };
 }
 
-export interface AutoCountConfig {
-    active: boolean;
-    style: InstrumentAutoCountStyle;
-}
-
 export interface State {
     app: {
         theme: ThemeMode;
@@ -73,8 +72,8 @@ export interface State {
         };
         config: {
             auto_count: {
-                solo: AutoCountConfig;
-                section: AutoCountConfig;
+                solo: AutoCountStyle;
+                section: AutoCountStyle;
             };
         };
         flows: {

@@ -7,9 +7,9 @@ import { Preferences } from "../../dialogs/preferences";
 import { Meta } from "../../dialogs/meta";
 import { useStore } from "../../../store";
 import { Duration } from "../../components/duration";
+import { Text } from "../../components/text";
 
 import "./styles.css";
-import { Text } from "../../components/text";
 
 export const File: FC = () => {
     const { title, modified } = useStore((s) => s.score.meta);
@@ -49,7 +49,7 @@ export const File: FC = () => {
                             <Label style={{ paddingRight: 16 }}>
                                 {title ? (
                                     <p>
-                                        <Text>{title}</Text>
+                                        <Text content={title} />
                                     </p>
                                 ) : (
                                     <p className="file-menu__undefined">Untitled Project</p>

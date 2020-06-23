@@ -9,6 +9,7 @@ import { useDelayBoolean } from "../../hooks/use-delay-boolean";
 import "../input-base/styles.css";
 import "./styles.css";
 import { Subheader } from "../subheader";
+import { noop } from "../../utils/noop";
 
 interface Props {
     id?: string;
@@ -74,6 +75,7 @@ export const Select: FC<Props> = ({ id, className, style, value, margin, childre
                     style={{ transform: focus ? "rotateZ(180deg)" : undefined }}
                     size={24}
                     path={mdiChevronDown}
+                    onClick={noop}
                 />
             </div>
 
