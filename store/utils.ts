@@ -1,9 +1,32 @@
-import { useMemo } from "react";
-import { store, useStore } from "./use-store";
-import { Player, Instrument } from "./defs";
-import { PlayerType, AutoCountStyle } from "solo-composer-engine";
+import { useMemo, useEffect } from "react";
 import { mdiAccount, mdiAccountGroup } from "@mdi/js";
+import { store, useStore } from "./use-store";
+import { Player, Instrument, State, Flow } from "./defs";
+import { PlayerType, AutoCountStyle } from "solo-composer-engine";
 import { toRoman } from "roman-numerals";
+import { actions } from "./actions";
+
+export interface Tick {
+    x: number;
+    width: number;
+    is_beat: boolean;
+    is_first_beat: boolean;
+    is_quaver_beat: boolean;
+    is_grouping_boundry: boolean;
+}
+
+export interface TickList {
+    list: Tick[];
+    width: number;
+}
+
+export const useTicks = (flow: Flow, zoom: number): TickList => {
+    // we need to update the ticks when the state changes but ticks are calculated on the rust side
+    // using its own state so we don't actually need to pass through the state manually.
+    return useMemo(() => {
+        return store.ticks(flow.key, zoom);
+    }, [flow, zoom]);
+};
 
 function count_to_string(style: AutoCountStyle, count?: number) {
     if (count === undefined) {
@@ -98,4 +121,25 @@ export function useDefsList(path: string[]): string[][] {
     return useMemo(() => {
         return store.def_tree(path);
     }, [path]);
+}
+
+export function useAutoSetup() {
+    useEffect(() => {
+        const state = store.get() as State;
+        const flow_key = state.score.flows.order[0];
+        const players = [
+            { type: PlayerType.Solo, instruments: ["woodwinds.clarinet.b-flat", "woodwinds.clarinet.a"] },
+            { type: PlayerType.Section, instruments: ["strings.violin"] },
+            { type: PlayerType.Section, instruments: ["strings.violin"] },
+            { type: PlayerType.Section, instruments: ["strings.viola"] },
+            { type: PlayerType.Section, instruments: ["strings.violoncello"] }
+        ];
+        players.forEach((player) => {
+            const playerKey = actions.score.player.create(player.type);
+            player.instruments.forEach((instrument) => {
+                const instrumentKey = actions.score.instrument.create(instrument).key;
+                actions.score.player.assign_instrument(playerKey, instrumentKey);
+            });
+        });
+    }, []);
 }

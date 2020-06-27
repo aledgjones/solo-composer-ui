@@ -39,7 +39,7 @@ export const Keys: FC<Props> = ({ base, height }) => {
                             fill="#ffffff"
                             x="-3"
                             y={i * white_key_space - modulo(offset * SLOT_HEIGHT, white_key_space)}
-                            width="64"
+                            width="67"
                             height={white_key_space - 1}
                             rx="3"
                         />
@@ -55,7 +55,7 @@ export const Keys: FC<Props> = ({ base, height }) => {
                             fill="var(--black)"
                             x="-3"
                             y={black_key_space * i}
-                            width="44"
+                            width="47"
                             height={black_key_space}
                             rx="2.5"
                         />
@@ -75,7 +75,7 @@ export const Keys: FC<Props> = ({ base, height }) => {
                             fontSize="10"
                             fill="var(--black)"
                             alignmentBaseline="central"
-                            x="45"
+                            x="48"
                             y={
                                 i * (12 * SLOT_HEIGHT) + // space an octave apart
                                 2.5 * white_key_space - // shift to the C

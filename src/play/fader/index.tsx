@@ -1,5 +1,5 @@
-import React, { FC, useCallback, KeyboardEvent } from "react";
-import { merge } from "../../../ui";
+import React, { FC, useCallback, KeyboardEvent, useRef } from "react";
+import { merge, useDragHandler, Input } from "../../../ui";
 
 import "./styles.css";
 
@@ -9,6 +9,7 @@ interface Props {
 }
 
 export const Fader: FC<Props> = ({ percent, onChange }) => {
+    const ref = useRef<HTMLDivElement>(null);
     const keyPress = useCallback(
         (e: KeyboardEvent<HTMLButtonElement>) => {
             if (e.key === "ArrowLeft") {
@@ -21,10 +22,41 @@ export const Fader: FC<Props> = ({ percent, onChange }) => {
         [percent, onChange]
     );
 
+    const pointerDown = useDragHandler<{ width: number; left: number }>(
+        {
+            onDown: () => {
+                if (!ref.current) {
+                    return false;
+                }
+
+                const box = ref.current.getBoundingClientRect();
+                return { width: box.width, left: box.left };
+            },
+            onMove: (e, data) => {
+                const offset = e.clientX - data.left;
+                if (offset < 0) {
+                    onChange(0);
+                } else if (offset > data.width) {
+                    onChange(100);
+                } else {
+                    const next = (offset / data.width) * 100;
+                    onChange(next);
+                }
+            },
+            onEnd: () => {}
+        },
+        [ref]
+    );
+
     return (
         <div className="fader">
-            <div className="fader__track">
-                <button className="fader__handle" onKeyDown={keyPress} style={{ left: `${percent}%` }} />
+            <div className="fader__track" ref={ref}>
+                <button
+                    className="fader__handle"
+                    onPointerDown={pointerDown}
+                    onKeyDown={keyPress}
+                    style={{ left: `${percent}%` }}
+                />
             </div>
             {Array(11)
                 .fill(null)

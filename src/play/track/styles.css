@@ -7,10 +7,11 @@
 }
 
 .track__header {
+    display: block;
     height: 48px;
+    opacity: 0.6;
 }
 
 .track__channel {
-    border-top: 1px solid var(--background-200);
-    background-color: var(--background-800);
+    /* background-color: var(--background-200); */
 }

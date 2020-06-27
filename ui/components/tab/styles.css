@@ -16,11 +16,17 @@
     transition: color 0.2s;
 }
 
-.ui-tab--selected {
-    transition: color 0.2s 0.1s;
-    color: var(--primary-fg);
+.ui-tab:hover {
+    background-color: var(--background-800);
 }
 
 .ui-tab:focus-visible {
     outline: 1px solid currentColor;
+    background-color: var(--background-800);
+}
+
+.ui-tab--selected {
+    transition: color 0.2s 0.1s;
+    color: var(--primary-fg);
+    background-color: transparent !important;
 }

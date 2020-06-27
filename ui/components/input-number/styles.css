@@ -10,6 +10,6 @@
     justify-content: center;
     height: 100%;
     padding: 0 9px;
-    border-left: 1px solid rgb(175, 175, 175);
+    border-left: 1px solid var(--background-200);
     overflow: hidden;
 }

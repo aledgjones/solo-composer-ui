@@ -1,6 +1,6 @@
 import React, { FC, useEffect, Suspense } from "react";
 import { mdiUndo, mdiRedo } from "@mdi/js";
-import { useStore, actions, ThemeMode, View } from "../../store";
+import { useStore, actions, ThemeMode, View, useAutoSetup } from "../../store";
 import { Tabs, useTheme, merge, Tab, useLog, Icon } from "../../ui";
 import { Transport } from "./transport";
 import { Loading } from "../components/loading";
@@ -14,9 +14,9 @@ const Setup = React.lazy(() => import("../setup"));
 const Play = React.lazy(() => import("../play"));
 
 export const Root: FC = () => {
-    const [view, theme, store] = useStore((s) => [s.ui.view, s.app.theme, s]);
+    const [view, theme] = useStore((s) => [s.ui.view, s.app.theme]);
     useTheme(theme === ThemeMode.Light ? "#ffffff" : "#252429");
-    // useLog(store, "store");
+    useAutoSetup();
 
     useEffect(() => {
         if (theme == ThemeMode.Light) {

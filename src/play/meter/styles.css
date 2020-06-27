@@ -10,6 +10,7 @@
     height: 8px;
     width: 100%;
     border: 1px solid var(--background-200);
+    background-color: var(--background-500);
 }
 
 .meter__track-fill {

@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from "react";
-import { mdiChevronDown, mdiCogOutline } from "@mdi/js";
+import { mdiChevronDown, mdiCogOutline, mdiVolumeHigh } from "@mdi/js";
 import { Icon, noop, Label } from "../../../ui";
 import { Instrument, useInstrumentName, PlayerType, useCountStyle, actions } from "../../../store";
 import { Text } from "../../components/text";
@@ -65,7 +65,7 @@ export const Controls: FC<Props> = ({ color, playerType, instrument, expanded, c
                 <div className="controls__settings-wrapper">
                     <div className="controls__settings">
                         <div className="controls__settings-spacer">
-                            <Meter percent={Math.random() * 100} />
+                            <Meter percent={0} />
                             <Fader
                                 percent={instrument.volume}
                                 onChange={(volume: number) => actions.score.instrument.volume(instrument.key, volume)}
@@ -76,6 +76,7 @@ export const Controls: FC<Props> = ({ color, playerType, instrument, expanded, c
                                 <p>Solo Sampler</p>
                                 <p>{instrument.id}</p>
                             </Label>
+                            <Icon style={{ marginRight: 12 }} path={mdiVolumeHigh} size={24} onClick={noop} />
                             <Icon path={mdiCogOutline} size={24} onClick={noop} />
                         </div>
                     </div>

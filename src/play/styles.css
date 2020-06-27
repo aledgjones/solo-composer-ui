@@ -48,8 +48,7 @@
 }
 
 .play__left-panel {
-    position: absolute;
-    top: 0;
+    position: sticky;
     left: 0;
     width: 350px;
     min-height: 100%;
@@ -59,8 +58,10 @@
 }
 
 .play__right-panel {
-    position: relative;
-    padding: 8px 0 300px 350px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 8px 0 187px 350px;
     z-index: 0;
     min-height: 100%;
 }

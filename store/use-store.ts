@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Engine } from "solo-composer-engine";
 import * as equal from "fast-deep-equal";
 import shortid from "shortid";
@@ -10,23 +10,31 @@ export const store = new Engine((s: any) => {
 });
 
 export function useStore<T>(splitter: (s: State) => T, deps: any[] = []) {
-    const [state, setState] = useState<T>(splitter(store.get()));
+    const cache = useRef(splitter(store.get()));
+    const [state, setState] = useState<T>(() => splitter(store.get()));
 
     useEffect(() => {
-        let cache = splitter(store.get());
+        // when the deps update we recalculate
+        const next = splitter(store.get());
+        if (!equal(next, cache.current)) {
+            setState(next);
+            cache.current = next;
+        }
+
+        // then assign a new listener
         const key = shortid();
         const listener = (state: State) => {
             const next = splitter(state);
-            if (!equal(next, cache)) {
+            if (!equal(next, cache.current)) {
                 setState(next);
-                cache = next;
+                cache.current = next;
             }
         };
         listeners.set(key, listener);
         return () => {
             listeners.delete(key);
         };
-    }, deps);
+    }, [cache, ...deps]);
 
     return state;
 }

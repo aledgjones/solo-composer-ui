@@ -1,31 +1,35 @@
 import React, { FC, useState } from "react";
-import { mdiCursorDefault, mdiEraser, mdiCogOutline, mdiPen, mdiBoxCutter } from "@mdi/js";
+import { mdiCursorDefault, mdiEraser, mdiPen, mdiBoxCutter } from "@mdi/js";
 import { useTitle, useRainbow, Icon, DragScroll, Select, Option } from "../../ui";
-import { useStore, useCounts, actions, PlayTool } from "../../store";
+import { useStore, useCounts, actions, PlayTool, useTicks } from "../../store";
 import { Controls } from "./controls";
+import { Track } from "./track";
 
 import "./styles.css";
-import { Track } from "./track";
 
 const Play: FC = () => {
     useTitle("Solo Composer | Play");
 
-    const [flows, players, instruments, expanded, tool] = useStore((s) => [
-        s.score.flows.order.map((flow_key) => s.score.flows.by_key[flow_key]),
-        s.score.players.order.map((player_key) => s.score.players.by_key[player_key]),
-        s.score.instruments,
-        s.ui.expanded,
-        s.ui.play_tool
-    ]);
+    const [flows, players, instruments, expanded, tool] = useStore((s) => {
+        return [
+            s.score.flows.order.map((flow_key) => {
+                const { key, title } = s.score.flows.by_key[flow_key];
+                return { key, title };
+            }),
+            s.score.players.order.map((player_key) => s.score.players.by_key[player_key]),
+            s.score.instruments,
+            s.ui.expanded,
+            s.ui.play_tool
+        ];
+    });
 
     const [zoom] = useState<number>(1); // horizontal
-    const [settings, setSettings] = useState(false);
-
-    const [flowKey, setFlowKey] = useState(flows[0].key);
-    const flow = flows.find((flow) => flow.key === flowKey);
+    const [flowKey, setFlowKey] = useState<string>(flows[0].key);
+    const flow = useStore((s) => s.score.flows.by_key[flowKey], [flowKey]);
 
     const colors = useRainbow(players.length);
     const counts = useCounts(players, instruments);
+    const ticks = useTicks(flow, zoom);
 
     return (
         <>
@@ -103,6 +107,7 @@ const Play: FC = () => {
                                 return (
                                     <Track
                                         key={instrument_key}
+                                        ticks={ticks}
                                         instrument={instruments[instrument_key]}
                                         expanded={expanded[instrument_key + "-instrument"]}
                                     />

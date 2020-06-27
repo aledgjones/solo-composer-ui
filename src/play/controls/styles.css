@@ -32,7 +32,6 @@
 }
 
 .controls__settings-wrapper {
-    border-top: 1px solid var(--background-200);
     display: flex;
 }
 

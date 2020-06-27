@@ -1,4 +1,4 @@
-import { View, ThemeMode, NoteLength, PlayerType, PlayTool, AutoCountStyle } from "solo-composer-engine";
+import { View, ThemeMode, PlayerType, PlayTool, AutoCountStyle } from "solo-composer-engine";
 
 export interface Patches {
     [expression: string]: string;
@@ -44,7 +44,7 @@ export interface Flow {
     key: string;
     title: string;
     players: string[];
-    tick_length: NoteLength;
+    subdivisions: number;
     length: number;
 
     staves: { [key: string]: Stave };
