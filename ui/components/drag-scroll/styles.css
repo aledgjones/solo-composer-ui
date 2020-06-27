@@ -1,6 +1,14 @@
 .ui-drag-scroll {
     overflow: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
     touch-action: none;
+}
+
+.ui-drag-scroll::-webkit-scrollbar {
+    /* WebKit */
+    width: 0;
+    height: 0;
 }
 
 .ui-drag-scroll-x {

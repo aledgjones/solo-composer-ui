@@ -2,16 +2,20 @@
     position: relative;
     border-top: 1px solid var(--background-200);
     border-bottom: 1px solid var(--background-200);
-    background-color: var(--background-800);
+    background-color: var(--background-500);
     margin-bottom: 8px;
+    min-width: calc(100vw - 350px);
+    color: var(--background-1000);
 }
 
 .track__header {
     display: block;
     height: 48px;
-    opacity: 0.6;
+    background-color: var(--background-800);
+    margin-right: 20px;
 }
 
-.track__channel {
-    /* background-color: var(--background-200); */
+.track__channel-ticks {
+    background-color: var(--background-800);
+    margin-right: 20px;
 }

@@ -5,11 +5,10 @@ import { merge } from "../../utils/merge";
 import { Icon } from "../icon";
 import { Card } from "../card";
 import { useDelayBoolean } from "../../hooks/use-delay-boolean";
+import { noop } from "../../utils/noop";
 
 import "../input-base/styles.css";
 import "./styles.css";
-import { Subheader } from "../subheader";
-import { noop } from "../../utils/noop";
 
 interface Props {
     id?: string;
@@ -27,7 +26,17 @@ interface Props {
 /**
  * Select component to be used with the Option component.
  */
-export const Select: FC<Props> = ({ id, className, style, value, margin, children, onChange, disabled, direction }) => {
+export const Select: FC<Props> = ({
+    id,
+    className,
+    style,
+    value,
+    margin,
+    children,
+    onChange,
+    disabled,
+    direction
+}) => {
     const [focus, setFocus] = useState<boolean>(false);
     const element = useRef<HTMLDivElement>(null);
 
@@ -62,7 +71,11 @@ export const Select: FC<Props> = ({ id, className, style, value, margin, childre
             className={merge(
                 "ui-select",
                 "ui-input",
-                { "ui-input--disabled": disabled, "ui-input--focus": focus, "ui-input--margin": margin },
+                {
+                    "ui-input--disabled": disabled,
+                    "ui-input--focus": focus,
+                    "ui-input--margin": margin
+                },
                 className
             )}
             style={style}

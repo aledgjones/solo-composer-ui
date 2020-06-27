@@ -12,7 +12,7 @@ interface Props {
 }
 
 export const Keyboard: FC<Props> = ({ instrumentKey, height }) => {
-    const base = useStore((s) => s.ui.keyboard[instrumentKey] || 76, [instrumentKey]);
+    const base = useStore((s) => s.ui.play.keyboard[instrumentKey] || 76, [instrumentKey]);
 
     const onDrag = useDragHandler<{ y: number; base: number }>(
         {
@@ -27,7 +27,7 @@ export const Keyboard: FC<Props> = ({ instrumentKey, height }) => {
                 const next = init.base - change;
                 // E8 <= next >= E1
                 if (next <= 112 && next >= 28) {
-                    actions.ui.keyboard(instrumentKey, init.base - change);
+                    actions.ui.play.keyboard(instrumentKey, init.base - change);
                 }
             },
             onEnd: () => {}

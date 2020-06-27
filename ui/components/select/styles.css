@@ -24,6 +24,14 @@
     opacity: 0;
     transition: max-height 0.2s, opacity 0.2s;
     pointer-events: none;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.ui-select__card::-webkit-scrollbar {
+    /* WebKit */
+    width: 0;
+    height: 0;
 }
 
 .ui-select__card--up {

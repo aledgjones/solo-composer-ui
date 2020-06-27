@@ -67,6 +67,45 @@
 }
 
 .play__bottom-panel {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     height: 28px;
     border-top: 1px solid var(--background-200);
+}
+
+.play__zoom {
+    display: flex;
+    align-items: center;
+    background-color: var(--background-800);
+    padding-left: 8px;
+}
+
+.play__zoom .ui-select {
+    width: 80px;
+    font-size: 14px;
+    margin: 0 8px;
+}
+
+.play__zoom .ui-select__container {
+    min-height: 0;
+    height: 28px;
+    border: none;
+}
+
+.play__zoom .ui-input__display {
+    min-height: 0;
+    padding: 0 6px 0 4px;
+}
+
+.play__zoom .ui-select__icon {
+    margin-right: 6px;
+}
+
+.play__zoom .ui-select__item:first-child {
+    display: none;
+}
+
+.play__zoom-icon {
+    margin: 3px;
 }

@@ -15,6 +15,8 @@
     --foreground-500: var(--black);
     --background-800: #dddddd;
     --foreground-800: var(--black);
+    --background-1000: #dddddd;
+    --foreground-1000: var(--black);
 }
 
 .ui-dark {
@@ -24,6 +26,8 @@
     --foreground-500: var(--white);
     --background-800: #38383c;
     --foreground-800: var(--white);
+    --background-1000: #808080;
+    --foreground-1000: var(--white);
 }
 
 .root {

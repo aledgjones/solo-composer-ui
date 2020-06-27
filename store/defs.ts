@@ -1,4 +1,4 @@
-import { View, ThemeMode, PlayerType, PlayTool, AutoCountStyle } from "solo-composer-engine";
+import { View, ThemeMode, PlayerType, Tool, AutoCountStyle } from "solo-composer-engine";
 
 export interface Patches {
     [expression: string]: string;
@@ -93,7 +93,10 @@ export interface State {
     ui: {
         view: View;
         expanded: { [key: string]: boolean };
-        keyboard: { [key: string]: number };
-        play_tool: PlayTool;
+        play: {
+            keyboard: { [key: string]: number };
+            tool: Tool;
+            zoom: number;
+        };
     };
 }

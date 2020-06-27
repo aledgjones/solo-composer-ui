@@ -1,7 +1,15 @@
 import React, { FC, useState } from "react";
-import { mdiCursorDefault, mdiEraser, mdiPen, mdiBoxCutter } from "@mdi/js";
+import {
+    mdiCursorDefault,
+    mdiEraser,
+    mdiPen,
+    mdiBoxCutter,
+    mdiMagnify,
+    mdiPlus,
+    mdiMinus
+} from "@mdi/js";
 import { useTitle, useRainbow, Icon, DragScroll, Select, Option } from "../../ui";
-import { useStore, useCounts, actions, PlayTool, useTicks } from "../../store";
+import { useStore, useCounts, actions, Tool, useTicks } from "../../store";
 import { Controls } from "./controls";
 import { Track } from "./track";
 
@@ -10,7 +18,7 @@ import "./styles.css";
 const Play: FC = () => {
     useTitle("Solo Composer | Play");
 
-    const [flows, players, instruments, expanded, tool] = useStore((s) => {
+    const [flows, players, instruments, expanded, tool, zoom] = useStore((s) => {
         return [
             s.score.flows.order.map((flow_key) => {
                 const { key, title } = s.score.flows.by_key[flow_key];
@@ -19,11 +27,11 @@ const Play: FC = () => {
             s.score.players.order.map((player_key) => s.score.players.by_key[player_key]),
             s.score.instruments,
             s.ui.expanded,
-            s.ui.play_tool
+            s.ui.play.tool,
+            s.ui.play.zoom
         ];
     });
 
-    const [zoom] = useState<number>(1); // horizontal
     const [flowKey, setFlowKey] = useState<string>(flows[0].key);
     const flow = useStore((s) => s.score.flows.by_key[flowKey], [flowKey]);
 
@@ -49,29 +57,29 @@ const Play: FC = () => {
                 <div className="play__tools">
                     <Icon
                         className="play__tool"
-                        toggled={tool === PlayTool.Select}
-                        onClick={() => actions.ui.tool.play(PlayTool.Select)}
+                        toggled={tool === Tool.Select}
+                        onClick={() => actions.ui.play.tool(Tool.Select)}
                         path={mdiCursorDefault}
                         size={24}
                     />
                     <Icon
                         className="play__tool"
-                        toggled={tool === PlayTool.Draw}
-                        onClick={() => actions.ui.tool.play(PlayTool.Draw)}
+                        toggled={tool === Tool.Draw}
+                        onClick={() => actions.ui.play.tool(Tool.Draw)}
                         path={mdiPen}
                         size={24}
                     />
                     <Icon
                         className="play__tool"
-                        toggled={tool === PlayTool.Slice}
-                        onClick={() => actions.ui.tool.play(PlayTool.Slice)}
+                        toggled={tool === Tool.Slice}
+                        onClick={() => actions.ui.play.tool(Tool.Slice)}
                         path={mdiBoxCutter}
                         size={24}
                     />
                     <Icon
                         className="play__tool"
-                        toggled={tool === PlayTool.Erase}
-                        onClick={() => actions.ui.tool.play(PlayTool.Erase)}
+                        toggled={tool === Tool.Erase}
+                        onClick={() => actions.ui.play.tool(Tool.Erase)}
                         path={mdiEraser}
                         size={24}
                     />
@@ -120,7 +128,61 @@ const Play: FC = () => {
                 </div>
             </DragScroll>
 
-            <div className="play__bottom-panel"></div>
+            <div className="play__bottom-panel">
+                <div />
+                <div className="play__zoom">
+                    <Icon path={mdiMagnify} size={16} />
+                    <Select
+                        direction="up"
+                        value={Math.round(zoom * 100)}
+                        onChange={(value) => actions.ui.play.zoom(value)}
+                    >
+                        <Option
+                            value={Math.round(zoom * 100)}
+                            displayAs={`${Math.round(zoom * 100)}%`}
+                        />
+                        <Option value={0.25} displayAs="25%">
+                            25%
+                        </Option>
+                        <Option value={0.5} displayAs="50%">
+                            50%
+                        </Option>
+                        <Option value={0.75} displayAs="75%">
+                            75%
+                        </Option>
+                        <Option value={1.0} displayAs="100%">
+                            100%
+                        </Option>
+                        <Option value={1.5} displayAs="150%">
+                            150%
+                        </Option>
+                        <Option value={2.0} displayAs="200%">
+                            200%
+                        </Option>
+                        <Option value={3.0} displayAs="300%">
+                            300%
+                        </Option>
+                        <Option value={4.0} displayAs="400%">
+                            400%
+                        </Option>
+                        <Option value={5.0} displayAs="500%">
+                            500%
+                        </Option>
+                    </Select>
+                    <Icon
+                        className="play__zoom-icon"
+                        path={mdiMinus}
+                        size={22}
+                        onClick={() => actions.ui.play.zoom(zoom - 0.05)}
+                    />
+                    <Icon
+                        className="play__zoom-icon"
+                        path={mdiPlus}
+                        size={22}
+                        onClick={() => actions.ui.play.zoom(zoom + 0.05)}
+                    />
+                </div>
+            </div>
         </>
     );
 };
