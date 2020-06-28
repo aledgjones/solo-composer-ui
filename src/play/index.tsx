@@ -1,13 +1,5 @@
-import React, { FC, useState } from "react";
-import {
-    mdiCursorDefault,
-    mdiEraser,
-    mdiPen,
-    mdiBoxCutter,
-    mdiMagnify,
-    mdiPlus,
-    mdiMinus
-} from "@mdi/js";
+import React, { FC, useState, useCallback } from "react";
+import { mdiCursorDefault, mdiEraser, mdiPen, mdiBoxCutter, mdiMagnify, mdiPlus, mdiMinus } from "@mdi/js";
 import { useTitle, useRainbow, Icon, DragScroll, Select, Option } from "../../ui";
 import { useStore, useCounts, actions, Tool, useTicks } from "../../store";
 import { Controls } from "./controls";
@@ -38,6 +30,18 @@ const Play: FC = () => {
     const colors = useRainbow(players.length);
     const counts = useCounts(players, instruments);
     const ticks = useTicks(flow, zoom);
+
+    const inc = useCallback(() => {
+        if (zoom + 0.05 <= 5) {
+            actions.ui.play.zoom(zoom + 0.05);
+        }
+    }, [zoom]);
+
+    const desc = useCallback(() => {
+        if (zoom - 0.05 >= 0.25) {
+            actions.ui.play.zoom(zoom - 0.05);
+        }
+    }, [zoom]);
 
     return (
         <>
@@ -131,16 +135,15 @@ const Play: FC = () => {
             <div className="play__bottom-panel">
                 <div />
                 <div className="play__zoom">
-                    <Icon path={mdiMagnify} size={16} />
+                    <Icon className="play__zoom-icon" path={mdiMinus} size={22} onClick={desc} />
                     <Select
                         direction="up"
                         value={Math.round(zoom * 100)}
                         onChange={(value) => actions.ui.play.zoom(value)}
                     >
-                        <Option
-                            value={Math.round(zoom * 100)}
-                            displayAs={`${Math.round(zoom * 100)}%`}
-                        />
+                        {/* This is a bit weired but we need a fake option to hld the current,
+                            possibly abartrary, zoom level. It is hidden with CSS */}
+                        <Option value={Math.round(zoom * 100)} displayAs={`${Math.round(zoom * 100)}%`} />
                         <Option value={0.25} displayAs="25%">
                             25%
                         </Option>
@@ -169,18 +172,8 @@ const Play: FC = () => {
                             500%
                         </Option>
                     </Select>
-                    <Icon
-                        className="play__zoom-icon"
-                        path={mdiMinus}
-                        size={22}
-                        onClick={() => actions.ui.play.zoom(zoom - 0.05)}
-                    />
-                    <Icon
-                        className="play__zoom-icon"
-                        path={mdiPlus}
-                        size={22}
-                        onClick={() => actions.ui.play.zoom(zoom + 0.05)}
-                    />
+
+                    <Icon className="play__zoom-icon" path={mdiPlus} size={22} onClick={inc} />
                 </div>
             </div>
         </>
