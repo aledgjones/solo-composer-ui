@@ -1,4 +1,4 @@
-import { ThemeMode, AutoCountStyle, View, PlayerType, Tool } from "solo-composer-engine";
+import { ThemeMode, AutoCountStyle, View, PlayerType, Tool, TimeSignatureDrawType } from "solo-composer-engine";
 import { store } from "./use-store";
 import { Patches } from "./defs";
 
@@ -37,32 +37,38 @@ export const actions = {
         flow: {
             create: () => store.create_flow(),
             rename: (flow_key: string, title: string) => store.rename_flow(flow_key, title),
-            reorder: (old_index: number, new_index: number) =>
-                store.reorder_flow(old_index, new_index),
-            assign_player: (flow_key: string, player_key: string) =>
-                store.assign_player(flow_key, player_key),
-            unassign_player: (flow_key: string, player_key: string) =>
-                store.unassign_player(flow_key, player_key),
+            reorder: (old_index: number, new_index: number) => store.reorder_flow(old_index, new_index),
+            assign_player: (flow_key: string, player_key: string) => store.assign_player(flow_key, player_key),
+            unassign_player: (flow_key: string, player_key: string) => store.unassign_player(flow_key, player_key),
             remove: (flow_key: string) => store.remove_flow(flow_key)
         },
         player: {
             create: (player_type: PlayerType): string => store.create_player(player_type),
             assign_instrument: (player_key: string, instrument_key: string): string =>
                 store.assign_instrument(player_key, instrument_key),
-            reorder: (old_index: number, new_index: number) =>
-                store.reorder_player(old_index, new_index),
+            reorder: (old_index: number, new_index: number) => store.reorder_player(old_index, new_index),
             remove: (player_key: string) => store.remove_player(player_key)
         },
         instrument: {
             create: (id: string): CreateInstrumentReturn => store.create_instrument(id),
             reorder: (player_key: string, old_index: number, new_index: number) =>
                 store.reorder_instrument(player_key, old_index, new_index),
-            remove: (player_key: string, instrument_key: string) =>
-                store.remove_instrument(player_key, instrument_key),
+            remove: (player_key: string, instrument_key: string) => store.remove_instrument(player_key, instrument_key),
             mute: (instrument_key: string) => store.toggle_mute_instrument(instrument_key),
             solo: (instrument_key: string) => store.toggle_solo_instrument(instrument_key),
-            volume: (instrument_key: string, volume: number) =>
-                store.set_volume_instrument(instrument_key, volume)
+            volume: (instrument_key: string, volume: number) => store.set_volume_instrument(instrument_key, volume)
+        },
+        entries: {
+            time_signature: {
+                create: (
+                    flow_key: string,
+                    tick: number,
+                    beats: number,
+                    beat_type: number,
+                    draw_type: TimeSignatureDrawType,
+                    groupings?: Uint8Array
+                ) => store.create_time_signature(flow_key, tick, beats, beat_type, draw_type, groupings)
+            }
         }
     },
     ui: {
@@ -70,10 +76,12 @@ export const actions = {
         expand: (key: string) => store.expand(key),
         collapse: (key: string) => store.collapse(key),
         play: {
-            keyboard: (instrument_key: string, offset: number) =>
-                store.set_play_keyboard(instrument_key, offset),
+            keyboard: (instrument_key: string, offset: number) => store.set_play_keyboard(instrument_key, offset),
             tool: (tool: Tool) => store.set_play_tool(tool),
             zoom: (zoom: number) => store.set_play_zoom(zoom)
         }
     }
 };
+
+const win = window as any;
+win.sc_actions = actions;

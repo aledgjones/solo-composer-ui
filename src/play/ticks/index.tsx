@@ -47,33 +47,16 @@ export const Ticks: FC<Props> = ({ ticks, height, fixed, className }) => {
                 if (tick.is_first_beat) {
                     bar++;
                 }
-                if (y > 0) {
-                    return (
-                        <Fragment key={i}>
-                            <line
-                                x1={tick.x}
-                                y1="0"
-                                x2={tick.x}
-                                y2={y}
-                                strokeWidth="1"
-                                stroke="currentColor"
-                            />
-                            {!fixed && tick.is_first_beat && (
-                                <text
-                                    x={tick.x + 5}
-                                    y="12"
-                                    fill="currentColor"
-                                    fontSize="10"
-                                    fontFamily="Roboto"
-                                >
-                                    {bar}
-                                </text>
-                            )}
-                        </Fragment>
-                    );
-                } else {
-                    return null;
-                }
+                return (
+                    <Fragment key={i}>
+                        {y > 0 && <line x1={tick.x} y1="0" x2={tick.x} y2={y} strokeWidth="1" stroke="currentColor" />}
+                        {!fixed && tick.is_first_beat && (
+                            <text x={tick.x + 5} y="12" fill="currentColor" fontSize="10" fontFamily="Roboto">
+                                {bar}
+                            </text>
+                        )}
+                    </Fragment>
+                );
             })}
         </svg>
     );

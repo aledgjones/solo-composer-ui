@@ -14,9 +14,10 @@ const Setup = React.lazy(() => import("../setup"));
 const Play = React.lazy(() => import("../play"));
 
 export const Root: FC = () => {
-    const [view, theme] = useStore((s) => [s.ui.view, s.app.theme]);
+    const [view, theme, state] = useStore((s) => [s.ui.view, s.app.theme, s]);
     useTheme(theme === ThemeMode.Light ? "#ffffff" : "#252429");
     useAutoSetup();
+    useLog(state, "state");
 
     useEffect(() => {
         if (theme == ThemeMode.Light) {

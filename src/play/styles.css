@@ -14,7 +14,7 @@
 .play__flow-selector {
     display: flex;
     align-items: center;
-    width: 350px;
+    width: 342px;
     border-right: 1px solid var(--background-200);
 }
 
@@ -50,7 +50,7 @@
 .play__left-panel {
     position: sticky;
     left: 0;
-    width: 350px;
+    width: 342px;
     min-height: 100%;
     padding: 8px 0 0 8px;
     z-index: 1;
@@ -61,7 +61,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding: 8px 0 187px 350px;
+    padding: 8px 0 187px 342px;
     z-index: 0;
     min-height: 100%;
 }
