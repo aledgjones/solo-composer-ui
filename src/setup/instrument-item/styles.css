@@ -7,15 +7,9 @@
     line-height: 1em;
     height: 48px;
     margin-bottom: 8px;
-    background-color: var(--background-800-bg);
+    background-color: var(--background-800);
     color: var(--background-800-fg);
     border: 1px solid var(--background-200);
-}
-
-.instrument-item--selected {
-    background-color: var(--primary-bg);
-    color: var(--primary-fg);
-    border: 1px solid var(--primary-fg);
 }
 
 .instrument-item.ui-sortable-item--sorting {

@@ -15,7 +15,7 @@
     --foreground-500: var(--black);
     --background-800: #dddddd;
     --foreground-800: var(--black);
-    --background-1000: #dddddd;
+    --background-1000: #888888;
     --foreground-1000: var(--black);
 }
 

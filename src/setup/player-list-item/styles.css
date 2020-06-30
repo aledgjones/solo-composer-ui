@@ -8,9 +8,7 @@
 
 .player-item--selected {
     z-index: 100;
-    background-color: var(--primary-bg);
-    color: var(--primary-fg);
-    border: 1px solid var(--primary-fg);
+    border: 1px solid var(--primary-bg);
 }
 
 .player-item.ui-sortable-item--sorting {

@@ -1,3 +1,6 @@
+/**
+ * Copy a string to the clipboard
+ */
 export async function copy(str: string): Promise<void> {
     try {
         await navigator.clipboard.writeText(str);

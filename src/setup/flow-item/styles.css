@@ -10,8 +10,7 @@
 }
 
 .flow-item--selected {
-    background-color: var(--primary-bg);
-    color: var(--primary-fg);
+    border: 1px solid var(--primary-bg);
     z-index: 100 !important;
 }
 

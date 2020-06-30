@@ -1,7 +1,7 @@
 import React, { FC, useEffect, Suspense } from "react";
 import { mdiUndo, mdiRedo } from "@mdi/js";
 import { useStore, actions, ThemeMode, View, useAutoSetup } from "../../store";
-import { Tabs, useTheme, merge, Tab, useLog, Icon } from "../../ui";
+import { Tabs, useTheme, merge, Tab, Icon } from "../../ui";
 import { Transport } from "./transport";
 import { Loading } from "../components/loading";
 import { File } from "./file";
@@ -14,10 +14,9 @@ const Setup = React.lazy(() => import("../setup"));
 const Play = React.lazy(() => import("../play"));
 
 export const Root: FC = () => {
-    const [view, theme, state] = useStore((s) => [s.ui.view, s.app.theme, s]);
-    useTheme(theme === ThemeMode.Light ? "#ffffff" : "#252429");
+    const [view, theme] = useStore((s) => [s.ui.view, s.app.theme]);
+    useTheme(theme === ThemeMode.Light ? "#888888" : "#252429");
     useAutoSetup();
-    useLog(state, "state");
 
     useEffect(() => {
         if (theme == ThemeMode.Light) {
@@ -47,8 +46,8 @@ export const Root: FC = () => {
                 </Tabs>
                 <Transport />
                 <div className="root__history">
-                    <Icon onClick={() => false} className="root__history-icon" size={24} path={mdiUndo} />
-                    <Icon onClick={() => false} size={24} path={mdiRedo} />
+                    <Icon disabled onClick={() => false} className="root__history-icon" size={24} path={mdiUndo} />
+                    <Icon disabled onClick={() => false} size={24} path={mdiRedo} />
                 </div>
             </div>
 

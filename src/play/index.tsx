@@ -1,5 +1,5 @@
 import React, { FC, useState, useCallback } from "react";
-import { mdiCursorDefault, mdiEraser, mdiPen, mdiBoxCutter, mdiMagnify, mdiPlus, mdiMinus } from "@mdi/js";
+import { mdiCursorDefault, mdiEraser, mdiPen, mdiBoxCutter, mdiPlus, mdiMinus } from "@mdi/js";
 import { useTitle, useRainbow, Icon, DragScroll, Select, Option } from "../../ui";
 import { useStore, useCounts, actions, Tool, useTicks } from "../../store";
 import { Controls } from "./controls";
@@ -103,6 +103,7 @@ const Play: FC = () => {
                                         instrument={instruments[instrument_key]}
                                         expanded={expanded[instrument_key + "-instrument"]}
                                         count={counts[instrument_key]}
+                                        slots={24}
                                     />
                                 );
                             });
@@ -122,6 +123,7 @@ const Play: FC = () => {
                                         ticks={ticks}
                                         instrument={instruments[instrument_key]}
                                         expanded={expanded[instrument_key + "-instrument"]}
+                                        slots={24}
                                     />
                                 );
                             });

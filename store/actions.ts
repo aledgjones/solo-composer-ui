@@ -37,6 +37,7 @@ export const actions = {
         flow: {
             create: () => store.create_flow(),
             rename: (flow_key: string, title: string) => store.rename_flow(flow_key, title),
+            length: (flow_key: string, length: number) => store.set_flow_length(flow_key, length),
             reorder: (old_index: number, new_index: number) => store.reorder_flow(old_index, new_index),
             assign_player: (flow_key: string, player_key: string) => store.assign_player(flow_key, player_key),
             unassign_player: (flow_key: string, player_key: string) => store.unassign_player(flow_key, player_key),
@@ -82,6 +83,3 @@ export const actions = {
         }
     }
 };
-
-const win = window as any;
-win.sc_actions = actions;

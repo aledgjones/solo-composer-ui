@@ -36,11 +36,7 @@ export const InstrumentItem: FC<Props> = ({
             className={merge("instrument-item", { "instrument-item--selected": selected })}
         >
             <div ref={handle} onPointerDown={onSelect}>
-                <Icon
-                    style={{ marginRight: 20, color: selected ? "var(--primary-fg)" : "var(--background-200)" }}
-                    path={mdiDrag}
-                    size={24}
-                />
+                <Icon style={{ marginRight: 20, color: "var(--background-200)" }} path={mdiDrag} size={24} />
             </div>
             <p className="instrument-item__name">
                 <Text content={name} />

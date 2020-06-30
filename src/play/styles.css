@@ -14,7 +14,7 @@
 .play__flow-selector {
     display: flex;
     align-items: center;
-    width: 342px;
+    width: 350px;
     border-right: 1px solid var(--background-200);
 }
 
@@ -22,11 +22,11 @@
     height: 48px !important;
     border: none !important;
     background-color: transparent !important;
-    padding: 0 4px 0 8px;
+    padding: 0 4px 0 12px;
 }
 
 .play__flow-selector .ui-select__item {
-    padding: 0 24px;
+    padding: 0 24px 0 28px;
 }
 
 .play__flow-selector .ui-select {
@@ -50,7 +50,7 @@
 .play__left-panel {
     position: sticky;
     left: 0;
-    width: 342px;
+    width: 350px;
     min-height: 100%;
     padding: 8px 0 0 8px;
     z-index: 1;
@@ -61,7 +61,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    padding: 8px 0 187px 342px;
+    padding: 8px 0 187px 350px;
     z-index: 0;
     min-height: 100%;
 }

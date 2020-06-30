@@ -4,10 +4,6 @@ import { FC } from "react";
 import { merge } from "../../../ui";
 
 function tickHeight(tick: Tick, fixed: boolean, height: number, i: number) {
-    if (i === 0) {
-        return 0;
-    }
-
     if (tick.is_first_beat) {
         return height;
     }
@@ -28,13 +24,14 @@ function tickHeight(tick: Tick, fixed: boolean, height: number, i: number) {
 }
 
 interface Props {
+    className?: string;
     ticks: TickList;
     height: number;
     fixed: boolean;
-    className?: string;
+    isTrack: boolean;
 }
 
-export const Ticks: FC<Props> = ({ ticks, height, fixed, className }) => {
+export const Ticks: FC<Props> = ({ className, ticks, height, fixed, isTrack }) => {
     let bar = 0;
     return (
         <svg
@@ -49,9 +46,16 @@ export const Ticks: FC<Props> = ({ ticks, height, fixed, className }) => {
                 }
                 return (
                     <Fragment key={i}>
-                        {y > 0 && <line x1={tick.x} y1="0" x2={tick.x} y2={y} strokeWidth="1" stroke="currentColor" />}
+                        <line
+                            x1={tick.x}
+                            y1="0"
+                            x2={tick.x}
+                            y2={y}
+                            strokeWidth="1"
+                            stroke={isTrack && !tick.is_first_beat ? "var(--background-200)" : "var(--background-1000)"}
+                        />
                         {!fixed && tick.is_first_beat && (
-                            <text x={tick.x + 5} y="12" fill="currentColor" fontSize="10" fontFamily="Roboto">
+                            <text x={tick.x + 5} y="12" fill="var(--background-1000)" fontSize="10" fontFamily="Roboto">
                                 {bar}
                             </text>
                         )}

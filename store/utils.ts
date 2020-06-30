@@ -2,9 +2,10 @@ import { useMemo, useEffect } from "react";
 import { mdiAccount, mdiAccountGroup } from "@mdi/js";
 import { store, useStore } from "./use-store";
 import { Player, Instrument, State, Flow } from "./defs";
-import { PlayerType, AutoCountStyle } from "solo-composer-engine";
+import { PlayerType, AutoCountStyle, TimeSignatureDrawType } from "solo-composer-engine";
 import { toRoman } from "roman-numerals";
 import { actions } from "./actions";
+import { copy } from "../ui";
 
 export interface Tick {
     x: number;
@@ -125,8 +126,18 @@ export function useDefsList(path: string[]): string[][] {
 
 export function useAutoSetup() {
     useEffect(() => {
+        // make actions available globally for debugging
+        const win = window as any;
+        win.sc_actions = actions;
+
         const state = store.get() as State;
         const flow_key = state.score.flows.order[0];
+
+        copy(flow_key).then(() => console.log("copied: ", flow_key));
+
+        actions.score.entries.time_signature.create(flow_key, 0, 4, 4, TimeSignatureDrawType.Normal);
+        actions.score.flow.length(flow_key, 4 * 4 * 4);
+
         const players = [
             { type: PlayerType.Solo, instruments: ["woodwinds.clarinet.b-flat", "woodwinds.clarinet.a"] },
             { type: PlayerType.Section, instruments: ["strings.violin"] },

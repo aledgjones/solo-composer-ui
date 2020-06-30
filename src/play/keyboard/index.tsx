@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import { useDragHandler } from "../../../ui";
-import { Keys } from "./keys";
+import { Slots } from "./slots";
 import { SLOT_HEIGHT } from "../const";
 import { useStore, actions } from "../../../store";
 
@@ -37,7 +37,7 @@ export const Keyboard: FC<Props> = ({ instrumentKey, height }) => {
 
     return (
         <div className="keyboard" onPointerDown={onDrag} style={{ height: height * SLOT_HEIGHT }}>
-            <Keys base={base} height={height} />
+            <Slots base={base} count={height} isKeyboard={true} />
         </div>
     );
 };
