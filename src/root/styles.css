@@ -11,6 +11,10 @@
 .ui-light {
     --background-200: #888888;
     --foreground-200: var(--black);
+    --background-300: #aaaaaa;
+    --foreground-300: var(--black);
+    --background-400: #bbbbbb;
+    --foreground-400: var(--black);
     --background-500: #ffffff;
     --foreground-500: var(--black);
     --background-800: #dddddd;
@@ -22,6 +26,10 @@
 .ui-dark {
     --background-200: #252429;
     --foreground-200: var(--white);
+    --background-300: #292830;
+    --foreground-300: var(--white);
+    --background-400: #2b2931;
+    --foreground-400: var(--white);
     --background-500: #2d2c31;
     --foreground-500: var(--white);
     --background-800: #38383c;

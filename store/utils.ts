@@ -2,7 +2,7 @@ import { useMemo, useEffect } from "react";
 import { mdiAccount, mdiAccountGroup } from "@mdi/js";
 import { store, useStore } from "./use-store";
 import { Player, Instrument, State, Flow } from "./defs";
-import { PlayerType, AutoCountStyle, TimeSignatureDrawType } from "solo-composer-engine";
+import { PlayerType, AutoCountStyle, TimeSignatureDrawType, View } from "solo-composer-engine";
 import { toRoman } from "roman-numerals";
 import { actions } from "./actions";
 import { copy } from "../ui";
@@ -62,7 +62,11 @@ export function useCountStyle(playerType: PlayerType) {
     );
 }
 
-export function useInstrumentName(instrument: Instrument, count: number | undefined, count_style: AutoCountStyle) {
+export function useInstrumentName(
+    instrument: Instrument,
+    count: number | undefined,
+    count_style: AutoCountStyle
+) {
     return useMemo(() => {
         if (count) {
             return instrument.long_name + count_to_string(count_style, count);
@@ -135,11 +139,20 @@ export function useAutoSetup() {
 
         copy(flow_key).then(() => console.log("copied: ", flow_key));
 
-        actions.score.entries.time_signature.create(flow_key, 0, 4, 4, TimeSignatureDrawType.Normal);
+        actions.score.entries.time_signature.create(
+            flow_key,
+            0,
+            4,
+            4,
+            TimeSignatureDrawType.Normal
+        );
         actions.score.flow.length(flow_key, 4 * 4 * 4);
 
         const players = [
-            { type: PlayerType.Solo, instruments: ["woodwinds.clarinet.b-flat", "woodwinds.clarinet.a"] },
+            {
+                type: PlayerType.Solo,
+                instruments: ["woodwinds.clarinet.b-flat", "woodwinds.clarinet.a"]
+            },
             { type: PlayerType.Section, instruments: ["strings.violin"] },
             { type: PlayerType.Section, instruments: ["strings.violin"] },
             { type: PlayerType.Section, instruments: ["strings.viola"] },
@@ -152,5 +165,7 @@ export function useAutoSetup() {
                 actions.score.player.assign_instrument(playerKey, instrumentKey);
             });
         });
+
+        actions.ui.view(View.Play);
     }, []);
 }
