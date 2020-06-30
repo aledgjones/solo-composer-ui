@@ -1,13 +1,16 @@
-import React, { FC, CSSProperties } from "react";
-import { merge } from "../../../ui";
+import React, { FC, Fragment } from "react";
 import { State, useStore } from "../../../store";
 
 import "./styles.css";
 
 function injectVar(str: string, state: State) {
     const var_regex = /(@var:[^\s@]*:var@)/g;
-    return str.replace(var_regex, () => {
-        switch (str) {
+    return str.replace(var_regex, (entry) => {
+        switch (entry) {
+            // generated
+            case "@var:year:var@":
+                return new Date().getFullYear().toString();
+            // user-defined
             case "@var:project-title:var@":
                 return state.score.meta.title;
             case "@var:project-subtitle:var@":
@@ -26,20 +29,21 @@ function injectVar(str: string, state: State) {
     });
 }
 
-const symDictionary: { [sym: string]: string } = {
-    "@sym:flat:sym@": "\u{E260}"
-};
-
 function injectSym(str: string) {
-    const sym_regex = /(@sym:[^\s@]*:sym@)/g;
+    const sym_regex = /@sym:[^\s@]*:sym@/g;
 
     const split = str.split(sym_regex).filter((entry) => entry); // filter any empties
-    return split.map((str) => {
-        const sym = symDictionary[str];
-        return {
-            isSymbol: sym,
-            text: sym || str
-        };
+    return split.map((entry) => {
+        switch (entry) {
+            // none-musical
+            case "@sym:copy:sym@":
+                return { content: "\u{00A9}", isMusicSymbol: false };
+            // musical
+            case "@sym:flat:sym@":
+                return { content: "\u{E260}", isMusicSymbol: true };
+            default:
+                return { content: str, isMusicSymbol: false };
+        }
     });
 }
 
@@ -51,24 +55,25 @@ interface Props {
  * Converts a string of text with tokens in a formed string eg.
  * This uses the music font for music symbols.
  *
- * "Carinet in B@flat@" -> "Clarinet in B♭"
+ * "Carinet in B@sym:flat:sym@" -> "Clarinet in B♭"
  */
 export const Text: FC<Props> = ({ content }) => {
     const state = useStore((s) => s);
     const replaced = injectVar(content, state);
+    console.log(replaced);
     const tokens = injectSym(replaced);
 
     return (
         <>
-            {tokens.map((e, i) => {
-                if (e.isSymbol) {
+            {tokens.map((token, i) => {
+                if (token.isMusicSymbol) {
                     return (
-                        <span key={i} className="text--symbol">
-                            {e.text}
+                        <span key={i} className="text--music-symbol">
+                            {token.content}
                         </span>
                     );
                 } else {
-                    return <span key={i}>{e.text}</span>;
+                    return <Fragment key={i}>{token.content}</Fragment>;
                 }
             })}
         </>

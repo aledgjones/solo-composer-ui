@@ -62,11 +62,7 @@ export function useCountStyle(playerType: PlayerType) {
     );
 }
 
-export function useInstrumentName(
-    instrument: Instrument,
-    count: number | undefined,
-    count_style: AutoCountStyle
-) {
+export function useInstrumentName(instrument: Instrument, count: number | undefined, count_style: AutoCountStyle) {
     return useMemo(() => {
         if (count) {
             return instrument.long_name + count_to_string(count_style, count);
@@ -139,13 +135,7 @@ export function useAutoSetup() {
 
         copy(flow_key).then(() => console.log("copied: ", flow_key));
 
-        actions.score.entries.time_signature.create(
-            flow_key,
-            0,
-            4,
-            4,
-            TimeSignatureDrawType.Normal
-        );
+        actions.score.entries.time_signature.create(flow_key, 0, 4, 4, TimeSignatureDrawType.Normal);
         actions.score.flow.length(flow_key, 4 * 4 * 4);
 
         const players = [

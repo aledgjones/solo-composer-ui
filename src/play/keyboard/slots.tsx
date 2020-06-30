@@ -41,7 +41,7 @@ export const Slots: FC<Props> = ({ className, style, base, count, isKeyboard }) 
                     return (
                         <rect
                             key={i}
-                            fill={isKeyboard ? "#ffffff" : "var(--background-400)"}
+                            fill={isKeyboard ? "#ffffff" : "var(--background-700)"}
                             x={isKeyboard ? -3 : 0}
                             y={i * white_key_space - modulo(offset * SLOT_HEIGHT, white_key_space)}
                             width={isKeyboard ? 67 : 64}
@@ -57,7 +57,7 @@ export const Slots: FC<Props> = ({ className, style, base, count, isKeyboard }) 
                     return (
                         <rect
                             key={i}
-                            fill={isKeyboard ? "var(--black)" : "var(--background-300)"}
+                            fill={isKeyboard ? "var(--black)" : "var(--background-600)"}
                             x={isKeyboard ? -3 : 0}
                             y={black_key_space * i}
                             width={isKeyboard ? 47 : 64}

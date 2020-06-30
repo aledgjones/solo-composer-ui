@@ -26,12 +26,12 @@
 .ui-dark {
     --background-200: #252429;
     --foreground-200: var(--white);
-    --background-300: #292830;
-    --foreground-300: var(--white);
-    --background-400: #2b2931;
-    --foreground-400: var(--white);
     --background-500: #2d2c31;
     --foreground-500: var(--white);
+    --background-600: #313035;
+    --foreground-600: var(--white);
+    --background-700: #353439;
+    --foreground-700: var(--white);
     --background-800: #38383c;
     --foreground-800: var(--white);
     --background-1000: #808080;

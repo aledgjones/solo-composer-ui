@@ -17,7 +17,7 @@ export const Track: FC<Props> = ({ ticks, instrument, expanded, slots }) => {
     const base = useStore((s) => s.ui.play.keyboard[instrument.key] || 76, [instrument.key]);
     return (
         <div className="track">
-            <Ticks isTrack={false} ticks={ticks} height={48} fixed={false} className="track__header" />
+            <Ticks isTrack={false} ticks={ticks} height={48} className="track__header" />
             {expanded && (
                 <div className="track__channel" style={{ height: SLOT_HEIGHT * slots }}>
                     <Slots
@@ -27,13 +27,7 @@ export const Track: FC<Props> = ({ ticks, instrument, expanded, slots }) => {
                         count={slots}
                         isKeyboard={false}
                     />
-                    <Ticks
-                        isTrack={true}
-                        className="track__channel-ticks"
-                        ticks={ticks}
-                        height={SLOT_HEIGHT * slots}
-                        fixed={true}
-                    />
+                    <Ticks isTrack={true} className="track__channel-ticks" ticks={ticks} height={SLOT_HEIGHT * slots} />
                 </div>
             )}
         </div>
