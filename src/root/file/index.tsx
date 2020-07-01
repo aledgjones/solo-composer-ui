@@ -1,8 +1,7 @@
 import React, { FC, useEffect, useRef, useState } from "react";
-import { mdiMenu, mdiPencilOutline } from "@mdi/js";
-import { Icon, Card, Content, Subheader, Label, List, ListItem, Divider, Button } from "../../../ui";
+import { mdiMenu, mdiPencilOutline, mdiOpenInNew } from "@mdi/js";
+import { Icon, Card, Content, Subheader, Label, List, ListItem, Divider, Button, Link, noop } from "../../../ui";
 import { About } from "../../dialogs/about";
-import { Help } from "../../dialogs/help";
 import { Preferences } from "../../dialogs/preferences";
 import { Meta } from "../../dialogs/meta";
 import { useStore } from "../../../store";
@@ -20,7 +19,6 @@ export const File: FC = () => {
     const [meta, setMeta] = useState(false);
     const [about, setAbout] = useState(process.env.NODE_ENV === "production");
     const [preferences, setPreferences] = useState(false);
-    const [help, setHelp] = useState(false);
 
     const [update, setUpdate] = useState<() => void>();
 
@@ -88,7 +86,14 @@ export const File: FC = () => {
                                     <Divider />
                                 </>
                             )}
-                            <ListItem onClick={() => setHelp(true)}>Help &amp; Feedback</ListItem>
+                            <Link href="https://solo-apps.gitbook.io/solo-composer/" target="_blank">
+                                <ListItem className="ui-list-item--hover">
+                                    <Label>
+                                        <p>Help &amp; Feedback</p>
+                                    </Label>
+                                    <Icon path={mdiOpenInNew} size={20} />
+                                </ListItem>
+                            </Link>
                             <ListItem onClick={() => setAbout(true)}>About</ListItem>
                         </List>
                     </Card>
@@ -96,7 +101,6 @@ export const File: FC = () => {
             </div>
 
             <Meta width={900} open={meta} onClose={() => setMeta(false)} />
-            <Help width={500} open={help} onClose={() => setHelp(false)} />
             <About width={400} open={about} onClose={() => setAbout(false)} />
             <Preferences open={preferences} width={900} onClose={() => setPreferences(false)} />
         </>

@@ -3,46 +3,48 @@ import { State, useStore } from "../../../store";
 
 import "./styles.css";
 
-function injectVar(str: string, state: State) {
-    const var_regex = /(@var:[^\s@]*:var@)/g;
-    return str.replace(var_regex, (entry) => {
-        switch (entry) {
-            // generated
-            case "@var:year:var@":
-                return new Date().getFullYear().toString();
-            // user-defined
-            case "@var:project-title:var@":
-                return state.score.meta.title;
-            case "@var:project-subtitle:var@":
-                return state.score.meta.subtitle;
-            case "@var:project-composer:var@":
-                return state.score.meta.composer;
-            case "@var:project-arranger:var@":
-                return state.score.meta.arranger;
-            case "@var:project-lyricist:var@":
-                return state.score.meta.lyricist;
-            case "@var:project-copyright:var@":
-                return state.score.meta.copyright;
-            default:
-                return str;
+const varDict: { [key: string]: (state: State) => string } = {
+    // generated
+    "${year}": () => new Date().getFullYear().toString(),
+    "${month}": () => new Date().getMonth().toString().padStart(2, "0"),
+    "${date}": () => new Date().getDate().toString().padStart(2, "0"),
+    // user-defined
+    "${project-title}": (state) => state.score.meta.title,
+    "${project-subtitle}": (state) => state.score.meta.subtitle,
+    "${project-composer}": (state) => state.score.meta.composer,
+    "${project-arranger}": (state) => state.score.meta.arranger,
+    "${project-lyricist}": (state) => state.score.meta.lyricist,
+    "${project-copyright}": (state) => state.score.meta.copyright
+};
+
+function injectVar(content: string, state: State) {
+    const var_regex = /(\${[^\s@]*})/g;
+    return content.replace(var_regex, (token) => {
+        const replacer = varDict[token];
+        if (replacer) {
+            return replacer(state);
+        } else {
+            return token;
         }
     });
 }
+const symDict: { [key: string]: { content: string; sym: boolean } } = {
+    // non-musical
+    "${copy}": { content: "\u{00A9}", sym: false },
+    // musical
+    "${flat}": { content: "\u{E260}", sym: true }
+};
 
-function injectSym(str: string) {
-    const sym_regex = /@sym:[^\s@]*:sym@/g;
+function injectSym(content: string) {
+    const sym_regex = /(\${[^\s@]*})/g;
 
-    const split = str.split(sym_regex).filter((entry) => entry); // filter any empties
+    const split = content.split(sym_regex).filter((entry) => entry); // filter any empties
     return split.map((entry) => {
-        switch (entry) {
-            // none-musical
-            case "@sym:copy:sym@":
-                return { content: "\u{00A9}", isMusicSymbol: false };
-            // musical
-            case "@sym:flat:sym@":
-                return { content: "\u{E260}", isMusicSymbol: true };
-            default:
-                return { content: str, isMusicSymbol: false };
+        const replacer = symDict[entry];
+        if (replacer) {
+            return replacer;
+        } else {
+            return { content: entry, sym: false };
         }
     });
 }
@@ -55,18 +57,17 @@ interface Props {
  * Converts a string of text with tokens in a formed string eg.
  * This uses the music font for music symbols.
  *
- * "Carinet in B@sym:flat:sym@" -> "Clarinet in B♭"
+ * "Carinet in B${flat}" -> "Clarinet in B♭"
  */
 export const Text: FC<Props> = ({ content }) => {
     const state = useStore((s) => s);
     const replaced = injectVar(content, state);
-    console.log(replaced);
     const tokens = injectSym(replaced);
 
     return (
         <>
             {tokens.map((token, i) => {
-                if (token.isMusicSymbol) {
+                if (token.sym) {
                     return (
                         <span key={i} className="text--music-symbol">
                             {token.content}

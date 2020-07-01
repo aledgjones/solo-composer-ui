@@ -21,42 +21,42 @@ export const Meta = Dialog<Props>(({ onClose }) => {
                     <div className="generic-settings__label-with-input">
                         <p className="generic-settings__label">
                             <span>Title</span>
-                            <TagCopier content="@var:project-title:var@" />
+                            <TagCopier content="${project-title}" />
                         </p>
                         <Input type="text" value={meta.title} onChange={actions.score.meta.title} />
                     </div>
                     <div className="generic-settings__label-with-input">
                         <p className="generic-settings__label">
                             <span>Subtitle</span>
-                            <TagCopier content="@var:project-subtitle:var@" />
+                            <TagCopier content="${project-subtitle}" />
                         </p>
                         <Input type="text" value={meta.subtitle} onChange={actions.score.meta.subtitle} />
                     </div>
                     <div className="generic-settings__label-with-input">
                         <p className="generic-settings__label">
                             <span>Composer</span>
-                            <TagCopier content="@var:project-composer:var@" />
+                            <TagCopier content="${project-composer}" />
                         </p>
                         <Input type="text" value={meta.composer} onChange={actions.score.meta.composer} />
                     </div>
                     <div className="generic-settings__label-with-input">
                         <p className="generic-settings__label">
                             <span>Arranger</span>
-                            <TagCopier content="@var:project-arranger:var@" />
+                            <TagCopier content="${project-arranger}" />
                         </p>
                         <Input type="text" value={meta.arranger} onChange={actions.score.meta.arranger} />
                     </div>
                     <div className="generic-settings__label-with-input">
                         <p className="generic-settings__label">
                             <span>Lyricist</span>
-                            <TagCopier content="@var:project-lyricist:var@" />
+                            <TagCopier content="${project-lyricist}" />
                         </p>
                         <Input type="text" value={meta.lyricist} onChange={actions.score.meta.lyricist} />
                     </div>
                     <div className="generic-settings__label-with-input">
                         <p className="generic-settings__label">
                             <span>Copyright</span>
-                            <TagCopier content="@var:project-copyright:var@" />
+                            <TagCopier content="${project-copyright}" />
                         </p>
                         <Textarea value={meta.copyright} onChange={actions.score.meta.copyright} />
                     </div>

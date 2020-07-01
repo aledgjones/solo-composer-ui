@@ -22,6 +22,7 @@ export { Form } from "./components/form";
 export { Icon } from "./components/icon";
 export { Input } from "./components/input";
 export { Label } from "./components/label";
+export { Link } from "./components/link";
 export { List } from "./components/list";
 export { ListItem } from "./components/list-item";
 export { MenuBar } from "./components/menu-bar";

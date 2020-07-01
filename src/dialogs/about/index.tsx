@@ -1,6 +1,6 @@
 import React from "react";
 import { mdiClose } from "@mdi/js";
-import { Dialog, Icon, Label, Content, Subheader, Divider } from "../../../ui";
+import { Dialog, Icon, Label, Content, Subheader, Divider, Link } from "../../../ui";
 
 import pkg from "../../../package.json";
 import logo from "./logo-silo.svg";
@@ -30,9 +30,9 @@ export const About = Dialog<Props>(({ onClose }) => {
                     This project is very much an experimental work in progress. Things <b>will</b> break, not exist,
                     make no sense and crash! This project is greatly inspired by the amazing work the people at
                     Steinberg are doing on{" "}
-                    <a rel="noopener noreferrer" href="https://new.steinberg.net/dorico/" target="_blank">
+                    <Link href="https://new.steinberg.net/dorico/" target="_blank">
                         Dorico
-                    </a>
+                    </Link>
                     .
                 </p>
             </Content>
