@@ -19,16 +19,23 @@ export const Track: FC<Props> = ({ ticks, instrument, expanded, slots }) => {
         <div className="track">
             <Ticks isTrack={false} ticks={ticks} height={48} className="track__header" />
             {expanded && (
-                <div className="track__channel" style={{ height: SLOT_HEIGHT * slots }}>
-                    <Slots
-                        style={{ width: ticks.width }}
-                        className="track__channel-slots"
-                        base={base}
-                        count={slots}
-                        isKeyboard={false}
-                    />
-                    <Ticks isTrack={true} className="track__channel-ticks" ticks={ticks} height={SLOT_HEIGHT * slots} />
-                </div>
+                <>
+                    <div className="track__tone-channel" style={{ height: SLOT_HEIGHT * slots }}>
+                        <Slots
+                            style={{ width: ticks.width }}
+                            className="track__tone-channel-slots"
+                            base={base}
+                            count={slots}
+                            isKeyboard={false}
+                        />
+                        <Ticks
+                            isTrack={true}
+                            className="track__tone-channel-ticks"
+                            ticks={ticks}
+                            height={SLOT_HEIGHT * slots}
+                        />
+                    </div>
+                </>
             )}
         </div>
     );

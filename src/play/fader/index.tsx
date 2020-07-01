@@ -5,17 +5,20 @@ import "./styles.css";
 
 interface Props {
     percent: number;
+    color: string;
     onChange: (value: number) => void;
 }
 
-export const Fader: FC<Props> = ({ percent, onChange }) => {
+export const Fader: FC<Props> = ({ percent, color, onChange }) => {
     const ref = useRef<HTMLDivElement>(null);
     const keyPress = useCallback(
         (e: KeyboardEvent<HTMLButtonElement>) => {
             if (e.key === "ArrowLeft") {
+                e.preventDefault();
                 percent - 1 < 0 ? onChange(0) : onChange(percent - 1);
             }
             if (e.key === "ArrowRight") {
+                e.preventDefault();
                 percent + 1 > 100 ? onChange(100) : onChange(percent + 1);
             }
         },
@@ -55,7 +58,7 @@ export const Fader: FC<Props> = ({ percent, onChange }) => {
                     className="fader__handle"
                     onPointerDown={pointerDown}
                     onKeyDown={keyPress}
-                    style={{ left: `${percent}%` }}
+                    style={{ left: `${percent}%`, backgroundColor: color }}
                 />
             </div>
             {Array(11)

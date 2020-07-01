@@ -1,9 +1,12 @@
 :root {
-    --primary-bg: #33c1ff;
-    --primary-fg: #252429;
-
     --black: #252429;
     --white: #dddddd;
+
+    --primary-bg: #0064b1;
+    --primary-fg: var(--white);
+
+    --primary-light-bg: #1a74b9;
+    --primary-light-fg: var(--white);
 
     --error: #ff6347;
 }
@@ -34,6 +37,8 @@
     --foreground-700: var(--white);
     --background-800: #38383c;
     --foreground-800: var(--white);
+    --background-900: #404043;
+    --foreground-900: var(--white);
     --background-1000: #808080;
     --foreground-1000: var(--white);
 }
@@ -46,8 +51,7 @@
     display: flex;
     align-items: center;
     height: 48px;
-    background-color: var(--background-500);
-    border-bottom: 1px solid var(--background-200);
+    background-color: var(--background-200);
 }
 
 .root__tabs {
@@ -55,7 +59,7 @@
 }
 
 .root__history {
-    border-left: 1px solid var(--background-200);
+    border-left: 1px solid var(--background-500);
     height: 100%;
     display: flex;
     align-items: center;

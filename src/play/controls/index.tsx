@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from "react";
-import { mdiChevronDown, mdiCogOutline, mdiSizeS, mdiSizeM } from "@mdi/js";
-import { Icon, noop, Label } from "../../../ui";
+import { mdiChevronDown, mdiCogOutline, mdiSizeS, mdiSizeM, mdiGraphOutline, mdiEarHearing } from "@mdi/js";
+import { Icon, noop, Label, Select, Option } from "../../../ui";
 import { Instrument, useInstrumentName, PlayerType, useCountStyle, actions } from "../../../store";
 import { Text } from "../../components/text";
 import { Keyboard } from "../keyboard";
@@ -58,25 +58,30 @@ export const Controls: FC<Props> = ({ color, playerType, instrument, expanded, c
                 />
             </div>
             {expanded && (
-                <div className="controls__settings-wrapper">
-                    <div className="controls__settings">
-                        <div className="controls__settings-spacer">
-                            <Meter percent={0} />
-                            <Fader
-                                percent={instrument.volume}
-                                onChange={(volume: number) => actions.score.instrument.volume(instrument.key, volume)}
-                            />
+                <>
+                    <div className="controls__settings-wrapper">
+                        <div className="controls__settings">
+                            <div className="controls__settings-spacer">
+                                <Meter percent={0} color={color} />
+                                <Fader
+                                    percent={instrument.volume}
+                                    color={color}
+                                    onChange={(volume: number) =>
+                                        actions.score.instrument.volume(instrument.key, volume)
+                                    }
+                                />
+                            </div>
+                            <div className="controls__sampler-config">
+                                <Label className="controls__sampler-meta">
+                                    <p>Solo Sampler</p>
+                                    <p>{instrument.id}</p>
+                                </Label>
+                                <Icon path={mdiCogOutline} size={24} onClick={noop} />
+                            </div>
                         </div>
-                        <div className="controls__sampler-config">
-                            <Label className="controls__sampler-meta">
-                                <p>Solo Sampler</p>
-                                <p>{instrument.id}</p>
-                            </Label>
-                            <Icon path={mdiCogOutline} size={24} onClick={noop} />
-                        </div>
+                        <Keyboard instrumentKey={instrument.key} height={slots} />
                     </div>
-                    <Keyboard instrumentKey={instrument.key} height={slots} />
-                </div>
+                </>
             )}
         </div>
     );

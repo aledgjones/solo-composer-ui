@@ -1,10 +1,8 @@
 .track {
     position: relative;
-    border-top: 1px solid var(--background-200);
-    border-bottom: 1px solid var(--background-200);
-    background-color: var(--background-500);
+    background-color: var(--background-600);
     min-width: calc(100vw - 350px);
-    margin-bottom: 8px;
+    border-bottom: 1px solid var(--background-500);
 }
 
 .track__header {
@@ -13,24 +11,24 @@
     z-index: 100;
     display: block;
     height: 48px;
-    background-color: var(--background-800);
+    background-color: var(--background-900);
     margin-right: 20px;
 }
 
-.track__channel {
+.track__tone-channel {
     position: relative;
 }
 
-.track__channel-slots {
+.track__tone-channel-slots {
     position: absolute;
     top: 0;
     left: 0;
     pointer-events: none;
     z-index: 1;
-    background-color: var(--background-600);
+    background-color: var(--background-700);
 }
 
-.track__channel-ticks {
+.track__tone-channel-ticks {
     position: relative;
     margin-right: 20px;
     pointer-events: none;

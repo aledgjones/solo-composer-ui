@@ -26,17 +26,7 @@ interface Props {
 /**
  * Select component to be used with the Option component.
  */
-export const Select: FC<Props> = ({
-    id,
-    className,
-    style,
-    value,
-    margin,
-    children,
-    onChange,
-    disabled,
-    direction
-}) => {
+export const Select: FC<Props> = ({ id, className, style, value, margin, children, onChange, disabled, direction }) => {
     const [focus, setFocus] = useState<boolean>(false);
     const element = useRef<HTMLDivElement>(null);
 
@@ -102,7 +92,7 @@ export const Select: FC<Props> = ({
                     Children.map(children, (child: any) => {
                         if (child) {
                             return (
-                                <div
+                                <button
                                     key={child.props.value}
                                     className="ui-select__item"
                                     onClick={() => {
@@ -110,7 +100,7 @@ export const Select: FC<Props> = ({
                                     }}
                                 >
                                     {child}
-                                </div>
+                                </button>
                             );
                         } else {
                             return null;

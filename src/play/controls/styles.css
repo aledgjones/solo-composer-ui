@@ -1,8 +1,7 @@
 .controls {
     position: relative;
-    border: 1px solid var(--background-200);
     background-color: var(--background-800);
-    margin-bottom: 8px;
+    border-bottom: 1px solid var(--background-500);
 }
 
 .controls__color {
@@ -14,10 +13,15 @@
 }
 
 .controls__header {
+    position: sticky;
+    top: 0;
     display: flex;
     align-items: center;
     height: 48px;
     padding: 0 16px 0 20px;
+    background-color: var(--background-800);
+    z-index: 100;
+    margin-left: 4px;
 }
 
 .controls__name {
@@ -33,6 +37,7 @@
 
 .controls__settings-wrapper {
     display: flex;
+    background-color: var(--background-600);
 }
 
 .controls__settings {

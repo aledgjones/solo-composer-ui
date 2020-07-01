@@ -3,12 +3,11 @@
     margin-bottom: 8px;
     background-color: var(--background-800);
     color: var(--foreground-800);
-    border: 1px solid var(--background-200);
 }
 
 .player-item--selected {
-    z-index: 100;
-    border: 1px solid var(--primary-bg);
+    background-color: var(--primary-bg);
+    color: var(--prmary-fg);
 }
 
 .player-item.ui-sortable-item--sorting {
@@ -16,6 +15,7 @@
 }
 
 .player-item.ui-sortable-item--active {
+    z-index: 100;
     transition: transform 0s;
     box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }

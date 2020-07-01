@@ -17,8 +17,7 @@
     height: 16px;
     width: 24px;
     transform: translate(-50%, 0);
-    background-color: var(--primary-bg);
-    border: 1px solid var(--primary-fg);
+    border: 1px solid var(--background-200);
     z-index: 1;
     cursor: pointer;
     outline: none;
@@ -41,7 +40,7 @@
     height: 10px;
     width: 1px;
     transform: translateX(-50%);
-    background-color: var(--primary-fg);
+    background-color: var(--background-200);
 }
 
 .fader__scale {
