@@ -103,7 +103,7 @@ const Play: FC = () => {
                                         instrument={instruments[instrument_key]}
                                         expanded={expanded[instrument_key + "-instrument"]}
                                         count={counts[instrument_key]}
-                                        slots={24}
+                                        slots={17}
                                     />
                                 );
                             });
@@ -123,7 +123,7 @@ const Play: FC = () => {
                                         ticks={ticks}
                                         instrument={instruments[instrument_key]}
                                         expanded={expanded[instrument_key + "-instrument"]}
-                                        slots={24}
+                                        slots={17}
                                     />
                                 );
                             });

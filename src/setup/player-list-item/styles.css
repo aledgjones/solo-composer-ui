@@ -3,11 +3,11 @@
     background-color: var(--background-800);
     color: var(--foreground-800);
     margin-bottom: 8px;
+    border: 1px solid var(--background-200);
 }
 
 .player-item--selected {
-    background-color: var(--primary-bg);
-    color: var(--prmary-fg);
+    border: 1px solid var(--primary-bg);
 }
 
 .player-item.ui-sortable-item--sorting {

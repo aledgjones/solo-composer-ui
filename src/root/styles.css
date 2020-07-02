@@ -2,11 +2,8 @@
     --black: #252429;
     --white: #dddddd;
 
-    --primary-bg: #0064b1;
-    --primary-fg: var(--white);
-
-    --primary-light-bg: #1a74b9;
-    --primary-light-fg: var(--white);
+    --primary-bg: #33c1ff;
+    --primary-fg: var(--black);
 
     --error: #ff6347;
 }

@@ -9,11 +9,7 @@
     margin-bottom: 8px;
     background-color: var(--background-900);
     color: var(--background-900-fg);
-}
-
-.instrument-item--selected {
-    background-color: var(--primary-light-bg);
-    color: var(--primary-light-fg);
+    border: 1px solid var(--background-200);
 }
 
 .instrument-item.ui-sortable-item--sorting {

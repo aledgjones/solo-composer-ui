@@ -1,6 +1,8 @@
 .controls {
     position: relative;
     background-color: var(--background-800);
+    color: var(--foreground-800);
+    border: 1px solid var(--background-200);
     margin-bottom: 8px;
 }
 
@@ -20,6 +22,7 @@
     height: 48px;
     padding: 0 16px 0 20px;
     background-color: var(--background-800);
+    color: var(--foreground-800);
     z-index: 100;
     margin-left: 4px;
 }

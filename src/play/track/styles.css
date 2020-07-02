@@ -1,6 +1,9 @@
 .track {
     position: relative;
     background-color: var(--background-600);
+    color: var(--foreground-600);
+    border-top: 1px solid var(--background-200);
+    border-bottom: 1px solid var(--background-200);
     min-width: calc(100vw - 350px);
     margin-bottom: 8px;
 }
@@ -12,6 +15,7 @@
     display: block;
     height: 48px;
     background-color: var(--background-900);
+    color: var(--foreground-900);
     margin-right: 20px;
 }
 
