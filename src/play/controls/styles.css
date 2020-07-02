@@ -1,7 +1,7 @@
 .controls {
     position: relative;
     background-color: var(--background-800);
-    border-bottom: 1px solid var(--background-500);
+    margin-bottom: 8px;
 }
 
 .controls__color {

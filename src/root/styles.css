@@ -51,7 +51,8 @@
     display: flex;
     align-items: center;
     height: 48px;
-    background-color: var(--background-200);
+    background-color: var(--background-500);
+    border-bottom: 1px solid var(--background-200);
 }
 
 .root__tabs {
@@ -59,7 +60,7 @@
 }
 
 .root__history {
-    border-left: 1px solid var(--background-500);
+    border-left: 1px solid var(--background-200);
     height: 100%;
     display: flex;
     align-items: center;

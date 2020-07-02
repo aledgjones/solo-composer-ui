@@ -1,8 +1,9 @@
 .player-item {
     position: relative;
-    margin-bottom: 8px;
     background-color: var(--background-800);
     color: var(--foreground-800);
+    margin-bottom: 8px;
+    padding-left: 4px;
 }
 
 .player-item--selected {
