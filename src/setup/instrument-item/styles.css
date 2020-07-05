@@ -9,7 +9,7 @@
     margin-bottom: 8px;
     background-color: var(--background-900);
     color: var(--background-900-fg);
-    border: 1px solid var(--background-200);
+    border: 1px solid var(--background-500);
 }
 
 .instrument-item.ui-sortable-item--sorting {

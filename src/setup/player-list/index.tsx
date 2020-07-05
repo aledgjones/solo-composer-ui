@@ -22,7 +22,7 @@ export const PlayerList: FC<Props> = ({ selection, onSelect, onAddInstrument, on
             return s.score.players.by_key[key];
         }),
         s.score.instruments,
-        s.ui.expanded
+        s.ui.setup.expanded
     ]);
 
     const counts = useCounts(players, instruments);
@@ -51,7 +51,7 @@ export const PlayerList: FC<Props> = ({ selection, onSelect, onAddInstrument, on
                                 instruments={instruments}
                                 counts={counts}
                                 selected={selection && player.key === selection.key}
-                                expanded={expanded[player.key + "-setup"]}
+                                expanded={expanded[player.key]}
                                 onSelect={onSelect}
                                 onAddInstrument={onAddInstrument}
                             />

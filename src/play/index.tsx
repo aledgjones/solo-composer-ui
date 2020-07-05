@@ -1,16 +1,16 @@
 import React, { FC, useState, useCallback } from "react";
 import { mdiCursorDefault, mdiEraser, mdiPen, mdiBoxCutter, mdiPlus, mdiMinus } from "@mdi/js";
 import { useTitle, useRainbow, Icon, DragScroll, Select, Option } from "../../ui";
-import { useStore, useCounts, actions, Tool, useTicks } from "../../store";
+import { useStore, useCounts, actions, Tool, useTicks, NoteDuration, duration_to_ticks } from "../../store";
 import { Controls } from "./controls";
 import { Track } from "./track";
 
 import "./styles.css";
 
 const Play: FC = () => {
-    useTitle("Solo Composer | Play");
+    useTitle("Solo Composer | Sequence");
 
-    const [flows, players, instruments, expanded, tool, zoom] = useStore((s) => {
+    const [flows, players, instruments, tool, zoom, snap_duration] = useStore((s) => {
         return [
             s.score.flows.order.map((flow_key) => {
                 const { key, title } = s.score.flows.by_key[flow_key];
@@ -18,15 +18,16 @@ const Play: FC = () => {
             }),
             s.score.players.order.map((player_key) => s.score.players.by_key[player_key]),
             s.score.instruments,
-            s.ui.expanded,
             s.ui.play.tool,
-            s.ui.play.zoom
+            s.ui.play.zoom,
+            s.ui.snap
         ];
     });
 
     const [flowKey, setFlowKey] = useState<string>(flows[0].key);
     const flow = useStore((s) => s.score.flows.by_key[flowKey], [flowKey]);
 
+    const snap = duration_to_ticks(flow.subdivisions, snap_duration);
     const colors = useRainbow(players.length);
     const counts = useCounts(players, instruments);
     const ticks = useTicks(flow, zoom);
@@ -101,9 +102,7 @@ const Play: FC = () => {
                                         color={colors[i]}
                                         playerType={player.player_type}
                                         instrument={instruments[instrument_key]}
-                                        expanded={expanded[instrument_key + "-instrument"]}
                                         count={counts[instrument_key]}
-                                        slots={17}
                                     />
                                 );
                             });
@@ -120,10 +119,10 @@ const Play: FC = () => {
                                 return (
                                     <Track
                                         key={instrument_key}
-                                        ticks={ticks}
+                                        flowKey={flowKey}
                                         instrument={instruments[instrument_key]}
-                                        expanded={expanded[instrument_key + "-instrument"]}
-                                        slots={17}
+                                        color={colors[i]}
+                                        ticks={ticks}
                                     />
                                 );
                             });
@@ -135,10 +134,29 @@ const Play: FC = () => {
             </DragScroll>
 
             <div className="play__bottom-panel">
-                <div />
-                <div className="play__zoom">
-                    <Icon className="play__zoom-icon" path={mdiMinus} size={22} onClick={desc} />
+                <div className="play__bottom-panel-section">
                     <Select
+                        className="play__bottom-panel-select play__snap-select"
+                        direction="up"
+                        value={snap_duration}
+                        onChange={(val) => actions.ui.snap(val)}
+                    >
+                        <Option value={NoteDuration.Eighth} displayAs={"\u{E1D7}"}>
+                            {"\u{E1D7}"}
+                        </Option>
+                        <Option value={NoteDuration.Sixteenth} displayAs={"\u{E1D9}"}>
+                            {"\u{E1D9}"}
+                        </Option>
+                        <Option value={NoteDuration.ThirtySecond} displayAs={"\u{E1DB}"}>
+                            {"\u{E1DB}"}
+                        </Option>
+                    </Select>
+                </div>
+                <div />
+                <div className="play__bottom-panel-section">
+                    <Icon className="play__bottom-panel-icon" path={mdiMinus} size={22} onClick={desc} />
+                    <Select
+                        className="play__bottom-panel-select play__zoom-select"
                         direction="up"
                         value={Math.round(zoom * 100)}
                         onChange={(value) => actions.ui.play.zoom(value)}
@@ -174,8 +192,7 @@ const Play: FC = () => {
                             500%
                         </Option>
                     </Select>
-
-                    <Icon className="play__zoom-icon" path={mdiPlus} size={22} onClick={inc} />
+                    <Icon className="play__bottom-panel-icon" path={mdiPlus} size={22} onClick={inc} />
                 </div>
             </div>
         </>

@@ -1,4 +1,11 @@
-import { View, ThemeMode, PlayerType, Tool, AutoCountStyle } from "solo-composer-engine";
+import { View, ThemeMode, PlayerType, Tool, AutoCountStyle, Accidental, NoteDuration } from "solo-composer-engine";
+
+export interface Tone {
+    key: string;
+    tick: number;
+    duration: { int: number };
+    pitch: { int: number; accidental: Accidental };
+}
 
 export interface Patches {
     [expression: string]: string;
@@ -36,7 +43,7 @@ export interface Track {
 export interface Stave {
     key: string;
     lines: number;
-    mater: Track;
+    master: Track;
     tracks: string[];
 }
 
@@ -92,9 +99,13 @@ export interface State {
     };
     ui: {
         view: View;
-        expanded: { [key: string]: boolean };
+        snap: NoteDuration;
+        setup: {
+            expanded: { [key: string]: boolean };
+        };
         play: {
-            keyboard: { [key: string]: number };
+            expanded: { [key: string]: boolean };
+            keyboard: { [key: string]: { base: number; height: number } };
             tool: Tool;
             zoom: number;
         };

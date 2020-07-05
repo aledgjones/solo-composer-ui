@@ -1,4 +1,12 @@
-import { ThemeMode, AutoCountStyle, View, PlayerType, Tool, TimeSignatureDrawType } from "solo-composer-engine";
+import {
+    ThemeMode,
+    AutoCountStyle,
+    View,
+    PlayerType,
+    Tool,
+    TimeSignatureDrawType,
+    NoteDuration
+} from "solo-composer-engine";
 import { store } from "./use-store";
 import { Patches } from "./defs";
 
@@ -69,15 +77,37 @@ export const actions = {
                     draw_type: TimeSignatureDrawType,
                     groupings?: Uint8Array
                 ) => store.create_time_signature(flow_key, tick, beats, beat_type, draw_type, groupings)
+            },
+            tone: {
+                create: (flow_key: string, track_key: string, tick: number, duration: number, pitch: number): string =>
+                    store.create_tone(flow_key, track_key, tick, duration, pitch),
+
+                update: (
+                    flow_key: string,
+                    track_key: string,
+                    entry_key: string,
+                    tick: number,
+                    duration: number,
+                    pitch: number
+                ) => store.update_tone(flow_key, track_key, entry_key, tick, duration, pitch),
+
+                remove: (flow_key: string, track_key: string, entry_key: string) =>
+                    store.remove_tone(flow_key, track_key, entry_key)
             }
         }
     },
     ui: {
         view: (value: View) => store.set_view(value),
-        expand: (key: string) => store.expand(key),
-        collapse: (key: string) => store.collapse(key),
+        snap: (snap: NoteDuration) => store.set_snap(snap),
+        setup: {
+            expand: (key: string) => store.setup_expand(key),
+            collapse: (key: string) => store.setup_collapse(key)
+        },
         play: {
-            keyboard: (instrument_key: string, offset: number) => store.set_play_keyboard(instrument_key, offset),
+            expand: (key: string) => store.play_expand(key),
+            collapse: (key: string) => store.play_collapse(key),
+            // TODO: make height a none fixeed number
+            keyboard: (instrument_key: string, base: number) => store.set_play_keyboard(instrument_key, base, 17),
             tool: (tool: Tool) => store.set_play_tool(tool),
             zoom: (zoom: number) => store.set_play_zoom(zoom)
         }

@@ -2,10 +2,10 @@ import { useMemo, useEffect } from "react";
 import { mdiAccount, mdiAccountGroup } from "@mdi/js";
 import { store, useStore } from "./use-store";
 import { Player, Instrument, State, Flow } from "./defs";
-import { PlayerType, AutoCountStyle, TimeSignatureDrawType, View } from "solo-composer-engine";
+import { PlayerType, AutoCountStyle, TimeSignatureDrawType, View, NoteDuration } from "solo-composer-engine";
 import { toRoman } from "roman-numerals";
 import { actions } from "./actions";
-import { copy } from "../ui";
+import { useLog } from "../ui";
 
 export interface Tick {
     x: number;
@@ -124,29 +124,55 @@ export function useDefsList(path: string[]): string[][] {
     }, [path]);
 }
 
+export function duration_to_ticks(subdivisions: number, duration: NoteDuration) {
+    switch (duration) {
+        case NoteDuration.Double:
+            return subdivisions * 8;
+        case NoteDuration.Whole:
+            return subdivisions * 4;
+        case NoteDuration.Half:
+            return subdivisions * 2;
+        case NoteDuration.Quarter:
+            return subdivisions;
+        case NoteDuration.Eighth:
+            return subdivisions / 2;
+        case NoteDuration.Sixteenth:
+            return subdivisions / 4;
+        case NoteDuration.ThirtySecond:
+            return subdivisions / 8;
+        default:
+            return subdivisions;
+    }
+}
+
 export function useAutoSetup() {
+    // logger
+    // const s = useStore((s) => s);
+    // useLog(s, "store");
+
+    // make actions available globally for debugging
     useEffect(() => {
-        // make actions available globally for debugging
         const win = window as any;
         win.sc_actions = actions;
+    }, []);
 
+    // the actual auto setup bit
+    useEffect(() => {
         const state = store.get() as State;
         const flow_key = state.score.flows.order[0];
-
-        copy(flow_key).then(() => console.log("copied: ", flow_key));
 
         actions.score.entries.time_signature.create(flow_key, 0, 4, 4, TimeSignatureDrawType.Normal);
         actions.score.flow.length(flow_key, 4 * 4 * 4);
 
         const players = [
-            {
-                type: PlayerType.Solo,
-                instruments: ["woodwinds.clarinet.b-flat", "woodwinds.clarinet.a"]
-            },
-            { type: PlayerType.Section, instruments: ["strings.violin"] },
-            { type: PlayerType.Section, instruments: ["strings.violin"] },
-            { type: PlayerType.Section, instruments: ["strings.viola"] },
-            { type: PlayerType.Section, instruments: ["strings.violoncello"] }
+            // {
+            //     type: PlayerType.Solo,
+            //     instruments: ["woodwinds.clarinet.b-flat", "woodwinds.clarinet.a"]
+            // },
+            { type: PlayerType.Section, instruments: ["strings.violin"] }
+            // { type: PlayerType.Section, instruments: ["strings.violin"] },
+            // { type: PlayerType.Section, instruments: ["strings.viola"] },
+            // { type: PlayerType.Section, instruments: ["strings.violoncello"] }
         ];
         players.forEach((player) => {
             const playerKey = actions.score.player.create(player.type);

@@ -12,7 +12,13 @@ interface Props {
 }
 
 export const Keyboard: FC<Props> = ({ instrumentKey, height }) => {
-    const base = useStore((s) => s.ui.play.keyboard[instrumentKey] || 76, [instrumentKey]);
+    const base = useStore(
+        (s) => {
+            const keyboard = s.ui.play.keyboard[instrumentKey];
+            return keyboard ? keyboard.base : 76;
+        },
+        [instrumentKey]
+    );
 
     const onDrag = useDragHandler<{ y: number; base: number }>(
         {

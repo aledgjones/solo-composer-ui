@@ -36,12 +36,12 @@ export const PlayerItem: FC<Props> = ({
         (e: MouseEvent<HTMLButtonElement>) => {
             e.stopPropagation();
             if (expanded) {
-                actions.ui.collapse(player.key + "-setup");
+                actions.ui.setup.collapse(player.key);
             } else {
-                actions.ui.expand(player.key + "-setup");
+                actions.ui.setup.expand(player.key);
             }
         },
-        [actions.ui.expand, player.key, expanded]
+        [player.key, expanded]
     );
 
     const onRemove = useCallback(

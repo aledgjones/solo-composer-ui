@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from "react";
-import { mdiChevronDown, mdiCogOutline, mdiSizeS, mdiSizeM, mdiGraphOutline, mdiEarHearing } from "@mdi/js";
-import { Icon, noop, Label, Select, Option } from "../../../ui";
-import { Instrument, useInstrumentName, PlayerType, useCountStyle, actions } from "../../../store";
+import { mdiChevronDown, mdiCogOutline, mdiSizeS, mdiSizeM } from "@mdi/js";
+import { Icon, noop, Label } from "../../../ui";
+import { Instrument, useInstrumentName, PlayerType, useCountStyle, actions, useStore } from "../../../store";
 import { Text } from "../../components/text";
 import { Keyboard } from "../keyboard";
 import { Meter } from "../meter";
@@ -13,20 +13,25 @@ interface Props {
     color: string;
     playerType: PlayerType;
     instrument: Instrument;
-    expanded: boolean;
     count: number;
-    slots: number;
 }
 
-export const Controls: FC<Props> = ({ color, playerType, instrument, expanded, count, slots }) => {
+export const Controls: FC<Props> = ({ color, playerType, instrument, count }) => {
+    const [slots, expanded] = useStore(
+        (s) => {
+            const keyboard = s.ui.play.keyboard[instrument.key];
+            return [keyboard ? keyboard.height : 17, s.ui.play.expanded[instrument.key]];
+        },
+        [instrument.key]
+    );
     const count_style = useCountStyle(playerType);
     const name = useInstrumentName(instrument, count, count_style);
 
     const onExpand = useCallback(() => {
         if (expanded) {
-            actions.ui.collapse(instrument.key + "-instrument");
+            actions.ui.play.collapse(instrument.key);
         } else {
-            actions.ui.expand(instrument.key + "-instrument");
+            actions.ui.play.expand(instrument.key);
         }
     }, [expanded]);
 
