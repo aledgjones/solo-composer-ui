@@ -27,7 +27,7 @@ export const Track: FC<Props> = ({ flowKey, instrument, color, ticks }) => {
                 s.ui.play.expanded[instrument.key],
                 s.ui.play.tool,
                 keyboard ? keyboard.height : 17,
-                keyboard ? keyboard.base : 17
+                keyboard ? keyboard.base : 76
             ];
         },
         [instrument.key]

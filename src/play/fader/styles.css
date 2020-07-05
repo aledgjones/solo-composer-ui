@@ -6,14 +6,15 @@
 
 .fader__track {
     position: relative;
-    height: 4px;
+    height: 8px;
     width: 100%;
-    background-color: var(--background-200);
+    background-color: var(--background-500);
+    border: 1px solid var(--background-200);
 }
 
 .fader__handle {
     position: absolute;
-    top: -6px;
+    top: -5px;
     height: 16px;
     width: 24px;
     transform: translate(-50%, 0);
@@ -45,7 +46,7 @@
 
 .fader__scale {
     position: absolute;
-    top: 8px;
+    top: 12px;
     height: 8px;
     width: 1px;
     transform: translateX(-50%);

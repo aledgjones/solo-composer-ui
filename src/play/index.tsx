@@ -27,7 +27,6 @@ const Play: FC = () => {
     const [flowKey, setFlowKey] = useState<string>(flows[0].key);
     const flow = useStore((s) => s.score.flows.by_key[flowKey], [flowKey]);
 
-    const snap = duration_to_ticks(flow.subdivisions, snap_duration);
     const colors = useRainbow(players.length);
     const counts = useCounts(players, instruments);
     const ticks = useTicks(flow, zoom);

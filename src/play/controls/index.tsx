@@ -4,7 +4,6 @@ import { Icon, noop, Label } from "../../../ui";
 import { Instrument, useInstrumentName, PlayerType, useCountStyle, actions, useStore } from "../../../store";
 import { Text } from "../../components/text";
 import { Keyboard } from "../keyboard";
-import { Meter } from "../meter";
 import { Fader } from "../fader";
 
 import "./styles.css";
@@ -67,9 +66,8 @@ export const Controls: FC<Props> = ({ color, playerType, instrument, count }) =>
                     <div className="controls__settings-wrapper">
                         <div className="controls__settings">
                             <div className="controls__settings-spacer">
-                                <Meter percent={0} color={color} />
                                 <Fader
-                                    percent={instrument.volume}
+                                    volume={instrument.volume}
                                     color={color}
                                     onChange={(volume: number) =>
                                         actions.score.instrument.volume(instrument.key, volume)

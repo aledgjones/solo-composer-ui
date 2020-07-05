@@ -165,14 +165,14 @@ export function useAutoSetup() {
         actions.score.flow.length(flow_key, 4 * 4 * 4);
 
         const players = [
-            // {
-            //     type: PlayerType.Solo,
-            //     instruments: ["woodwinds.clarinet.b-flat", "woodwinds.clarinet.a"]
-            // },
-            { type: PlayerType.Section, instruments: ["strings.violin"] }
-            // { type: PlayerType.Section, instruments: ["strings.violin"] },
-            // { type: PlayerType.Section, instruments: ["strings.viola"] },
-            // { type: PlayerType.Section, instruments: ["strings.violoncello"] }
+            {
+                type: PlayerType.Solo,
+                instruments: ["woodwinds.clarinet.b-flat", "woodwinds.clarinet.a"]
+            },
+            { type: PlayerType.Section, instruments: ["strings.violin"] },
+            { type: PlayerType.Section, instruments: ["strings.violin"] },
+            { type: PlayerType.Section, instruments: ["strings.viola"] },
+            { type: PlayerType.Section, instruments: ["strings.violoncello"] }
         ];
         players.forEach((player) => {
             const playerKey = actions.score.player.create(player.type);
