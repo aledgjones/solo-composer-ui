@@ -1,40 +1,43 @@
-import { useState, useEffect, useRef } from "react";
-import { Engine } from "solo-composer-engine";
-import * as equal from "fast-deep-equal";
-import shortid from "shortid";
+import { Engine, ThemeMode, View, NoteDuration, Tool, AutoCountStyle } from "solo-composer-engine";
 import { State } from "./defs";
+import { Store, useStoreState } from "pullstate";
 
-const listeners: Map<string, (s: any) => void> = new Map();
-export const store = new Engine((s: any) => {
-    listeners.forEach((callback) => callback(s));
+const store = new Store<State>({
+    app: { theme: ThemeMode.Dark, audition: false },
+    playback: { metronome: false },
+    score: {
+        meta: {
+            title: "",
+            subtitle: "",
+            composer: "",
+            arranger: "",
+            lyricist: "",
+            copyright: "",
+            created: 0,
+            modified: 0
+        },
+        config: {
+            auto_count: { solo: AutoCountStyle.Roman, section: AutoCountStyle.Roman }
+        },
+        flows: { order: [], by_key: {} },
+        players: {
+            order: [],
+            by_key: {}
+        },
+        instruments: {}
+    },
+    ui: {
+        view: View.Setup,
+        snap: NoteDuration.Sixteenth,
+        setup: { expanded: {} },
+        play: { expanded: {}, keyboard: {}, tool: Tool.Select, zoom: 1 }
+    }
 });
 
-export function useStore<T>(splitter: (s: State) => T, deps: any[] = []) {
-    const cache = useRef(splitter(store.get()));
-    const [state, setState] = useState<T>(() => splitter(store.get()));
+export const engine = new Engine((s: any) => {
+    store.update(() => s);
+});
 
-    useEffect(() => {
-        // when the deps update we recalculate
-        const next = splitter(store.get());
-        if (!equal(next, cache.current)) {
-            setState(next);
-            cache.current = next;
-        }
-
-        // then assign a new listener
-        const key = shortid();
-        const listener = (state: State) => {
-            const next = splitter(state);
-            if (!equal(next, cache.current)) {
-                setState(next);
-                cache.current = next;
-            }
-        };
-        listeners.set(key, listener);
-        return () => {
-            listeners.delete(key);
-        };
-    }, [cache, ...deps]);
-
-    return state;
+export function useStore<T>(splitter: (s: State) => T, deps?: readonly any[]) {
+    return useStoreState(store, splitter, deps);
 }

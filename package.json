@@ -43,6 +43,7 @@
         "humanize-duration": "3.23.1",
         "lodash.isobject": "3.0.2",
         "lodash.isstring": "4.0.1",
+        "pullstate": "^1.15.4",
         "react": "^0.0.0-experimental-7f28234f8",
         "react-dom": "^0.0.0-experimental-7f28234f8",
         "react-inspector": "5.0.1",

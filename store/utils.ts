@@ -1,6 +1,6 @@
 import { useMemo, useEffect } from "react";
 import { mdiAccount, mdiAccountGroup } from "@mdi/js";
-import { store, useStore } from "./use-store";
+import { engine, useStore } from "./use-store";
 import { Player, Instrument, State, Flow } from "./defs";
 import { PlayerType, AutoCountStyle, TimeSignatureDrawType, View, NoteDuration } from "solo-composer-engine";
 import { toRoman } from "roman-numerals";
@@ -25,7 +25,7 @@ export const useTicks = (flow: Flow, zoom: number): TickList => {
     // we need to update the ticks when the state changes but ticks are calculated on the rust side
     // using its own state so we don't actually need to pass through the state manually.
     return useMemo(() => {
-        return store.ticks(flow.key, zoom);
+        return engine.ticks(flow.key, zoom);
     }, [flow, zoom]);
 };
 
@@ -45,7 +45,7 @@ export const useCounts = (players: Player[], instruments: { [key: string]: Instr
     // we need to update the counts when the state changes but counts is calculated on the rust side
     // using its own state so we don't actually need to pass through the state manually.
     return useMemo(() => {
-        return store.counts();
+        return engine.counts();
     }, [players, instruments]);
 };
 
@@ -115,12 +115,12 @@ export function usePlayerIcon(player: Player) {
 }
 
 export function getFullPathFromPartial(path: string[]): { path: string[]; id: string } {
-    return store.get_full_path_from_partial(path);
+    return engine.get_full_path_from_partial(path);
 }
 
 export function useDefsList(path: string[]): string[][] {
     return useMemo(() => {
-        return store.def_tree(path);
+        return engine.def_tree(path);
     }, [path]);
 }
 
@@ -158,7 +158,7 @@ export function useAutoSetup() {
 
     // the actual auto setup bit
     useEffect(() => {
-        const state = store.get() as State;
+        const state = engine.get() as State;
         const flow_key = state.score.flows.order[0];
 
         actions.score.entries.time_signature.create(flow_key, 0, 4, 4, TimeSignatureDrawType.Normal);
