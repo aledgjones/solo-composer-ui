@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { mdiPlus, mdiCogOutline } from "@mdi/js";
 import { Icon, SortableContainer } from "../../../ui";
 import { Selection } from "../selection";
-import { useStore, actions, useCounts } from "../../../store";
+import { useStore, actions } from "../../../store";
 import { PlayerItem } from "../player-list-item";
 import { SetupSettings } from "../../dialogs/setup-settings";
 
@@ -17,15 +17,15 @@ interface Props {
 }
 
 export const PlayerList: FC<Props> = ({ selection, onSelect, onAddInstrument, onCreatePlayer }) => {
-    const [players, instruments, expanded] = useStore((s) => [
-        s.score.players.order.map((key) => {
-            return s.score.players.by_key[key];
-        }),
-        s.score.instruments,
-        s.ui.setup.expanded
-    ]);
-
-    const counts = useCounts(players, instruments);
+    const [players, instruments, expanded] = useStore((s) => {
+        return [
+            s.score.players.order.map((key) => {
+                return s.score.players.by_key[key];
+            }),
+            s.score.instruments,
+            s.ui.setup.expanded
+        ];
+    });
     const [settings, setSettings] = useState<boolean>(false);
 
     return (
@@ -49,7 +49,6 @@ export const PlayerList: FC<Props> = ({ selection, onSelect, onAddInstrument, on
                                 key={player.key}
                                 player={player}
                                 instruments={instruments}
-                                counts={counts}
                                 selected={selection && player.key === selection.key}
                                 expanded={expanded[player.key]}
                                 onSelect={onSelect}

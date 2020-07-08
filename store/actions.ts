@@ -62,7 +62,8 @@ export const actions = {
             create: (id: string): CreateInstrumentReturn => engine.create_instrument(id),
             reorder: (player_key: string, old_index: number, new_index: number) =>
                 engine.reorder_instrument(player_key, old_index, new_index),
-            remove: (player_key: string, instrument_key: string) => engine.remove_instrument(player_key, instrument_key),
+            remove: (player_key: string, instrument_key: string) =>
+                engine.remove_instrument(player_key, instrument_key),
             mute: (instrument_key: string) => engine.toggle_mute_instrument(instrument_key),
             solo: (instrument_key: string) => engine.toggle_solo_instrument(instrument_key),
             volume: (instrument_key: string, volume: number) => engine.set_volume_instrument(instrument_key, volume)
@@ -99,6 +100,7 @@ export const actions = {
     ui: {
         view: (value: View) => engine.set_view(value),
         snap: (snap: NoteDuration) => engine.set_snap(snap),
+        flow_key: (key: string) => engine.set_flow_key(key),
         setup: {
             expand: (key: string) => engine.setup_expand(key),
             collapse: (key: string) => engine.setup_collapse(key)

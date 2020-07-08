@@ -1,7 +1,7 @@
-import React, { FC, useState, useCallback } from "react";
+import React, { FC, useCallback } from "react";
 import { mdiCursorDefault, mdiEraser, mdiPen, mdiBoxCutter, mdiPlus, mdiMinus } from "@mdi/js";
 import { useTitle, useRainbow, Icon, DragScroll, Select, Option } from "../../ui";
-import { useStore, useCounts, actions, Tool, useTicks, NoteDuration, duration_to_ticks } from "../../store";
+import { useStore, actions, Tool, NoteDuration, useTicks } from "../../store";
 import { Controls } from "./controls";
 import { Track } from "./track";
 
@@ -10,12 +10,14 @@ import "./styles.css";
 const Play: FC = () => {
     useTitle("Solo Composer | Sequence");
 
-    const [flows, players, instruments, tool, zoom, snap_duration] = useStore((s) => {
+    const [flows, flowKey, flow, players, instruments, tool, zoom, snap_duration] = useStore((s) => {
         return [
             s.score.flows.order.map((flow_key) => {
                 const { key, title } = s.score.flows.by_key[flow_key];
                 return { key, title };
             }),
+            s.ui.flow_key,
+            s.score.flows.by_key[s.ui.flow_key],
             s.score.players.order.map((player_key) => s.score.players.by_key[player_key]),
             s.score.instruments,
             s.ui.play.tool,
@@ -24,12 +26,8 @@ const Play: FC = () => {
         ];
     });
 
-    const [flowKey, setFlowKey] = useState<string>(flows[0].key);
-    const flow = useStore((s) => s.score.flows.by_key[flowKey], [flowKey]);
-
+    const ticks = useTicks(flowKey);
     const colors = useRainbow(players.length);
-    const counts = useCounts(players, instruments);
-    const ticks = useTicks(flow, zoom);
 
     const inc = useCallback(() => {
         if (zoom + 0.05 <= 5) {
@@ -47,7 +45,7 @@ const Play: FC = () => {
         <>
             <div className="play__top-panel">
                 <div className="play__flow-selector">
-                    <Select value={flowKey} onChange={setFlowKey}>
+                    <Select value={flowKey} onChange={actions.ui.flow_key}>
                         {flows.map((flow, i) => {
                             const title = `${i + 1}. ${flow.title || "Untitled Flow"}`;
                             return (
@@ -101,7 +99,6 @@ const Play: FC = () => {
                                         color={colors[i]}
                                         playerType={player.player_type}
                                         instrument={instruments[instrument_key]}
-                                        count={counts[instrument_key]}
                                     />
                                 );
                             });

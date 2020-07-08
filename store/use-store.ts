@@ -1,8 +1,8 @@
 import { Engine, ThemeMode, View, NoteDuration, Tool, AutoCountStyle } from "solo-composer-engine";
-import { State } from "./defs";
 import { Store, useStoreState } from "pullstate";
+import { State } from "./defs";
 
-const store = new Store<State>({
+export const store = new Store<State>({
     app: { theme: ThemeMode.Dark, audition: false },
     playback: { metronome: false },
     score: {
@@ -29,15 +29,16 @@ const store = new Store<State>({
     ui: {
         view: View.Setup,
         snap: NoteDuration.Sixteenth,
+        flow_key: "",
         setup: { expanded: {} },
         play: { expanded: {}, keyboard: {}, tool: Tool.Select, zoom: 1 }
     }
 });
 
-export const engine = new Engine((s: any) => {
+export const engine = new Engine((s: State) => {
     store.update(() => s);
 });
 
 export function useStore<T>(splitter: (s: State) => T, deps?: readonly any[]) {
-    return useStoreState(store, splitter, deps);
+    return useStoreState<State, T>(store, splitter, deps);
 }

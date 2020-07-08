@@ -11,23 +11,14 @@ interface Props {
     selected: boolean;
     instrument: Instrument;
     player_key: string;
-    count?: number;
     count_style: AutoCountStyle;
 
     onSelect: () => void;
 }
 
-export const InstrumentItem: FC<Props> = ({
-    index,
-    selected,
-    instrument,
-    player_key,
-    count,
-    count_style,
-    onSelect
-}) => {
+export const InstrumentItem: FC<Props> = ({ index, selected, instrument, player_key, count_style, onSelect }) => {
     const handle = useRef<HTMLDivElement>(null);
-    const name = useInstrumentName(instrument, count, count_style);
+    const name = useInstrumentName(instrument, count_style);
 
     return (
         <SortableItem

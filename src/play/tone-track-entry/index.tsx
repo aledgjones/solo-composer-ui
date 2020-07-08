@@ -53,7 +53,7 @@ export const ToneTrackEntry: FC<Props> = ({
     onEdit
 }) => {
     const left = useMemo(() => {
-        if (tone.tick == ticks.list.length) {
+        if (tone.tick >= ticks.list.length) {
             return ticks.width;
         } else {
             return ticks.list[tone.tick].x;
@@ -61,7 +61,7 @@ export const ToneTrackEntry: FC<Props> = ({
     }, [tone, ticks]);
 
     const width = useMemo(() => {
-        if (tone.tick + tone.duration.int == ticks.list.length) {
+        if (tone.tick + tone.duration.int >= ticks.list.length) {
             return ticks.width - left;
         } else {
             return ticks.list[tone.tick + tone.duration.int].x - left;

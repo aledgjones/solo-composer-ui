@@ -1,7 +1,7 @@
 import React, { FC, useEffect, Suspense } from "react";
 import { mdiUndo, mdiRedo } from "@mdi/js";
 import { useStore, actions, ThemeMode, View, useAutoSetup } from "../../store";
-import { Tabs, useTheme, merge, Tab, Icon } from "../../ui";
+import { Tabs, useTheme, merge, Tab, Icon, Log } from "../../ui";
 import { Transport } from "./transport";
 import { Loading } from "../components/loading";
 import { File } from "./file";
@@ -29,37 +29,41 @@ export const Root: FC = () => {
     }, [theme]);
 
     return (
-        <div
-            className={merge("root", {
-                "root--light": theme === ThemeMode.Light,
-                "root--dark": theme === ThemeMode.Dark
-            })}
-        >
-            <div className="root__title-bar">
-                <File />
-                <Tabs className="root__tabs" value={view} onChange={actions.ui.view}>
-                    <Tab value={View.Setup}>Setup</Tab>
-                    <Tab value={View.Write}>Write</Tab>
-                    <Tab value={View.Engrave}>Engrave</Tab>
-                    <Tab value={View.Play}>Sequence</Tab>
-                    <Tab value={View.Print}>Publish</Tab>
-                </Tabs>
-                <Transport />
-                <div className="root__history">
-                    <Icon disabled onClick={() => false} className="root__history-icon" size={24} path={mdiUndo} />
-                    <Icon disabled onClick={() => false} size={24} path={mdiRedo} />
+        <>
+            <div
+                className={merge("root", {
+                    "root--light": theme === ThemeMode.Light,
+                    "root--dark": theme === ThemeMode.Dark
+                })}
+            >
+                <div className="root__title-bar">
+                    <File />
+                    <Tabs className="root__tabs" value={view} onChange={actions.ui.view}>
+                        <Tab value={View.Setup}>Setup</Tab>
+                        <Tab value={View.Write}>Write</Tab>
+                        <Tab value={View.Engrave}>Engrave</Tab>
+                        <Tab value={View.Play}>Sequence</Tab>
+                        <Tab value={View.Print}>Publish</Tab>
+                    </Tabs>
+                    <Transport />
+                    <div className="root__history">
+                        <Icon disabled onClick={() => false} className="root__history-icon" size={24} path={mdiUndo} />
+                        <Icon disabled onClick={() => false} size={24} path={mdiRedo} />
+                    </div>
+                </div>
+
+                <div className="root__content">
+                    <Suspense fallback={<Loading />}>
+                        {view === View.Setup && <Setup />}
+                        {/* {tab === TabState.write && <Write />}
+                    {tab === TabState.engrave && <Engrave />} */}
+                        {view === View.Play && <Play />}
+                        {/* {tab === TabState.print && <Fallback color={theme.background[500].fg} type="empty" />} */}
+                    </Suspense>
                 </div>
             </div>
 
-            <div className="root__content">
-                <Suspense fallback={<Loading />}>
-                    {view === View.Setup && <Setup />}
-                    {/* {tab === TabState.write && <Write />}
-                    {tab === TabState.engrave && <Engrave />} */}
-                    {view === View.Play && <Play />}
-                    {/* {tab === TabState.print && <Fallback color={theme.background[500].fg} type="empty" />} */}
-                </Suspense>
-            </div>
-        </div>
+            <Log />
+        </>
     );
 };

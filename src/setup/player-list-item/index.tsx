@@ -12,7 +12,6 @@ interface Props {
     index: number;
     player: Player;
     instruments: { [key: string]: Instrument };
-    counts: { [key: string]: number };
     selected: boolean;
     expanded: boolean;
 
@@ -24,7 +23,6 @@ export const PlayerItem: FC<Props> = ({
     index,
     player,
     instruments,
-    counts,
     selected,
     expanded,
     onSelect,
@@ -54,7 +52,7 @@ export const PlayerItem: FC<Props> = ({
     );
 
     const count_style = useCountStyle(player.player_type);
-    const name = usePlayerName(player, instruments, counts, count_style);
+    const name = usePlayerName(player, instruments, count_style);
     const icon = usePlayerIcon(player);
 
     return (
@@ -110,7 +108,6 @@ export const PlayerItem: FC<Props> = ({
                                 selected={selected}
                                 instrument={instruments[key]}
                                 player_key={player.key}
-                                count={counts[key]}
                                 count_style={count_style}
                             />
                         );

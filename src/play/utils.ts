@@ -80,8 +80,9 @@ export function getTickFromXPosition(x: number, ticks: TickList, snap: number, r
             const index = i - 1;
             const lowerSnapTick = index - (index % snap);
             const higherSnapTick = lowerSnapTick + snap;
-            const middleOfSnap =
-                ticks.list[lowerSnapTick].x + (ticks.list[higherSnapTick].x - ticks.list[lowerSnapTick].x) / 2;
+
+            const highestX = ticks.list[higherSnapTick] ? ticks.list[higherSnapTick].x : ticks.width;
+            const middleOfSnap = ticks.list[lowerSnapTick].x + (highestX - ticks.list[lowerSnapTick].x) / 2;
 
             if (round === "down") {
                 return lowerSnapTick;

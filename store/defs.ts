@@ -1,5 +1,19 @@
 import { View, ThemeMode, PlayerType, Tool, AutoCountStyle, Accidental, NoteDuration } from "solo-composer-engine";
 
+export interface Tick {
+    x: number;
+    width: number;
+    is_beat: boolean;
+    is_first_beat: boolean;
+    is_quaver_beat: boolean;
+    is_grouping_boundry: boolean;
+}
+
+export interface TickList {
+    list: Tick[];
+    width: number;
+}
+
 export interface Tone {
     key: string;
     tick: number;
@@ -17,6 +31,7 @@ export interface Instrument {
     long_name: string;
     short_name: string;
     staves: string[];
+    count?: number;
 
     volume: number;
     mute: boolean;
@@ -53,6 +68,7 @@ export interface Flow {
     players: string[];
     subdivisions: number;
     length: number;
+    master: Track;
 
     staves: { [key: string]: Stave };
     tracks: { [key: string]: Track };
@@ -94,12 +110,13 @@ export interface State {
             by_key: { [key: string]: Player };
         };
         instruments: {
-            [ket: string]: Instrument;
+            [key: string]: Instrument;
         };
     };
     ui: {
         view: View;
         snap: NoteDuration;
+        flow_key: string;
         setup: {
             expanded: { [key: string]: boolean };
         };

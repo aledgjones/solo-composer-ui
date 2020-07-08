@@ -12,10 +12,9 @@ interface Props {
     color: string;
     playerType: PlayerType;
     instrument: Instrument;
-    count: number;
 }
 
-export const Controls: FC<Props> = ({ color, playerType, instrument, count }) => {
+export const Controls: FC<Props> = ({ color, playerType, instrument }) => {
     const [slots, expanded] = useStore(
         (s) => {
             const keyboard = s.ui.play.keyboard[instrument.key];
@@ -24,7 +23,7 @@ export const Controls: FC<Props> = ({ color, playerType, instrument, count }) =>
         [instrument.key]
     );
     const count_style = useCountStyle(playerType);
-    const name = useInstrumentName(instrument, count, count_style);
+    const name = useInstrumentName(instrument, count_style);
 
     const onExpand = useCallback(() => {
         if (expanded) {

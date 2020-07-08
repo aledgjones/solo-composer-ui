@@ -1,36 +1,22 @@
-import { useMemo, useEffect } from "react";
+import { useMemo, useEffect, useState } from "react";
 import { mdiAccount, mdiAccountGroup } from "@mdi/js";
-import { engine, useStore } from "./use-store";
-import { Player, Instrument, State, Flow } from "./defs";
-import { PlayerType, AutoCountStyle, TimeSignatureDrawType, View, NoteDuration } from "solo-composer-engine";
+import { engine, useStore, store } from "./use-store";
+import { Player, Instrument, State, TickList } from "./defs";
+import {
+    PlayerType,
+    AutoCountStyle,
+    TimeSignatureDrawType,
+    View,
+    NoteDuration,
+    get_ticks,
+    def_tree,
+    get_full_path_from_partial
+} from "solo-composer-engine";
 import { toRoman } from "roman-numerals";
 import { actions } from "./actions";
-import { useLog } from "../ui";
-
-export interface Tick {
-    x: number;
-    width: number;
-    is_beat: boolean;
-    is_first_beat: boolean;
-    is_quaver_beat: boolean;
-    is_grouping_boundry: boolean;
-}
-
-export interface TickList {
-    list: Tick[];
-    width: number;
-}
-
-export const useTicks = (flow: Flow, zoom: number): TickList => {
-    // we need to update the ticks when the state changes but ticks are calculated on the rust side
-    // using its own state so we don't actually need to pass through the state manually.
-    return useMemo(() => {
-        return engine.ticks(flow.key, zoom);
-    }, [flow, zoom]);
-};
 
 function count_to_string(style: AutoCountStyle, count?: number) {
-    if (count === undefined) {
+    if (count === null) {
         return "";
     } else {
         if (style === AutoCountStyle.Roman) {
@@ -40,14 +26,6 @@ function count_to_string(style: AutoCountStyle, count?: number) {
         }
     }
 }
-
-export const useCounts = (players: Player[], instruments: { [key: string]: Instrument }) => {
-    // we need to update the counts when the state changes but counts is calculated on the rust side
-    // using its own state so we don't actually need to pass through the state manually.
-    return useMemo(() => {
-        return engine.counts();
-    }, [players, instruments]);
-};
 
 export function useCountStyle(playerType: PlayerType) {
     return useStore(
@@ -62,22 +40,13 @@ export function useCountStyle(playerType: PlayerType) {
     );
 }
 
-export function useInstrumentName(instrument: Instrument, count: number | undefined, count_style: AutoCountStyle) {
+export function useInstrumentName(instrument: Instrument, count_style: AutoCountStyle) {
     return useMemo(() => {
-        if (count) {
-            return instrument.long_name + count_to_string(count_style, count);
-        } else {
-            return instrument.long_name;
-        }
-    }, [instrument, count, count_style]);
+        return instrument.long_name + count_to_string(count_style, instrument.count);
+    }, [instrument, count_style]);
 }
 
-export function usePlayerName(
-    player: Player,
-    instruments: { [key: string]: Instrument },
-    counts: { [key: string]: number },
-    count_style: AutoCountStyle
-) {
+export function usePlayerName(player: Player, instruments: { [key: string]: Instrument }, count_style: AutoCountStyle) {
     return useMemo(() => {
         if (player.instruments.length === 0) {
             switch (player.player_type) {
@@ -91,8 +60,7 @@ export function usePlayerName(
             return player.instruments.reduce((output, key, i) => {
                 const isFirst = i === 0;
                 const isLast = i === len - 1;
-                const count = counts[key];
-                const name = instruments[key].long_name + count_to_string(count_style, count);
+                const name = instruments[key].long_name + count_to_string(count_style, instruments[key].count);
                 if (isFirst) {
                     return name;
                 } else if (isLast) {
@@ -102,7 +70,7 @@ export function usePlayerName(
                 }
             }, "");
         }
-    }, [player, instruments, counts, count_style]);
+    }, [player, instruments, count_style]);
 }
 
 export function usePlayerIcon(player: Player) {
@@ -115,12 +83,12 @@ export function usePlayerIcon(player: Player) {
 }
 
 export function getFullPathFromPartial(path: string[]): { path: string[]; id: string } {
-    return engine.get_full_path_from_partial(path);
+    return get_full_path_from_partial(path);
 }
 
 export function useDefsList(path: string[]): string[][] {
     return useMemo(() => {
-        return engine.def_tree(path);
+        return def_tree(path);
     }, [path]);
 }
 
@@ -146,10 +114,6 @@ export function duration_to_ticks(subdivisions: number, duration: NoteDuration) 
 }
 
 export function useAutoSetup() {
-    // logger
-    // const s = useStore((s) => s);
-    // useLog(s, "store");
-
     // make actions available globally for debugging
     useEffect(() => {
         const win = window as any;
@@ -184,4 +148,26 @@ export function useAutoSetup() {
 
         actions.ui.view(View.Play);
     }, []);
+}
+
+/**
+ * Get the tick track for the current flow
+ */
+export function useTicks(flowKey: string): TickList {
+    const [ticks, setTicks] = useState<TickList>(() => get_ticks(engine, flowKey));
+
+    useEffect(() => {
+        setTicks(() => get_ticks(engine, flowKey));
+        const listener = store.subscribe(
+            (state) => {
+                const flow = state.score.flows.by_key[flowKey];
+                return [flow.subdivisions, flow.length, flow.master, state.ui.play.zoom];
+            },
+            () => setTicks(() => get_ticks(engine, flowKey))
+        );
+
+        return listener;
+    }, [flowKey]);
+
+    return ticks;
 }
