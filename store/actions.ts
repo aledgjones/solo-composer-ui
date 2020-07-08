@@ -82,7 +82,6 @@ export const actions = {
             tone: {
                 create: (flow_key: string, track_key: string, tick: number, duration: number, pitch: number): string =>
                     engine.create_tone(flow_key, track_key, tick, duration, pitch),
-
                 update: (
                     flow_key: string,
                     track_key: string,
@@ -91,7 +90,8 @@ export const actions = {
                     duration: number,
                     pitch: number
                 ) => engine.update_tone(flow_key, track_key, entry_key, tick, duration, pitch),
-
+                slice: (flow_key: string, track_key: string, entry_key: string, slice_at: number) =>
+                    engine.slice_tone(flow_key, track_key, entry_key, slice_at),
                 remove: (flow_key: string, track_key: string, entry_key: string) =>
                     engine.remove_tone(flow_key, track_key, entry_key)
             }

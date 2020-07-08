@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from "react";
 import { mdiChevronDown, mdiCogOutline, mdiSizeS, mdiSizeM } from "@mdi/js";
 import { Icon, noop, Label } from "../../../ui";
-import { Instrument, useInstrumentName, PlayerType, useCountStyle, actions, useStore } from "../../../store";
+import { useInstrumentName, PlayerType, useCountStyle, actions, useStore } from "../../../store";
 import { Text } from "../../components/text";
 import { Keyboard } from "../keyboard";
 import { Fader } from "../fader";
@@ -11,16 +11,20 @@ import "./styles.css";
 interface Props {
     color: string;
     playerType: PlayerType;
-    instrument: Instrument;
+    instrumentKey: string;
 }
 
-export const Controls: FC<Props> = ({ color, playerType, instrument }) => {
-    const [slots, expanded] = useStore(
+export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
+    const [instrument, slots, expanded] = useStore(
         (s) => {
-            const keyboard = s.ui.play.keyboard[instrument.key];
-            return [keyboard ? keyboard.height : 17, s.ui.play.expanded[instrument.key]];
+            const keyboard = s.ui.play.keyboard[instrumentKey];
+            return [
+                s.score.instruments[instrumentKey],
+                keyboard ? keyboard.height : 17,
+                s.ui.play.expanded[instrumentKey]
+            ];
         },
-        [instrument.key]
+        [instrumentKey]
     );
     const count_style = useCountStyle(playerType);
     const name = useInstrumentName(instrument, count_style);

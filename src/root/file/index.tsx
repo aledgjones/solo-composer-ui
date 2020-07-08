@@ -86,7 +86,7 @@ export const File: FC = () => {
                                     <Divider />
                                 </>
                             )}
-                            <Link href="https://solo-apps.gitbook.io/solo-composer/" target="_blank">
+                            <Link href="https://aledjones-viola.gitbook.io/solo-composer/" target="_blank">
                                 <ListItem className="ui-list-item--hover">
                                     <Label>
                                         <p>Help &amp; Feedback</p>

@@ -10,7 +10,7 @@ import "./styles.css";
 
 interface Props {
     flowKey: string;
-    instrument: Instrument;
+    instrumentKey: string;
     color: string;
     ticks: TickList;
     base: number;
@@ -18,12 +18,13 @@ interface Props {
     slots: number;
 }
 
-export const ToneTrack: FC<Props> = ({ flowKey, instrument, color, base, tool, ticks, slots }) => {
+export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool, ticks, slots }) => {
     const track = useRef<HTMLDivElement>(null);
 
     const [snap, tones, trackKey] = useStore(
         (s) => {
             const flow = s.score.flows.by_key[flowKey];
+            const instrument = s.score.instruments[instrumentKey];
 
             // TODO: make trackKey dynamic so it can be selectable by user
             // == delete ==
@@ -47,7 +48,7 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrument, color, base, tool, t
                 trackKey
             ];
         },
-        [flowKey, instrument]
+        [flowKey, instrumentKey]
     );
 
     const border = useMemo(() => Color(color).darken(0.6).hex(), []);
@@ -125,6 +126,22 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrument, color, base, tool, t
         [flowKey, trackKey, track, ticks, base, slots, tool, snap]
     );
 
+    const onSlice = useCallback(
+        (e: PointerEvent<HTMLDivElement>, toneKey: string, start: number, duration: number) => {
+            const box = track.current.getBoundingClientRect();
+            const x = e.clientX - box.left;
+            const slice = getTickFromXPosition(x, ticks, snap);
+
+            if (slice > start && slice < start + duration) {
+                actions.score.entries.tone.slice(flowKey, trackKey, toneKey, slice);
+            }
+            // actions.ui.selection[TabState.play].clear();
+            // actions.ui.selection[TabState.play].select(tone._key);
+            // onPlay(pitch);
+        },
+        [flowKey, trackKey, ticks, snap]
+    );
+
     return (
         <div
             ref={track}
@@ -146,6 +163,7 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrument, color, base, tool, t
                         onSelect={noop} // TODO: select functionality
                         onRemove={(key: string) => actions.score.entries.tone.remove(flowKey, trackKey, key)}
                         onEdit={onEdit}
+                        onSlice={onSlice}
                     />
                 );
             })}

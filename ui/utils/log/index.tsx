@@ -14,15 +14,11 @@ export const Log: FC = () => {
     useEffect(() => {
         const view = window.open("", "ui-debug", "menubar=no,toolbar=no,location=no,titlebar=no,status=no");
         if (view) {
-            const element = view.document.getElementById("ui-debug--root");
-            if (!element) {
-                const element = view.document.createElement("div");
-                element.id = "ui-debug--root";
-                view.document.body.append(element);
-                setRoot(element);
-            } else {
-                setRoot(element);
-            }
+            view.document.body.innerHTML = "";
+            const element = view.document.createElement("div");
+            element.id = "ui-debug--root";
+            view.document.body.append(element);
+            setRoot(element);
         }
     }, []);
 

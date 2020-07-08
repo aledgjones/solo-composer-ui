@@ -15,7 +15,7 @@ const Play = React.lazy(() => import("../play"));
 
 export const Root: FC = () => {
     const [view, theme] = useStore((s) => [s.ui.view, s.app.theme]);
-    useTheme(theme === ThemeMode.Light ? "#888888" : "#252429");
+    useTheme(theme === ThemeMode.Light ? "#ffffff" : "#252429");
     useAutoSetup();
 
     useEffect(() => {
@@ -63,7 +63,7 @@ export const Root: FC = () => {
                 </div>
             </div>
 
-            <Log />
+            {/* <Log /> */}
         </>
     );
 };

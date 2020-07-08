@@ -38,6 +38,7 @@ interface Props {
         fixedDuration: boolean,
         fixedPitch: boolean
     ) => void;
+    onSlice: (e: PointerEvent<HTMLElement>, toneKey: string, start: number, duration: number) => void;
 }
 
 export const ToneTrackEntry: FC<Props> = ({
@@ -50,7 +51,8 @@ export const ToneTrackEntry: FC<Props> = ({
     tool,
     onSelect,
     onRemove,
-    onEdit
+    onEdit,
+    onSlice
 }) => {
     const left = useMemo(() => {
         if (tone.tick >= ticks.list.length) {
@@ -68,14 +70,20 @@ export const ToneTrackEntry: FC<Props> = ({
         }
     }, [tone, ticks, left]);
 
-    const actionMain = useCallback(() => {
-        if (tool === Tool.Select) {
-            onSelect(tone.key);
-        }
-        if (tool === Tool.Erase) {
-            onRemove(tone.key);
-        }
-    }, [tone, onSelect, onRemove]);
+    const actionMain = useCallback(
+        (e) => {
+            if (tool === Tool.Select) {
+                onSelect(tone.key);
+            }
+            if (tool === Tool.Erase) {
+                onRemove(tone.key);
+            }
+            if (tool === Tool.Slice) {
+                onSlice(e, tone.key, tone.tick, tone.duration.int);
+            }
+        },
+        [tone, onSelect, onRemove, onSlice]
+    );
 
     const actionWest = useCallback(
         (e: PointerEvent<HTMLElement>) =>

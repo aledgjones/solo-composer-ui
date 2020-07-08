@@ -14,23 +14,23 @@ import eraser from "../../assets/eraser.svg";
 
 interface Props {
     flowKey: string;
-    instrument: Instrument;
+    instrumentKey: string;
     color: string;
     ticks: TickList;
 }
 
-export const Track: FC<Props> = ({ flowKey, instrument, color, ticks }) => {
+export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks }) => {
     const [expanded, tool, slots, base] = useStore(
         (s) => {
-            const keyboard = s.ui.play.keyboard[instrument.key];
+            const keyboard = s.ui.play.keyboard[instrumentKey];
             return [
-                s.ui.play.expanded[instrument.key],
+                s.ui.play.expanded[instrumentKey],
                 s.ui.play.tool,
                 keyboard ? keyboard.height : 17,
                 keyboard ? keyboard.base : 76
             ];
         },
-        [instrument.key]
+        [instrumentKey]
     );
 
     const cursor = useMemo(() => {
@@ -71,7 +71,7 @@ export const Track: FC<Props> = ({ flowKey, instrument, color, ticks }) => {
                         <ToneTrack
                             color={color}
                             flowKey={flowKey}
-                            instrument={instrument}
+                            instrumentKey={instrumentKey}
                             ticks={ticks}
                             base={base}
                             tool={tool}

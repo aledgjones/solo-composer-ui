@@ -10,16 +10,17 @@ import "./styles.css";
 const Play: FC = () => {
     useTitle("Solo Composer | Sequence");
 
-    const [flows, flowKey, flow, players, instruments, tool, zoom, snap_duration] = useStore((s) => {
+    const [flows, flowKey, players, tool, zoom, snap_duration] = useStore((s) => {
+        const flow_players = s.score.flows.by_key[s.ui.flow_key].players;
         return [
             s.score.flows.order.map((flow_key) => {
                 const { key, title } = s.score.flows.by_key[flow_key];
                 return { key, title };
             }),
             s.ui.flow_key,
-            s.score.flows.by_key[s.ui.flow_key],
-            s.score.players.order.map((player_key) => s.score.players.by_key[player_key]),
-            s.score.instruments,
+            s.score.players.order
+                .filter((playerKey) => flow_players.includes(playerKey))
+                .map((player_key) => s.score.players.by_key[player_key]),
             s.ui.play.tool,
             s.ui.play.zoom,
             s.ui.snap
@@ -91,40 +92,32 @@ const Play: FC = () => {
             <DragScroll className="play__content" x ignore="no-scroll">
                 <div className="play__left-panel no-scroll">
                     {players.map((player, i) => {
-                        if (flow.players.includes(player.key)) {
-                            return player.instruments.map((instrument_key) => {
-                                return (
-                                    <Controls
-                                        key={instrument_key}
-                                        color={colors[i]}
-                                        playerType={player.player_type}
-                                        instrument={instruments[instrument_key]}
-                                    />
-                                );
-                            });
-                        } else {
-                            return null;
-                        }
+                        return player.instruments.map((instrument_key) => {
+                            return (
+                                <Controls
+                                    key={instrument_key}
+                                    instrumentKey={instrument_key}
+                                    color={colors[i]}
+                                    playerType={player.player_type}
+                                />
+                            );
+                        });
                     })}
                 </div>
 
                 <div className="play__right-panel">
                     {players.map((player, i) => {
-                        if (flow.players.includes(player.key)) {
-                            return player.instruments.map((instrument_key) => {
-                                return (
-                                    <Track
-                                        key={instrument_key}
-                                        flowKey={flowKey}
-                                        instrument={instruments[instrument_key]}
-                                        color={colors[i]}
-                                        ticks={ticks}
-                                    />
-                                );
-                            });
-                        } else {
-                            return null;
-                        }
+                        return player.instruments.map((instrument_key) => {
+                            return (
+                                <Track
+                                    key={instrument_key}
+                                    instrumentKey={instrument_key}
+                                    flowKey={flowKey}
+                                    color={colors[i]}
+                                    ticks={ticks}
+                                />
+                            );
+                        });
                     })}
                 </div>
             </DragScroll>

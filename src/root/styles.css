@@ -9,7 +9,7 @@
 }
 
 .ui-light {
-    --background-200: #888888;
+    --background-200: #dddddd;
     --foreground-200: var(--black);
     --background-300: #aaaaaa;
     --foreground-300: var(--black);
@@ -17,8 +17,12 @@
     --foreground-400: var(--black);
     --background-500: #ffffff;
     --foreground-500: var(--black);
-    --background-800: #dddddd;
+    --background-700: #aaaaaa;
+    --foreground-700: var(--black);
+    --background-800: #cccccc;
     --foreground-800: var(--black);
+    --background-900: #dddddd;
+    --foreground-900: var(--black);
     --background-1000: #888888;
     --foreground-1000: var(--black);
 }
