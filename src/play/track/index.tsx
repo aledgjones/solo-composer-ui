@@ -1,6 +1,6 @@
 import React, { FC, useMemo } from "react";
 import { merge } from "../../../ui";
-import { useStore, TickList, Tool, Instrument } from "../../../store";
+import { useStore, TickList, Tool } from "../../../store";
 import { SLOT_HEIGHT } from "../const";
 import { Ticks } from "../ticks";
 import { Slots } from "../keyboard/slots";
@@ -17,9 +17,10 @@ interface Props {
     instrumentKey: string;
     color: string;
     ticks: TickList;
+    zoom: number;
 }
 
-export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks }) => {
+export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks, zoom }) => {
     const [expanded, tool, slots, base] = useStore(
         (s) => {
             const keyboard = s.ui.play.keyboard[instrumentKey];
@@ -48,7 +49,7 @@ export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks }) => {
 
     return (
         <div className="track">
-            <Ticks isTrack={false} ticks={ticks} height={48} className="track__header" />
+            <Ticks isTrack={false} ticks={ticks} height={48} className="track__header" zoom={zoom} />
             {expanded && (
                 <>
                     <div
@@ -67,6 +68,7 @@ export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks }) => {
                             className="track__tone-channel-ticks"
                             ticks={ticks}
                             height={SLOT_HEIGHT * slots}
+                            zoom={zoom}
                         />
                         <ToneTrack
                             color={color}
@@ -76,6 +78,7 @@ export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks }) => {
                             base={base}
                             tool={tool}
                             slots={slots}
+                            zoom={zoom}
                         />
                     </div>
                 </>

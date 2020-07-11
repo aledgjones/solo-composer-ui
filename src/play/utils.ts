@@ -6,6 +6,7 @@ export function getStartOfTone(
     initX: number,
     ticks: TickList,
     snap: number,
+    zoom: number,
     start: number,
     duration: number,
     fixedStart: boolean,
@@ -14,7 +15,7 @@ export function getStartOfTone(
     if (fixedStart) {
         return start;
     } else {
-        const s = start + (getTickFromXPosition(x, ticks, snap) - getTickFromXPosition(initX, ticks, snap));
+        const s = start + (getTickFromXPosition(x, ticks, snap, zoom) - getTickFromXPosition(initX, ticks, snap, zoom));
         if (fixedDuration) {
             if (s < 0) {
                 return 0;
@@ -35,6 +36,7 @@ export function getDurationOfTone(
     x: number,
     ticks: TickList,
     snap: number,
+    zoom: number,
     start: number,
     duration: number,
     fixedStart: boolean,
@@ -44,8 +46,8 @@ export function getDurationOfTone(
         return duration;
     } else {
         const d = fixedStart
-            ? getTickFromXPosition(x, ticks, snap) - start
-            : duration - (getTickFromXPosition(x, ticks, snap) - start);
+            ? getTickFromXPosition(x, ticks, snap, zoom) - start
+            : duration - (getTickFromXPosition(x, ticks, snap, zoom) - start);
 
         if (d < 0) {
             return 0;
@@ -72,17 +74,18 @@ export function getPitchFromYPosition(y: number, highestPitch: number, slots: nu
     }
 }
 
-export function getTickFromXPosition(x: number, ticks: TickList, snap: number, round?: "up" | "down") {
+export function getTickFromXPosition(x: number, ticks: TickList, snap: number, zoom: number, round?: "up" | "down") {
     for (let i = 0; i < ticks.list.length; i++) {
         const tick = ticks.list[i];
-        if (tick.x > x) {
+        if (tick.x * zoom > x) {
             // we have overshot, it is in the previous tick
             const index = i - 1;
             const lowerSnapTick = index - (index % snap);
             const higherSnapTick = lowerSnapTick + snap;
 
-            const highestX = ticks.list[higherSnapTick] ? ticks.list[higherSnapTick].x : ticks.width;
-            const middleOfSnap = ticks.list[lowerSnapTick].x + (highestX - ticks.list[lowerSnapTick].x) / 2;
+            const highestX = ticks.list[higherSnapTick] ? ticks.list[higherSnapTick].x * zoom : ticks.width * zoom;
+            const middleOfSnap =
+                ticks.list[lowerSnapTick].x * zoom + (highestX - ticks.list[lowerSnapTick].x * zoom) / 2;
 
             if (round === "down") {
                 return lowerSnapTick;

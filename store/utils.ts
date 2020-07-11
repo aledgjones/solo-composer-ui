@@ -7,7 +7,6 @@ import {
     AutoCountStyle,
     TimeSignatureDrawType,
     NoteDuration,
-    get_ticks,
     def_tree,
     get_full_path_from_partial
 } from "solo-composer-engine";
@@ -153,26 +152,4 @@ export function useAutoSetup() {
 
         actions.ui.view(View.Play);
     }, []);
-}
-
-/**
- * Get the tick track for the current flow
- */
-export function useTicks(flowKey: string): TickList {
-    const [ticks, setTicks] = useState<TickList>(() => get_ticks(engine, flowKey));
-
-    useEffect(() => {
-        setTicks(() => get_ticks(engine, flowKey));
-        const listener = store.subscribe(
-            (state) => {
-                const flow = state.score.flows.by_key[flowKey];
-                return [flow.subdivisions, flow.length, flow.master, state.ui.play.zoom];
-            },
-            () => setTicks(() => get_ticks(engine, flowKey))
-        );
-
-        return listener;
-    }, [flowKey]);
-
-    return ticks;
 }

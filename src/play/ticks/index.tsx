@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, memo } from "react";
 import { TickList, Tick } from "../../../store";
 import { FC } from "react";
 import { merge } from "../../../ui";
@@ -38,15 +38,16 @@ interface Props {
     ticks: TickList;
     height: number;
     isTrack: boolean;
+    zoom: number;
 }
 
-export const Ticks: FC<Props> = ({ className, ticks, height, isTrack }) => {
+export const Ticks: FC<Props> = memo(({ className, ticks, height, isTrack, zoom }) => {
     let bar = 0;
     return (
         <svg
-            viewBox={`0 0 ${ticks.width} ${height}`}
+            viewBox={`0 0 ${ticks.width * zoom} ${height}`}
             className={merge("ticks", className)}
-            style={{ width: ticks.width, height }}
+            style={{ width: ticks.width * zoom, height }}
         >
             {ticks.list.map((tick, i) => {
                 const tick_height = tickHeight(tick, isTrack, height);
@@ -57,11 +58,18 @@ export const Ticks: FC<Props> = ({ className, ticks, height, isTrack }) => {
                     }
                     return (
                         <Fragment key={i}>
-                            <line x1={tick.x} y1="0" x2={tick.x} y2={tick_height} strokeWidth="1" stroke={tick_color} />
-                            {!isTrack && tick.is_first_beat && (
+                            <line
+                                x1={tick.x * zoom}
+                                y1="0"
+                                x2={tick.x * zoom}
+                                y2={tick_height}
+                                strokeWidth="1"
+                                stroke={tick_color}
+                            />
+                            {!isTrack && tick.is_first_beat && zoom >= 0.5 && (
                                 <text
-                                    x={tick.x + 5}
-                                    y="12"
+                                    x={tick.x * zoom + 5}
+                                    y={12}
                                     fill="var(--background-1000)"
                                     fontSize="10"
                                     fontFamily="Roboto"
@@ -77,4 +85,4 @@ export const Ticks: FC<Props> = ({ className, ticks, height, isTrack }) => {
             })}
         </svg>
     );
-};
+});

@@ -141,6 +141,9 @@ export interface State {
             [key: string]: Instrument;
         };
     };
+    ticks: {
+        [key: string]: TickList;
+    };
     ui: {
         view: View;
         snap: NoteDuration;

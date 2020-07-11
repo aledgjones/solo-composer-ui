@@ -31,6 +31,7 @@ export const store = new Store<State>({
         },
         instruments: {}
     },
+    ticks: {},
     ui: {
         view: View.Setup,
         snap: NoteDuration.Sixteenth,

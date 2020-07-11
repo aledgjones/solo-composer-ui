@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect } from "react";
 import { mdiCursorDefault, mdiEraser, mdiPen, mdiBoxCutter, mdiPlus, mdiMinus } from "@mdi/js";
 import { useTitle, useRainbow, Icon, DragScroll, Select, Option } from "../../ui";
-import { useStore, actions, Tool, NoteDuration, useTicks } from "../../store";
+import { useStore, actions, Tool, NoteDuration } from "../../store";
 import { Controls } from "./controls";
 import { Track } from "./track";
 
@@ -10,7 +10,7 @@ import "./styles.css";
 const Play: FC = () => {
     useTitle("Solo Composer | Sequence");
 
-    const [flows, flowKey, players, tool, zoom, snap_duration] = useStore((s) => {
+    const [flows, flowKey, players, tool, zoom, snap_duration, ticks] = useStore((s) => {
         const flowKey = s.ui.flow_key || s.score.flows.order[0];
         const flow_players = s.score.flows.by_key[flowKey].players;
         return [
@@ -24,11 +24,11 @@ const Play: FC = () => {
                 .map((player_key) => s.score.players.by_key[player_key]),
             s.ui.play.tool,
             s.ui.play.zoom,
-            s.ui.snap
+            s.ui.snap,
+            s.ticks[flowKey]
         ];
     });
 
-    const ticks = useTicks(flowKey);
     const colors = useRainbow(players.length);
 
     // keyboard shortcuts
@@ -143,6 +143,7 @@ const Play: FC = () => {
                                     flowKey={flowKey}
                                     color={colors[i]}
                                     ticks={ticks}
+                                    zoom={zoom}
                                 />
                             );
                         });

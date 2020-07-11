@@ -45,6 +45,7 @@
 }
 
 .root {
+    background-color: var(--background-500);
     color: var(--foreground-500);
 }
 

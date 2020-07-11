@@ -25,6 +25,7 @@ interface Props {
     tone: Tone;
     ticks: TickList;
     tool: Tool;
+    zoom: number;
     onRemove: (key: string) => void;
     onEdit: (
         e: PointerEvent<HTMLElement>,
@@ -39,24 +40,35 @@ interface Props {
     onSlice: (e: PointerEvent<HTMLElement>, toneKey: string, start: number, duration: number) => void;
 }
 
-export const ToneTrackEntry: FC<Props> = ({ color, base, slots, tone, ticks, tool, onRemove, onEdit, onSlice }) => {
+export const ToneTrackEntry: FC<Props> = ({
+    color,
+    base,
+    slots,
+    tone,
+    ticks,
+    tool,
+    zoom,
+    onRemove,
+    onEdit,
+    onSlice
+}) => {
     const selected = useStore((s) => s.ui.play.selected[tone.key], [tone.key]);
 
     const left = useMemo(() => {
         if (tone.tick >= ticks.list.length) {
-            return ticks.width;
+            return ticks.width * zoom;
         } else {
-            return ticks.list[tone.tick].x;
+            return ticks.list[tone.tick].x * zoom;
         }
-    }, [tone, ticks]);
+    }, [tone, ticks, zoom]);
 
     const width = useMemo(() => {
         if (tone.tick + tone.duration.int >= ticks.list.length) {
-            return ticks.width - left;
+            return ticks.width * zoom - left;
         } else {
-            return ticks.list[tone.tick + tone.duration.int].x - left;
+            return ticks.list[tone.tick + tone.duration.int].x * zoom - left;
         }
-    }, [tone, ticks, left]);
+    }, [tone, ticks, left, zoom]);
 
     const actionMain = useCallback(
         (e: PointerEvent<HTMLDivElement>) => {

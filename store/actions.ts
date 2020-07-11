@@ -205,7 +205,7 @@ export const actions = {
             },
             zoom: (zoom: number) => {
                 store.update((s) => {
-                    s.ui.play.zoom = zoom;
+                    s.ui.play.zoom = parseFloat(zoom.toFixed(2));
                 });
             }
         }
