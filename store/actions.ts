@@ -1,31 +1,70 @@
 import {
-    ThemeMode,
     AutoCountStyle,
-    View,
     PlayerType,
-    Tool,
     TimeSignatureDrawType,
-    NoteDuration
+    NoteDuration,
+    get_patches,
+    pitch_to_frequency,
+    Expression
 } from "solo-composer-engine";
-import { engine } from "./use-store";
-import { Patches } from "./defs";
+import { engine, store } from "./use-store";
+import { PatchPlayer } from "../patch-player";
+import { ThemeMode, View, Tool } from "./defs";
+import localforage from "localforage";
 
-interface CreateInstrumentReturn {
-    patches: Patches;
-    key: string;
-}
-
-// I know these are just wrapping funcs but it allows more acurate typings
+// I know these are just wrapping funcs but it allows more acurate typings than wasm-pack produces
 export const actions = {
     app: {
-        audition: (value: boolean) => engine.set_audition(value),
-        theme: (value: ThemeMode) => engine.set_theme(value)
+        audition: {
+            toggle: () => {
+                store.update((s) => {
+                    localforage.setItem("sc:audition/v1", !s.app.audition);
+                    s.app.audition = !s.app.audition;
+                });
+            }
+        },
+        theme: (value: ThemeMode) => {
+            store.update((s) => {
+                localforage.setItem("sc:theme-mode/v1", value);
+                s.app.theme = value;
+            });
+        }
     },
     playback: {
-        metronome: (value: boolean) => engine.set_metronome(value)
-    },
-    sampler: {
-        // <=== TO DO
+        metronome: {
+            toggle: () => {
+                store.update((s) => {
+                    s.playback.metronome = !s.playback.metronome;
+                });
+            }
+        },
+        sampler: {
+            load: (id: string, instrumentKey: string) => {
+                const patches: { [expression: number]: string } = get_patches(id);
+                store.update((s) => {
+                    s.playback.sampler[instrumentKey] = {};
+                    Object.entries(patches).forEach(([expression, url]) => {
+                        s.playback.sampler[instrumentKey][parseInt(expression)] = new PatchPlayer(id, url);
+                    });
+                });
+            },
+            play: (
+                instrumentKey: string,
+                pitch: number,
+                velocity: number,
+                duration: number,
+                expression?: Expression
+            ) => {
+                const frequency = pitch_to_frequency(pitch);
+                // its possible we don't actually have an expression patch to play so play default
+                const instrument = store.getRawState().playback.sampler[instrumentKey];
+                if (expression === undefined || instrument[expression] === undefined) {
+                    instrument[Expression.Natural].play(frequency, velocity, duration);
+                } else {
+                    instrument[expression].play(frequency, velocity, duration);
+                }
+            }
+        }
     },
     score: {
         meta: {
@@ -59,7 +98,7 @@ export const actions = {
             remove: (player_key: string) => engine.remove_player(player_key)
         },
         instrument: {
-            create: (id: string): CreateInstrumentReturn => engine.create_instrument(id),
+            create: (id: string): string => engine.create_instrument(id),
             reorder: (player_key: string, old_index: number, new_index: number) =>
                 engine.reorder_instrument(player_key, old_index, new_index),
             remove: (player_key: string, instrument_key: string) =>
@@ -98,20 +137,77 @@ export const actions = {
         }
     },
     ui: {
-        view: (value: View) => engine.set_view(value),
-        snap: (snap: NoteDuration) => engine.set_snap(snap),
-        flow_key: (key: string) => engine.set_flow_key(key),
+        view: (view: View) => {
+            store.update((s) => {
+                s.ui.view = view;
+            });
+        },
+        snap: (snap: NoteDuration) => {
+            store.update((s) => {
+                s.ui.snap = snap;
+            });
+        },
+        flow_key: (key: string) => {
+            store.update((s) => {
+                s.ui.flow_key = key;
+            });
+        },
         setup: {
-            expand: (key: string) => engine.setup_expand(key),
-            collapse: (key: string) => engine.setup_collapse(key)
+            expand: (key: string) => {
+                store.update((s) => {
+                    s.ui.setup.expanded[key] = true;
+                });
+            },
+            collapse: (key: string) => {
+                store.update((s) => {
+                    delete s.ui.setup.expanded[key];
+                });
+            }
         },
         play: {
-            expand: (key: string) => engine.play_expand(key),
-            collapse: (key: string) => engine.play_collapse(key),
+            selection: {
+                select: (key: string) => {
+                    store.update((s) => {
+                        s.ui.play.selected[key] = true;
+                    });
+                },
+                deselect: (key: string) => {
+                    store.update((s) => {
+                        delete s.ui.play.selected[key];
+                    });
+                },
+                clear: () => {
+                    store.update((s) => {
+                        s.ui.play.selected = {};
+                    });
+                }
+            },
+            expand: (key: string) => {
+                store.update((s) => {
+                    s.ui.play.expanded[key] = true;
+                });
+            },
+            collapse: (key: string) => {
+                store.update((s) => {
+                    delete s.ui.play.expanded[key];
+                });
+            },
             // TODO: make height a none fixeed number
-            keyboard: (instrument_key: string, base: number) => engine.set_play_keyboard(instrument_key, base, 17),
-            tool: (tool: Tool) => engine.set_play_tool(tool),
-            zoom: (zoom: number) => engine.set_play_zoom(zoom)
+            keyboard: (instrument_key: string, base: number) => {
+                store.update((s) => {
+                    s.ui.play.keyboard[instrument_key] = { base, height: 17 };
+                });
+            },
+            tool: (tool: Tool) => {
+                store.update((s) => {
+                    s.ui.play.tool = tool;
+                });
+            },
+            zoom: (zoom: number) => {
+                store.update((s) => {
+                    s.ui.play.zoom = zoom;
+                });
+            }
         }
     }
 };

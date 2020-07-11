@@ -1,10 +1,15 @@
-import { Engine, ThemeMode, View, NoteDuration, Tool, AutoCountStyle } from "solo-composer-engine";
+import { Engine, NoteDuration, AutoCountStyle } from "solo-composer-engine";
 import { Store, useStoreState } from "pullstate";
-import { State } from "./defs";
+import { State, ThemeMode, View, Tool } from "./defs";
+import { Transport } from "tone/build/esm/core";
+import localforage from "localforage";
 
 export const store = new Store<State>({
-    app: { theme: ThemeMode.Dark, audition: false },
-    playback: { metronome: false },
+    app: {
+        theme: ThemeMode.Dark,
+        audition: false
+    },
+    playback: { metronome: false, transport: new Transport({ ppq: 8 }), sampler: {} },
     score: {
         meta: {
             title: "",
@@ -31,12 +36,26 @@ export const store = new Store<State>({
         snap: NoteDuration.Sixteenth,
         flow_key: "",
         setup: { expanded: {} },
-        play: { expanded: {}, keyboard: {}, tool: Tool.Select, zoom: 1 }
+        play: { selected: {}, expanded: {}, keyboard: {}, tool: Tool.Select, zoom: 1 }
     }
 });
 
+(async () => {
+    const audition = await localforage.getItem<boolean>("sc:audition/v1");
+    const theme = await localforage.getItem<ThemeMode>("sc:theme-mode/v1");
+    store.update((s) => {
+        s.app.audition = audition === null ? true : audition;
+        s.app.theme = theme === null ? ThemeMode.Dark : theme;
+    });
+})();
+
 export const engine = new Engine((s: State) => {
-    store.update(() => s);
+    store.update((state) => {
+        return {
+            ...state,
+            ...s
+        };
+    });
 });
 
 export function useStore<T>(splitter: (s: State) => T, deps?: readonly any[]) {

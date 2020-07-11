@@ -1,3 +1,12 @@
+.tone-track-entry {
+    border: 1px solid rgba(25, 25, 25, 0.8);
+}
+
+.tone-track-entry--selected {
+    background-color: var(--primary-bg) !important;
+    z-index: 100;
+}
+
 .tone-track-entry__handle {
     touch-action: none;
     position: absolute;

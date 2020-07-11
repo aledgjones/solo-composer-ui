@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import React, { FC, useCallback, useEffect } from "react";
 import { mdiCursorDefault, mdiEraser, mdiPen, mdiBoxCutter, mdiPlus, mdiMinus } from "@mdi/js";
 import { useTitle, useRainbow, Icon, DragScroll, Select, Option } from "../../ui";
 import { useStore, actions, Tool, NoteDuration, useTicks } from "../../store";
@@ -11,13 +11,14 @@ const Play: FC = () => {
     useTitle("Solo Composer | Sequence");
 
     const [flows, flowKey, players, tool, zoom, snap_duration] = useStore((s) => {
-        const flow_players = s.score.flows.by_key[s.ui.flow_key].players;
+        const flowKey = s.ui.flow_key || s.score.flows.order[0];
+        const flow_players = s.score.flows.by_key[flowKey].players;
         return [
             s.score.flows.order.map((flow_key) => {
                 const { key, title } = s.score.flows.by_key[flow_key];
                 return { key, title };
             }),
-            s.ui.flow_key,
+            flowKey,
             s.score.players.order
                 .filter((playerKey) => flow_players.includes(playerKey))
                 .map((player_key) => s.score.players.by_key[player_key]),
@@ -29,6 +30,33 @@ const Play: FC = () => {
 
     const ticks = useTicks(flowKey);
     const colors = useRainbow(players.length);
+
+    // keyboard shortcuts
+    useEffect(() => {
+        const listener = (e: KeyboardEvent) => {
+            switch (e.code) {
+                case "Digit1":
+                    actions.ui.play.tool(Tool.Select);
+                    break;
+                case "Digit2":
+                    actions.ui.play.tool(Tool.Draw);
+                    break;
+                case "Digit3":
+                    actions.ui.play.tool(Tool.Slice);
+                    break;
+                case "Digit4":
+                    actions.ui.play.tool(Tool.Erase);
+                    break;
+                default:
+                    break;
+            }
+        };
+
+        document.addEventListener("keydown", listener);
+        return () => {
+            document.removeEventListener("keydown", listener);
+        };
+    }, []);
 
     const inc = useCallback(() => {
         if (zoom + 0.05 <= 5) {

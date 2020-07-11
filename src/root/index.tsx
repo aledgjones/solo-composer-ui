@@ -63,7 +63,7 @@ export const Root: FC = () => {
                 </div>
             </div>
 
-            {/* <Log /> */}
+            <Log />
         </>
     );
 };

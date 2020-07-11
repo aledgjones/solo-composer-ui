@@ -1,7 +1,6 @@
 import React, { FC, useState, useCallback } from "react";
-import { useTitle, Icon } from "../../ui";
+import { useTitle } from "../../ui";
 import { actions, PlayerType } from "../../store";
-import { SetupSettings } from "../dialogs/setup-settings";
 import { FlowList } from "./flow-list";
 import { LayoutList } from "./layout-list";
 import { RenderRegion } from "../components/render-region";
@@ -20,29 +19,23 @@ const Setup: FC = () => {
     const [typePicker, setTypePicker] = useState<boolean>(false);
     const [instrumentPicker, setInstrumentPicker] = useState<boolean>(false);
 
-    const onTypeSelected = useCallback(
-        (type: PlayerType) => {
-            setTypePicker(false);
-            const player_key = actions.score.player.create(type);
-            setSelection({ key: player_key, type: SelectionType.Player });
-            setInstrumentPicker(true);
-        },
-        [actions.score.player]
-    );
+    const onTypeSelected = useCallback((type: PlayerType) => {
+        setTypePicker(false);
+        const player_key = actions.score.player.create(type);
+        setSelection({ key: player_key, type: SelectionType.Player });
+        setInstrumentPicker(true);
+    }, []);
 
     const onSelectInstrument = useCallback(
         (id: string) => {
             if (selection) {
-                // const channel = actions.playback.sampler.createChannel();
-                const instrument = actions.score.instrument.create(id);
-
-                actions.score.player.assign_instrument(selection.key, instrument.key);
-                // actions.playback.sampler.assignInstrument(instrument.key, channel);
-                // actions.playback.sampler.load(channel, def);
+                const instrumentKey = actions.score.instrument.create(id);
+                actions.score.player.assign_instrument(selection.key, instrumentKey);
+                actions.playback.sampler.load(id, instrumentKey);
             }
             setInstrumentPicker(false);
         },
-        [selection, actions.score.instrument, actions.score.player, actions.sampler]
+        [selection]
     );
 
     return (

@@ -66,7 +66,7 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
                             <div className="generic-settings__section" style={{ paddingBottom: 0 }}>
                                 <Subheader>Auditioning</Subheader>
                             </div>
-                            <ListItem onClick={() => actions.app.audition(!audition)}>
+                            <ListItem onClick={() => actions.app.audition.toggle()}>
                                 <Label>
                                     <p>Enable auditioning</p>
                                     <p>Play notes during note input and selection</p>

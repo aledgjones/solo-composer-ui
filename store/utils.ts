@@ -1,12 +1,11 @@
 import { useMemo, useEffect, useState } from "react";
 import { mdiAccount, mdiAccountGroup } from "@mdi/js";
 import { engine, useStore, store } from "./use-store";
-import { Player, Instrument, State, TickList } from "./defs";
+import { Player, Instrument, State, TickList, View } from "./defs";
 import {
     PlayerType,
     AutoCountStyle,
     TimeSignatureDrawType,
-    View,
     NoteDuration,
     get_ticks,
     def_tree,
@@ -146,8 +145,9 @@ export function useAutoSetup() {
         players.forEach((player) => {
             const playerKey = actions.score.player.create(player.type);
             player.instruments.forEach((instrument) => {
-                const instrumentKey = actions.score.instrument.create(instrument).key;
+                const instrumentKey = actions.score.instrument.create(instrument);
                 actions.score.player.assign_instrument(playerKey, instrumentKey);
+                actions.playback.sampler.load(instrument, instrumentKey);
             });
         });
 

@@ -1,4 +1,26 @@
-import { View, ThemeMode, PlayerType, Tool, AutoCountStyle, Accidental, NoteDuration } from "solo-composer-engine";
+import { PlayerType, AutoCountStyle, Accidental, NoteDuration } from "solo-composer-engine";
+import { PatchPlayer } from "../patch-player";
+import { Transport } from "tone/build/esm/core";
+
+export enum Tool {
+    Select,
+    Draw,
+    Slice,
+    Erase
+}
+
+export enum View {
+    Setup,
+    Write,
+    Engrave,
+    Play,
+    Print
+}
+
+export enum ThemeMode {
+    Light,
+    Dark
+}
 
 export interface Tick {
     x: number;
@@ -81,6 +103,12 @@ export interface State {
     };
     playback: {
         metronome: boolean;
+        transport: Transport;
+        sampler: {
+            [instrumentKey: string]: {
+                [expression: number]: PatchPlayer;
+            };
+        };
     };
     score: {
         meta: {
@@ -121,6 +149,7 @@ export interface State {
             expanded: { [key: string]: boolean };
         };
         play: {
+            selected: { [key: string]: boolean };
             expanded: { [key: string]: boolean };
             keyboard: { [key: string]: { base: number; height: number } };
             tool: Tool;

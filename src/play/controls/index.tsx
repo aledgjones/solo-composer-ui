@@ -78,11 +78,11 @@ export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
                                 />
                             </div>
                             <div className="controls__sampler-config">
+                                <Icon style={{ marginRight: 20 }} path={mdiCogOutline} size={24} onClick={noop} />
                                 <Label className="controls__sampler-meta">
                                     <p>Solo Sampler</p>
                                     <p>{instrument.id}</p>
                                 </Label>
-                                <Icon path={mdiCogOutline} size={24} onClick={noop} />
                             </div>
                         </div>
                         <Keyboard instrumentKey={instrument.key} height={slots} />

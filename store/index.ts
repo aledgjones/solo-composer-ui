@@ -1,4 +1,4 @@
-export { ThemeMode, AutoCountStyle, View, PlayerType, Tool, NoteDuration } from "solo-composer-engine";
+export { AutoCountStyle, PlayerType, NoteDuration } from "solo-composer-engine";
 
 export * from "./defs";
 export { useStore } from "./use-store";

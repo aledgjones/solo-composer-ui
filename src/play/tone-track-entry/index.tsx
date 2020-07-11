@@ -1,6 +1,6 @@
-import React, { useMemo, PointerEvent, useCallback } from "react";
-import { TickList, Tone, Tool } from "../../../store";
-import { FC } from "react";
+import React, { FC, useMemo, PointerEvent, useCallback } from "react";
+import { merge } from "../../../ui";
+import { TickList, Tone, Tool, useStore, actions } from "../../../store";
 import { SLOT_HEIGHT } from "../const";
 
 import "./styles.css";
@@ -20,13 +20,11 @@ function shouldDraw(pitch: number, base: number, slots: number) {
 
 interface Props {
     color: string;
-    border: string;
     base: number;
     slots: number;
     tone: Tone;
     ticks: TickList;
     tool: Tool;
-    onSelect: (key: string) => void;
     onRemove: (key: string) => void;
     onEdit: (
         e: PointerEvent<HTMLElement>,
@@ -41,19 +39,9 @@ interface Props {
     onSlice: (e: PointerEvent<HTMLElement>, toneKey: string, start: number, duration: number) => void;
 }
 
-export const ToneTrackEntry: FC<Props> = ({
-    color,
-    border,
-    base,
-    slots,
-    tone,
-    ticks,
-    tool,
-    onSelect,
-    onRemove,
-    onEdit,
-    onSlice
-}) => {
+export const ToneTrackEntry: FC<Props> = ({ color, base, slots, tone, ticks, tool, onRemove, onEdit, onSlice }) => {
+    const selected = useStore((s) => s.ui.play.selected[tone.key], [tone.key]);
+
     const left = useMemo(() => {
         if (tone.tick >= ticks.list.length) {
             return ticks.width;
@@ -71,9 +59,13 @@ export const ToneTrackEntry: FC<Props> = ({
     }, [tone, ticks, left]);
 
     const actionMain = useCallback(
-        (e) => {
+        (e: PointerEvent<HTMLDivElement>) => {
+            // stop deselection on track
+            e.stopPropagation();
+
             if (tool === Tool.Select) {
-                onSelect(tone.key);
+                actions.ui.play.selection.clear();
+                actions.ui.play.selection.select(tone.key);
             }
             if (tool === Tool.Erase) {
                 onRemove(tone.key);
@@ -82,7 +74,7 @@ export const ToneTrackEntry: FC<Props> = ({
                 onSlice(e, tone.key, tone.tick, tone.duration.int);
             }
         },
-        [tone, onSelect, onRemove, onSlice]
+        [tone, onRemove, onSlice, tool]
     );
 
     const actionWest = useCallback(
@@ -106,15 +98,14 @@ export const ToneTrackEntry: FC<Props> = ({
     if (shouldDraw(tone.pitch.int, base, slots)) {
         return (
             <div
-                className="tone-track-entry no-scroll"
+                className={merge("tone-track-entry", "no-scroll", { "tone-track-entry--selected": selected })}
                 style={{
                     position: "absolute",
                     top: (base - tone.pitch.int) * SLOT_HEIGHT,
                     left,
                     width,
                     height: SLOT_HEIGHT,
-                    backgroundColor: color,
-                    border: `1px solid ${border}`
+                    backgroundColor: color
                 }}
                 onPointerDown={actionMain}
             >
