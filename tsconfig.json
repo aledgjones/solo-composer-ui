@@ -10,7 +10,8 @@
         "moduleResolution": "node",
         "allowSyntheticDefaultImports": true,
         "isolatedModules": true,
-        "resolveJsonModule": true
+        "resolveJsonModule": true,
+        "skipLibCheck": true
     },
     "include": ["src", "typings"]
 }

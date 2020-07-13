@@ -1,7 +1,7 @@
-import { useMemo, useEffect, useState } from "react";
+import { useMemo, useEffect } from "react";
 import { mdiAccount, mdiAccountGroup } from "@mdi/js";
-import { engine, useStore, store } from "./use-store";
-import { Player, Instrument, State, TickList, View } from "./defs";
+import { useStore } from "./use-store";
+import { Player, Instrument, View } from "./defs";
 import {
     PlayerType,
     AutoCountStyle,
@@ -12,6 +12,8 @@ import {
 } from "solo-composer-engine";
 import { toRoman } from "roman-numerals";
 import { actions } from "./actions";
+
+export * from "./playback/utils";
 
 function count_to_string(style: AutoCountStyle, count?: number) {
     if (count === null) {
@@ -120,33 +122,26 @@ export function useAutoSetup() {
 
     // the actual auto setup bit
     useEffect(() => {
-        const state = engine.get() as State;
-        const flow_key = state.score.flows.order[0];
+        actions.playback.transport.ppq(8);
 
         actions.score.meta.title("String Quartet in B${flat}");
         actions.score.meta.subtitle("Op. 18, No. 6");
         actions.score.meta.composer("Beethoven");
 
+        const flow_key = actions.score.flow.create();
         actions.score.flow.rename(flow_key, "Allegro con brio");
         actions.score.entries.time_signature.create(flow_key, 0, 2, 2, TimeSignatureDrawType.SplitCommonTime);
         actions.score.flow.length(flow_key, 8 * 4 * 4);
 
-        const players = [
-            // {
-            //     type: PlayerType.Solo,
-            //     instruments: ["woodwinds.clarinet.b-flat", "woodwinds.clarinet.a"]
-            // },
-            { type: PlayerType.Solo, instruments: ["strings.violin"] },
-            { type: PlayerType.Solo, instruments: ["strings.violin"] },
-            { type: PlayerType.Solo, instruments: ["strings.viola"] },
-            { type: PlayerType.Solo, instruments: ["strings.violoncello"] }
-        ];
+        const players = [{ type: PlayerType.Solo, instruments: ["keyboard.piano"] }];
+
+        let instrumentKey = "";
         players.forEach((player) => {
             const playerKey = actions.score.player.create(player.type);
             player.instruments.forEach((instrument) => {
-                const instrumentKey = actions.score.instrument.create(instrument);
+                instrumentKey = actions.score.instrument.create(instrument);
                 actions.score.player.assign_instrument(playerKey, instrumentKey);
-                actions.playback.sampler.load(instrument, instrumentKey);
+                actions.playback.instrument.load(instrument, instrumentKey);
             });
         });
 

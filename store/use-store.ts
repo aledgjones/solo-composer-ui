@@ -9,7 +9,7 @@ export const store = new Store<State>({
         theme: ThemeMode.Dark,
         audition: false
     },
-    playback: { metronome: false, transport: new Transport({ ppq: 8 }), sampler: {} },
+    playback: { metronome: false, transport: { playing: false }, instruments: {} },
     score: {
         meta: {
             title: "",

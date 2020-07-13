@@ -15,13 +15,16 @@ interface Props {
 }
 
 export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
-    const [instrument, slots, expanded] = useStore(
+    const [instrument, slots, expanded, volume, mute, solo] = useStore(
         (s) => {
             const keyboard = s.ui.play.keyboard[instrumentKey];
             return [
                 s.score.instruments[instrumentKey],
                 keyboard ? keyboard.height : 17,
-                s.ui.play.expanded[instrumentKey]
+                s.ui.play.expanded[instrumentKey],
+                s.playback.instruments[instrumentKey].volume,
+                s.playback.instruments[instrumentKey].mute,
+                s.playback.instruments[instrumentKey].solo
             ];
         },
         [instrumentKey]
@@ -45,17 +48,17 @@ export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
                     <Text content={name} />
                 </p>
                 <Icon
-                    toggled={instrument.solo}
+                    toggled={solo}
                     style={{ marginRight: 12 }}
                     path={mdiSizeS}
                     size={24}
-                    onClick={() => actions.score.instrument.solo(instrument.key)}
+                    onClick={() => actions.playback.instrument.solo(instrument.key)}
                 />
                 <Icon
-                    toggled={instrument.mute}
+                    toggled={mute}
                     path={mdiSizeM}
                     size={24}
-                    onClick={() => actions.score.instrument.mute(instrument.key)}
+                    onClick={() => actions.playback.instrument.mute(instrument.key)}
                 />
                 <Icon
                     style={{ marginLeft: 12, transform: `rotateZ(${expanded ? "180deg" : "0"})` }}
@@ -70,10 +73,10 @@ export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
                         <div className="controls__settings">
                             <div className="controls__settings-spacer">
                                 <Fader
-                                    volume={instrument.volume}
+                                    volume={volume}
                                     color={color}
                                     onChange={(volume: number) =>
-                                        actions.score.instrument.volume(instrument.key, volume)
+                                        actions.playback.instrument.volume(instrument.key, volume)
                                     }
                                 />
                             </div>

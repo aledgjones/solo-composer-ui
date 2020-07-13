@@ -2,7 +2,7 @@ import React, { FC, useEffect, Suspense } from "react";
 import { mdiUndo, mdiRedo } from "@mdi/js";
 import { useStore, actions, ThemeMode, View, useAutoSetup } from "../../store";
 import { Tabs, useTheme, merge, Tab, Icon, Log } from "../../ui";
-import { Transport } from "./transport";
+import { TransportComponent } from "./transport";
 import { Loading } from "../components/loading";
 import { File } from "./file";
 
@@ -45,7 +45,7 @@ export const Root: FC = () => {
                         <Tab value={View.Play}>Sequence</Tab>
                         <Tab value={View.Print}>Publish</Tab>
                     </Tabs>
-                    <Transport />
+                    <TransportComponent />
                     <div className="root__history">
                         <Icon disabled onClick={() => false} className="root__history-icon" size={24} path={mdiUndo} />
                         <Icon disabled onClick={() => false} size={24} path={mdiRedo} />
@@ -55,8 +55,8 @@ export const Root: FC = () => {
                 <div className="root__content">
                     <Suspense fallback={<Loading />}>
                         {view === View.Setup && <Setup />}
-                        {/* {tab === TabState.write && <Write />}
-                    {tab === TabState.engrave && <Engrave />} */}
+                        {/* {tab === TabState.write && <Write />} */}
+                        {/* {tab === TabState.engrave && <Engrave />} */}
                         {view === View.Play && <Play />}
                         {/* {tab === TabState.print && <Fallback color={theme.background[500].fg} type="empty" />} */}
                     </Suspense>

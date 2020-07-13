@@ -38,6 +38,7 @@ interface Props {
         fixedPitch: boolean
     ) => void;
     onSlice: (e: PointerEvent<HTMLElement>, toneKey: string, start: number, duration: number) => void;
+    onAudition: (pitch: number) => void;
 }
 
 export const ToneTrackEntry: FC<Props> = ({
@@ -50,7 +51,8 @@ export const ToneTrackEntry: FC<Props> = ({
     zoom,
     onRemove,
     onEdit,
-    onSlice
+    onSlice,
+    onAudition
 }) => {
     const selected = useStore((s) => s.ui.play.selected[tone.key], [tone.key]);
 
@@ -75,9 +77,10 @@ export const ToneTrackEntry: FC<Props> = ({
             // stop deselection on track
             e.stopPropagation();
 
-            if (tool === Tool.Select) {
+            if (tool === Tool.Select && !selected) {
                 actions.ui.play.selection.clear();
                 actions.ui.play.selection.select(tone.key);
+                onAudition(tone.pitch.int);
             }
             if (tool === Tool.Erase) {
                 onRemove(tone.key);
@@ -86,7 +89,7 @@ export const ToneTrackEntry: FC<Props> = ({
                 onSlice(e, tone.key, tone.tick, tone.duration.int);
             }
         },
-        [tone, onRemove, onSlice, tool]
+        [tone, onRemove, onSlice, tool, selected, onAudition]
     );
 
     const actionWest = useCallback(

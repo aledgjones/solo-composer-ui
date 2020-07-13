@@ -1,18 +1,11 @@
-import {
-    AutoCountStyle,
-    PlayerType,
-    TimeSignatureDrawType,
-    NoteDuration,
-    get_patches,
-    pitch_to_frequency,
-    Expression
-} from "solo-composer-engine";
-import { engine, store } from "./use-store";
-import { PatchPlayer } from "../patch-player";
-import { ThemeMode, View, Tool } from "./defs";
 import localforage from "localforage";
+import { AutoCountStyle, PlayerType, TimeSignatureDrawType, NoteDuration } from "solo-composer-engine";
+import { engine, store } from "./use-store";
+import { ThemeMode, View, Tool } from "./defs";
+import { playbackActions } from "./playback";
 
 // I know these are just wrapping funcs but it allows more acurate typings than wasm-pack produces
+// and it's really easy to swap between js and wasm funcs if needed.
 export const actions = {
     app: {
         audition: {
@@ -30,42 +23,7 @@ export const actions = {
             });
         }
     },
-    playback: {
-        metronome: {
-            toggle: () => {
-                store.update((s) => {
-                    s.playback.metronome = !s.playback.metronome;
-                });
-            }
-        },
-        sampler: {
-            load: (id: string, instrumentKey: string) => {
-                const patches: { [expression: number]: string } = get_patches(id);
-                store.update((s) => {
-                    s.playback.sampler[instrumentKey] = {};
-                    Object.entries(patches).forEach(([expression, url]) => {
-                        s.playback.sampler[instrumentKey][parseInt(expression)] = new PatchPlayer(id, url);
-                    });
-                });
-            },
-            play: (
-                instrumentKey: string,
-                pitch: number,
-                velocity: number,
-                duration: number,
-                expression?: Expression
-            ) => {
-                const frequency = pitch_to_frequency(pitch);
-                // its possible we don't actually have an expression patch to play so play default
-                const instrument = store.getRawState().playback.sampler[instrumentKey];
-                if (expression === undefined || instrument[expression] === undefined) {
-                    instrument[Expression.Natural].play(frequency, velocity, duration);
-                } else {
-                    instrument[expression].play(frequency, velocity, duration);
-                }
-            }
-        }
-    },
+    playback: playbackActions,
     score: {
         meta: {
             title: (value: string) => engine.set_title(value),
@@ -101,11 +59,7 @@ export const actions = {
             create: (id: string): string => engine.create_instrument(id),
             reorder: (player_key: string, old_index: number, new_index: number) =>
                 engine.reorder_instrument(player_key, old_index, new_index),
-            remove: (player_key: string, instrument_key: string) =>
-                engine.remove_instrument(player_key, instrument_key),
-            mute: (instrument_key: string) => engine.toggle_mute_instrument(instrument_key),
-            solo: (instrument_key: string) => engine.toggle_solo_instrument(instrument_key),
-            volume: (instrument_key: string, volume: number) => engine.set_volume_instrument(instrument_key, volume)
+            remove: (player_key: string, instrument_key: string) => engine.remove_instrument(player_key, instrument_key)
         },
         entries: {
             time_signature: {
@@ -195,7 +149,7 @@ export const actions = {
             // TODO: make height a none fixeed number
             keyboard: (instrument_key: string, base: number) => {
                 store.update((s) => {
-                    s.ui.play.keyboard[instrument_key] = { base, height: 17 };
+                    s.ui.play.keyboard[instrument_key] = { base, height: 24 };
                 });
             },
             tool: (tool: Tool) => {

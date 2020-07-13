@@ -1,6 +1,13 @@
 import { PlayerType, AutoCountStyle, Accidental, NoteDuration } from "solo-composer-engine";
-import { PatchPlayer } from "../patch-player";
-import { Transport } from "tone/build/esm/core";
+import { PlaybackDefs } from "./playback/defs";
+
+export * from "./playback/defs";
+
+export enum Status {
+    Pending,
+    Ready,
+    Error
+}
 
 export enum Tool {
     Select,
@@ -54,10 +61,6 @@ export interface Instrument {
     short_name: string;
     staves: string[];
     count?: number;
-
-    volume: number;
-    mute: boolean;
-    solo: boolean;
 }
 
 export interface Player {
@@ -101,15 +104,7 @@ export interface State {
         theme: ThemeMode;
         audition: boolean;
     };
-    playback: {
-        metronome: boolean;
-        transport: Transport;
-        sampler: {
-            [instrumentKey: string]: {
-                [expression: number]: PatchPlayer;
-            };
-        };
-    };
+    playback: PlaybackDefs;
     score: {
         meta: {
             title: string;

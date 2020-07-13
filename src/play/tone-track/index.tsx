@@ -1,4 +1,5 @@
 import React, { FC, PointerEvent, useRef, useCallback } from "react";
+import { pitch_to_frequency, Expression } from "solo-composer-engine";
 import { TickList, useStore, Tone, Tool, actions, duration_to_ticks } from "../../../store";
 import { dragHandler } from "../../../ui";
 import { ToneTrackEntry } from "../tone-track-entry";
@@ -6,6 +7,7 @@ import { SLOT_HEIGHT } from "../const";
 import { getTickFromXPosition, getPitchFromYPosition, getStartOfTone, getDurationOfTone } from "../utils";
 
 import "./styles.css";
+import { useSampler } from "../../../store/playback";
 
 interface Props {
     flowKey: string;
@@ -52,6 +54,18 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool
         [flowKey, instrumentKey]
     );
 
+    const sampler = useSampler(instrumentKey);
+
+    const onAudition = useCallback(
+        (pitch: number) => {
+            if (audition) {
+                const frequency = pitch_to_frequency(pitch);
+                sampler.expressions[Expression.Natural].triggerAttackRelease(frequency, 0.5, undefined, 0.8);
+            }
+        },
+        [sampler, audition]
+    );
+
     const onCreate = useCallback(
         (e: PointerEvent<HTMLDivElement>) => {
             if (track.current && tool === Tool.Draw) {
@@ -67,16 +81,14 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool
                 actions.ui.play.selection.select(toneKey);
 
                 onEdit(e, toneKey, start, duration, pitch, true, false, true);
-                if (audition) {
-                    actions.playback.sampler.play(instrumentKey, pitch, 0.8, 1.0);
-                }
+                onAudition(pitch);
             }
 
             if (tool === Tool.Select) {
                 actions.ui.play.selection.clear();
             }
         },
-        [flowKey, instrumentKey, trackKey, track, ticks, base, slots, tool, snap, audition, zoom]
+        [flowKey, instrumentKey, trackKey, track, ticks, base, slots, tool, snap, audition, zoom, onAudition]
     );
 
     const onEdit = useCallback(
@@ -116,8 +128,8 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool
                     const y = ev.clientY - init.box.top;
                     const p = fixedPitch ? pitch : getPitchFromYPosition(y, base, slots);
                     const d = getDurationOfTone(x, ticks, snap, zoom, start, duration, fixedStart, fixedDuration);
-                    if (audition && p !== pitch) {
-                        actions.playback.sampler.play(instrumentKey, p, 0.8, 1.0);
+                    if (p !== pitch) {
+                        onAudition(p);
                     }
                     if (d <= 0) {
                         actions.score.entries.tone.remove(flowKey, trackKey, toneKey);
@@ -127,7 +139,7 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool
 
             handler(e);
         },
-        [flowKey, instrumentKey, trackKey, track, ticks, base, slots, snap, audition, zoom]
+        [flowKey, instrumentKey, trackKey, track, ticks, base, slots, snap, audition, zoom, onAudition]
     );
 
     const onSlice = useCallback(
@@ -173,6 +185,7 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool
                         onRemove={onRemove}
                         onEdit={onEdit}
                         onSlice={onSlice}
+                        onAudition={onAudition}
                     />
                 );
             })}

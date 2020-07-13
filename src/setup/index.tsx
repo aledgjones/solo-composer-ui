@@ -31,7 +31,7 @@ const Setup: FC = () => {
             if (selection) {
                 const instrumentKey = actions.score.instrument.create(id);
                 actions.score.player.assign_instrument(selection.key, instrumentKey);
-                actions.playback.sampler.load(id, instrumentKey);
+                actions.playback.instrument.load(id, instrumentKey);
             }
             setInstrumentPicker(false);
         },
