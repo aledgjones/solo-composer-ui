@@ -3,7 +3,7 @@ import { TickList, Tick } from "../../../store";
 import { FC } from "react";
 import { merge } from "../../../ui";
 
-function tickHeight(tick: Tick, isTrack: boolean, height: number) {
+function tickHeight(tick: Tick, isTrack: boolean, height: number, zoom: number) {
     if (tick.is_first_beat) {
         return height;
     } else if (tick.is_grouping_boundry) {
@@ -11,7 +11,11 @@ function tickHeight(tick: Tick, isTrack: boolean, height: number) {
     } else if (tick.is_beat) {
         return isTrack ? height : height / 3;
     } else if (tick.is_quaver_beat) {
-        return isTrack ? height : height / 6;
+        if (zoom >= 0.5) {
+            return isTrack ? height : height / 6;
+        } else {
+            return 0;
+        }
     } else {
         return undefined;
     }
@@ -50,7 +54,7 @@ export const Ticks: FC<Props> = memo(({ className, ticks, height, isTrack, zoom 
             style={{ width: ticks.width * zoom, height }}
         >
             {ticks.list.map((tick, i) => {
-                const tick_height = tickHeight(tick, isTrack, height);
+                const tick_height = tickHeight(tick, isTrack, height, zoom);
                 if (tick_height) {
                     const tick_color = tickColor(tick, isTrack);
                     if (tick.is_first_beat) {
@@ -66,7 +70,7 @@ export const Ticks: FC<Props> = memo(({ className, ticks, height, isTrack, zoom 
                                 strokeWidth="1"
                                 stroke={tick_color}
                             />
-                            {!isTrack && tick.is_first_beat && zoom >= 0.5 && (
+                            {!isTrack && tick.is_first_beat && (
                                 <text
                                     x={tick.x * zoom + 5}
                                     y={12}

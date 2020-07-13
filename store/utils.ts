@@ -122,7 +122,7 @@ export function useAutoSetup() {
 
     // the actual auto setup bit
     useEffect(() => {
-        actions.playback.transport.ppq(8);
+        actions.playback.transport.ppq(16);
 
         actions.score.meta.title("String Quartet in B${flat}");
         actions.score.meta.subtitle("Op. 18, No. 6");
@@ -130,8 +130,9 @@ export function useAutoSetup() {
 
         const flow_key = actions.score.flow.create();
         actions.score.flow.rename(flow_key, "Allegro con brio");
-        actions.score.entries.time_signature.create(flow_key, 0, 2, 2, TimeSignatureDrawType.SplitCommonTime);
-        actions.score.flow.length(flow_key, 8 * 4 * 4);
+        actions.score.entries.time_signature.create(flow_key, 0, 3, 4, TimeSignatureDrawType.Normal);
+        actions.score.flow.length(flow_key, 8 * 3 * 8);
+        actions.score.entries.time_signature.create(flow_key, 8 * 3 * 4, 4, 4, TimeSignatureDrawType.Normal);
 
         const players = [{ type: PlayerType.Solo, instruments: ["keyboard.piano"] }];
 

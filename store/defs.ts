@@ -50,6 +50,13 @@ export interface Tone {
     pitch: { int: number; accidental: Accidental };
 }
 
+export interface TimeSignature {
+    key: string;
+    tick: number;
+    beats: number;
+    beat_type: number;
+}
+
 export interface Patches {
     [expression: string]: string;
 }
@@ -71,7 +78,7 @@ export interface Player {
 }
 
 export interface Entries {
-    order: string[];
+    by_tick: { [tick: number]: string[] };
     by_key: { [key: string]: any }; // The typing stop here we will never actually use these js side.
 }
 

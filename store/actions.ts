@@ -149,7 +149,7 @@ export const actions = {
             // TODO: make height a none fixeed number
             keyboard: (instrument_key: string, base: number) => {
                 store.update((s) => {
-                    s.ui.play.keyboard[instrument_key] = { base, height: 24 };
+                    s.ui.play.keyboard[instrument_key] = { base, height: 17 };
                 });
             },
             tool: (tool: Tool) => {

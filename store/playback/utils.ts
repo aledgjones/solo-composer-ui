@@ -8,22 +8,13 @@ export function useSampler(instrumentKey: string) {
     }, [instrumentKey]);
 }
 
-export function useTimestamp() {
-    const [timestamp, setTimestamp] = useState("1.1.000");
+export function useTick() {
+    const [timestamp, setTimestamp] = useState(0);
     useEffect(() => {
         let running = true;
         const update = () => {
-            const stamp = Transport.position.toString();
-            const [bar_str, beat_str, sixteenth_complete_str] = stamp.split(":");
-            const [sixteenth_str, decimal_str] = sixteenth_complete_str.split(".");
-
-            const bar = parseInt(bar_str) + 1;
-            const beat = parseInt(beat_str) + 1;
-            const sixteenth = parseInt(sixteenth_str) + 1;
-            const decimal = decimal_str ? decimal_str.padStart(3, "0") : "000";
-
-            setTimestamp(`${bar}:${beat}:${sixteenth}.${decimal}`);
-
+            const stamp = parseInt(Transport.ticks.toString());
+            setTimestamp(stamp);
             if (running) {
                 requestAnimationFrame(update);
             }
