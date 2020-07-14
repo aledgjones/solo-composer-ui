@@ -1,13 +1,21 @@
 import React, { FC, PointerEvent, useRef, useCallback } from "react";
-import { pitch_to_frequency, Expression } from "solo-composer-engine";
-import { TickList, useStore, Tone, Tool, actions, duration_to_ticks } from "../../../store";
+import {
+    TickList,
+    useStore,
+    Tone,
+    Tool,
+    actions,
+    duration_to_ticks,
+    pitch_to_frequency,
+    Expression
+} from "../../../store";
+import { useSampler } from "../../../store/playback";
 import { dragHandler } from "../../../ui";
 import { ToneTrackEntry } from "../tone-track-entry";
 import { SLOT_HEIGHT } from "../const";
 import { getTickFromXPosition, getPitchFromYPosition, getStartOfTone, getDurationOfTone } from "../utils";
 
 import "./styles.css";
-import { useSampler } from "../../../store/playback";
 
 interface Props {
     flowKey: string;

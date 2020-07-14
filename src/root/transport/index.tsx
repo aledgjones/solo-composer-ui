@@ -1,19 +1,29 @@
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useMemo } from "react";
 import { mdiPlay, mdiMetronome, mdiSkipPrevious, mdiStop } from "@mdi/js";
 import { Transport } from "tone";
-import { Expression, pitch_to_frequency } from "solo-composer-engine";
-import { useStore, actions, useTick, Tone, TimeSignature } from "../../../store";
+import { useStore, actions, useTick, Tone, pitch_to_frequency, Expression } from "../../../store";
 import { Icon } from "../../../ui";
-import { store } from "../../../store/use-store";
+import { store, engine } from "../../../store/use-store";
 import { samplers } from "../../../store/playback";
 
 import "./styles.css";
 
 export const TransportComponent: FC = () => {
-    const [metronome, playing] = useStore((s) => [s.playback.metronome, s.playback.transport.playing]);
+    const [flow_key, metronome, playing] = useStore((s) => {
+        const flow_key = s.ui.flow_key ? s.ui.flow_key : s.score.flows.order[0];
+        return [flow_key, s.playback.metronome, s.playback.transport.playing];
+    });
     const tick = useTick();
+    const timestamp = useMemo(() => {
+        if (flow_key !== undefined) {
+            return engine.tick_to_timestamp(flow_key, tick);
+        } else {
+            return "1:1:0.000";
+        }
+    }, [flow_key, tick]);
 
     // FIXME: this is just for testing. Think of a better way of doing this.
+    // or is it?
     useEffect(() => {
         store.subscribe(
             (s) => {
@@ -28,15 +38,6 @@ export const TransportComponent: FC = () => {
                 Transport.cancel(0);
 
                 const flow = flows.by_key[flow_key || flows.order[0]];
-
-                Object.values(flow.master.entries.by_key).forEach((entry) => {
-                    if (entry.TimeSignature) {
-                        const timeSig = entry.TimeSignature as TimeSignature;
-                        Transport.schedule((time) => {
-                            Transport.timeSignature = [timeSig.beats, timeSig.beat_type];
-                        }, `${timeSig.tick}i`);
-                    }
-                });
 
                 flow.players.forEach((playerKey) => {
                     const player = players.by_key[playerKey];
@@ -83,7 +84,7 @@ export const TransportComponent: FC = () => {
                 />
             </div>
             <div className="transport__timestamp">
-                <span>{tick}</span>
+                <span>{timestamp}</span>
             </div>
             <div className="transport__metronome">
                 <Icon

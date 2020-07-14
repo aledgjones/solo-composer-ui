@@ -30,6 +30,7 @@ export enum ThemeMode {
 }
 
 export interface Tick {
+    tick: number;
     x: number;
     width: number;
     is_beat: boolean;

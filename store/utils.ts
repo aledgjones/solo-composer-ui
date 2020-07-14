@@ -131,8 +131,8 @@ export function useAutoSetup() {
         const flow_key = actions.score.flow.create();
         actions.score.flow.rename(flow_key, "Allegro con brio");
         actions.score.entries.time_signature.create(flow_key, 0, 3, 4, TimeSignatureDrawType.Normal);
-        actions.score.flow.length(flow_key, 8 * 3 * 8);
-        actions.score.entries.time_signature.create(flow_key, 8 * 3 * 4, 4, 4, TimeSignatureDrawType.Normal);
+        actions.score.entries.time_signature.create(flow_key, 16 * 3 * 4, 4, 4, TimeSignatureDrawType.Normal);
+        actions.score.flow.length(flow_key, 16 * 3 * 4 + 16 * 4 * 4);
 
         const players = [{ type: PlayerType.Solo, instruments: ["keyboard.piano"] }];
 

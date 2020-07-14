@@ -54,7 +54,11 @@ export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks, zoom })
         <div className="track">
             <div
                 className="track__tick-bar"
-                style={{ transform: `translateX(${(ticks.list[tick].x - 2) * zoom}px)` }}
+                style={{
+                    transform: `translateX(${
+                        ticks.list[tick] ? (ticks.list[tick].x - 2) * zoom : (ticks.width - 2) * zoom
+                    }px)`
+                }}
             />
 
             <Ticks isTrack={false} ticks={ticks} height={48} className="track__header" zoom={zoom} />
