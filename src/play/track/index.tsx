@@ -55,17 +55,25 @@ export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks, zoom })
             <div
                 className="track__tick-bar"
                 style={{
-                    transform: `translateX(${
-                        ticks.list[tick] ? (ticks.list[tick].x - 2) * zoom : (ticks.width - 2) * zoom
-                    }px)`
+                    left: ticks.list[tick]
+                        ? (ticks.list[tick].x - 2) * zoom
+                        : (ticks.width - 2) * zoom
                 }}
             />
 
-            <Ticks isTrack={false} ticks={ticks} height={48} className="track__header" zoom={zoom} />
+            <Ticks
+                isTrack={false}
+                ticks={ticks}
+                height={48}
+                className="track__header"
+                zoom={zoom}
+            />
             {expanded && (
                 <>
                     <div
-                        className={merge("track__tone-channel", { "no-scroll": tool !== Tool.Select })}
+                        className={merge("track__tone-channel", {
+                            "no-scroll": tool !== Tool.Select
+                        })}
                         style={{ height: SLOT_HEIGHT * slots, cursor }}
                     >
                         <Slots

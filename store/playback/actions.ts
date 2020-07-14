@@ -89,8 +89,9 @@ export const playbackActions = {
                                 sampler.add(pitch, sample, () => {
                                     pitches_complete++;
                                     store.update((s) => {
-                                        s.playback.instruments[instrumentKey].expressions[expressionKey].progress =
-                                            pitches_complete / pitches.length;
+                                        s.playback.instruments[instrumentKey].expressions[
+                                            expressionKey
+                                        ].progress = pitches_complete / pitches.length;
                                     });
                                     resolve();
                                 });
@@ -105,8 +106,10 @@ export const playbackActions = {
                     // the entire expression is loaded so inc the instrument progress
                     expressions_complete++;
                     store.update((s) => {
-                        s.playback.instruments[instrumentKey].expressions[expressionKey].status = Status.Ready;
-                        s.playback.instruments[instrumentKey].progress = expressions_complete / expressions.length;
+                        s.playback.instruments[instrumentKey].expressions[expressionKey].status =
+                            Status.Ready;
+                        s.playback.instruments[instrumentKey].progress =
+                            expressions_complete / expressions.length;
                     });
                 })
             );
@@ -118,12 +121,16 @@ export const playbackActions = {
         },
         mute: (instrument_key: string) => {
             store.update((s) => {
-                s.playback.instruments[instrument_key].mute = !s.playback.instruments[instrument_key].mute;
+                s.playback.instruments[instrument_key].mute = !s.playback.instruments[
+                    instrument_key
+                ].mute;
             });
         },
         solo: (instrument_key: string) => {
             store.update((s) => {
-                s.playback.instruments[instrument_key].solo = !s.playback.instruments[instrument_key].solo;
+                s.playback.instruments[instrument_key].solo = !s.playback.instruments[
+                    instrument_key
+                ].solo;
             });
         },
         volume: (instrument_key: string, volume: number) => {

@@ -12,6 +12,7 @@ import {
 } from "solo-composer-engine";
 import { toRoman } from "roman-numerals";
 import { actions } from "./actions";
+import { Transport } from "tone";
 
 export * from "./playback/utils";
 
@@ -46,7 +47,11 @@ export function useInstrumentName(instrument: Instrument, count_style: AutoCount
     }, [instrument, count_style]);
 }
 
-export function usePlayerName(player: Player, instruments: { [key: string]: Instrument }, count_style: AutoCountStyle) {
+export function usePlayerName(
+    player: Player,
+    instruments: { [key: string]: Instrument },
+    count_style: AutoCountStyle
+) {
     return useMemo(() => {
         if (player.instruments.length === 0) {
             switch (player.player_type) {
@@ -60,7 +65,9 @@ export function usePlayerName(player: Player, instruments: { [key: string]: Inst
             return player.instruments.reduce((output, key, i) => {
                 const isFirst = i === 0;
                 const isLast = i === len - 1;
-                const name = instruments[key].long_name + count_to_string(count_style, instruments[key].count);
+                const name =
+                    instruments[key].long_name +
+                    count_to_string(count_style, instruments[key].count);
                 if (isFirst) {
                     return name;
                 } else if (isLast) {
@@ -130,8 +137,20 @@ export function useAutoSetup() {
 
         const flow_key = actions.score.flow.create();
         actions.score.flow.rename(flow_key, "Allegro con brio");
-        actions.score.entries.time_signature.create(flow_key, 0, 3, 4, TimeSignatureDrawType.Normal);
-        actions.score.entries.time_signature.create(flow_key, 16 * 3 * 4, 4, 4, TimeSignatureDrawType.Normal);
+        actions.score.entries.time_signature.create(
+            flow_key,
+            0,
+            3,
+            4,
+            TimeSignatureDrawType.Normal
+        );
+        actions.score.entries.time_signature.create(
+            flow_key,
+            16 * 3 * 4,
+            4,
+            4,
+            TimeSignatureDrawType.Normal
+        );
         actions.score.flow.length(flow_key, 16 * 3 * 4 + 16 * 4 * 4);
 
         const players = [{ type: PlayerType.Solo, instruments: ["keyboard.piano"] }];
