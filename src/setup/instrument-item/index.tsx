@@ -38,7 +38,10 @@ export const InstrumentItem: FC<Props> = ({ index, selected, instrument, player_
                         aria-label="Remove Instrument"
                         size={24}
                         path={mdiDeleteOutline}
-                        onClick={() => actions.score.instrument.remove(player_key, instrument.key)}
+                        onClick={() => {
+                            actions.score.instrument.remove(player_key, instrument.key);
+                            actions.playback.instrument.destroy(instrument.key);
+                        }}
                     />
                 </>
             )}

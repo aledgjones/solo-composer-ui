@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useMemo } from "react";
-import { mdiPlay, mdiMetronome, mdiSkipPrevious, mdiStop } from "@mdi/js";
+import { mdiPlay, mdiMetronome, mdiSkipPrevious, mdiPause } from "@mdi/js";
 import { Transport } from "tone";
 import { useStore, actions, useTick, Tone, pitch_to_frequency, Expression } from "../../../store";
 import { Icon } from "../../../ui";
@@ -69,7 +69,7 @@ export const TransportComponent: FC = () => {
         <div className="transport">
             <div className="transport__controls">
                 <Icon
-                    onClick={actions.playback.transport.rewind}
+                    onClick={actions.playback.transport.to_start}
                     className="transport__icon"
                     size={24}
                     path={mdiSkipPrevious}
@@ -78,7 +78,7 @@ export const TransportComponent: FC = () => {
                 {/* <Icon onClick={() => false} className="transport__icon" size={24} path={mdiFastForward} /> */}
                 <Icon
                     size={24}
-                    path={playing ? mdiStop : mdiPlay}
+                    path={playing ? mdiPause : mdiPlay}
                     toggled={playing}
                     onClick={playing ? actions.playback.transport.stop : actions.playback.transport.play}
                 />

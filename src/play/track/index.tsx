@@ -1,10 +1,11 @@
 import React, { FC, useMemo } from "react";
 import { merge } from "../../../ui";
-import { useStore, TickList, Tool, useTick } from "../../../store";
+import { useStore, TickList, Tool } from "../../../store";
 import { SLOT_HEIGHT } from "../const";
 import { Ticks } from "../ticks";
 import { Slots } from "../keyboard/slots";
 import { ToneTrack } from "../tone-track";
+import { PlayHead } from "../play-head";
 
 import "./styles.css";
 
@@ -35,8 +36,6 @@ export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks, zoom })
         [instrumentKey]
     );
 
-    const tick = useTick();
-
     const cursor = useMemo(() => {
         switch (tool) {
             case Tool.Draw:
@@ -52,22 +51,8 @@ export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks, zoom })
 
     return (
         <div className="track">
-            <div
-                className="track__tick-bar"
-                style={{
-                    left: ticks.list[tick]
-                        ? (ticks.list[tick].x - 2) * zoom
-                        : (ticks.width - 2) * zoom
-                }}
-            />
-
-            <Ticks
-                isTrack={false}
-                ticks={ticks}
-                height={48}
-                className="track__header"
-                zoom={zoom}
-            />
+            <PlayHead ticks={ticks} zoom={zoom} />
+            <Ticks isTrack={false} ticks={ticks} height={48} className="track__header" zoom={zoom} />
             {expanded && (
                 <>
                     <div

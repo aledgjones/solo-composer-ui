@@ -8,17 +8,6 @@
     margin-bottom: 8px;
 }
 
-.track__tick-bar {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 4px;
-    height: 100%;
-    background-color: var(--primary-bg);
-    z-index: 120;
-    pointer-events: none;
-}
-
 .track__header {
     position: sticky;
     top: 0;

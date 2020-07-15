@@ -3,6 +3,7 @@ import { AutoCountStyle, PlayerType, TimeSignatureDrawType, NoteDuration } from 
 import { engine, store } from "./use-store";
 import { ThemeMode, View, Tool } from "./defs";
 import { playbackActions } from "./playback";
+import { Transport } from "tone";
 
 // I know these are just wrapping funcs but it allows more acurate typings than wasm-pack produces
 // and it's really easy to swap between js and wasm funcs if needed.
@@ -103,6 +104,7 @@ export const actions = {
         },
         flow_key: (key: string) => {
             store.update((s) => {
+                Transport.ticks = 0;
                 s.ui.flow_key = key;
             });
         },

@@ -52,13 +52,13 @@ export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
                     style={{ marginRight: 12 }}
                     path={mdiSizeS}
                     size={24}
-                    onClick={() => actions.playback.instrument.solo(instrument.key)}
+                    onClick={() => actions.playback.instrument.solo.toggle(instrument.key)}
                 />
                 <Icon
                     toggled={mute}
                     path={mdiSizeM}
                     size={24}
-                    onClick={() => actions.playback.instrument.mute(instrument.key)}
+                    onClick={() => actions.playback.instrument.mute.toggle(instrument.key)}
                 />
                 <Icon
                     style={{ marginLeft: 12, transform: `rotateZ(${expanded ? "180deg" : "0"})` }}

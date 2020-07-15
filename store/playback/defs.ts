@@ -14,8 +14,26 @@ export interface PatchFromFile {
 export interface Samplers {
     [instrumentKey: string]: {
         gain: Gain;
+        mute: Gain;
         expressions: {
             [expression: number]: Sampler;
+        };
+    };
+}
+
+export interface PlaybackInstrument {
+    key: string;
+    id: string;
+    status: Status;
+    progress: number;
+    volume: number;
+    mute: boolean;
+    solo: boolean;
+    expressions: {
+        [key: number]: {
+            key: number;
+            status: Status;
+            progress: number;
         };
     };
 }
@@ -26,21 +44,6 @@ export interface PlaybackDefs {
         playing: boolean;
     };
     instruments: {
-        [instrumentKey: string]: {
-            key: string;
-            id: string;
-            status: Status;
-            progress: number;
-            volume: number;
-            mute: boolean;
-            solo: boolean;
-            expressions: {
-                [key: number]: {
-                    key: number;
-                    status: Status;
-                    progress: number;
-                };
-            };
-        };
+        [instrumentKey: string]: PlaybackInstrument;
     };
 }
