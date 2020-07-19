@@ -12,6 +12,11 @@
     border: 1px solid var(--background-200);
 }
 
+.fader__meter {
+    position: absolute;
+    height: 100%;
+}
+
 .fader__handle {
     position: absolute;
     top: -5px;

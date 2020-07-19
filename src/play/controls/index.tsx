@@ -73,6 +73,7 @@ export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
                         <div className="controls__settings">
                             <div className="controls__settings-spacer">
                                 <Fader
+                                    instrumentKey={instrumentKey}
                                     volume={volume}
                                     color={color}
                                     onChange={(volume: number) =>

@@ -74,8 +74,19 @@ export const actions = {
                 ) => engine.create_time_signature(flow_key, tick, beats, beat_type, draw_type, groupings)
             },
             tone: {
-                create: (flow_key: string, track_key: string, tick: number, duration: number, pitch: number): string =>
-                    engine.create_tone(flow_key, track_key, tick, duration, pitch),
+                /**
+                 * Create a new tone.
+                 *
+                 * With MIDI pitches, tick counts and velocity 0-127
+                 */
+                create: (
+                    flow_key: string,
+                    track_key: string,
+                    tick: number,
+                    duration: number,
+                    pitch: number,
+                    velocity: number
+                ): string => engine.create_tone(flow_key, track_key, tick, duration, pitch, velocity),
                 update: (
                     flow_key: string,
                     track_key: string,

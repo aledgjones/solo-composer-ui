@@ -1,9 +1,10 @@
-import { Transport, Sampler, Gain } from "tone";
+import { Transport, Sampler, Gain, Meter } from "tone";
 import { get_patches } from "solo-composer-engine";
 import { store } from "../use-store";
 import { samplers } from ".";
 import { Status } from "../defs";
 import { PatchFromFile, PlaybackInstrument } from "./defs";
+import { chain } from "./utils";
 
 /**
  * Deal with muting and unmuting the MuteNode depending on overall state.
@@ -27,11 +28,11 @@ function setSamplerMuteStates(instruments: { [key: string]: PlaybackInstrument }
     order.forEach((instrumentKey) => {
         const instrument = instruments[instrumentKey];
         if (instrument.solo) {
-            samplers[instrumentKey].mute.gain.value = 1;
+            samplers[instrumentKey].muteNode.gain.value = 1;
         } else if (found_solo || instrument.mute) {
-            samplers[instrumentKey].mute.gain.value = 0;
+            samplers[instrumentKey].muteNode.gain.value = 0;
         } else {
-            samplers[instrumentKey].mute.gain.value = 1;
+            samplers[instrumentKey].muteNode.gain.value = 1;
         }
     });
 }
@@ -72,18 +73,18 @@ export const playbackActions = {
     },
     instrument: {
         load: async (id: string, instrumentKey: string) => {
-            // create a mute node that is used to stop all sound playing;
+            const volumeNode = new Gain(0.8);
             const muteNode = new Gain(1.0);
-            muteNode.toDestination();
+            const analyserNode = new Meter({ normalRange: true, smoothing: 0.5 });
 
-            // create a gain node with the default volume and pass through mute node
-            const gainNode = new Gain(0.8);
-            gainNode.connect(muteNode);
+            // link up all the nodes in order
+            chain(volumeNode, muteNode, analyserNode);
 
             // create an entry for the instrument.
             samplers[instrumentKey] = {
-                gain: gainNode,
-                mute: muteNode,
+                volumeNode,
+                muteNode,
+                analyserNode,
                 expressions: {}
             };
 
@@ -109,7 +110,7 @@ export const playbackActions = {
             Promise.all(
                 expressions.map(async ([expression, url]) => {
                     const expressionKey = parseInt(expression); // expression is actually an enum so convert to int
-                    const sampler = new Sampler().connect(gainNode);
+                    const sampler = new Sampler().connect(volumeNode);
                     store.update((s) => {
                         s.playback.instruments[instrumentKey].expressions[expressionKey] = {
                             key: expressionKey,
@@ -164,8 +165,9 @@ export const playbackActions = {
                 Object.values(samplers[instrument_key].expressions).forEach((expression) => {
                     expression.dispose();
                 });
-                samplers[instrument_key].gain.dispose();
-                samplers[instrument_key].mute.dispose();
+                samplers[instrument_key].volumeNode.dispose();
+                samplers[instrument_key].muteNode.dispose();
+                samplers[instrument_key].analyserNode.dispose();
 
                 // delete the instrument entries.
                 delete samplers[instrument_key];
@@ -188,11 +190,14 @@ export const playbackActions = {
                 });
             }
         },
+        /**
+         * hooks up do a simple 0-1 gain node
+         */
         volume: (instrument_key: string, volume: number) => {
             store.update((s) => {
                 const value = parseInt(volume.toFixed(0));
                 s.playback.instruments[instrument_key].volume = value;
-                samplers[instrument_key].gain.gain.value = value / 100;
+                samplers[instrument_key].volumeNode.gain.value = value / 100;
             });
         }
     }

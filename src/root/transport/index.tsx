@@ -53,7 +53,12 @@ export const TransportComponent: FC = () => {
                                             const frequency = pitch_to_frequency(tone.pitch.int);
                                             samplers[instrumentKey].expressions[
                                                 Expression.Natural
-                                            ].triggerAttackRelease(frequency, `${tone.duration.int}i`, time, 0.8);
+                                            ].triggerAttackRelease(
+                                                frequency,
+                                                `${tone.duration.int}i`,
+                                                time,
+                                                tone.velocity.int / 127
+                                            );
                                         }, `${tone.tick}i`);
                                     }
                                 });

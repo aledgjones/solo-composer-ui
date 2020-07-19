@@ -47,8 +47,9 @@ export interface TickList {
 export interface Tone {
     key: string;
     tick: number;
-    duration: { int: number };
-    pitch: { int: number; accidental: Accidental };
+    duration: { int: number }; // ticks
+    pitch: { int: number; accidental: Accidental }; // MIDI pitch number
+    velocity: { int: number }; // 0-127
 }
 
 export interface TimeSignature {

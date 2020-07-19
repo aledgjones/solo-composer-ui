@@ -1,16 +1,20 @@
 import React, { FC, useCallback, KeyboardEvent, useRef } from "react";
-import { merge, useDragHandler, Input } from "../../../ui";
+import { useWaveform } from "../../../store";
+import { merge, useDragHandler } from "../../../ui";
 
 import "./styles.css";
 
 interface Props {
+    instrumentKey: string;
     volume: number;
     color: string;
     onChange: (value: number) => void;
 }
 
-export const Fader: FC<Props> = ({ volume, color, onChange }) => {
+export const Fader: FC<Props> = ({ instrumentKey, volume, color, onChange }) => {
     const ref = useRef<HTMLDivElement>(null);
+    const amplitude = useWaveform(instrumentKey);
+
     const keyPress = useCallback(
         (e: KeyboardEvent<HTMLButtonElement>) => {
             if (e.key === "ArrowLeft") {
@@ -60,6 +64,7 @@ export const Fader: FC<Props> = ({ volume, color, onChange }) => {
                     onKeyDown={keyPress}
                     style={{ left: `${volume}%`, backgroundColor: color }}
                 />
+                <div className="fader__meter" style={{ backgroundColor: color, width: `${amplitude}%` }} />
             </div>
             {Array(11)
                 .fill(null)
