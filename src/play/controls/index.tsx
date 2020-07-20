@@ -1,7 +1,13 @@
 import React, { FC, useCallback } from "react";
 import { mdiChevronDown, mdiCogOutline, mdiSizeS, mdiSizeM } from "@mdi/js";
 import { Icon, noop, Label } from "../../../ui";
-import { useInstrumentName, PlayerType, useCountStyle, actions, useStore } from "../../../store";
+import {
+    useInstrumentName,
+    PlayerType,
+    useCountStyle,
+    actions,
+    useStore,
+} from "../../../store";
 import { Text } from "../../components/text";
 import { Keyboard } from "../keyboard";
 import { Fader } from "../fader";
@@ -24,7 +30,7 @@ export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
                 s.ui.play.expanded[instrumentKey],
                 s.playback.instruments[instrumentKey].volume,
                 s.playback.instruments[instrumentKey].mute,
-                s.playback.instruments[instrumentKey].solo
+                s.playback.instruments[instrumentKey].solo,
             ];
         },
         [instrumentKey]
@@ -42,7 +48,10 @@ export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
 
     return (
         <div className="controls">
-            <div className="controls__color" style={{ backgroundColor: color }} />
+            <div
+                className="controls__color"
+                style={{ backgroundColor: color }}
+            />
             <div className="controls__header">
                 <p className="controls__name">
                     <Text content={name} />
@@ -52,16 +61,23 @@ export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
                     style={{ marginRight: 12 }}
                     path={mdiSizeS}
                     size={24}
-                    onClick={() => actions.playback.instrument.solo.toggle(instrument.key)}
+                    onClick={() =>
+                        actions.playback.instrument.solo.toggle(instrument.key)
+                    }
                 />
                 <Icon
                     toggled={mute}
                     path={mdiSizeM}
                     size={24}
-                    onClick={() => actions.playback.instrument.mute.toggle(instrument.key)}
+                    onClick={() =>
+                        actions.playback.instrument.mute.toggle(instrument.key)
+                    }
                 />
                 <Icon
-                    style={{ marginLeft: 12, transform: `rotateZ(${expanded ? "180deg" : "0"})` }}
+                    style={{
+                        marginLeft: 12,
+                        transform: `rotateZ(${expanded ? "180deg" : "0"})`,
+                    }}
                     size={24}
                     path={mdiChevronDown}
                     onClick={onExpand}
@@ -77,19 +93,30 @@ export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
                                     volume={volume}
                                     color={color}
                                     onChange={(volume: number) =>
-                                        actions.playback.instrument.volume(instrument.key, volume)
+                                        actions.playback.instrument.volume(
+                                            instrument.key,
+                                            volume
+                                        )
                                     }
                                 />
                             </div>
                             <div className="controls__sampler-config">
-                                <Icon style={{ marginRight: 20 }} path={mdiCogOutline} size={24} onClick={noop} />
+                                <Icon
+                                    style={{ marginRight: 20 }}
+                                    path={mdiCogOutline}
+                                    size={24}
+                                    onClick={noop}
+                                />
                                 <Label className="controls__sampler-meta">
                                     <p>Solo Sampler</p>
                                     <p>{instrument.id}</p>
                                 </Label>
                             </div>
                         </div>
-                        <Keyboard instrumentKey={instrument.key} height={slots} />
+                        <Keyboard
+                            instrumentKey={instrument.key}
+                            height={slots}
+                        />
                     </div>
                 </>
             )}

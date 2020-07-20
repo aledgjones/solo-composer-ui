@@ -2,9 +2,9 @@
     position: absolute;
     left: 0;
     top: 0;
-    width: 4px;
+    width: 2px;
     height: 100%;
     background-color: var(--primary-bg);
-    z-index: 120;
+    z-index: 300;
     pointer-events: none;
 }

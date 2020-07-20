@@ -3,7 +3,7 @@
 }
 
 .tone-track-entry--selected {
-    background-color: var(--primary-bg) !important;
+    border: 1px solid var(--primary-bg);
     z-index: 100;
 }
 

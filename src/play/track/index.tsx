@@ -5,7 +5,6 @@ import { SLOT_HEIGHT } from "../const";
 import { Ticks } from "../ticks";
 import { Slots } from "../keyboard/slots";
 import { ToneTrack } from "../tone-track";
-import { PlayHead } from "../play-head";
 import { OverviewTrack } from "../overview-track";
 
 import "./styles.css";
@@ -58,23 +57,20 @@ export const Track: FC<Props> = ({
 
     return (
         <div className="track">
-            <PlayHead ticks={ticks} zoom={zoom} />
             <Ticks
-                isTrack={false}
+                isTrack={true}
                 ticks={ticks}
                 height={48}
                 className="track__header"
                 zoom={zoom}
             />
-            {!expanded && (
-                <OverviewTrack
-                    color={color}
-                    flowKey={flowKey}
-                    instrumentKey={instrumentKey}
-                    ticks={ticks}
-                    zoom={zoom}
-                />
-            )}
+            <OverviewTrack
+                color={color}
+                flowKey={flowKey}
+                instrumentKey={instrumentKey}
+                ticks={ticks}
+                zoom={zoom}
+            />
             {expanded && (
                 <>
                     <div

@@ -81,10 +81,32 @@ export const OverviewTrack: FC<Props> = ({
                         key={i}
                         className="overview-track__block"
                         style={{
-                            backgroundColor: Color(color).alpha(0.6).toString(),
-                            border: `1px solid ${color}`,
-                            left: ticks.list[start].x,
-                            width: ticks.list[stop].x - ticks.list[start].x,
+                            backgroundColor: Color(color).alpha(0.2).toString(),
+                            left: ticks.list[start].x * zoom,
+                            width:
+                                (ticks.list[stop].x - ticks.list[start].x) *
+                                zoom,
+                        }}
+                    />
+                );
+            })}
+            {tones.map((tone) => {
+                const start = tone.tick;
+                const stop = tone.tick + tone.duration.int;
+                return (
+                    <div
+                        key={tone.key}
+                        className="overview-track__tone"
+                        style={{
+                            position: "absolute",
+                            backgroundColor: color,
+                            left: ticks.list[start].x * zoom,
+                            width: ticks.list[stop]
+                                ? (ticks.list[stop].x - ticks.list[start].x) *
+                                  zoom
+                                : (ticks.width - ticks.list[start].x) * zoom,
+                            height: `calc(100% / 100)`,
+                            bottom: `calc(1% * ${tone.pitch.int - 12})`, // C0 -> E8 (12 -> 112)
                         }}
                     />
                 );

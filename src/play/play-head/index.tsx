@@ -15,7 +15,11 @@ export const PlayHead: FC<Props> = ({ ticks, zoom }) => {
         <div
             className="play-head"
             style={{
-                left: ticks.list[tick] ? (ticks.list[tick].x - 2) * zoom : (ticks.width - 2) * zoom
+                transform: `translate3d(${
+                    ticks.list[tick]
+                        ? ticks.list[tick].x * zoom - 1
+                        : ticks.width * zoom - 1
+                }px, 0, 0)`,
             }}
         />
     );

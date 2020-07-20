@@ -2,20 +2,16 @@
     position: relative;
     background-color: var(--background-600);
     color: var(--foreground-600);
-    border-top: 1px solid var(--background-200);
-    border-bottom: 1px solid var(--background-200);
     min-width: calc(100vw - 350px);
     margin-bottom: 8px;
 }
 
 .track__header {
-    position: sticky;
-    top: 0;
     z-index: 100;
     display: block;
     height: 48px;
-    background-color: var(--background-900);
-    color: var(--foreground-900);
+    background-color: var(--background-700);
+    color: var(--foreground-700);
     margin-right: 20px;
 }
 

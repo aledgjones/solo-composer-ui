@@ -1,16 +1,40 @@
 import React, { FC, useCallback, useEffect } from "react";
-import { mdiCursorDefault, mdiEraser, mdiPen, mdiBoxCutter, mdiPlus, mdiMinus } from "@mdi/js";
-import { useTitle, useRainbow, Icon, DragScroll, Select, Option } from "../../ui";
+import {
+    mdiCursorDefault,
+    mdiEraser,
+    mdiPen,
+    mdiBoxCutter,
+    mdiPlus,
+    mdiMinus,
+} from "@mdi/js";
+import {
+    useTitle,
+    useRainbow,
+    Icon,
+    DragScroll,
+    Select,
+    Option,
+} from "../../ui";
 import { useStore, actions, Tool, NoteDuration } from "../../store";
 import { Controls } from "./controls";
 import { Track } from "./track";
 
 import "./styles.css";
+import { PlayHead } from "./play-head";
+import { Ticks } from "./ticks";
 
 const Play: FC = () => {
     useTitle("Solo Composer | Sequence");
 
-    const [flows, flowKey, players, tool, zoom, snap_duration, ticks] = useStore((s) => {
+    const [
+        flows,
+        flowKey,
+        players,
+        tool,
+        zoom,
+        snap_duration,
+        ticks,
+    ] = useStore((s) => {
         const flowKey = s.ui.flow_key || s.score.flows.order[0];
         const flow_players = s.score.flows.by_key[flowKey].players;
         return [
@@ -25,7 +49,7 @@ const Play: FC = () => {
             s.ui.play.tool,
             s.ui.play.zoom,
             s.ui.snap,
-            s.ticks[flowKey]
+            s.ticks[flowKey],
         ];
     });
 
@@ -72,7 +96,7 @@ const Play: FC = () => {
 
     return (
         <>
-            <div className="play__top-panel">
+            {/* <div className="play__top-panel">
                 <div className="play__flow-selector">
                     <Select value={flowKey} onChange={actions.ui.flow_key}>
                         {flows.map((flow, i) => {
@@ -85,40 +109,41 @@ const Play: FC = () => {
                         })}
                     </Select>
                 </div>
-                <div className="play__tools">
-                    <Icon
-                        className="play__tool"
-                        toggled={tool === Tool.Select}
-                        onClick={() => actions.ui.play.tool(Tool.Select)}
-                        path={mdiCursorDefault}
-                        size={24}
-                    />
-                    <Icon
-                        className="play__tool"
-                        toggled={tool === Tool.Draw}
-                        onClick={() => actions.ui.play.tool(Tool.Draw)}
-                        path={mdiPen}
-                        size={24}
-                    />
-                    <Icon
-                        className="play__tool"
-                        toggled={tool === Tool.Slice}
-                        onClick={() => actions.ui.play.tool(Tool.Slice)}
-                        path={mdiBoxCutter}
-                        size={24}
-                    />
-                    <Icon
-                        className="play__tool"
-                        toggled={tool === Tool.Erase}
-                        onClick={() => actions.ui.play.tool(Tool.Erase)}
-                        path={mdiEraser}
-                        size={24}
-                    />
-                </div>
-            </div>
+                
+            </div> */}
 
             <DragScroll className="play__content" x ignore="no-scroll">
                 <div className="play__left-panel no-scroll">
+                    <div className="play__tools">
+                        <Icon
+                            className="play__tool"
+                            toggled={tool === Tool.Select}
+                            onClick={() => actions.ui.play.tool(Tool.Select)}
+                            path={mdiCursorDefault}
+                            size={24}
+                        />
+                        <Icon
+                            className="play__tool"
+                            toggled={tool === Tool.Draw}
+                            onClick={() => actions.ui.play.tool(Tool.Draw)}
+                            path={mdiPen}
+                            size={24}
+                        />
+                        <Icon
+                            className="play__tool"
+                            toggled={tool === Tool.Slice}
+                            onClick={() => actions.ui.play.tool(Tool.Slice)}
+                            path={mdiBoxCutter}
+                            size={24}
+                        />
+                        <Icon
+                            className="play__tool"
+                            toggled={tool === Tool.Erase}
+                            onClick={() => actions.ui.play.tool(Tool.Erase)}
+                            path={mdiEraser}
+                            size={24}
+                        />
+                    </div>
                     {players.map((player, i) => {
                         return player.instruments.map((instrument_key) => {
                             return (
@@ -134,20 +159,32 @@ const Play: FC = () => {
                 </div>
 
                 <div className="play__right-panel">
-                    {players.map((player, i) => {
-                        return player.instruments.map((instrument_key) => {
-                            return (
-                                <Track
-                                    key={instrument_key}
-                                    instrumentKey={instrument_key}
-                                    flowKey={flowKey}
-                                    color={colors[i]}
-                                    ticks={ticks}
-                                    zoom={zoom}
-                                />
-                            );
-                        });
-                    })}
+                    <div className="play__right-panel-content">
+                        <PlayHead ticks={ticks} zoom={zoom} />
+                        <div className="play__ticks">
+                            <Ticks
+                                isTrack={false}
+                                ticks={ticks}
+                                height={48}
+                                className="play__tick-track"
+                                zoom={zoom}
+                            />
+                        </div>
+                        {players.map((player, i) => {
+                            return player.instruments.map((instrument_key) => {
+                                return (
+                                    <Track
+                                        key={instrument_key}
+                                        instrumentKey={instrument_key}
+                                        flowKey={flowKey}
+                                        color={colors[i]}
+                                        ticks={ticks}
+                                        zoom={zoom}
+                                    />
+                                );
+                            });
+                        })}
+                    </div>
                 </div>
             </DragScroll>
 
@@ -159,20 +196,34 @@ const Play: FC = () => {
                         value={snap_duration}
                         onChange={(val) => actions.ui.snap(val)}
                     >
-                        <Option value={NoteDuration.Eighth} displayAs={"\u{E1D7}"}>
+                        <Option
+                            value={NoteDuration.Eighth}
+                            displayAs={"\u{E1D7}"}
+                        >
                             {"\u{E1D7}"}
                         </Option>
-                        <Option value={NoteDuration.Sixteenth} displayAs={"\u{E1D9}"}>
+                        <Option
+                            value={NoteDuration.Sixteenth}
+                            displayAs={"\u{E1D9}"}
+                        >
                             {"\u{E1D9}"}
                         </Option>
-                        <Option value={NoteDuration.ThirtySecond} displayAs={"\u{E1DB}"}>
+                        <Option
+                            value={NoteDuration.ThirtySecond}
+                            displayAs={"\u{E1DB}"}
+                        >
                             {"\u{E1DB}"}
                         </Option>
                     </Select>
                 </div>
                 <div />
                 <div className="play__bottom-panel-section">
-                    <Icon className="play__bottom-panel-icon" path={mdiMinus} size={22} onClick={desc} />
+                    <Icon
+                        className="play__bottom-panel-icon"
+                        path={mdiMinus}
+                        size={22}
+                        onClick={desc}
+                    />
                     <Select
                         className="play__bottom-panel-select play__zoom-select"
                         direction="up"
@@ -181,7 +232,10 @@ const Play: FC = () => {
                     >
                         {/* This is a bit weired but we need a fake option to hld the current,
                             possibly abartrary, zoom level. It is hidden with CSS */}
-                        <Option value={Math.round(zoom * 100)} displayAs={`${Math.round(zoom * 100)}%`} />
+                        <Option
+                            value={Math.round(zoom * 100)}
+                            displayAs={`${Math.round(zoom * 100)}%`}
+                        />
                         <Option value={0.25} displayAs="25%">
                             25%
                         </Option>
@@ -210,7 +264,12 @@ const Play: FC = () => {
                             500%
                         </Option>
                     </Select>
-                    <Icon className="play__bottom-panel-icon" path={mdiPlus} size={22} onClick={inc} />
+                    <Icon
+                        className="play__bottom-panel-icon"
+                        path={mdiPlus}
+                        size={22}
+                        onClick={inc}
+                    />
                 </div>
             </div>
         </>
