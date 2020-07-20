@@ -3495,7 +3495,7 @@ loader-utils@^2.0.0:
     emojis-list "^3.0.0"
     json5 "^2.1.2"
 
-localforage@^1.7.4:
+localforage@1.7.4:
   version "1.7.4"
   resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.7.4.tgz#88b59cc9b25ae54c76bb2c080b21ec832c22d3f6"
   integrity sha512-3EmVZatmNVeCo/t6Te7P06h2alGwbq8wXlSkcSXMvDE2/edPmsVqTPlzGnZaqwZZDBs6v+kxWpqjVsqsNJT8jA==
@@ -4646,7 +4646,7 @@ public-encrypt@^4.0.0:
     randombytes "^2.0.1"
     safe-buffer "^5.1.2"
 
-pullstate@^1.15.4:
+pullstate@1.15.4:
   version "1.15.4"
   resolved "https://registry.yarnpkg.com/pullstate/-/pullstate-1.15.4.tgz#47705bc1ba90dd95ffa21a44f1c843d96b880f83"
   integrity sha512-BdG5YJsVmlgg32tjZOZWNXBUAZEI51GU97jnYezLZq40W33Q/PJ+hiDOcQWpI5CHlxR6CcQAZEgM7k3QtnyzRA==
@@ -5798,7 +5798,7 @@ toidentifier@1.0.0:
   resolved "https://registry.yarnpkg.com/toidentifier/-/toidentifier-1.0.0.tgz#7e1be3470f1e77948bc43d94a3c8f4d7752ba553"
   integrity sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
 
-tone@^14.7.19:
+tone@14.7.19:
   version "14.7.19"
   resolved "https://registry.yarnpkg.com/tone/-/tone-14.7.19.tgz#a6464a04130b5500edf0ef29475178b0a72aa8be"
   integrity sha512-6LDAl2wZWPVFtzSnuFnLC9VsPlabjzwQyvtfOMaBZmVvx95I+7IC4LSyRzk+YNY7gLm6anx/zFSlpi+dhb8oKw==

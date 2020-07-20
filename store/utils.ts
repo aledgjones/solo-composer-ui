@@ -8,7 +8,7 @@ import {
     TimeSignatureDrawType,
     NoteDuration,
     def_tree,
-    get_full_path_from_partial
+    get_full_path_from_partial,
 } from "solo-composer-engine";
 import { toRoman } from "roman-numerals";
 import { actions } from "./actions";
@@ -41,9 +41,15 @@ export function useCountStyle(playerType: PlayerType) {
     );
 }
 
-export function useInstrumentName(instrument: Instrument, count_style: AutoCountStyle) {
+export function useInstrumentName(
+    instrument: Instrument,
+    count_style: AutoCountStyle
+) {
     return useMemo(() => {
-        return instrument.long_name + count_to_string(count_style, instrument.count);
+        return (
+            instrument.long_name +
+            count_to_string(count_style, instrument.count)
+        );
     }, [instrument, count_style]);
 }
 
@@ -89,7 +95,9 @@ export function usePlayerIcon(player: Player) {
     }
 }
 
-export function getFullPathFromPartial(path: string[]): { path: string[]; id: string } {
+export function getFullPathFromPartial(
+    path: string[]
+): { path: string[]; id: string } {
     return get_full_path_from_partial(path);
 }
 
@@ -99,10 +107,11 @@ export function useDefsList(path: string[]): string[][] {
     }, [path]);
 }
 
-export function duration_to_ticks(subdivisions: number, duration: NoteDuration) {
+export function duration_to_ticks(
+    subdivisions: number,
+    duration: NoteDuration
+) {
     switch (duration) {
-        case NoteDuration.Double:
-            return subdivisions * 8;
         case NoteDuration.Whole:
             return subdivisions * 4;
         case NoteDuration.Half:
@@ -141,26 +150,31 @@ export function useAutoSetup() {
             flow_key,
             0,
             3,
-            4,
+            NoteDuration.Quarter,
             TimeSignatureDrawType.Normal
         );
         actions.score.entries.time_signature.create(
             flow_key,
             16 * 3 * 4,
             4,
-            4,
+            NoteDuration.Quarter,
             TimeSignatureDrawType.Normal
         );
         actions.score.flow.length(flow_key, 16 * 3 * 4 + 16 * 4 * 4);
 
-        const players = [{ type: PlayerType.Solo, instruments: ["keyboard.piano"] }];
+        const players = [
+            { type: PlayerType.Solo, instruments: ["keyboard.piano"] },
+        ];
 
         let instrumentKey = "";
         players.forEach((player) => {
             const playerKey = actions.score.player.create(player.type);
             player.instruments.forEach((instrument) => {
                 instrumentKey = actions.score.instrument.create(instrument);
-                actions.score.player.assign_instrument(playerKey, instrumentKey);
+                actions.score.player.assign_instrument(
+                    playerKey,
+                    instrumentKey
+                );
                 actions.playback.instrument.load(instrument, instrumentKey);
             });
         });

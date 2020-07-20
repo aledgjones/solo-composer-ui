@@ -14,7 +14,7 @@ const varDict: { [key: string]: (state: State) => string } = {
     "${project-composer}": (state) => state.score.meta.composer,
     "${project-arranger}": (state) => state.score.meta.arranger,
     "${project-lyricist}": (state) => state.score.meta.lyricist,
-    "${project-copyright}": (state) => state.score.meta.copyright
+    "${project-copyright}": (state) => state.score.meta.copyright,
 };
 
 function injectVar(content: string, state: State) {
@@ -31,8 +31,19 @@ function injectVar(content: string, state: State) {
 const symDict: { [key: string]: { content: string; sym: boolean } } = {
     // non-musical
     "${copy}": { content: "\u{00A9}", sym: false },
+
     // musical
-    "${flat}": { content: "\u{E260}", sym: true }
+    "${double}": { content: "\u{1D15C}", sym: true },
+    "${whole}": { content: "\u{1D15D}", sym: true },
+    "${half}": { content: "\u{1D15E}", sym: true },
+    "${quarter}": { content: "\u{1D15F}", sym: true },
+    "${eighth}": { content: "\u{1D160}", sym: true },
+    "${sixteenth}": { content: "\u{1D161}", sym: true },
+    "${thirtysecond}": { content: "\u{1D162}", sym: true },
+
+    "${sharp}": { content: "\u{E262}", sym: true },
+    "${natural}": { content: "\u{E261}", sym: true },
+    "${flat}": { content: "\u{E260}", sym: true },
 };
 
 function injectSym(content: string) {

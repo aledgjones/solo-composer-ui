@@ -6,6 +6,7 @@ import { Ticks } from "../ticks";
 import { Slots } from "../keyboard/slots";
 import { ToneTrack } from "../tone-track";
 import { PlayHead } from "../play-head";
+import { OverviewTrack } from "../overview-track";
 
 import "./styles.css";
 
@@ -21,7 +22,13 @@ interface Props {
     zoom: number;
 }
 
-export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks, zoom }) => {
+export const Track: FC<Props> = ({
+    flowKey,
+    instrumentKey,
+    color,
+    ticks,
+    zoom,
+}) => {
     const [expanded, tool, slots, base, playing] = useStore(
         (s) => {
             const keyboard = s.ui.play.keyboard[instrumentKey];
@@ -30,7 +37,7 @@ export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks, zoom })
                 s.ui.play.tool,
                 keyboard ? keyboard.height : 17,
                 keyboard ? keyboard.base : 76,
-                s.playback.transport.playing
+                s.playback.transport.playing,
             ];
         },
         [instrumentKey]
@@ -52,12 +59,27 @@ export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks, zoom })
     return (
         <div className="track">
             <PlayHead ticks={ticks} zoom={zoom} />
-            <Ticks isTrack={false} ticks={ticks} height={48} className="track__header" zoom={zoom} />
+            <Ticks
+                isTrack={false}
+                ticks={ticks}
+                height={48}
+                className="track__header"
+                zoom={zoom}
+            />
+            {!expanded && (
+                <OverviewTrack
+                    color={color}
+                    flowKey={flowKey}
+                    instrumentKey={instrumentKey}
+                    ticks={ticks}
+                    zoom={zoom}
+                />
+            )}
             {expanded && (
                 <>
                     <div
                         className={merge("track__tone-channel", {
-                            "no-scroll": tool !== Tool.Select
+                            "no-scroll": tool !== Tool.Select,
                         })}
                         style={{ height: SLOT_HEIGHT * slots, cursor }}
                     >

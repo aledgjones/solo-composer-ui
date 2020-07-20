@@ -1,5 +1,10 @@
 import localforage from "localforage";
-import { AutoCountStyle, PlayerType, TimeSignatureDrawType, NoteDuration } from "solo-composer-engine";
+import {
+    AutoCountStyle,
+    PlayerType,
+    TimeSignatureDrawType,
+    NoteDuration,
+} from "solo-composer-engine";
 import { engine, store } from "./use-store";
 import { ThemeMode, View, Tool } from "./defs";
 import { playbackActions } from "./playback";
@@ -15,14 +20,14 @@ export const actions = {
                     localforage.setItem("sc:audition/v1", !s.app.audition);
                     s.app.audition = !s.app.audition;
                 });
-            }
+            },
         },
         theme: (value: ThemeMode) => {
             store.update((s) => {
                 localforage.setItem("sc:theme-mode/v1", value);
                 s.app.theme = value;
             });
-        }
+        },
     },
     playback: playbackActions,
     score: {
@@ -32,35 +37,50 @@ export const actions = {
             composer: (value: string) => engine.set_composer(value),
             arranger: (value: string) => engine.set_arranger(value),
             lyricist: (value: string) => engine.set_lyricist(value),
-            copyright: (value: string) => engine.set_copyright(value)
+            copyright: (value: string) => engine.set_copyright(value),
         },
         config: {
             auto_count: {
-                solo: (value: AutoCountStyle) => engine.set_auto_count_style_solo(value),
-                section: (value: AutoCountStyle) => engine.set_auto_count_style_section(value)
-            }
+                solo: (value: AutoCountStyle) =>
+                    engine.set_auto_count_style_solo(value),
+                section: (value: AutoCountStyle) =>
+                    engine.set_auto_count_style_section(value),
+            },
         },
         flow: {
             create: () => engine.create_flow(),
-            rename: (flow_key: string, title: string) => engine.rename_flow(flow_key, title),
-            length: (flow_key: string, length: number) => engine.set_flow_length(flow_key, length),
-            reorder: (old_index: number, new_index: number) => engine.reorder_flow(old_index, new_index),
-            assign_player: (flow_key: string, player_key: string) => engine.assign_player(flow_key, player_key),
-            unassign_player: (flow_key: string, player_key: string) => engine.unassign_player(flow_key, player_key),
-            remove: (flow_key: string) => engine.remove_flow(flow_key)
+            rename: (flow_key: string, title: string) =>
+                engine.rename_flow(flow_key, title),
+            length: (flow_key: string, length: number) =>
+                engine.set_flow_length(flow_key, length),
+            reorder: (old_index: number, new_index: number) =>
+                engine.reorder_flow(old_index, new_index),
+            assign_player: (flow_key: string, player_key: string) =>
+                engine.assign_player(flow_key, player_key),
+            unassign_player: (flow_key: string, player_key: string) =>
+                engine.unassign_player(flow_key, player_key),
+            remove: (flow_key: string) => engine.remove_flow(flow_key),
         },
         player: {
-            create: (player_type: PlayerType): string => engine.create_player(player_type),
-            assign_instrument: (player_key: string, instrument_key: string): string =>
-                engine.assign_instrument(player_key, instrument_key),
-            reorder: (old_index: number, new_index: number) => engine.reorder_player(old_index, new_index),
-            remove: (player_key: string) => engine.remove_player(player_key)
+            create: (player_type: PlayerType): string =>
+                engine.create_player(player_type),
+            assign_instrument: (
+                player_key: string,
+                instrument_key: string
+            ): string => engine.assign_instrument(player_key, instrument_key),
+            reorder: (old_index: number, new_index: number) =>
+                engine.reorder_player(old_index, new_index),
+            remove: (player_key: string) => engine.remove_player(player_key),
         },
         instrument: {
             create: (id: string): string => engine.create_instrument(id),
-            reorder: (player_key: string, old_index: number, new_index: number) =>
-                engine.reorder_instrument(player_key, old_index, new_index),
-            remove: (player_key: string, instrument_key: string) => engine.remove_instrument(player_key, instrument_key)
+            reorder: (
+                player_key: string,
+                old_index: number,
+                new_index: number
+            ) => engine.reorder_instrument(player_key, old_index, new_index),
+            remove: (player_key: string, instrument_key: string) =>
+                engine.remove_instrument(player_key, instrument_key),
         },
         entries: {
             time_signature: {
@@ -68,10 +88,18 @@ export const actions = {
                     flow_key: string,
                     tick: number,
                     beats: number,
-                    beat_type: number,
+                    beat_type: NoteDuration,
                     draw_type: TimeSignatureDrawType,
                     groupings?: Uint8Array
-                ) => engine.create_time_signature(flow_key, tick, beats, beat_type, draw_type, groupings)
+                ) =>
+                    engine.create_time_signature(
+                        flow_key,
+                        tick,
+                        beats,
+                        beat_type,
+                        draw_type,
+                        groupings
+                    ),
             },
             tone: {
                 /**
@@ -86,7 +114,15 @@ export const actions = {
                     duration: number,
                     pitch: number,
                     velocity: number
-                ): string => engine.create_tone(flow_key, track_key, tick, duration, pitch, velocity),
+                ): string =>
+                    engine.create_tone(
+                        flow_key,
+                        track_key,
+                        tick,
+                        duration,
+                        pitch,
+                        velocity
+                    ),
                 update: (
                     flow_key: string,
                     track_key: string,
@@ -94,13 +130,29 @@ export const actions = {
                     tick: number,
                     duration: number,
                     pitch: number
-                ) => engine.update_tone(flow_key, track_key, entry_key, tick, duration, pitch),
-                slice: (flow_key: string, track_key: string, entry_key: string, slice_at: number) =>
+                ) =>
+                    engine.update_tone(
+                        flow_key,
+                        track_key,
+                        entry_key,
+                        tick,
+                        duration,
+                        pitch
+                    ),
+                slice: (
+                    flow_key: string,
+                    track_key: string,
+                    entry_key: string,
+                    slice_at: number
+                ) =>
                     engine.slice_tone(flow_key, track_key, entry_key, slice_at),
-                remove: (flow_key: string, track_key: string, entry_key: string) =>
-                    engine.remove_tone(flow_key, track_key, entry_key)
-            }
-        }
+                remove: (
+                    flow_key: string,
+                    track_key: string,
+                    entry_key: string
+                ) => engine.remove_tone(flow_key, track_key, entry_key),
+            },
+        },
     },
     ui: {
         view: (view: View) => {
@@ -129,7 +181,7 @@ export const actions = {
                 store.update((s) => {
                     delete s.ui.setup.expanded[key];
                 });
-            }
+            },
         },
         play: {
             selection: {
@@ -147,7 +199,7 @@ export const actions = {
                     store.update((s) => {
                         s.ui.play.selected = {};
                     });
-                }
+                },
             },
             expand: (key: string) => {
                 store.update((s) => {
@@ -174,7 +226,7 @@ export const actions = {
                 store.update((s) => {
                     s.ui.play.zoom = parseFloat(zoom.toFixed(2));
                 });
-            }
-        }
-    }
+            },
+        },
+    },
 };
