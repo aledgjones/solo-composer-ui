@@ -101,6 +101,30 @@ export const actions = {
                         groupings
                     ),
             },
+            absolute_tempo: {
+                create: (
+                    flow_key: string,
+                    tick: number,
+                    text: string,
+                    beat_type: NoteDuration,
+                    dotted: number,
+                    bpm: number,
+                    parenthesis_visible: boolean,
+                    text_visible: boolean,
+                    bpm_visible: boolean
+                ) =>
+                    engine.create_absolute_tempo(
+                        flow_key,
+                        tick,
+                        text,
+                        beat_type,
+                        dotted,
+                        bpm,
+                        parenthesis_visible,
+                        text_visible,
+                        bpm_visible
+                    ),
+            },
             tone: {
                 /**
                  * Create a new tone.

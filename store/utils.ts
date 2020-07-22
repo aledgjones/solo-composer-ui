@@ -12,7 +12,6 @@ import {
 } from "solo-composer-engine";
 import { toRoman } from "roman-numerals";
 import { actions } from "./actions";
-import { Transport } from "tone";
 
 export * from "./playback/utils";
 
@@ -138,7 +137,7 @@ export function useAutoSetup() {
 
     // the actual auto setup bit
     useEffect(() => {
-        actions.playback.transport.ppq(16);
+        const ppq = 16;
 
         actions.score.meta.title("String Quartet in B${flat}");
         actions.score.meta.subtitle("Op. 18, No. 6");
@@ -153,24 +152,44 @@ export function useAutoSetup() {
             NoteDuration.Quarter,
             TimeSignatureDrawType.Normal
         );
-        actions.score.entries.time_signature.create(
+        actions.score.flow.length(flow_key, ppq * 3 * 16);
+        actions.score.entries.absolute_tempo.create(
             flow_key,
-            16 * 3 * 4,
-            4,
+            0,
+            "Allegro",
             NoteDuration.Quarter,
-            TimeSignatureDrawType.Normal
+            0,
+            60,
+            true,
+            true,
+            true
         );
-        actions.score.flow.length(flow_key, 16 * 3 * 4 + 16 * 4 * 4);
+
+        actions.score.entries.absolute_tempo.create(
+            flow_key,
+            ppq * 6,
+            "Allegro",
+            NoteDuration.Half,
+            0,
+            90,
+            true,
+            true,
+            true
+        );
 
         const players = [
-            { type: PlayerType.Solo, instruments: ["keyboard.piano"] },
+            { type: PlayerType.Solo, instruments: ["strings.violin"] },
+            { type: PlayerType.Solo, instruments: ["strings.violin"] },
+            { type: PlayerType.Solo, instruments: ["strings.viola"] },
+            { type: PlayerType.Solo, instruments: ["strings.violoncello"] },
         ];
 
-        let instrumentKey = "";
         players.forEach((player) => {
             const playerKey = actions.score.player.create(player.type);
             player.instruments.forEach((instrument) => {
-                instrumentKey = actions.score.instrument.create(instrument);
+                const instrumentKey = actions.score.instrument.create(
+                    instrument
+                );
                 actions.score.player.assign_instrument(
                     playerKey,
                     instrumentKey

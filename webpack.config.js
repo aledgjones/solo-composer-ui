@@ -9,31 +9,34 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin({ patterns: [{ from: "public" }] }),
-        new MiniCssExtractPlugin()
+        new MiniCssExtractPlugin(),
     ],
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
                 use: "ts-loader",
-                exclude: /node_modules/
+                exclude: /node_modules/,
             },
             {
                 test: /\.css$/i,
-                use: [{ loader: MiniCssExtractPlugin.loader }, { loader: "css-loader" }]
+                use: [
+                    { loader: MiniCssExtractPlugin.loader },
+                    { loader: "css-loader" },
+                ],
             },
             {
                 test: /\.(gif|png|jpe?g|svg)$/i,
-                use: ["file-loader", { loader: "image-webpack-loader" }]
-            }
-        ]
+                use: ["file-loader", { loader: "image-webpack-loader" }],
+            },
+        ],
     },
     resolve: {
-        extensions: [".tsx", ".ts", ".js"]
+        extensions: [".tsx", ".ts", ".js"],
     },
     output: {
         path: path.resolve(__dirname, "dist"),
-        filename: "bootstrap.js"
+        filename: "bootstrap.js",
     },
-    mode: "development"
+    mode: "development",
 };

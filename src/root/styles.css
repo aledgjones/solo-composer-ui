@@ -54,7 +54,6 @@
     align-items: center;
     height: 48px;
     background-color: var(--background-200);
-    border-bottom: 1px solid var(--background-500);
 }
 
 .root__tabs {

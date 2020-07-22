@@ -1,4 +1,9 @@
-import { PlayerType, AutoCountStyle, Accidental, NoteDuration } from "solo-composer-engine";
+import {
+    PlayerType,
+    AutoCountStyle,
+    Accidental,
+    NoteDuration,
+} from "solo-composer-engine";
 import { PlaybackDefs } from "./playback/defs";
 
 export * from "./playback/defs";
@@ -6,14 +11,14 @@ export * from "./playback/defs";
 export enum Status {
     Pending,
     Ready,
-    Error
+    Error,
 }
 
 export enum Tool {
     Select,
     Draw,
     Slice,
-    Erase
+    Erase,
 }
 
 export enum View {
@@ -21,12 +26,12 @@ export enum View {
     Write,
     Engrave,
     Play,
-    Print
+    Print,
 }
 
 export enum ThemeMode {
     Light,
-    Dark
+    Dark,
 }
 
 export interface Tick {
@@ -57,6 +62,19 @@ export interface TimeSignature {
     tick: number;
     beats: number;
     beat_type: number;
+}
+
+export interface AbsoluteTempo {
+    key: string;
+    tick: number;
+    normalized_bpm: number; // beats per minute in crotchets
+    text: string;
+    beatType: NoteDuration;
+    dotted: number;
+    bpm: number;
+    parenthesis_visible: boolean;
+    text_visible: boolean;
+    bpm_visible: boolean;
 }
 
 export interface Patches {

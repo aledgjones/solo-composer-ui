@@ -64,13 +64,15 @@ export const Track: FC<Props> = ({
                 className="track__header"
                 zoom={zoom}
             />
-            <OverviewTrack
-                color={color}
-                flowKey={flowKey}
-                instrumentKey={instrumentKey}
-                ticks={ticks}
-                zoom={zoom}
-            />
+            {!expanded && (
+                <OverviewTrack
+                    color={color}
+                    flowKey={flowKey}
+                    instrumentKey={instrumentKey}
+                    ticks={ticks}
+                    zoom={zoom}
+                />
+            )}
             {expanded && (
                 <>
                     <div

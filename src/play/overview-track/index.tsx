@@ -81,11 +81,12 @@ export const OverviewTrack: FC<Props> = ({
                         key={i}
                         className="overview-track__block"
                         style={{
-                            backgroundColor: Color(color).alpha(0.2).toString(),
+                            backgroundColor: Color(color).alpha(0.1).toString(),
                             left: ticks.list[start].x * zoom,
-                            width:
-                                (ticks.list[stop].x - ticks.list[start].x) *
-                                zoom,
+                            width: ticks.list[stop]
+                                ? (ticks.list[stop].x - ticks.list[start].x) *
+                                  zoom
+                                : (ticks.width - ticks.list[start].x) * zoom,
                         }}
                     />
                 );

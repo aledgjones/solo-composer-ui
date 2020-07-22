@@ -1,5 +1,5 @@
 import { useMemo, useState, useEffect } from "react";
-import { Transport, ToneAudioNode, dbToGain } from "tone";
+import { Transport, ToneAudioNode } from "tone";
 import { samplers } from ".";
 
 export function chain(...nodes: ToneAudioNode[]) {
