@@ -18,10 +18,10 @@ import {
 import { useStore, actions, Tool, NoteDuration } from "../../store";
 import { Controls } from "./controls";
 import { Track } from "./track";
-
-import "./styles.css";
 import { PlayHead } from "./play-head";
 import { Ticks } from "./ticks";
+
+import "./styles.css";
 
 const Play: FC = () => {
     useTitle("Solo Composer | Sequence");

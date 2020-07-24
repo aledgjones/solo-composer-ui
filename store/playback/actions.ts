@@ -11,7 +11,9 @@ import { chain } from "./utils";
  *
  * Muting is dependant on solo instruments so it must take into account the whole state
  */
-function setSamplerMuteStates(instruments: { [key: string]: PlaybackInstrument }) {
+function setSamplerMuteStates(instruments: {
+    [key: string]: PlaybackInstrument;
+}) {
     const order = Object.keys(instruments);
 
     // solo trumps mute so we need to find if we have solos
@@ -43,12 +45,9 @@ export const playbackActions = {
             store.update((s) => {
                 s.playback.metronome = !s.playback.metronome;
             });
-        }
+        },
     },
     transport: {
-        ppq: (ppq: number) => {
-            Transport.PPQ = ppq;
-        },
         play: () => {
             store.update((s) => {
                 s.playback.transport.playing = true;
@@ -58,24 +57,31 @@ export const playbackActions = {
         stop: () => {
             store.update((s) => {
                 s.playback.transport.playing = false;
-                Object.keys(s.playback.instruments).forEach((instrument_key) => {
-                    const instrument = samplers[instrument_key];
-                    Object.values(instrument.expressions).forEach((expression) => {
-                        expression.releaseAll(0);
-                    });
-                });
-                Transport.pause();
+                Object.keys(s.playback.instruments).forEach(
+                    (instrument_key) => {
+                        const instrument = samplers[instrument_key];
+                        Object.values(instrument.expressions).forEach(
+                            (expression) => {
+                                expression.releaseAll();
+                            }
+                        );
+                    }
+                );
             });
+            Transport.pause();
         },
         to_start: () => {
             Transport.ticks = 0;
-        }
+        },
     },
     instrument: {
         load: async (id: string, instrumentKey: string) => {
             const volumeNode = new Gain(0.8);
             const muteNode = new Gain(1.0);
-            const analyserNode = new Meter({ normalRange: true, smoothing: 0.5 });
+            const analyserNode = new Meter({
+                normalRange: true,
+                smoothing: 0.5,
+            });
 
             // link up all the nodes in order
             chain(volumeNode, muteNode, analyserNode);
@@ -85,7 +91,7 @@ export const playbackActions = {
                 volumeNode,
                 muteNode,
                 analyserNode,
-                expressions: {}
+                expressions: {},
             };
 
             // kick things off ready for loading in the sampler
@@ -98,12 +104,14 @@ export const playbackActions = {
                     volume: 80,
                     mute: false,
                     solo: false,
-                    expressions: {}
+                    expressions: {},
                 };
             });
 
             // get the expression map from instrument id id
-            const expression_map: { [expression: number]: string } = get_patches(id);
+            const expression_map: {
+                [expression: number]: string;
+            } = get_patches(id);
             let expressions = Object.entries(expression_map);
             let expressions_complete = 0;
 
@@ -112,15 +120,19 @@ export const playbackActions = {
                     const expressionKey = parseInt(expression); // expression is actually an enum so convert to int
                     const sampler = new Sampler().connect(volumeNode);
                     store.update((s) => {
-                        s.playback.instruments[instrumentKey].expressions[expressionKey] = {
+                        s.playback.instruments[instrumentKey].expressions[
+                            expressionKey
+                        ] = {
                             key: expressionKey,
                             progress: 0,
-                            status: Status.Pending
+                            status: Status.Pending,
                         };
                     });
                     const resp = await fetch(url);
                     const data: PatchFromFile = await resp.json();
-                    const pitches: [any, string][] = Object.entries(data.samples);
+                    const pitches: [any, string][] = Object.entries(
+                        data.samples
+                    );
 
                     sampler.attack = data.envelope.attack;
                     sampler.release = data.envelope.release;
@@ -132,7 +144,9 @@ export const playbackActions = {
                                 sampler.add(pitch, sample, () => {
                                     pitches_complete++;
                                     store.update((s) => {
-                                        s.playback.instruments[instrumentKey].expressions[expressionKey].progress =
+                                        s.playback.instruments[
+                                            instrumentKey
+                                        ].expressions[expressionKey].progress =
                                             pitches_complete / pitches.length;
                                     });
                                     resolve();
@@ -143,13 +157,18 @@ export const playbackActions = {
                     );
 
                     // attach the sampler to the samplers object;
-                    samplers[instrumentKey].expressions[expressionKey] = sampler;
+                    samplers[instrumentKey].expressions[
+                        expressionKey
+                    ] = sampler;
 
                     // the entire expression is loaded so inc the instrument progress
                     expressions_complete++;
                     store.update((s) => {
-                        s.playback.instruments[instrumentKey].expressions[expressionKey].status = Status.Ready;
-                        s.playback.instruments[instrumentKey].progress = expressions_complete / expressions.length;
+                        s.playback.instruments[instrumentKey].expressions[
+                            expressionKey
+                        ].status = Status.Ready;
+                        s.playback.instruments[instrumentKey].progress =
+                            expressions_complete / expressions.length;
                     });
                 })
             );
@@ -162,9 +181,11 @@ export const playbackActions = {
         destroy: (instrument_key: string) => {
             store.update((s) => {
                 // dispose of the audio nodes to free up resources
-                Object.values(samplers[instrument_key].expressions).forEach((expression) => {
-                    expression.dispose();
-                });
+                Object.values(samplers[instrument_key].expressions).forEach(
+                    (expression) => {
+                        expression.dispose();
+                    }
+                );
                 samplers[instrument_key].volumeNode.dispose();
                 samplers[instrument_key].muteNode.dispose();
                 samplers[instrument_key].analyserNode.dispose();
@@ -177,18 +198,20 @@ export const playbackActions = {
         mute: {
             toggle: (instrument_key: string) => {
                 store.update((s) => {
-                    s.playback.instruments[instrument_key].mute = !s.playback.instruments[instrument_key].mute;
+                    s.playback.instruments[instrument_key].mute = !s.playback
+                        .instruments[instrument_key].mute;
                     setSamplerMuteStates(s.playback.instruments);
                 });
-            }
+            },
         },
         solo: {
             toggle: (instrument_key: string) => {
                 store.update((s) => {
-                    s.playback.instruments[instrument_key].solo = !s.playback.instruments[instrument_key].solo;
+                    s.playback.instruments[instrument_key].solo = !s.playback
+                        .instruments[instrument_key].solo;
                     setSamplerMuteStates(s.playback.instruments);
                 });
-            }
+            },
         },
         /**
          * hooks up do a simple 0-1 gain node
@@ -199,6 +222,6 @@ export const playbackActions = {
                 s.playback.instruments[instrument_key].volume = value;
                 samplers[instrument_key].volumeNode.gain.value = value / 100;
             });
-        }
-    }
+        },
+    },
 };

@@ -1,10 +1,18 @@
 import React, { FC, useEffect, useMemo } from "react";
 import { mdiPlay, mdiMetronome, mdiSkipPrevious, mdiPause } from "@mdi/js";
-import { Transport } from "tone";
-import { useStore, actions, useTick, Tone, pitch_to_frequency, Expression } from "../../../store";
+import {
+    useStore,
+    actions,
+    useTick,
+    Tone,
+    pitch_to_frequency,
+    Expression,
+    AbsoluteTempo,
+} from "../../../store";
 import { Icon } from "../../../ui";
 import { store, engine } from "../../../store/use-store";
 import { samplers } from "../../../store/playback";
+import { Transport } from "tone";
 
 import "./styles.css";
 
@@ -31,38 +39,62 @@ export const TransportComponent: FC = () => {
                     flows: s.score.flows,
                     players: s.score.players,
                     instruments: s.score.instruments,
-                    flow_key: s.ui.flow_key
+                    flow_key: s.ui.flow_key,
                 };
             },
             ({ flows, players, instruments, flow_key }) => {
-                Transport.cancel(0);
-
                 const flow = flows.by_key[flow_key || flows.order[0]];
 
+                // reset the transport
+                Transport.cancel(0);
+                Transport.PPQ = flow.subdivisions;
+
+                Object.values(flow.master.entries.by_key).forEach((entry) => {
+                    // 1) tempo changes
+                    if (entry.AbsoluteTempo) {
+                        const tempo = entry.AbsoluteTempo as AbsoluteTempo;
+                        Transport.schedule((time) => {
+                            Transport.bpm.setValueAtTime(
+                                tempo.normalized_bpm,
+                                time
+                            );
+                        }, `${tempo.tick}i`);
+                    }
+                });
+
+                // 2) individual notes
                 flow.players.forEach((playerKey) => {
                     const player = players.by_key[playerKey];
                     player.instruments.forEach((instrumentKey) => {
                         const instrument = instruments[instrumentKey];
                         instrument.staves.forEach((stave_key) => {
-                            flow.staves[stave_key].tracks.forEach((track_key) => {
-                                const track = flow.tracks[track_key];
-                                Object.values(track.entries.by_key).forEach((entry) => {
-                                    if (entry.Tone) {
-                                        const tone = entry.Tone as Tone;
-                                        Transport.schedule((time) => {
-                                            const frequency = pitch_to_frequency(tone.pitch.int);
-                                            samplers[instrumentKey].expressions[
-                                                Expression.Natural
-                                            ].triggerAttackRelease(
-                                                frequency,
-                                                `${tone.duration.int}i`,
-                                                time,
-                                                tone.velocity.int / 127
-                                            );
-                                        }, `${tone.tick}i`);
-                                    }
-                                });
-                            });
+                            flow.staves[stave_key].tracks.forEach(
+                                (track_key) => {
+                                    const track = flow.tracks[track_key];
+                                    Object.values(track.entries.by_key).forEach(
+                                        (entry) => {
+                                            if (entry.Tone) {
+                                                const tone = entry.Tone as Tone;
+                                                Transport.schedule((time) => {
+                                                    const frequency = pitch_to_frequency(
+                                                        tone.pitch.int
+                                                    );
+                                                    samplers[
+                                                        instrumentKey
+                                                    ].expressions[
+                                                        Expression.Natural
+                                                    ].triggerAttackRelease(
+                                                        frequency,
+                                                        `${tone.duration.int}i`,
+                                                        time,
+                                                        tone.velocity.int / 127
+                                                    );
+                                                }, `${tone.tick}i`);
+                                            }
+                                        }
+                                    );
+                                }
+                            );
                         });
                     });
                 });
@@ -85,7 +117,11 @@ export const TransportComponent: FC = () => {
                     size={24}
                     path={playing ? mdiPause : mdiPlay}
                     toggled={playing}
-                    onClick={playing ? actions.playback.transport.stop : actions.playback.transport.play}
+                    onClick={
+                        playing
+                            ? actions.playback.transport.stop
+                            : actions.playback.transport.play
+                    }
                 />
             </div>
             <div className="transport__timestamp">

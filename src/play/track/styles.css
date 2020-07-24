@@ -3,7 +3,7 @@
     background-color: var(--background-600);
     color: var(--foreground-600);
     min-width: calc(100vw - 350px);
-    margin-bottom: 8px;
+    margin: 8px 0;
 }
 
 .track__header {
@@ -12,7 +12,7 @@
     height: 48px;
     background-color: var(--background-700);
     color: var(--foreground-700);
-    margin-right: 20px;
+    margin-right: 64px;
 }
 
 .track__tone-channel {
