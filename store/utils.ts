@@ -148,28 +148,25 @@ export function useAutoSetup() {
         actions.score.entries.time_signature.create(
             flow_key,
             0,
-            3,
+            4,
             NoteDuration.Quarter,
             TimeSignatureDrawType.Normal
         );
-        actions.score.flow.length(flow_key, ppq * 3 * 16);
+        actions.score.flow.length(flow_key, ppq * 4 * 32);
         actions.score.entries.absolute_tempo.create(
             flow_key,
             0,
-            "Adagio",
+            "Allegro",
             NoteDuration.Quarter,
             0,
-            60,
+            100,
             true,
             true,
             true
         );
 
         const players = [
-            { type: PlayerType.Solo, instruments: ["strings.violin"] },
-            { type: PlayerType.Solo, instruments: ["strings.violin"] },
-            { type: PlayerType.Solo, instruments: ["strings.viola"] },
-            { type: PlayerType.Solo, instruments: ["strings.violoncello"] },
+            { type: PlayerType.Solo, instruments: ["keyboard.piano"] },
         ];
 
         players.forEach((player) => {

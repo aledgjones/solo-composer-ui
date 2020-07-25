@@ -43,8 +43,6 @@ export { Textarea } from "./components/textarea";
 export { Toast } from "./components/toast";
 export { Transition } from "./components/transition";
 
-export { MarkdownContent } from "./widgets/markdown-content";
-
 export { useAlpha } from "./hooks/use-alpha";
 export { useDelayBoolean } from "./hooks/use-delay-boolean";
 export { useDragHandler } from "./hooks/use-drag-handler";

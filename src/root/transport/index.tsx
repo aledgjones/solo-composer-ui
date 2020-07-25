@@ -97,26 +97,20 @@ export const TransportComponent: FC = () => {
                                                 transport.scheduleEvent(
                                                     tone.tick,
                                                     tone.duration.int,
-                                                    (start, stop) => {
+                                                    (when, duration) => {
                                                         const frequency = pitch_to_frequency(
                                                             tone.pitch.int
                                                         );
-                                                        const sampler =
-                                                            samplers[
-                                                                instrumentKey
-                                                            ].expressions[
-                                                                Expression
-                                                                    .Natural
-                                                            ];
-                                                        sampler.triggerAttack(
+                                                        const sampler = samplers[
+                                                            instrumentKey
+                                                        ].expressions[
+                                                            Expression.Natural
+                                                        ].triggerAttackRelease(
                                                             frequency,
-                                                            start,
+                                                            duration,
+                                                            when,
                                                             tone.velocity.int /
                                                                 127
-                                                        );
-                                                        sampler.triggerRelease(
-                                                            frequency,
-                                                            stop
                                                         );
                                                     }
                                                 );
