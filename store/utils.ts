@@ -156,22 +156,10 @@ export function useAutoSetup() {
         actions.score.entries.absolute_tempo.create(
             flow_key,
             0,
-            "Allegro",
+            "Adagio",
             NoteDuration.Quarter,
             0,
             60,
-            true,
-            true,
-            true
-        );
-
-        actions.score.entries.absolute_tempo.create(
-            flow_key,
-            ppq * 6,
-            "Allegro",
-            NoteDuration.Half,
-            0,
-            90,
             true,
             true,
             true

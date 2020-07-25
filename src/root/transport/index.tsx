@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from "react";
+import React, { FC, useEffect, useMemo, useState } from "react";
 import { mdiPlay, mdiMetronome, mdiSkipPrevious, mdiPause } from "@mdi/js";
 import {
     useStore,
@@ -12,7 +12,7 @@ import {
 import { Icon } from "../../../ui";
 import { store, engine } from "../../../store/use-store";
 import { samplers } from "../../../store/playback";
-import { Transport } from "tone";
+import { transport } from "solo-composer-scheduler";
 
 import "./styles.css";
 
@@ -21,6 +21,26 @@ export const TransportComponent: FC = () => {
         const flow_key = s.ui.flow_key ? s.ui.flow_key : s.score.flows.order[0];
         return [flow_key, s.playback.metronome, s.playback.transport.playing];
     });
+
+    useEffect(() => {
+        const startCb = () => {
+            store.update((s) => {
+                s.playback.transport.playing = true;
+            });
+        };
+        transport.on("start", startCb);
+        const stopCb = () => {
+            store.update((s) => {
+                s.playback.transport.playing = false;
+            });
+        };
+        transport.on("stop", stopCb);
+        return () => {
+            transport.removeListener("start", startCb);
+            transport.removeListener("stop", stopCb);
+        };
+    }, [flow_key]);
+
     const tick = useTick();
     const timestamp = useMemo(() => {
         if (flow_key !== undefined) {
@@ -46,19 +66,18 @@ export const TransportComponent: FC = () => {
                 const flow = flows.by_key[flow_key || flows.order[0]];
 
                 // reset the transport
-                Transport.cancel(0);
-                Transport.PPQ = flow.subdivisions;
+                transport.clear();
+                transport.subdivisions = flow.subdivisions;
+                transport.length = flow.length;
 
                 Object.values(flow.master.entries.by_key).forEach((entry) => {
                     // 1) tempo changes
                     if (entry.AbsoluteTempo) {
                         const tempo = entry.AbsoluteTempo as AbsoluteTempo;
-                        Transport.schedule((time) => {
-                            Transport.bpm.setValueAtTime(
-                                tempo.normalized_bpm,
-                                time
-                            );
-                        }, `${tempo.tick}i`);
+                        transport.scheduleTempoChange(
+                            tempo.tick,
+                            tempo.normalized_bpm
+                        );
                     }
                 });
 
@@ -75,21 +94,32 @@ export const TransportComponent: FC = () => {
                                         (entry) => {
                                             if (entry.Tone) {
                                                 const tone = entry.Tone as Tone;
-                                                Transport.schedule((time) => {
-                                                    const frequency = pitch_to_frequency(
-                                                        tone.pitch.int
-                                                    );
-                                                    samplers[
-                                                        instrumentKey
-                                                    ].expressions[
-                                                        Expression.Natural
-                                                    ].triggerAttackRelease(
-                                                        frequency,
-                                                        `${tone.duration.int}i`,
-                                                        time,
-                                                        tone.velocity.int / 127
-                                                    );
-                                                }, `${tone.tick}i`);
+                                                transport.scheduleEvent(
+                                                    tone.tick,
+                                                    tone.duration.int,
+                                                    (start, stop) => {
+                                                        const frequency = pitch_to_frequency(
+                                                            tone.pitch.int
+                                                        );
+                                                        const sampler =
+                                                            samplers[
+                                                                instrumentKey
+                                                            ].expressions[
+                                                                Expression
+                                                                    .Natural
+                                                            ];
+                                                        sampler.triggerAttack(
+                                                            frequency,
+                                                            start,
+                                                            tone.velocity.int /
+                                                                127
+                                                        );
+                                                        sampler.triggerRelease(
+                                                            frequency,
+                                                            stop
+                                                        );
+                                                    }
+                                                );
                                             }
                                         }
                                     );

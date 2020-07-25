@@ -1,10 +1,11 @@
-import { Transport, Sampler, Gain, Meter } from "tone";
+import { Sampler, Gain, Meter } from "tone";
 import { get_patches } from "solo-composer-engine";
 import { store } from "../use-store";
 import { samplers } from ".";
 import { Status } from "../defs";
 import { PatchFromFile, PlaybackInstrument } from "./defs";
 import { chain } from "./utils";
+import { transport } from "solo-composer-scheduler";
 
 /**
  * Deal with muting and unmuting the MuteNode depending on overall state.
@@ -49,29 +50,18 @@ export const playbackActions = {
     },
     transport: {
         play: () => {
-            store.update((s) => {
-                s.playback.transport.playing = true;
-                Transport.start();
-            });
+            transport.start();
         },
         stop: () => {
-            store.update((s) => {
-                s.playback.transport.playing = false;
-                Object.keys(s.playback.instruments).forEach(
-                    (instrument_key) => {
-                        const instrument = samplers[instrument_key];
-                        Object.values(instrument.expressions).forEach(
-                            (expression) => {
-                                expression.releaseAll();
-                            }
-                        );
-                    }
-                );
+            transport.pause();
+            Object.values(samplers).forEach((instrument) => {
+                Object.values(instrument.expressions).forEach((expression) => {
+                    expression.releaseAll(0);
+                });
             });
-            Transport.pause();
         },
         to_start: () => {
-            Transport.ticks = 0;
+            transport.seek(0);
         },
     },
     instrument: {

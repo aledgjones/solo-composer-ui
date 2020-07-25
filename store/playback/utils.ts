@@ -1,6 +1,7 @@
 import { useMemo, useState, useEffect } from "react";
-import { Transport, ToneAudioNode } from "tone";
+import { ToneAudioNode } from "tone";
 import { samplers } from ".";
+import { transport, Tick } from "solo-composer-scheduler";
 
 export function chain(...nodes: ToneAudioNode[]) {
     const len = nodes.length;
@@ -22,24 +23,17 @@ export function useSampler(instrumentKey: string) {
 export function useTick() {
     const [timestamp, setTimestamp] = useState(0);
     useEffect(() => {
-        let running = true;
-        const update = () => {
-            const stamp = parseInt(Transport.ticks.toString());
-            setTimestamp(stamp);
-            if (running) {
-                requestAnimationFrame(update);
-            }
-        };
-
-        update();
+        const cb = (tick: Tick) => setTimestamp(tick);
+        transport.on("tick", cb);
 
         return () => {
-            running = false;
+            transport.removeListener("tick", cb);
         };
     }, []);
     return timestamp;
 }
 
+// TODO: change this to update every tick of the transport??
 export function useWaveform(instrumentKey: string) {
     const [amplitude, setAmplitude] = useState(0);
     useEffect(() => {
