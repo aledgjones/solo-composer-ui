@@ -21,6 +21,7 @@ export const playbackActions = {
         },
         to_start: () => {
             Transport.seek(0);
+            Player.stopAll();
         },
     },
     instrument: {
