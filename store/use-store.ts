@@ -1,15 +1,18 @@
 import { Engine, NoteDuration, AutoCountStyle } from "solo-composer-engine";
 import { Store, useStoreState } from "pullstate";
 import { State, ThemeMode, View, Tool } from "./defs";
-import { Transport } from "tone/build/esm/core";
 import localforage from "localforage";
 
 export const store = new Store<State>({
     app: {
         theme: ThemeMode.Dark,
-        audition: false
+        audition: false,
     },
-    playback: { metronome: false, transport: { playing: false }, instruments: {} },
+    playback: {
+        metronome: false,
+        transport: { playing: false },
+        instruments: {},
+    },
     score: {
         meta: {
             title: "",
@@ -19,17 +22,20 @@ export const store = new Store<State>({
             lyricist: "",
             copyright: "",
             created: 0,
-            modified: 0
+            modified: 0,
         },
         config: {
-            auto_count: { solo: AutoCountStyle.Roman, section: AutoCountStyle.Roman }
+            auto_count: {
+                solo: AutoCountStyle.Roman,
+                section: AutoCountStyle.Roman,
+            },
         },
         flows: { order: [], by_key: {} },
         players: {
             order: [],
-            by_key: {}
+            by_key: {},
         },
-        instruments: {}
+        instruments: {},
     },
     ticks: {},
     ui: {
@@ -37,8 +43,14 @@ export const store = new Store<State>({
         snap: NoteDuration.Sixteenth,
         flow_key: "",
         setup: { expanded: {} },
-        play: { selected: {}, expanded: {}, keyboard: {}, tool: Tool.Select, zoom: 1 }
-    }
+        play: {
+            selected: {},
+            expanded: {},
+            keyboard: {},
+            tool: Tool.Select,
+            zoom: 1,
+        },
+    },
 });
 
 (async () => {
@@ -54,7 +66,7 @@ export const engine = new Engine((s: State) => {
     store.update((state) => {
         return {
             ...state,
-            ...s
+            ...s,
         };
     });
 });

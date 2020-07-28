@@ -11,7 +11,12 @@ interface Props {
     onChange: (value: number) => void;
 }
 
-export const Fader: FC<Props> = ({ instrumentKey, volume, color, onChange }) => {
+export const Fader: FC<Props> = ({
+    instrumentKey,
+    volume,
+    color,
+    onChange,
+}) => {
     const ref = useRef<HTMLDivElement>(null);
     const amplitude = useWaveform(instrumentKey);
 
@@ -50,7 +55,7 @@ export const Fader: FC<Props> = ({ instrumentKey, volume, color, onChange }) => 
                     onChange(next);
                 }
             },
-            onEnd: () => {}
+            onEnd: () => {},
         },
         [ref]
     );
@@ -64,7 +69,13 @@ export const Fader: FC<Props> = ({ instrumentKey, volume, color, onChange }) => 
                     onKeyDown={keyPress}
                     style={{ left: `${volume}%`, backgroundColor: color }}
                 />
-                <div className="fader__meter" style={{ backgroundColor: color, width: `${amplitude}%` }} />
+                <div
+                    className="fader__meter"
+                    style={{
+                        backgroundColor: color,
+                        width: `${amplitude * 100}%`,
+                    }}
+                />
             </div>
             {Array(11)
                 .fill(null)
@@ -72,7 +83,9 @@ export const Fader: FC<Props> = ({ instrumentKey, volume, color, onChange }) => 
                     return (
                         <div
                             key={i}
-                            className={merge("fader__scale", { "fader__scale--tall": i % 5 === 0 })}
+                            className={merge("fader__scale", {
+                                "fader__scale--tall": i % 5 === 0,
+                            })}
                             style={{ left: `${i * 10}%` }}
                         />
                     );

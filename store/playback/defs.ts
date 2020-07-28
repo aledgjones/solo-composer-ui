@@ -1,4 +1,3 @@
-import { Gain, Sampler, Meter } from "tone";
 import { Status } from "../defs";
 
 export interface PatchFromFile {
@@ -8,17 +7,6 @@ export interface PatchFromFile {
     };
     samples: {
         [note: string]: string;
-    };
-}
-
-export interface Samplers {
-    [instrumentKey: string]: {
-        volumeNode: Gain;
-        muteNode: Gain;
-        analyserNode: Meter;
-        expressions: {
-            [expression: number]: Sampler;
-        };
     };
 }
 

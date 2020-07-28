@@ -51,7 +51,6 @@
         "react-inspector": "5.0.1",
         "roman-numerals": "0.3.2",
         "shortid": "2.2.15",
-        "solo-composer-engine": "file:../solo-composer-engine/pkg",
-        "tone": "14.7.33"
+        "solo-composer-engine": "file:../solo-composer-engine/pkg"
     }
 }

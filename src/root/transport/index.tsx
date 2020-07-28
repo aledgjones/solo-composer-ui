@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo, useState } from "react";
+import React, { FC, useEffect, useMemo } from "react";
 import { mdiPlay, mdiMetronome, mdiSkipPrevious, mdiPause } from "@mdi/js";
 import {
     useStore,
@@ -11,8 +11,7 @@ import {
 } from "../../../store";
 import { Icon } from "../../../ui";
 import { store, engine } from "../../../store/use-store";
-import { samplers } from "../../../store/playback";
-import { transport } from "solo-composer-scheduler";
+import { Transport, Player } from "solo-composer-scheduler";
 
 import "./styles.css";
 
@@ -28,16 +27,16 @@ export const TransportComponent: FC = () => {
                 s.playback.transport.playing = true;
             });
         };
-        transport.on("start", startCb);
+        Transport.on("start", startCb);
         const stopCb = () => {
             store.update((s) => {
                 s.playback.transport.playing = false;
             });
         };
-        transport.on("stop", stopCb);
+        Transport.on("stop", stopCb);
         return () => {
-            transport.removeListener("start", startCb);
-            transport.removeListener("stop", stopCb);
+            Transport.removeListener("start", startCb);
+            Transport.removeListener("stop", stopCb);
         };
     }, [flow_key]);
 
@@ -65,16 +64,16 @@ export const TransportComponent: FC = () => {
             ({ flows, players, instruments, flow_key }) => {
                 const flow = flows.by_key[flow_key || flows.order[0]];
 
-                // reset the transport
-                transport.clear();
-                transport.subdivisions = flow.subdivisions;
-                transport.length = flow.length;
+                // reset the Transport
+                Transport.clear();
+                Transport.subdivisions = flow.subdivisions;
+                Transport.length = flow.length;
 
                 Object.values(flow.master.entries.by_key).forEach((entry) => {
                     // 1) tempo changes
                     if (entry.AbsoluteTempo) {
                         const tempo = entry.AbsoluteTempo as AbsoluteTempo;
-                        transport.scheduleTempoChange(
+                        Transport.scheduleTempoChange(
                             tempo.tick,
                             tempo.normalized_bpm
                         );
@@ -94,23 +93,16 @@ export const TransportComponent: FC = () => {
                                         (entry) => {
                                             if (entry.Tone) {
                                                 const tone = entry.Tone as Tone;
-                                                transport.scheduleEvent(
+                                                Transport.scheduleEvent(
                                                     tone.tick,
                                                     tone.duration.int,
                                                     (when, duration) => {
-                                                        const frequency = pitch_to_frequency(
-                                                            tone.pitch.int
-                                                        );
-                                                        const sampler = samplers[
-                                                            instrumentKey
-                                                        ].expressions[
-                                                            Expression.Natural
-                                                        ].triggerAttackRelease(
-                                                            frequency,
-                                                            duration,
+                                                        Player.play(
+                                                            instrumentKey,
+                                                            Expression.Natural,
+                                                            tone.pitch.int,
                                                             when,
-                                                            tone.velocity.int /
-                                                                127
+                                                            duration
                                                         );
                                                     }
                                                 );
