@@ -1,0 +1,460 @@
+{
+  "meta": {
+    "title": "Sonata",
+    "subtitle": "for Viola and Piano",
+    "composer": "Glinka",
+    "arranger": "",
+    "lyricist": "",
+    "copyright": "",
+    "created": 1596040888184,
+    "modified": 1596040889591
+  },
+  "config": {
+    "auto_count": {
+      "solo": 1,
+      "section": 1
+    }
+  },
+  "engrave": {
+    "sgfnCrClikOPzT": {
+      "key": "sgfnCrClikOPzT",
+      "layout_type": 1,
+      "display_name": "Part",
+      "space": 1.75,
+      "frame_padding": [
+        40,
+        25,
+        40,
+        25
+      ],
+      "instrument_spacing": 8,
+      "stave_spacing": 6,
+      "system_start_padding": 0.75,
+      "instrument_name": {
+        "size": 1.75,
+        "font": "Libre Baskerville",
+        "align": 2,
+        "padding": [
+          0,
+          2,
+          0,
+          0
+        ]
+      },
+      "tempo_text": {
+        "size": 1.75,
+        "font": "Libre Baskerville",
+        "align": 0,
+        "padding": [
+          0,
+          0,
+          2,
+          0
+        ]
+      },
+      "systemic_barline_single_instrument_system": false,
+      "bracketing": 1,
+      "bracket_style": 1,
+      "bracket_single_staves": false,
+      "sub_bracket": true,
+      "minimum_note_spacing": 1.6,
+      "final_barline_type": 3
+    },
+    "re0QWlANcp2tYN": {
+      "key": "re0QWlANcp2tYN",
+      "layout_type": 0,
+      "display_name": "Score",
+      "space": 1.75,
+      "frame_padding": [
+        40,
+        25,
+        40,
+        25
+      ],
+      "instrument_spacing": 8,
+      "stave_spacing": 6,
+      "system_start_padding": 0.75,
+      "instrument_name": {
+        "size": 1.75,
+        "font": "Libre Baskerville",
+        "align": 2,
+        "padding": [
+          0,
+          2,
+          0,
+          0
+        ]
+      },
+      "tempo_text": {
+        "size": 1.75,
+        "font": "Libre Baskerville",
+        "align": 0,
+        "padding": [
+          0,
+          0,
+          2,
+          0
+        ]
+      },
+      "systemic_barline_single_instrument_system": false,
+      "bracketing": 1,
+      "bracket_style": 1,
+      "bracket_single_staves": false,
+      "sub_bracket": true,
+      "minimum_note_spacing": 1.6,
+      "final_barline_type": 3
+    }
+  },
+  "flows": {
+    "order": [
+      "8GkV78jJoT9PF3"
+    ],
+    "by_key": {
+      "8GkV78jJoT9PF3": {
+        "key": "8GkV78jJoT9PF3",
+        "title": "Allegro",
+        "players": [
+          "6eGgWcpW605Z6a",
+          "dgcCE1SY7lPw9T"
+        ],
+        "length": 2048,
+        "subdivisions": 16,
+        "master": {
+          "key": "PmTfONIbq5pv2m",
+          "entries": {
+            "by_tick": {
+              "0": [
+                "XIhDPemz1vwFqG",
+                "tg0N3sg8yJCLwQ"
+              ]
+            },
+            "by_key": {
+              "tg0N3sg8yJCLwQ": {
+                "AbsoluteTempo": {
+                  "key": "tg0N3sg8yJCLwQ",
+                  "tick": 0,
+                  "normalized_bpm": 100,
+                  "text": "",
+                  "beat_type": 2,
+                  "dotted": 0,
+                  "bpm": 100,
+                  "parenthesis_visible": false,
+                  "text_visible": false,
+                  "bpm_visible": true
+                }
+              },
+              "XIhDPemz1vwFqG": {
+                "TimeSignature": {
+                  "key": "XIhDPemz1vwFqG",
+                  "tick": 0,
+                  "beats": 4,
+                  "beat_type": 2,
+                  "draw_type": 1,
+                  "groupings": [
+                    2,
+                    2
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "staves": {
+          "9D75UFRiUpDbzG": {
+            "key": "9D75UFRiUpDbzG",
+            "lines": 5,
+            "master": {
+              "key": "VviBqEGpE1lXaZ",
+              "entries": {
+                "by_tick": {
+                  "0": [
+                    "lhGdFc76oEPx9d"
+                  ]
+                },
+                "by_key": {
+                  "lhGdFc76oEPx9d": {
+                    "Clef": {
+                      "key": "lhGdFc76oEPx9d",
+                      "tick": 0,
+                      "pitch": {
+                        "int": 67,
+                        "accidental": 2
+                      },
+                      "offset": 6
+                    }
+                  }
+                }
+              }
+            },
+            "tracks": [
+              "Uw9Dm076NdP3vL"
+            ]
+          },
+          "2irThZFWQBH4xB": {
+            "key": "2irThZFWQBH4xB",
+            "lines": 5,
+            "master": {
+              "key": "PxBZb992a4fBeA",
+              "entries": {
+                "by_tick": {
+                  "0": [
+                    "NXZJeBoxCNVDLP"
+                  ]
+                },
+                "by_key": {
+                  "NXZJeBoxCNVDLP": {
+                    "Clef": {
+                      "key": "NXZJeBoxCNVDLP",
+                      "tick": 0,
+                      "pitch": {
+                        "int": 53,
+                        "accidental": 2
+                      },
+                      "offset": 2
+                    }
+                  }
+                }
+              }
+            },
+            "tracks": [
+              "3qQtJpaanCwWlM"
+            ]
+          },
+          "bdGAoBGRfQ4sJc": {
+            "key": "bdGAoBGRfQ4sJc",
+            "lines": 5,
+            "master": {
+              "key": "iyaZNpTxCXtgSr",
+              "entries": {
+                "by_tick": {
+                  "0": [
+                    "XOdHAWrDNWdOx7"
+                  ]
+                },
+                "by_key": {
+                  "XOdHAWrDNWdOx7": {
+                    "Clef": {
+                      "key": "XOdHAWrDNWdOx7",
+                      "tick": 0,
+                      "pitch": {
+                        "int": 67,
+                        "accidental": 2
+                      },
+                      "offset": 6
+                    }
+                  }
+                }
+              }
+            },
+            "tracks": [
+              "wXmiXvUWPArZRl"
+            ]
+          }
+        },
+        "tracks": {
+          "3qQtJpaanCwWlM": {
+            "key": "3qQtJpaanCwWlM",
+            "entries": {
+              "by_tick": {},
+              "by_key": {}
+            }
+          },
+          "wXmiXvUWPArZRl": {
+            "key": "wXmiXvUWPArZRl",
+            "entries": {
+              "by_tick": {
+                "40": [
+                  "l5wVL621RTzL2G"
+                ],
+                "48": [
+                  "NaEiNKupHtGUCi"
+                ],
+                "56": [
+                  "qznNPXR5MgMsYi"
+                ],
+                "64": [
+                  "o63hBbj5eTP0YQ"
+                ],
+                "104": [
+                  "cBkiDVXpepB7Es"
+                ],
+                "112": [
+                  "LIomw3eqVP7ey0"
+                ],
+                "120": [
+                  "u9KiDNER81qQut"
+                ]
+              },
+              "by_key": {
+                "o63hBbj5eTP0YQ": {
+                  "Tone": {
+                    "key": "o63hBbj5eTP0YQ",
+                    "tick": 64,
+                    "duration": {
+                      "int": 40
+                    },
+                    "pitch": {
+                      "int": 65,
+                      "accidental": 2
+                    },
+                    "velocity": {
+                      "int": 0
+                    }
+                  }
+                },
+                "cBkiDVXpepB7Es": {
+                  "Tone": {
+                    "key": "cBkiDVXpepB7Es",
+                    "tick": 104,
+                    "duration": {
+                      "int": 8
+                    },
+                    "pitch": {
+                      "int": 61,
+                      "accidental": 1
+                    },
+                    "velocity": {
+                      "int": 0
+                    }
+                  }
+                },
+                "NaEiNKupHtGUCi": {
+                  "Tone": {
+                    "key": "NaEiNKupHtGUCi",
+                    "tick": 48,
+                    "duration": {
+                      "int": 8
+                    },
+                    "pitch": {
+                      "int": 57,
+                      "accidental": 2
+                    },
+                    "velocity": {
+                      "int": 0
+                    }
+                  }
+                },
+                "LIomw3eqVP7ey0": {
+                  "Tone": {
+                    "key": "LIomw3eqVP7ey0",
+                    "tick": 112,
+                    "duration": {
+                      "int": 8
+                    },
+                    "pitch": {
+                      "int": 62,
+                      "accidental": 2
+                    },
+                    "velocity": {
+                      "int": 0
+                    }
+                  }
+                },
+                "l5wVL621RTzL2G": {
+                  "Tone": {
+                    "key": "l5wVL621RTzL2G",
+                    "tick": 40,
+                    "duration": {
+                      "int": 8
+                    },
+                    "pitch": {
+                      "int": 56,
+                      "accidental": 1
+                    },
+                    "velocity": {
+                      "int": 0
+                    }
+                  }
+                },
+                "qznNPXR5MgMsYi": {
+                  "Tone": {
+                    "key": "qznNPXR5MgMsYi",
+                    "tick": 56,
+                    "duration": {
+                      "int": 8
+                    },
+                    "pitch": {
+                      "int": 62,
+                      "accidental": 2
+                    },
+                    "velocity": {
+                      "int": 0
+                    }
+                  }
+                },
+                "u9KiDNER81qQut": {
+                  "Tone": {
+                    "key": "u9KiDNER81qQut",
+                    "tick": 120,
+                    "duration": {
+                      "int": 8
+                    },
+                    "pitch": {
+                      "int": 65,
+                      "accidental": 2
+                    },
+                    "velocity": {
+                      "int": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "Uw9Dm076NdP3vL": {
+            "key": "Uw9Dm076NdP3vL",
+            "entries": {
+              "by_tick": {},
+              "by_key": {}
+            }
+          }
+        }
+      }
+    }
+  },
+  "players": {
+    "order": [
+      "6eGgWcpW605Z6a",
+      "dgcCE1SY7lPw9T"
+    ],
+    "by_key": {
+      "dgcCE1SY7lPw9T": {
+        "key": "dgcCE1SY7lPw9T",
+        "player_type": 0,
+        "instruments": [
+          "83H5rib99O52zL"
+        ]
+      },
+      "6eGgWcpW605Z6a": {
+        "key": "6eGgWcpW605Z6a",
+        "player_type": 0,
+        "instruments": [
+          "aauCSFM78VADuq"
+        ]
+      }
+    }
+  },
+  "instruments": {
+    "aauCSFM78VADuq": {
+      "key": "aauCSFM78VADuq",
+      "id": "strings.violin",
+      "long_name": "Violin",
+      "short_name": "Vln.",
+      "staves": [
+        "bdGAoBGRfQ4sJc"
+      ],
+      "count": null
+    },
+    "83H5rib99O52zL": {
+      "key": "83H5rib99O52zL",
+      "id": "keyboard.piano",
+      "long_name": "Piano",
+      "short_name": "Pno.",
+      "staves": [
+        "9D75UFRiUpDbzG",
+        "2irThZFWQBH4xB"
+      ],
+      "count": null
+    }
+  }
+}

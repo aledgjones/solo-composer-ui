@@ -1,17 +1,18 @@
 import { useMemo, useEffect } from "react";
 import { mdiAccount, mdiAccountGroup } from "@mdi/js";
-import { useStore } from "./use-store";
+import { useStore, store } from "./use-store";
 import { Player, Instrument, View } from "./defs";
 import {
     PlayerType,
     AutoCountStyle,
-    TimeSignatureDrawType,
     NoteDuration,
     def_tree,
     get_full_path_from_partial,
 } from "solo-composer-engine";
 import { toRoman } from "roman-numerals";
 import { actions } from "./actions";
+
+import example from "../examples/glinka.json";
 
 export * from "./playback/utils";
 
@@ -133,56 +134,5 @@ export function useAutoSetup() {
     useEffect(() => {
         const win = window as any;
         win.sc_actions = actions;
-    }, []);
-
-    // the actual auto setup bit
-    useEffect(() => {
-        const ppq = 16;
-
-        actions.score.meta.title("String Quartet in B${flat}");
-        actions.score.meta.subtitle("Op. 18, No. 6");
-        actions.score.meta.composer("Beethoven");
-
-        const flow_key = actions.score.flow.create();
-        actions.score.flow.rename(flow_key, "Allegro con brio");
-        actions.score.entries.time_signature.create(
-            flow_key,
-            0,
-            4,
-            NoteDuration.Quarter,
-            TimeSignatureDrawType.Normal
-        );
-        actions.score.flow.length(flow_key, ppq * 4 * 32);
-        actions.score.entries.absolute_tempo.create(
-            flow_key,
-            0,
-            "Allegro",
-            NoteDuration.Quarter,
-            0,
-            100,
-            true,
-            true,
-            true
-        );
-
-        const players = [
-            { type: PlayerType.Solo, instruments: ["keyboard.piano"] },
-        ];
-
-        players.forEach((player) => {
-            const playerKey = actions.score.player.create(player.type);
-            player.instruments.forEach((instrument) => {
-                const instrumentKey = actions.score.instrument.create(
-                    instrument
-                );
-                actions.score.player.assign_instrument(
-                    playerKey,
-                    instrumentKey
-                );
-                actions.playback.instrument.load(instrument, instrumentKey);
-            });
-        });
-
-        actions.ui.view(View.Play);
     }, []);
 }

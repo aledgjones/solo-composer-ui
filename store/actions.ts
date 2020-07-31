@@ -9,6 +9,7 @@ import { engine, store } from "./use-store";
 import { ThemeMode, View, Tool } from "./defs";
 import { playbackActions } from "./playback";
 import { Transport } from "solo-composer-scheduler";
+import { download } from "../ui";
 
 // I know these are just wrapping funcs but it allows more acurate typings than wasm-pack produces
 // and it's really easy to swap between js and wasm funcs if needed.
@@ -31,6 +32,15 @@ export const actions = {
     },
     playback: playbackActions,
     score: {
+        export: () => {
+            const data = store.getRawState();
+            download(
+                data.score,
+                data.score.meta.title.toLocaleLowerCase().replace(/\s/g, "-") ||
+                    "untitled",
+                "application/json"
+            );
+        },
         meta: {
             title: (value: string) => engine.set_title(value),
             subtitle: (value: string) => engine.set_subtitle(value),

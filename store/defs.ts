@@ -126,46 +126,45 @@ export interface Flow {
     tracks: { [key: string]: Track };
 }
 
+export interface Score {
+    meta: {
+        title: string;
+        subtitle: string;
+        composer: string;
+        arranger: string;
+        lyricist: string;
+        copyright: string;
+        created: number;
+        modified: number;
+    };
+    config: {
+        auto_count: {
+            solo: AutoCountStyle;
+            section: AutoCountStyle;
+        };
+    };
+    flows: {
+        order: string[];
+        by_key: {
+            [key: string]: Flow;
+        };
+    };
+    players: {
+        order: string[];
+        by_key: { [key: string]: Player };
+    };
+    instruments: {
+        [key: string]: Instrument;
+    };
+};
+
 export interface State {
     app: {
         theme: ThemeMode;
         audition: boolean;
     };
     playback: PlaybackDefs;
-    score: {
-        meta: {
-            title: string;
-            subtitle: string;
-            composer: string;
-            arranger: string;
-            lyricist: string;
-            copyright: string;
-            created: number;
-            modified: number;
-        };
-        config: {
-            auto_count: {
-                solo: AutoCountStyle;
-                section: AutoCountStyle;
-            };
-        };
-        flows: {
-            order: string[];
-            by_key: {
-                [key: string]: Flow;
-            };
-        };
-        players: {
-            order: string[];
-            by_key: { [key: string]: Player };
-        };
-        instruments: {
-            [key: string]: Instrument;
-        };
-    };
-    ticks: {
-        [key: string]: TickList;
-    };
+    score: Score;
     ui: {
         view: View;
         snap: NoteDuration;
