@@ -6,8 +6,6 @@ import {
     Tool,
     actions,
     duration_to_ticks,
-    pitch_to_frequency,
-    Expression,
 } from "../../../store";
 import { dragHandler } from "../../../ui";
 import { ToneTrackEntry } from "../tone-track-entry";

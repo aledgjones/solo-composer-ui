@@ -5,20 +5,24 @@ import {
     actions,
     useTick,
     Tone,
-    pitch_to_frequency,
     Expression,
     AbsoluteTempo,
 } from "../../../store";
 import { Icon } from "../../../ui";
-import { store, engine } from "../../../store/use-store";
+import { store } from "../../../store/use-store";
 import { Transport, Player } from "solo-composer-scheduler";
 
 import "./styles.css";
 
 export const TransportComponent: FC = () => {
-    const [flow_key, metronome, playing] = useStore((s) => {
+    const [flow_key, ticks, metronome, playing] = useStore((s) => {
         const flow_key = s.ui.flow_key ? s.ui.flow_key : s.score.flows.order[0];
-        return [flow_key, s.playback.metronome, s.playback.transport.playing];
+        return [
+            flow_key,
+            s.score.flows.by_key[flow_key].ticks.list,
+            s.playback.metronome,
+            s.playback.transport.playing,
+        ];
     });
 
     useEffect(() => {
@@ -42,15 +46,12 @@ export const TransportComponent: FC = () => {
 
     const tick = useTick();
     const timestamp = useMemo(() => {
-        if (flow_key !== undefined) {
-            return engine.tick_to_timestamp(flow_key, tick);
-        } else {
-            return "1:1:0.000";
-        }
-    }, [flow_key, tick]);
+        const t = ticks[tick];
+        return `${t.bar}:${t.beat}:${t.sixteenth.toFixed(3)}`;
+    }, [ticks, tick]);
 
     // FIXME: this is just for testing. Think of a better way of doing this.
-    // or is it?
+    // or is it? This seems to work okay for now actually!
     useEffect(() => {
         store.subscribe(
             (s) => {

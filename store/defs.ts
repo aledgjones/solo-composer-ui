@@ -3,6 +3,7 @@ import {
     AutoCountStyle,
     Accidental,
     NoteDuration,
+    TimeSignatureDrawType,
 } from "solo-composer-engine";
 import { PlaybackDefs } from "./playback/defs";
 
@@ -36,6 +37,9 @@ export enum ThemeMode {
 
 export interface Tick {
     tick: number;
+    bar: number;
+    beat: number;
+    sixteenth: number;
     x: number;
     width: number;
     is_beat: boolean;
@@ -62,6 +66,8 @@ export interface TimeSignature {
     tick: number;
     beats: number;
     beat_type: number;
+    draw_type: TimeSignatureDrawType;
+    groupings: number[];
 }
 
 export interface AbsoluteTempo {
@@ -69,7 +75,7 @@ export interface AbsoluteTempo {
     tick: number;
     normalized_bpm: number; // beats per minute in crotchets
     text: string;
-    beatType: NoteDuration;
+    beat_type: NoteDuration;
     dotted: number;
     bpm: number;
     parenthesis_visible: boolean;
@@ -120,8 +126,9 @@ export interface Flow {
     players: string[];
     subdivisions: number;
     length: number;
-    master: Track;
+    ticks: TickList;
 
+    master: Track;
     staves: { [key: string]: Stave };
     tracks: { [key: string]: Track };
 }
@@ -156,7 +163,7 @@ export interface Score {
     instruments: {
         [key: string]: Instrument;
     };
-};
+}
 
 export interface State {
     app: {

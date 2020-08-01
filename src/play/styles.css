@@ -80,6 +80,7 @@
     top: 0;
     z-index: 200;
     background-color: var(--background-200);
+    min-width: calc(100vw - 350px);
 }
 
 .play__tick-track {

@@ -22,32 +22,36 @@ import { PlayHead } from "./play-head";
 import { Ticks } from "./ticks";
 
 import "./styles.css";
-import { engine } from "../../store/use-store";
 
 const Play: FC = () => {
     useTitle("Solo Composer | Sequence");
 
-    const [flows, flowKey, players, tool, zoom, snap_duration] = useStore(
-        (s) => {
-            const flowKey = s.ui.flow_key || s.score.flows.order[0];
-            const flow_players = s.score.flows.by_key[flowKey].players;
-            return [
-                s.score.flows.order.map((flow_key) => {
-                    const { key, title } = s.score.flows.by_key[flow_key];
-                    return { key, title };
-                }),
-                flowKey,
-                s.score.players.order
-                    .filter((playerKey) => flow_players.includes(playerKey))
-                    .map((player_key) => s.score.players.by_key[player_key]),
-                s.ui.play.tool,
-                s.ui.play.zoom,
-                s.ui.snap,
-            ];
-        }
-    );
-
-    const ticks = engine.get_ticks(flowKey);
+    const [
+        flows,
+        flowKey,
+        ticks,
+        players,
+        tool,
+        zoom,
+        snap_duration,
+    ] = useStore((s) => {
+        const flowKey = s.ui.flow_key || s.score.flows.order[0];
+        const flow_players = s.score.flows.by_key[flowKey].players;
+        return [
+            s.score.flows.order.map((flow_key) => {
+                const { key, title } = s.score.flows.by_key[flow_key];
+                return { key, title };
+            }),
+            flowKey,
+            s.score.flows.by_key[flowKey].ticks,
+            s.score.players.order
+                .filter((playerKey) => flow_players.includes(playerKey))
+                .map((player_key) => s.score.players.by_key[player_key]),
+            s.ui.play.tool,
+            s.ui.play.zoom,
+            s.ui.snap,
+        ];
+    });
 
     const colors = useRainbow(players.length);
 

@@ -59,10 +59,6 @@ export const About = Dialog<Props>(({ onClose }) => {
                     <span>{pkg.version}</span>
                 </p>
                 <p className="about__version">
-                    <span className="about__grow">Application Engine</span>
-                    <span>{pkg.version}</span>
-                </p>
-                <p className="about__version">
                     <span className="about__grow">Audio Engine</span>
                     <span>{pkg.version}</span>
                 </p>
@@ -70,7 +66,7 @@ export const About = Dialog<Props>(({ onClose }) => {
                     <span className="about__grow">
                         Rendering Engine (React.js)
                     </span>
-                    <span>@experimantal</span>
+                    <span>{pkg.dependencies.react}</span>
                 </p>
             </Content>
         </div>

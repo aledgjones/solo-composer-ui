@@ -8,8 +8,11 @@
     height: 48px;
     margin-bottom: 8px;
     background-color: var(--background-900);
-    color: var(--background-900-fg);
-    border: 1px solid var(--background-500);
+}
+
+.instrument-item--selected {
+    background-color: var(--white);
+    color: var(--primary-fg);
 }
 
 .instrument-item.ui-sortable-item--sorting {

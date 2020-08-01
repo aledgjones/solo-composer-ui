@@ -11,8 +11,6 @@ import {
     Divider,
     Button,
     Link,
-    noop,
-    download,
 } from "../../../ui";
 import { About } from "../../dialogs/about";
 import { Preferences } from "../../dialogs/preferences";
@@ -20,9 +18,9 @@ import { Meta } from "../../dialogs/meta";
 import { useStore, actions } from "../../../store";
 import { Duration } from "../../components/duration";
 import { Text } from "../../components/text";
+import { Importer } from "../../dialogs/importer";
 
 import "./styles.css";
-import { store } from "../../../store/use-store";
 
 export const File: FC = () => {
     const { title, modified } = useStore((s) => s.score.meta);
@@ -33,6 +31,7 @@ export const File: FC = () => {
     const [meta, setMeta] = useState(false);
     const [about, setAbout] = useState(process.env.NODE_ENV === "production");
     const [preferences, setPreferences] = useState(false);
+    const [importer, setImporter] = useState(false);
 
     const [update, setUpdate] = useState<() => void>();
 
@@ -95,6 +94,9 @@ export const File: FC = () => {
                         </Content>
                         <Divider compact />
                         <List onClick={() => setOpen(false)}>
+                            <ListItem onClick={() => setImporter(true)}>
+                                Import...
+                            </ListItem>
                             <ListItem onClick={actions.score.export}>
                                 Export...
                             </ListItem>
@@ -144,6 +146,11 @@ export const File: FC = () => {
                 open={preferences}
                 width={900}
                 onClose={() => setPreferences(false)}
+            />
+            <Importer
+                width={300}
+                open={importer}
+                onClose={() => setImporter(false)}
             />
         </>
     );

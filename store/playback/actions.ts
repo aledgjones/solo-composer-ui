@@ -92,21 +92,18 @@ export const playbackActions = {
             );
         },
         destroy: (instrument_key: string) => {
-            // TODO cleanup dead instruments
-            // store.update((s) => {
-            //     // dispose of the audio nodes to free up resources
-            //     Object.values(samplers[instrument_key].expressions).forEach(
-            //         (expression) => {
-            //             expression.dispose();
-            //         }
-            //     );
-            //     samplers[instrument_key].volumeNode.dispose();
-            //     samplers[instrument_key].muteNode.dispose();
-            //     samplers[instrument_key].analyserNode.dispose();
-            //     // delete the instrument entries.
-            //     delete samplers[instrument_key];
-            //     delete s.playback.instruments[instrument_key];
-            // });
+            store.update((s) => {
+                delete s.playback.instruments[instrument_key];
+                Player.disconnect(instrument_key);
+            });
+        },
+        destroyAll: () => {
+            store.update((s) => {
+                Object.keys(s.playback.instruments).forEach((key) => {
+                    delete s.playback.instruments[key];
+                    Player.disconnect(key);
+                });
+            });
         },
         mute: {
             toggle: (instrument_key: string) => {

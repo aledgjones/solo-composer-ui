@@ -6,11 +6,11 @@
     background-color: var(--background-800);
     color: var(--foreground-800);
     min-width: 280px;
-    border: 1px solid var(--background-200);
 }
 
 .flow-item--selected {
-    border: 1px solid var(--primary-bg);
+    background-color: var(--primary-bg);
+    color: var(--primary-fg);
 }
 
 .flow-item.ui-sortable-item--sorting {
