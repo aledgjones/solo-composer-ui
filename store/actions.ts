@@ -6,44 +6,17 @@ import {
     NoteDuration,
 } from "solo-composer-engine";
 import { engine, store } from "./use-store";
-import { ThemeMode, View, Tool, AbsoluteTempo, TimeSignature } from "./defs";
+import {
+    ThemeMode,
+    View,
+    Tool,
+    AbsoluteTempo,
+    TimeSignature,
+    Score,
+} from "./defs";
 import { playbackActions } from "./playback";
 import { Transport, Progress } from "solo-composer-scheduler";
 import { download, chooseFiles } from "../ui";
-
-enum EntryType {
-    AbsoluteTempo,
-    TimeSignature,
-}
-
-interface ImportStruct {
-    meta: {
-        title: string;
-        subtitle: string;
-        composer: string;
-        arranger: string;
-        lyricist: string;
-        copyright: string;
-    };
-    config: {
-        auto_count: {
-            solo: AutoCountStyle;
-            section: AutoCountStyle;
-        };
-    };
-    players: { key: string; player_type: PlayerType; instruments: string[] }[];
-    instruments: { key: string; id: string }[];
-    flows: {
-        key: string;
-        title: string;
-        players: string[];
-        length: number;
-        master: Array<
-            | { type: EntryType.AbsoluteTempo; entry: AbsoluteTempo }
-            | { type: EntryType.TimeSignature; entry: TimeSignature }
-        >;
-    }[];
-}
 
 // I know these are just wrapping funcs but it allows more acurate typings than wasm-pack produces
 // and it's really easy to swap between js and wasm funcs if needed.
@@ -68,64 +41,11 @@ export const actions = {
     score: {
         /**
          * Export the current score
-         * // TODO: this is a temporary version of the export which spits out
-         * a very basic representation of the score.
          */
         export: () => {
-            const score = store.getRawState().score;
-            const data: ImportStruct = {
-                meta: {
-                    title: score.meta.title,
-                    subtitle: score.meta.subtitle,
-                    composer: score.meta.composer,
-                    arranger: score.meta.arranger,
-                    lyricist: score.meta.lyricist,
-                    copyright: score.meta.copyright,
-                },
-                config: score.config,
-                players: score.players.order.map((player_key) => {
-                    const player = score.players.by_key[player_key];
-                    return {
-                        key: player.key,
-                        player_type: player.player_type,
-                        instruments: player.instruments,
-                    };
-                }),
-                instruments: Object.values(score.instruments).map(
-                    (instrument) => {
-                        return {
-                            key: instrument.key,
-                            id: instrument.id,
-                        };
-                    }
-                ),
-                flows: score.flows.order.map((flow_key) => {
-                    const flow = score.flows.by_key[flow_key];
-                    return {
-                        key: flow.key,
-                        title: flow.title,
-                        players: flow.players,
-                        length: flow.length,
-                        master: Object.values(flow.master.entries.by_key).map(
-                            (entry) => {
-                                if (entry.AbsoluteTempo) {
-                                    return {
-                                        type: EntryType.AbsoluteTempo,
-                                        entry: entry.AbsoluteTempo as AbsoluteTempo,
-                                    };
-                                } else {
-                                    return {
-                                        type: EntryType.TimeSignature,
-                                        entry: entry.TiemSignature as TimeSignature,
-                                    };
-                                }
-                            }
-                        ),
-                    };
-                }),
-            };
+            const score = engine.get();
             download(
-                data,
+                score,
                 score.meta.title.toLocaleLowerCase().replace(/\s/g, "-") ||
                     "untitled",
                 "application/json"
@@ -133,108 +53,44 @@ export const actions = {
         },
         /**
          * Import a score
-         * // TODO: this is a temporary version of the import
          */
         import: async (progress: Progress) => {
             const resp = await chooseFiles(["application/json"]);
             const file = resp.files[0];
             if (file) {
-                // map old id's to new;
-                const map = new Map<string, string>();
-
                 // cleanup old state
-                engine.reset();
-                actions.playback.instrument.destroyAll();
+                actions.ui.view(View.Setup);
+                actions.playback.transport.stop();
                 actions.playback.transport.to_start();
+                actions.playback.instrument.destroyAll();
                 progress(4, 1);
+
                 // import the json file
                 const content = await file.text();
-                const score: ImportStruct = JSON.parse(content);
+                const score: Score = JSON.parse(content);
                 progress(4, 2);
-                // load in the score data
-                // meta
-                actions.score.meta.title(score.meta.title);
-                actions.score.meta.subtitle(score.meta.subtitle);
-                actions.score.meta.arranger(score.meta.arranger);
-                actions.score.meta.lyricist(score.meta.lyricist);
-                actions.score.meta.copyright(score.meta.copyright);
-                // config
-                actions.score.config.auto_count.solo(
-                    score.config.auto_count.solo
-                );
-                actions.score.config.auto_count.section(
-                    score.config.auto_count.section
-                );
-                // TODO: engrave
-                // flows setup before instruments added.
-                score.flows.forEach((flow_def) => {
-                    const flow_key = actions.score.flow.create();
-                    map.set(flow_def.key, flow_key);
-                    actions.score.flow.rename(flow_key, flow_def.title);
-                    actions.score.flow.length(flow_key, flow_def.length);
-                    flow_def.master.forEach((def) => {
-                        switch (def.type) {
-                            case EntryType.AbsoluteTempo: {
-                                const entry = def.entry as AbsoluteTempo;
-                                actions.score.entries.absolute_tempo.create(
-                                    flow_key,
-                                    entry.tick,
-                                    entry.text,
-                                    entry.beat_type,
-                                    entry.dotted,
-                                    entry.bpm,
-                                    entry.parenthesis_visible,
-                                    entry.text_visible,
-                                    entry.bpm_visible
-                                );
-                                break;
-                            }
-                            case EntryType.TimeSignature: {
-                                const entry = def.entry as TimeSignature;
-                                actions.score.entries.time_signature.create(
-                                    flow_key,
-                                    entry.tick,
-                                    entry.beats,
-                                    entry.beat_type,
-                                    entry.draw_type
-                                );
-                                break;
-                            }
-                        }
-                    });
-                });
-                progress(4, 3);
-                // players
-                // await Promise.all(
-                //     score.players.order.map(async (player_key) => {
-                //         const player_def = score.players.by_key[player_key];
-                //         const new_player_key = actions.score.player.create(
-                //             player_def.player_type
-                //         );
-                //         map.set(player_key, new_player_key);
 
-                //         return Promise.all(
-                //             player_def.instruments.map(
-                //                 async (instrument_key) => {
-                //                     const instrument =
-                //                         score.instruments[instrument_key];
-                //                     const new_instrument_key = actions.score.instrument.create(
-                //                         instrument.id
-                //                     );
-                //                     map.set(instrument_key, new_instrument_key);
-                //                     actions.score.player.assign_instrument(
-                //                         new_player_key,
-                //                         new_instrument_key
-                //                     );
-                //                     await actions.playback.instrument.load(
-                //                         instrument.id,
-                //                         new_instrument_key
-                //                     );
-                //                 }
-                //             )
-                //         );
-                //     })
-                // );
+                // set the imported state in the engine
+                engine.set(score);
+
+                progress(4, 3);
+
+                //  playback
+                await Promise.all(
+                    score.players.order.map(async (player_key) => {
+                        const player = score.players.by_key[player_key];
+                        return Promise.all(
+                            player.instruments.map(async (instrument_key) => {
+                                const instrument =
+                                    score.instruments[instrument_key];
+                                await actions.playback.instrument.load(
+                                    instrument.id,
+                                    instrument.key
+                                );
+                            })
+                        );
+                    })
+                );
                 progress(4, 4);
             }
         },
