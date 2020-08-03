@@ -43,7 +43,7 @@ const Play: FC = () => {
                 return { key, title };
             }),
             flowKey,
-            s.score.flows.by_key[flowKey].ticks,
+            s.ui.ticks[flowKey],
             s.score.players.order
                 .filter((playerKey) => flow_players.includes(playerKey))
                 .map((player_key) => s.score.players.by_key[player_key]),

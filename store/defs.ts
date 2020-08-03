@@ -126,7 +126,6 @@ export interface Flow {
     players: string[];
     subdivisions: number;
     length: number;
-    ticks: TickList;
 
     master: Track;
     staves: { [key: string]: Stave };
@@ -173,6 +172,7 @@ export interface State {
     playback: PlaybackDefs;
     score: Score;
     ui: {
+        ticks: { [flow_key: string]: TickList };
         view: View;
         snap: NoteDuration;
         flow_key: string;

@@ -19,8 +19,8 @@ export function useWaveform(instrumentKey: string) {
     useEffect(() => {
         let running = true;
         const update = () => {
-            setAmplitude(Player.RMS(instrumentKey));
             if (running) {
+                setAmplitude(Player.RMS(instrumentKey));
                 requestAnimationFrame(update);
             }
         };

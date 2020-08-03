@@ -6,14 +6,7 @@ import {
     NoteDuration,
 } from "solo-composer-engine";
 import { engine, store } from "./use-store";
-import {
-    ThemeMode,
-    View,
-    Tool,
-    AbsoluteTempo,
-    TimeSignature,
-    Score,
-} from "./defs";
+import { ThemeMode, View, Tool, Score } from "./defs";
 import { playbackActions } from "./playback";
 import { Transport, Progress } from "solo-composer-scheduler";
 import { download, chooseFiles } from "../ui";
@@ -43,7 +36,7 @@ export const actions = {
          * Export the current score
          */
         export: () => {
-            const score = engine.get();
+            const score = engine.export();
             download(
                 score,
                 score.meta.title.toLocaleLowerCase().replace(/\s/g, "-") ||
@@ -71,7 +64,7 @@ export const actions = {
                 progress(4, 2);
 
                 // set the imported state in the engine
-                engine.set(score);
+                engine.import(score);
 
                 progress(4, 3);
 

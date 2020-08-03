@@ -19,7 +19,7 @@ export const TransportComponent: FC = () => {
         const flow_key = s.ui.flow_key ? s.ui.flow_key : s.score.flows.order[0];
         return [
             flow_key,
-            s.score.flows.by_key[flow_key].ticks.list,
+            s.ui.ticks[flow_key].list,
             s.playback.metronome,
             s.playback.transport.playing,
         ];

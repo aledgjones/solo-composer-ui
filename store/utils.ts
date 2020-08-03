@@ -1,7 +1,7 @@
 import { useMemo, useEffect } from "react";
 import { mdiAccount, mdiAccountGroup } from "@mdi/js";
-import { useStore, store } from "./use-store";
-import { Player, Instrument, View } from "./defs";
+import { useStore } from "./use-store";
+import { Player, Instrument } from "./defs";
 import {
     PlayerType,
     AutoCountStyle,
@@ -11,8 +11,6 @@ import {
 } from "solo-composer-engine";
 import { toRoman } from "roman-numerals";
 import { actions } from "./actions";
-
-import example from "../examples/glinka.json";
 
 export * from "./playback/utils";
 

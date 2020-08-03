@@ -1,0 +1,1888 @@
+{
+    "meta": {
+        "title": "Night Music",
+        "subtitle": "",
+        "composer": "Aled Jones",
+        "arranger": "",
+        "lyricist": "",
+        "copyright": "${copy} Solo Composer 2020",
+        "created": 1596298537912,
+        "modified": 1596446178818
+    },
+    "config": { "auto_count": { "solo": 1, "section": 1 } },
+    "engrave": {
+        "UvB9J1f3sFYaHC": {
+            "key": "UvB9J1f3sFYaHC",
+            "layout_type": 1,
+            "display_name": "Part",
+            "space": 1.75,
+            "frame_padding": [40, 25, 40, 25],
+            "instrument_spacing": 8,
+            "stave_spacing": 6,
+            "system_start_padding": 0.75,
+            "instrument_name": {
+                "size": 1.75,
+                "font": "Libre Baskerville",
+                "align": 2,
+                "padding": [0, 2, 0, 0]
+            },
+            "tempo_text": {
+                "size": 1.75,
+                "font": "Libre Baskerville",
+                "align": 0,
+                "padding": [0, 0, 2, 0]
+            },
+            "systemic_barline_single_instrument_system": false,
+            "bracketing": 1,
+            "bracket_style": 1,
+            "bracket_single_staves": false,
+            "sub_bracket": true,
+            "minimum_note_spacing": 1.6,
+            "final_barline_type": 3
+        },
+        "gBoNaENPIhTvLV": {
+            "key": "gBoNaENPIhTvLV",
+            "layout_type": 0,
+            "display_name": "Score",
+            "space": 1.75,
+            "frame_padding": [40, 25, 40, 25],
+            "instrument_spacing": 8,
+            "stave_spacing": 6,
+            "system_start_padding": 0.75,
+            "instrument_name": {
+                "size": 1.75,
+                "font": "Libre Baskerville",
+                "align": 2,
+                "padding": [0, 2, 0, 0]
+            },
+            "tempo_text": {
+                "size": 1.75,
+                "font": "Libre Baskerville",
+                "align": 0,
+                "padding": [0, 0, 2, 0]
+            },
+            "systemic_barline_single_instrument_system": false,
+            "bracketing": 1,
+            "bracket_style": 1,
+            "bracket_single_staves": false,
+            "sub_bracket": true,
+            "minimum_note_spacing": 1.6,
+            "final_barline_type": 3
+        }
+    },
+    "flows": {
+        "order": ["0w9OdPvZLyUteO"],
+        "by_key": {
+            "0w9OdPvZLyUteO": {
+                "key": "0w9OdPvZLyUteO",
+                "title": "Allegro moderato",
+                "players": ["l5ANxymEzjTTgK"],
+                "length": 2560,
+                "subdivisions": 16,
+                "master": {
+                    "key": "vQSSpKeYM6wupb",
+                    "entries": {
+                        "by_tick": {
+                            "0": ["2vQN6hFmXIJ7Kz", "poshpvwYEXxkbc"]
+                        },
+                        "by_key": {
+                            "poshpvwYEXxkbc": {
+                                "AbsoluteTempo": {
+                                    "key": "poshpvwYEXxkbc",
+                                    "tick": 0,
+                                    "normalized_bpm": 100,
+                                    "text": "Allegro moderato",
+                                    "beat_type": 2,
+                                    "dotted": 0,
+                                    "bpm": 100,
+                                    "parenthesis_visible": true,
+                                    "text_visible": true,
+                                    "bpm_visible": true
+                                }
+                            },
+                            "2vQN6hFmXIJ7Kz": {
+                                "TimeSignature": {
+                                    "key": "2vQN6hFmXIJ7Kz",
+                                    "tick": 0,
+                                    "beats": 4,
+                                    "beat_type": 2,
+                                    "draw_type": 2,
+                                    "groupings": [2, 2]
+                                }
+                            }
+                        }
+                    }
+                },
+                "staves": {
+                    "HovorQfQsbmA6V": {
+                        "key": "HovorQfQsbmA6V",
+                        "lines": 5,
+                        "master": {
+                            "key": "Y0l6maPFiDyzPq",
+                            "entries": {
+                                "by_tick": { "0": ["PoNpdHeG9gqxII"] },
+                                "by_key": {
+                                    "PoNpdHeG9gqxII": {
+                                        "Clef": {
+                                            "key": "PoNpdHeG9gqxII",
+                                            "tick": 0,
+                                            "pitch": {
+                                                "int": 67,
+                                                "accidental": 2
+                                            },
+                                            "offset": 6
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tracks": ["jMqfIg5Ks5PuwE"]
+                    },
+                    "ajQeI6fcatSp29": {
+                        "key": "ajQeI6fcatSp29",
+                        "lines": 5,
+                        "master": {
+                            "key": "CwdRzSVi4eabZj",
+                            "entries": {
+                                "by_tick": { "0": ["1rGIx3fBmNnvY4"] },
+                                "by_key": {
+                                    "1rGIx3fBmNnvY4": {
+                                        "Clef": {
+                                            "key": "1rGIx3fBmNnvY4",
+                                            "tick": 0,
+                                            "pitch": {
+                                                "int": 53,
+                                                "accidental": 2
+                                            },
+                                            "offset": 2
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        "tracks": ["o9O2eQoHp5DKYU"]
+                    }
+                },
+                "tracks": {
+                    "jMqfIg5Ks5PuwE": {
+                        "key": "jMqfIg5Ks5PuwE",
+                        "entries": {
+                            "by_tick": {
+                                "0": ["GFCv5ZRDhC4RqK", "jxjJWlV866fi3S"],
+                                "4": [],
+                                "8": ["yBeXznpex0n6iX"],
+                                "16": ["IXT01JR94JbRQi"],
+                                "24": ["iFpuBWlSYFaqzQ"],
+                                "32": ["ZWPJPADtZzYxLy"],
+                                "40": ["40jqBKO7FlKUv2"],
+                                "48": ["rvnW6VltLvPNYL"],
+                                "56": ["ekcekpRrTWlFLZ"],
+                                "64": ["AK4o6mF2zrMR3i", "xqP5rvRl0GNfMb"],
+                                "68": [],
+                                "72": ["snFDlKMfIkW3cE"],
+                                "80": ["pKY10OruPSRBe8"],
+                                "84": [],
+                                "88": ["xi5pxGtoXULmh7", "ct8HJA11l7KrdM"],
+                                "92": [],
+                                "96": ["tJcu1cjxpMvGrO", "DeSxiUnG5VzwlF"],
+                                "100": [],
+                                "104": ["2vdddTFIxXqceQ"],
+                                "112": ["1goqBzxlvffELe", "YljXYOKj3uzxtg"],
+                                "120": ["dVtzeeGJRuT4yK"],
+                                "124": [],
+                                "128": ["k04isQHHGvEAjC", "uZNsno3WyKl0Yv"],
+                                "132": [],
+                                "136": ["L3V9IYJC0jeqeN"],
+                                "144": ["r7Xz5s24FkQ79k"],
+                                "152": ["hsMIppjygDBtRn"],
+                                "160": ["81iNq7picIEGHH"],
+                                "164": [],
+                                "168": ["N1ijvcPOqOBuVe", "snsotIPoHf4WLt"],
+                                "176": ["sm956zK8q1F7vi", "KIro2LYIGnsRDF"],
+                                "184": ["yUPJHktcxfQKwG", "NLIZsdoY6QHYln"],
+                                "188": [],
+                                "192": ["6DtkY1AYkbfWH4", "Gqdx0A1rzgCWsZ"],
+                                "196": [],
+                                "200": ["8LfwxH7WWOZR7Z"],
+                                "208": ["lDiPHIRxV9tAIy"],
+                                "216": ["7ppapmL9vXAQgw"],
+                                "224": ["SmXdmJa5mg4gxt"],
+                                "232": ["0WqelylrIEksL8"],
+                                "240": ["hkgP5m0WOAY9CM"],
+                                "248": ["U6yn58a92X9XFx"],
+                                "256": [
+                                    "Sv7AkPoamDQfy0",
+                                    "CQMhOWkzmreFiK",
+                                    "WSSxLsJP4JJr2P"
+                                ],
+                                "260": [],
+                                "264": ["SAwqu9FA3q1C2F"],
+                                "268": [],
+                                "272": ["skySnNBrRwNus1"],
+                                "280": ["OKTyxtEg2PecLK"],
+                                "288": ["Kc3G5zRYQdXmcS", "GYXn69Ioaj73nb"],
+                                "292": [],
+                                "296": ["CigWIQmKfk8mCt"],
+                                "300": [],
+                                "304": ["BTOyP9rfyl9BNg"],
+                                "308": [],
+                                "312": ["WYdbJKs18Xveqa"],
+                                "320": [
+                                    "gtmO7VMSepckSN",
+                                    "r8I7O1VU606qNK",
+                                    "CVa7IhWcZGYtbv"
+                                ],
+                                "324": [],
+                                "328": ["3bGYw11078Hi6k"],
+                                "336": ["NmO46pAwr2Swin"],
+                                "340": [],
+                                "344": ["4GjAjhPv2sNjH4"],
+                                "348": [],
+                                "352": ["9r85oWJasWEzFN"],
+                                "356": [],
+                                "360": ["Gubzbb2DZxY0LC", "bKYIr0EepoVB7O"],
+                                "368": [
+                                    "GnMHhou9X0gWZv",
+                                    "Km5w6VLmj3eMyN",
+                                    "H2aLpgf6O0h7fD"
+                                ],
+                                "376": ["44HuGcfr4eGKif"],
+                                "384": [
+                                    "XY37WCsq16Gfrh",
+                                    "r2LAS8tuyzcr2Q",
+                                    "ad4iK4eJb7e4fA"
+                                ],
+                                "392": ["gfqMPkXZJbMnTN"],
+                                "400": ["0hJ4O1dT259vk5"],
+                                "408": ["zunVP5y3gnKcsY"],
+                                "416": ["lVQ0GACQhbwamm"],
+                                "424": ["O9Sp9FAxyFWXrU"],
+                                "432": ["rljRpO3qPiQJ1B"],
+                                "440": ["6zOdfAe8FqNgbW"],
+                                "448": [
+                                    "bDvO4Iulv3HYdb",
+                                    "ynsUR8BGMwvYid",
+                                    "2vhF9HpltV2gMp"
+                                ],
+                                "456": ["RcgPyDD5VIp7tm"],
+                                "464": ["b853xxbbMSWwxH"],
+                                "472": ["dDv2tSNRxfQja4"],
+                                "480": [
+                                    "trTX799FyFUA7M",
+                                    "RLbeMQNAF2u0mS",
+                                    "0YifUkueRwtNba"
+                                ],
+                                "488": ["T20TPQaGS8LvJp"],
+                                "492": [],
+                                "496": ["evPL0NwtApN8JY"],
+                                "504": ["GS2PKlK9cpYynD"],
+                                "512": [
+                                    "X7V5sz7J38Zj5G",
+                                    "jJisXB7Amkzaf7",
+                                    "PWf9o2Yj7N59fn",
+                                    "rFWf77Y0lxr1UJ",
+                                    "qbANLHPb6SdK6X"
+                                ],
+                                "520": [],
+                                "524": [],
+                                "528": [
+                                    "p9sJeTGCcnYNGD",
+                                    "PDm7tvCp9aYnTd",
+                                    "rkQ5WRLmCFiMjf"
+                                ],
+                                "532": [],
+                                "536": ["cdOqldrx8fjDWi"],
+                                "540": ["krBE2RZR7yu2hE"],
+                                "544": [
+                                    "TPg5JUT5fNvuAG",
+                                    "1mEnj4E5OCbfnT",
+                                    "A7klVaFYbtOtgF",
+                                    "f85FamHkeyngLU"
+                                ],
+                                "556": [],
+                                "560": [
+                                    "AS30eaY5Cl8cld",
+                                    "cYWGFbYE8jgLjC",
+                                    "CMr0GtMjKP7Vif"
+                                ],
+                                "568": ["w6R7uWuyoiYx0T"],
+                                "572": ["hLpfXMxUEQpofB"],
+                                "576": [
+                                    "NrAbU7J6fZC5bQ",
+                                    "4verKlzike84Ri",
+                                    "AeItTZ8N1j4wWl",
+                                    "a11kxpAshGFdu3"
+                                ],
+                                "580": [],
+                                "592": [
+                                    "L1CKrpBUjdU7TZ",
+                                    "KWTuIqMbF7pxMn",
+                                    "AL1YAqPOZGVa6R",
+                                    "C9WQ9koRoIpEAG"
+                                ],
+                                "600": [],
+                                "604": [],
+                                "608": [
+                                    "QtghCRoD213oG1",
+                                    "gqgrWDvUzaq4ZO",
+                                    "x3kd7AeERLv2hZ",
+                                    "CcnlLZv3WM0B0l"
+                                ],
+                                "612": [],
+                                "616": [],
+                                "624": [
+                                    "Usi9wGNViTcuku",
+                                    "SpROLGC5bWCbBy",
+                                    "nT8EyYfcu44BfF",
+                                    "bBs6LEBmnu0Y6V"
+                                ],
+                                "626": [],
+                                "628": [],
+                                "640": [
+                                    "2g1yYZPffa5qnq",
+                                    "ozO1CIgX736ln5",
+                                    "CQocooCiEfiWNL",
+                                    "aS5lgtHn1SujG5"
+                                ],
+                                "656": [
+                                    "hXaml4M3DnsRR5",
+                                    "Q2eElPeu6paJPA",
+                                    "rNxc4JAbbU54MS",
+                                    "cGWepij1aMSpTM"
+                                ],
+                                "664": ["vfXx2X8J3p6Kcr"],
+                                "668": ["bdlkpZ7Bo4bYdi"],
+                                "672": [
+                                    "LyL9ZzOT6AqVnc",
+                                    "B1LbdKqHq2dmIt",
+                                    "AwUxagIpHwgGIa",
+                                    "VUe0BHNpY7s4RC",
+                                    "VAxtMPfJ362Pd9"
+                                ],
+                                "688": [
+                                    "sPQm49uVNJTEaM",
+                                    "epy4XT81vI0xgL",
+                                    "ls41hgjHkMwrW7",
+                                    "iOdx82DPwikmKP"
+                                ],
+                                "700": [],
+                                "704": [
+                                    "hqTn0OqqbSSYYr",
+                                    "Mc64YU4MoSlBa1",
+                                    "m5SMqIkCkCQJ5E",
+                                    "XAzpYafyhCepAt"
+                                ],
+                                "708": [],
+                                "712": ["szj1J5e1hYAZF8"],
+                                "720": ["vpD6xlqwPkyq0z", "LzwZppSrvNrDKR"],
+                                "724": [],
+                                "728": [
+                                    "A62A4xxdfP57Zs",
+                                    "kXo9erTYTpeNOi",
+                                    "fAFMmkkSOJCFQp"
+                                ],
+                                "732": ["bZZX12W4c7U6Xv", "5R4soabLGWkDDs"],
+                                "736": [
+                                    "fmNat5nXXXgpjz",
+                                    "wPMioImIGJq9KK",
+                                    "wEfUvPlQNyzM2U",
+                                    "LE62VCjdFDRbwJ"
+                                ],
+                                "744": ["PXY6pVdKAf70SB"],
+                                "752": ["Ax58FR22dnoQH4", "T2FLdy0qa7XEgW"],
+                                "760": ["4NWyg0r8jD9Bni"]
+                            },
+                            "by_key": {
+                                "zunVP5y3gnKcsY": {
+                                    "Tone": {
+                                        "key": "zunVP5y3gnKcsY",
+                                        "tick": 408,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "fmNat5nXXXgpjz": {
+                                    "Tone": {
+                                        "key": "fmNat5nXXXgpjz",
+                                        "tick": 736,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 70, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "epy4XT81vI0xgL": {
+                                    "Tone": {
+                                        "key": "epy4XT81vI0xgL",
+                                        "tick": 688,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "SmXdmJa5mg4gxt": {
+                                    "Tone": {
+                                        "key": "SmXdmJa5mg4gxt",
+                                        "tick": 224,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 54, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "ekcekpRrTWlFLZ": {
+                                    "Tone": {
+                                        "key": "ekcekpRrTWlFLZ",
+                                        "tick": 56,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 44, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "L1CKrpBUjdU7TZ": {
+                                    "Tone": {
+                                        "key": "L1CKrpBUjdU7TZ",
+                                        "tick": 592,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 92, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "w6R7uWuyoiYx0T": {
+                                    "Tone": {
+                                        "key": "w6R7uWuyoiYx0T",
+                                        "tick": 568,
+                                        "duration": { "int": 4 },
+                                        "pitch": { "int": 66, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "VAxtMPfJ362Pd9": {
+                                    "Tone": {
+                                        "key": "VAxtMPfJ362Pd9",
+                                        "tick": 672,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 63, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "NmO46pAwr2Swin": {
+                                    "Tone": {
+                                        "key": "NmO46pAwr2Swin",
+                                        "tick": 336,
+                                        "duration": { "int": 48 },
+                                        "pitch": { "int": 59, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "6DtkY1AYkbfWH4": {
+                                    "Tone": {
+                                        "key": "6DtkY1AYkbfWH4",
+                                        "tick": 192,
+                                        "duration": { "int": 64 },
+                                        "pitch": { "int": 40, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "wPMioImIGJq9KK": {
+                                    "Tone": {
+                                        "key": "wPMioImIGJq9KK",
+                                        "tick": 736,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 67, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "GFCv5ZRDhC4RqK": {
+                                    "Tone": {
+                                        "key": "GFCv5ZRDhC4RqK",
+                                        "tick": 0,
+                                        "duration": { "int": 64 },
+                                        "pitch": { "int": 37, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "ozO1CIgX736ln5": {
+                                    "Tone": {
+                                        "key": "ozO1CIgX736ln5",
+                                        "tick": 640,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 76, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "PXY6pVdKAf70SB": {
+                                    "Tone": {
+                                        "key": "PXY6pVdKAf70SB",
+                                        "tick": 744,
+                                        "duration": { "int": 4 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "NLIZsdoY6QHYln": {
+                                    "Tone": {
+                                        "key": "NLIZsdoY6QHYln",
+                                        "tick": 184,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 66, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "b853xxbbMSWwxH": {
+                                    "Tone": {
+                                        "key": "b853xxbbMSWwxH",
+                                        "tick": 464,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 78, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "vpD6xlqwPkyq0z": {
+                                    "Tone": {
+                                        "key": "vpD6xlqwPkyq0z",
+                                        "tick": 720,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 70, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "r7Xz5s24FkQ79k": {
+                                    "Tone": {
+                                        "key": "r7Xz5s24FkQ79k",
+                                        "tick": 144,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 51, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "dVtzeeGJRuT4yK": {
+                                    "Tone": {
+                                        "key": "dVtzeeGJRuT4yK",
+                                        "tick": 120,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 44, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "Mc64YU4MoSlBa1": {
+                                    "Tone": {
+                                        "key": "Mc64YU4MoSlBa1",
+                                        "tick": 704,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 70, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "ZWPJPADtZzYxLy": {
+                                    "Tone": {
+                                        "key": "ZWPJPADtZzYxLy",
+                                        "tick": 32,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 51, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "hkgP5m0WOAY9CM": {
+                                    "Tone": {
+                                        "key": "hkgP5m0WOAY9CM",
+                                        "tick": 240,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 56, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "X7V5sz7J38Zj5G": {
+                                    "Tone": {
+                                        "key": "X7V5sz7J38Zj5G",
+                                        "tick": 512,
+                                        "duration": { "int": 24 },
+                                        "pitch": { "int": 92, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "H2aLpgf6O0h7fD": {
+                                    "Tone": {
+                                        "key": "H2aLpgf6O0h7fD",
+                                        "tick": 368,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 71, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "2vhF9HpltV2gMp": {
+                                    "Tone": {
+                                        "key": "2vhF9HpltV2gMp",
+                                        "tick": 448,
+                                        "duration": { "int": 64 },
+                                        "pitch": { "int": 71, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "LzwZppSrvNrDKR": {
+                                    "Tone": {
+                                        "key": "LzwZppSrvNrDKR",
+                                        "tick": 720,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 67, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "OKTyxtEg2PecLK": {
+                                    "Tone": {
+                                        "key": "OKTyxtEg2PecLK",
+                                        "tick": 280,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 54, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "kXo9erTYTpeNOi": {
+                                    "Tone": {
+                                        "key": "kXo9erTYTpeNOi",
+                                        "tick": 728,
+                                        "duration": { "int": 4 },
+                                        "pitch": { "int": 63, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "3bGYw11078Hi6k": {
+                                    "Tone": {
+                                        "key": "3bGYw11078Hi6k",
+                                        "tick": 328,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 63, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "cdOqldrx8fjDWi": {
+                                    "Tone": {
+                                        "key": "cdOqldrx8fjDWi",
+                                        "tick": 536,
+                                        "duration": { "int": 4 },
+                                        "pitch": { "int": 90, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "ct8HJA11l7KrdM": {
+                                    "Tone": {
+                                        "key": "ct8HJA11l7KrdM",
+                                        "tick": 88,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 76, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "6zOdfAe8FqNgbW": {
+                                    "Tone": {
+                                        "key": "6zOdfAe8FqNgbW",
+                                        "tick": 440,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "uZNsno3WyKl0Yv": {
+                                    "Tone": {
+                                        "key": "uZNsno3WyKl0Yv",
+                                        "tick": 128,
+                                        "duration": { "int": 40 },
+                                        "pitch": { "int": 71, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "RcgPyDD5VIp7tm": {
+                                    "Tone": {
+                                        "key": "RcgPyDD5VIp7tm",
+                                        "tick": 456,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 80, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "CcnlLZv3WM0B0l": {
+                                    "Tone": {
+                                        "key": "CcnlLZv3WM0B0l",
+                                        "tick": 608,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "2g1yYZPffa5qnq": {
+                                    "Tone": {
+                                        "key": "2g1yYZPffa5qnq",
+                                        "tick": 640,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 75, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "NrAbU7J6fZC5bQ": {
+                                    "Tone": {
+                                        "key": "NrAbU7J6fZC5bQ",
+                                        "tick": 576,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 78, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "skySnNBrRwNus1": {
+                                    "Tone": {
+                                        "key": "skySnNBrRwNus1",
+                                        "tick": 272,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 61, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "r2LAS8tuyzcr2Q": {
+                                    "Tone": {
+                                        "key": "r2LAS8tuyzcr2Q",
+                                        "tick": 384,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 78, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "bDvO4Iulv3HYdb": {
+                                    "Tone": {
+                                        "key": "bDvO4Iulv3HYdb",
+                                        "tick": 448,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 78, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "r8I7O1VU606qNK": {
+                                    "Tone": {
+                                        "key": "r8I7O1VU606qNK",
+                                        "tick": 320,
+                                        "duration": { "int": 40 },
+                                        "pitch": { "int": 71, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "jJisXB7Amkzaf7": {
+                                    "Tone": {
+                                        "key": "jJisXB7Amkzaf7",
+                                        "tick": 512,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 78, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "5R4soabLGWkDDs": {
+                                    "Tone": {
+                                        "key": "5R4soabLGWkDDs",
+                                        "tick": 732,
+                                        "duration": { "int": 4 },
+                                        "pitch": { "int": 62, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "Q2eElPeu6paJPA": {
+                                    "Tone": {
+                                        "key": "Q2eElPeu6paJPA",
+                                        "tick": 656,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 76, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "40jqBKO7FlKUv2": {
+                                    "Tone": {
+                                        "key": "40jqBKO7FlKUv2",
+                                        "tick": 40,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 44, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "XAzpYafyhCepAt": {
+                                    "Tone": {
+                                        "key": "XAzpYafyhCepAt",
+                                        "tick": 704,
+                                        "duration": { "int": 24 },
+                                        "pitch": { "int": 76, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "PWf9o2Yj7N59fn": {
+                                    "Tone": {
+                                        "key": "PWf9o2Yj7N59fn",
+                                        "tick": 512,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 80, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "Sv7AkPoamDQfy0": {
+                                    "Tone": {
+                                        "key": "Sv7AkPoamDQfy0",
+                                        "tick": 256,
+                                        "duration": { "int": 64 },
+                                        "pitch": { "int": 69, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "Kc3G5zRYQdXmcS": {
+                                    "Tone": {
+                                        "key": "Kc3G5zRYQdXmcS",
+                                        "tick": 288,
+                                        "duration": { "int": 32 },
+                                        "pitch": { "int": 66, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "f85FamHkeyngLU": {
+                                    "Tone": {
+                                        "key": "f85FamHkeyngLU",
+                                        "tick": 544,
+                                        "duration": { "int": 48 },
+                                        "pitch": { "int": 97, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "A62A4xxdfP57Zs": {
+                                    "Tone": {
+                                        "key": "A62A4xxdfP57Zs",
+                                        "tick": 728,
+                                        "duration": { "int": 4 },
+                                        "pitch": { "int": 75, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "BTOyP9rfyl9BNg": {
+                                    "Tone": {
+                                        "key": "BTOyP9rfyl9BNg",
+                                        "tick": 304,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 61, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "xi5pxGtoXULmh7": {
+                                    "Tone": {
+                                        "key": "xi5pxGtoXULmh7",
+                                        "tick": 88,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 44, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "gfqMPkXZJbMnTN": {
+                                    "Tone": {
+                                        "key": "gfqMPkXZJbMnTN",
+                                        "tick": 392,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "9r85oWJasWEzFN": {
+                                    "Tone": {
+                                        "key": "9r85oWJasWEzFN",
+                                        "tick": 352,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 69, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "evPL0NwtApN8JY": {
+                                    "Tone": {
+                                        "key": "evPL0NwtApN8JY",
+                                        "tick": 496,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 99, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "nT8EyYfcu44BfF": {
+                                    "Tone": {
+                                        "key": "nT8EyYfcu44BfF",
+                                        "tick": 624,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "WSSxLsJP4JJr2P": {
+                                    "Tone": {
+                                        "key": "WSSxLsJP4JJr2P",
+                                        "tick": 256,
+                                        "duration": { "int": 64 },
+                                        "pitch": { "int": 42, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "SAwqu9FA3q1C2F": {
+                                    "Tone": {
+                                        "key": "SAwqu9FA3q1C2F",
+                                        "tick": 264,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 54, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "CVa7IhWcZGYtbv": {
+                                    "Tone": {
+                                        "key": "CVa7IhWcZGYtbv",
+                                        "tick": 320,
+                                        "duration": { "int": 32 },
+                                        "pitch": { "int": 61, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "rljRpO3qPiQJ1B": {
+                                    "Tone": {
+                                        "key": "rljRpO3qPiQJ1B",
+                                        "tick": 432,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "AL1YAqPOZGVa6R": {
+                                    "Tone": {
+                                        "key": "AL1YAqPOZGVa6R",
+                                        "tick": 592,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 80, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "4verKlzike84Ri": {
+                                    "Tone": {
+                                        "key": "4verKlzike84Ri",
+                                        "tick": 576,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 80, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "L3V9IYJC0jeqeN": {
+                                    "Tone": {
+                                        "key": "L3V9IYJC0jeqeN",
+                                        "tick": 136,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 52, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "1goqBzxlvffELe": {
+                                    "Tone": {
+                                        "key": "1goqBzxlvffELe",
+                                        "tick": 112,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "AS30eaY5Cl8cld": {
+                                    "Tone": {
+                                        "key": "AS30eaY5Cl8cld",
+                                        "tick": 560,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 76, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "GnMHhou9X0gWZv": {
+                                    "Tone": {
+                                        "key": "GnMHhou9X0gWZv",
+                                        "tick": 368,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 76, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "GYXn69Ioaj73nb": {
+                                    "Tone": {
+                                        "key": "GYXn69Ioaj73nb",
+                                        "tick": 288,
+                                        "duration": { "int": 32 },
+                                        "pitch": { "int": 64, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "O9Sp9FAxyFWXrU": {
+                                    "Tone": {
+                                        "key": "O9Sp9FAxyFWXrU",
+                                        "tick": 424,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "ad4iK4eJb7e4fA": {
+                                    "Tone": {
+                                        "key": "ad4iK4eJb7e4fA",
+                                        "tick": 384,
+                                        "duration": { "int": 64 },
+                                        "pitch": { "int": 61, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "pKY10OruPSRBe8": {
+                                    "Tone": {
+                                        "key": "pKY10OruPSRBe8",
+                                        "tick": 80,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 49, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "C9WQ9koRoIpEAG": {
+                                    "Tone": {
+                                        "key": "C9WQ9koRoIpEAG",
+                                        "tick": 592,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "Gqdx0A1rzgCWsZ": {
+                                    "Tone": {
+                                        "key": "Gqdx0A1rzgCWsZ",
+                                        "tick": 192,
+                                        "duration": { "int": 64 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "TPg5JUT5fNvuAG": {
+                                    "Tone": {
+                                        "key": "TPg5JUT5fNvuAG",
+                                        "tick": 544,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 78, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "44HuGcfr4eGKif": {
+                                    "Tone": {
+                                        "key": "44HuGcfr4eGKif",
+                                        "tick": 376,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 83, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "sm956zK8q1F7vi": {
+                                    "Tone": {
+                                        "key": "sm956zK8q1F7vi",
+                                        "tick": 176,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 71, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "hXaml4M3DnsRR5": {
+                                    "Tone": {
+                                        "key": "hXaml4M3DnsRR5",
+                                        "tick": 656,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "p9sJeTGCcnYNGD": {
+                                    "Tone": {
+                                        "key": "p9sJeTGCcnYNGD",
+                                        "tick": 528,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 76, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "yBeXznpex0n6iX": {
+                                    "Tone": {
+                                        "key": "yBeXznpex0n6iX",
+                                        "tick": 8,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 44, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "gtmO7VMSepckSN": {
+                                    "Tone": {
+                                        "key": "gtmO7VMSepckSN",
+                                        "tick": 320,
+                                        "duration": { "int": 64 },
+                                        "pitch": { "int": 47, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "0hJ4O1dT259vk5": {
+                                    "Tone": {
+                                        "key": "0hJ4O1dT259vk5",
+                                        "tick": 400,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "hqTn0OqqbSSYYr": {
+                                    "Tone": {
+                                        "key": "hqTn0OqqbSSYYr",
+                                        "tick": 704,
+                                        "duration": { "int": 24 },
+                                        "pitch": { "int": 64, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "lDiPHIRxV9tAIy": {
+                                    "Tone": {
+                                        "key": "lDiPHIRxV9tAIy",
+                                        "tick": 208,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 52, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "AK4o6mF2zrMR3i": {
+                                    "Tone": {
+                                        "key": "AK4o6mF2zrMR3i",
+                                        "tick": 64,
+                                        "duration": { "int": 64 },
+                                        "pitch": { "int": 37, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "VUe0BHNpY7s4RC": {
+                                    "Tone": {
+                                        "key": "VUe0BHNpY7s4RC",
+                                        "tick": 672,
+                                        "duration": { "int": 32 },
+                                        "pitch": { "int": 92, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "8LfwxH7WWOZR7Z": {
+                                    "Tone": {
+                                        "key": "8LfwxH7WWOZR7Z",
+                                        "tick": 200,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 47, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "81iNq7picIEGHH": {
+                                    "Tone": {
+                                        "key": "81iNq7picIEGHH",
+                                        "tick": 160,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 54, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "T20TPQaGS8LvJp": {
+                                    "Tone": {
+                                        "key": "T20TPQaGS8LvJp",
+                                        "tick": 488,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 99, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "IXT01JR94JbRQi": {
+                                    "Tone": {
+                                        "key": "IXT01JR94JbRQi",
+                                        "tick": 16,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 49, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "rvnW6VltLvPNYL": {
+                                    "Tone": {
+                                        "key": "rvnW6VltLvPNYL",
+                                        "tick": 48,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 52, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "4NWyg0r8jD9Bni": {
+                                    "Tone": {
+                                        "key": "4NWyg0r8jD9Bni",
+                                        "tick": 760,
+                                        "duration": { "int": 4 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "0WqelylrIEksL8": {
+                                    "Tone": {
+                                        "key": "0WqelylrIEksL8",
+                                        "tick": 232,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 47, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "qbANLHPb6SdK6X": {
+                                    "Tone": {
+                                        "key": "qbANLHPb6SdK6X",
+                                        "tick": 512,
+                                        "duration": { "int": 56 },
+                                        "pitch": { "int": 69, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "fAFMmkkSOJCFQp": {
+                                    "Tone": {
+                                        "key": "fAFMmkkSOJCFQp",
+                                        "tick": 728,
+                                        "duration": { "int": 4 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "T2FLdy0qa7XEgW": {
+                                    "Tone": {
+                                        "key": "T2FLdy0qa7XEgW",
+                                        "tick": 752,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 67, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "krBE2RZR7yu2hE": {
+                                    "Tone": {
+                                        "key": "krBE2RZR7yu2hE",
+                                        "tick": 540,
+                                        "duration": { "int": 4 },
+                                        "pitch": { "int": 92, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "ls41hgjHkMwrW7": {
+                                    "Tone": {
+                                        "key": "ls41hgjHkMwrW7",
+                                        "tick": 688,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "ynsUR8BGMwvYid": {
+                                    "Tone": {
+                                        "key": "ynsUR8BGMwvYid",
+                                        "tick": 448,
+                                        "duration": { "int": 64 },
+                                        "pitch": { "int": 75, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "bKYIr0EepoVB7O": {
+                                    "Tone": {
+                                        "key": "bKYIr0EepoVB7O",
+                                        "tick": 360,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 63, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "AeItTZ8N1j4wWl": {
+                                    "Tone": {
+                                        "key": "AeItTZ8N1j4wWl",
+                                        "tick": 576,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "A7klVaFYbtOtgF": {
+                                    "Tone": {
+                                        "key": "A7klVaFYbtOtgF",
+                                        "tick": 544,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "GS2PKlK9cpYynD": {
+                                    "Tone": {
+                                        "key": "GS2PKlK9cpYynD",
+                                        "tick": 504,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 95, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "PDm7tvCp9aYnTd": {
+                                    "Tone": {
+                                        "key": "PDm7tvCp9aYnTd",
+                                        "tick": 528,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "LyL9ZzOT6AqVnc": {
+                                    "Tone": {
+                                        "key": "LyL9ZzOT6AqVnc",
+                                        "tick": 672,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 76, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "iFpuBWlSYFaqzQ": {
+                                    "Tone": {
+                                        "key": "iFpuBWlSYFaqzQ",
+                                        "tick": 24,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 44, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "Gubzbb2DZxY0LC": {
+                                    "Tone": {
+                                        "key": "Gubzbb2DZxY0LC",
+                                        "tick": 360,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "B1LbdKqHq2dmIt": {
+                                    "Tone": {
+                                        "key": "B1LbdKqHq2dmIt",
+                                        "tick": 672,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 75, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "CQocooCiEfiWNL": {
+                                    "Tone": {
+                                        "key": "CQocooCiEfiWNL",
+                                        "tick": 640,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "wEfUvPlQNyzM2U": {
+                                    "Tone": {
+                                        "key": "wEfUvPlQNyzM2U",
+                                        "tick": 736,
+                                        "duration": { "int": 32 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "yUPJHktcxfQKwG": {
+                                    "Tone": {
+                                        "key": "yUPJHktcxfQKwG",
+                                        "tick": 184,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 49, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "AwUxagIpHwgGIa": {
+                                    "Tone": {
+                                        "key": "AwUxagIpHwgGIa",
+                                        "tick": 672,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "4GjAjhPv2sNjH4": {
+                                    "Tone": {
+                                        "key": "4GjAjhPv2sNjH4",
+                                        "tick": 344,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 63, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "XY37WCsq16Gfrh": {
+                                    "Tone": {
+                                        "key": "XY37WCsq16Gfrh",
+                                        "tick": 384,
+                                        "duration": { "int": 64 },
+                                        "pitch": { "int": 80, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "sPQm49uVNJTEaM": {
+                                    "Tone": {
+                                        "key": "sPQm49uVNJTEaM",
+                                        "tick": 688,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 76, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "LE62VCjdFDRbwJ": {
+                                    "Tone": {
+                                        "key": "LE62VCjdFDRbwJ",
+                                        "tick": 736,
+                                        "duration": { "int": 32 },
+                                        "pitch": { "int": 61, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "dDv2tSNRxfQja4": {
+                                    "Tone": {
+                                        "key": "dDv2tSNRxfQja4",
+                                        "tick": 472,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 80, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "DeSxiUnG5VzwlF": {
+                                    "Tone": {
+                                        "key": "DeSxiUnG5VzwlF",
+                                        "tick": 96,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 75, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "7ppapmL9vXAQgw": {
+                                    "Tone": {
+                                        "key": "7ppapmL9vXAQgw",
+                                        "tick": 216,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 47, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "YljXYOKj3uzxtg": {
+                                    "Tone": {
+                                        "key": "YljXYOKj3uzxtg",
+                                        "tick": 112,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 52, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "gqgrWDvUzaq4ZO": {
+                                    "Tone": {
+                                        "key": "gqgrWDvUzaq4ZO",
+                                        "tick": 608,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 78, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "QtghCRoD213oG1": {
+                                    "Tone": {
+                                        "key": "QtghCRoD213oG1",
+                                        "tick": 608,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 90, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "rNxc4JAbbU54MS": {
+                                    "Tone": {
+                                        "key": "rNxc4JAbbU54MS",
+                                        "tick": 656,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "WYdbJKs18Xveqa": {
+                                    "Tone": {
+                                        "key": "WYdbJKs18Xveqa",
+                                        "tick": 312,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 54, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "Km5w6VLmj3eMyN": {
+                                    "Tone": {
+                                        "key": "Km5w6VLmj3eMyN",
+                                        "tick": 368,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 66, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "jxjJWlV866fi3S": {
+                                    "Tone": {
+                                        "key": "jxjJWlV866fi3S",
+                                        "tick": 0,
+                                        "duration": { "int": 64 },
+                                        "pitch": { "int": 80, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "0YifUkueRwtNba": {
+                                    "Tone": {
+                                        "key": "0YifUkueRwtNba",
+                                        "tick": 480,
+                                        "duration": { "int": 32 },
+                                        "pitch": { "int": 83, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "SpROLGC5bWCbBy": {
+                                    "Tone": {
+                                        "key": "SpROLGC5bWCbBy",
+                                        "tick": 624,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 80, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "lVQ0GACQhbwamm": {
+                                    "Tone": {
+                                        "key": "lVQ0GACQhbwamm",
+                                        "tick": 416,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 76, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "bZZX12W4c7U6Xv": {
+                                    "Tone": {
+                                        "key": "bZZX12W4c7U6Xv",
+                                        "tick": 732,
+                                        "duration": { "int": 4 },
+                                        "pitch": { "int": 74, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "U6yn58a92X9XFx": {
+                                    "Tone": {
+                                        "key": "U6yn58a92X9XFx",
+                                        "tick": 248,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 47, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "cYWGFbYE8jgLjC": {
+                                    "Tone": {
+                                        "key": "cYWGFbYE8jgLjC",
+                                        "tick": 560,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 80, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "Ax58FR22dnoQH4": {
+                                    "Tone": {
+                                        "key": "Ax58FR22dnoQH4",
+                                        "tick": 752,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 70, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "CigWIQmKfk8mCt": {
+                                    "Tone": {
+                                        "key": "CigWIQmKfk8mCt",
+                                        "tick": 296,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 54, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "szj1J5e1hYAZF8": {
+                                    "Tone": {
+                                        "key": "szj1J5e1hYAZF8",
+                                        "tick": 712,
+                                        "duration": { "int": 4 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "1mEnj4E5OCbfnT": {
+                                    "Tone": {
+                                        "key": "1mEnj4E5OCbfnT",
+                                        "tick": 544,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 80, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "iOdx82DPwikmKP": {
+                                    "Tone": {
+                                        "key": "iOdx82DPwikmKP",
+                                        "tick": 688,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 61, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "bBs6LEBmnu0Y6V": {
+                                    "Tone": {
+                                        "key": "bBs6LEBmnu0Y6V",
+                                        "tick": 624,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 88, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "a11kxpAshGFdu3": {
+                                    "Tone": {
+                                        "key": "a11kxpAshGFdu3",
+                                        "tick": 576,
+                                        "duration": { "int": 64 },
+                                        "pitch": { "int": 61, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "hLpfXMxUEQpofB": {
+                                    "Tone": {
+                                        "key": "hLpfXMxUEQpofB",
+                                        "tick": 572,
+                                        "duration": { "int": 4 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "xqP5rvRl0GNfMb": {
+                                    "Tone": {
+                                        "key": "xqP5rvRl0GNfMb",
+                                        "tick": 64,
+                                        "duration": { "int": 24 },
+                                        "pitch": { "int": 78, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "vfXx2X8J3p6Kcr": {
+                                    "Tone": {
+                                        "key": "vfXx2X8J3p6Kcr",
+                                        "tick": 664,
+                                        "duration": { "int": 4 },
+                                        "pitch": { "int": 85, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "Usi9wGNViTcuku": {
+                                    "Tone": {
+                                        "key": "Usi9wGNViTcuku",
+                                        "tick": 624,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 76, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "tJcu1cjxpMvGrO": {
+                                    "Tone": {
+                                        "key": "tJcu1cjxpMvGrO",
+                                        "tick": 96,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 51, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "CQMhOWkzmreFiK": {
+                                    "Tone": {
+                                        "key": "CQMhOWkzmreFiK",
+                                        "tick": 256,
+                                        "duration": { "int": 32 },
+                                        "pitch": { "int": 68, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "trTX799FyFUA7M": {
+                                    "Tone": {
+                                        "key": "trTX799FyFUA7M",
+                                        "tick": 480,
+                                        "duration": { "int": 32 },
+                                        "pitch": { "int": 81, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "RLbeMQNAF2u0mS": {
+                                    "Tone": {
+                                        "key": "RLbeMQNAF2u0mS",
+                                        "tick": 480,
+                                        "duration": { "int": 8 },
+                                        "pitch": {
+                                            "int": 100,
+                                            "accidental": 2
+                                        },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "m5SMqIkCkCQJ5E": {
+                                    "Tone": {
+                                        "key": "m5SMqIkCkCQJ5E",
+                                        "tick": 704,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 67, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "snsotIPoHf4WLt": {
+                                    "Tone": {
+                                        "key": "snsotIPoHf4WLt",
+                                        "tick": 168,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 52, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "x3kd7AeERLv2hZ": {
+                                    "Tone": {
+                                        "key": "x3kd7AeERLv2hZ",
+                                        "tick": 608,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 80, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "aS5lgtHn1SujG5": {
+                                    "Tone": {
+                                        "key": "aS5lgtHn1SujG5",
+                                        "tick": 640,
+                                        "duration": { "int": 24 },
+                                        "pitch": { "int": 87, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "CMr0GtMjKP7Vif": {
+                                    "Tone": {
+                                        "key": "CMr0GtMjKP7Vif",
+                                        "tick": 560,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "KWTuIqMbF7pxMn": {
+                                    "Tone": {
+                                        "key": "KWTuIqMbF7pxMn",
+                                        "tick": 592,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 76, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "snFDlKMfIkW3cE": {
+                                    "Tone": {
+                                        "key": "snFDlKMfIkW3cE",
+                                        "tick": 72,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 44, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "KIro2LYIGnsRDF": {
+                                    "Tone": {
+                                        "key": "KIro2LYIGnsRDF",
+                                        "tick": 176,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 51, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "N1ijvcPOqOBuVe": {
+                                    "Tone": {
+                                        "key": "N1ijvcPOqOBuVe",
+                                        "tick": 168,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "2vdddTFIxXqceQ": {
+                                    "Tone": {
+                                        "key": "2vdddTFIxXqceQ",
+                                        "tick": 104,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 44, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "rkQ5WRLmCFiMjf": {
+                                    "Tone": {
+                                        "key": "rkQ5WRLmCFiMjf",
+                                        "tick": 528,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 80, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "k04isQHHGvEAjC": {
+                                    "Tone": {
+                                        "key": "k04isQHHGvEAjC",
+                                        "tick": 128,
+                                        "duration": { "int": 64 },
+                                        "pitch": { "int": 35, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "cGWepij1aMSpTM": {
+                                    "Tone": {
+                                        "key": "cGWepij1aMSpTM",
+                                        "tick": 656,
+                                        "duration": { "int": 16 },
+                                        "pitch": { "int": 56, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "rFWf77Y0lxr1UJ": {
+                                    "Tone": {
+                                        "key": "rFWf77Y0lxr1UJ",
+                                        "tick": 512,
+                                        "duration": { "int": 12 },
+                                        "pitch": { "int": 73, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "hsMIppjygDBtRn": {
+                                    "Tone": {
+                                        "key": "hsMIppjygDBtRn",
+                                        "tick": 152,
+                                        "duration": { "int": 8 },
+                                        "pitch": { "int": 52, "accidental": 2 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                },
+                                "bdlkpZ7Bo4bYdi": {
+                                    "Tone": {
+                                        "key": "bdlkpZ7Bo4bYdi",
+                                        "tick": 668,
+                                        "duration": { "int": 4 },
+                                        "pitch": { "int": 87, "accidental": 1 },
+                                        "velocity": { "int": 100 }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "o9O2eQoHp5DKYU": {
+                        "key": "o9O2eQoHp5DKYU",
+                        "entries": { "by_tick": {}, "by_key": {} }
+                    }
+                }
+            }
+        }
+    },
+    "players": {
+        "order": ["l5ANxymEzjTTgK"],
+        "by_key": {
+            "l5ANxymEzjTTgK": {
+                "key": "l5ANxymEzjTTgK",
+                "player_type": 0,
+                "instruments": ["GuhCIjFpw8O047"]
+            }
+        }
+    },
+    "instruments": {
+        "GuhCIjFpw8O047": {
+            "key": "GuhCIjFpw8O047",
+            "id": "keyboard.piano",
+            "long_name": "Piano",
+            "short_name": "Pno.",
+            "staves": ["HovorQfQsbmA6V", "ajQeI6fcatSp29"],
+            "count": null
+        }
+    }
+}

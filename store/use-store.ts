@@ -1,6 +1,6 @@
 import { Engine, NoteDuration, AutoCountStyle } from "solo-composer-engine";
 import { Store, useStoreState } from "pullstate";
-import { State, ThemeMode, View, Tool, Score } from "./defs";
+import { State, ThemeMode, View, Tool, Score, TickList } from "./defs";
 import localforage from "localforage";
 
 export const store = new Store<State>({
@@ -38,6 +38,7 @@ export const store = new Store<State>({
         instruments: {},
     },
     ui: {
+        ticks: {},
         view: View.Setup,
         snap: NoteDuration.Sixteenth,
         flow_key: "",
@@ -61,14 +62,20 @@ export const store = new Store<State>({
     });
 })();
 
-export const engine = new Engine((score: Score) => {
-    store.update((state) => {
-        return {
-            ...state,
-            score,
-        };
-    });
-});
+export const engine = new Engine(
+    (update: { score: Score; ticks: { [flow_key: string]: TickList } }) => {
+        store.update((state) => {
+            return {
+                ...state,
+                ui: {
+                    ...state.ui,
+                    ticks: update.ticks,
+                },
+                score: update.score,
+            };
+        });
+    }
+);
 
 export function useStore<T>(splitter: (s: State) => T, deps?: readonly any[]) {
     return useStoreState<State, T>(store, splitter, deps);
