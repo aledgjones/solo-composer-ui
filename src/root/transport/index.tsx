@@ -7,6 +7,7 @@ import {
     Tone,
     Expression,
     AbsoluteTempo,
+    Articulation,
 } from "../../../store";
 import { Icon } from "../../../ui";
 import { store } from "../../../store/use-store";
@@ -100,7 +101,10 @@ export const TransportComponent: FC = () => {
                                                     (when, duration) => {
                                                         Player.play(
                                                             instrumentKey,
-                                                            Expression.Natural,
+                                                            tone.articulation ===
+                                                                Articulation.Staccato
+                                                                ? Expression.Staccato
+                                                                : Expression.Natural,
                                                             tone.pitch.int,
                                                             when,
                                                             duration

@@ -1,6 +1,19 @@
 import React, { useCallback, MouseEvent, FC, useRef } from "react";
-import { mdiChevronDown, mdiPlus, mdiDeleteOutline, mdiChevronUp } from "@mdi/js";
-import { Player, Instrument, actions, PlayerType, usePlayerName, usePlayerIcon, useCountStyle } from "../../../store";
+import {
+    mdiChevronDown,
+    mdiPlus,
+    mdiDeleteOutline,
+    mdiChevronUp,
+} from "@mdi/js";
+import {
+    Player,
+    Instrument,
+    actions,
+    PlayerType,
+    usePlayerName,
+    usePlayerIcon,
+    useCountStyle,
+} from "../../../store";
 import { Selection, SelectionType } from "../selection";
 import { SortableItem, merge, Icon, SortableContainer } from "../../../ui";
 import { Text } from "../../components/text";
@@ -16,7 +29,7 @@ interface Props {
     expanded: boolean;
 
     onSelect: (selection: Selection) => void;
-    onAddInstrument: (player_key: string) => void;
+    onAddInstrument: (player_key: string, player_type: PlayerType) => void;
 }
 
 export const PlayerItem: FC<Props> = ({
@@ -26,7 +39,7 @@ export const PlayerItem: FC<Props> = ({
     selected,
     expanded,
     onSelect,
-    onAddInstrument
+    onAddInstrument,
 }) => {
     const handle = useRef<HTMLDivElement>(null);
 
@@ -59,11 +72,23 @@ export const PlayerItem: FC<Props> = ({
         <SortableItem
             index={index}
             handle={handle}
-            className={merge("player-item", { "player-item--selected": selected })}
-            onClick={() => onSelect({ key: player.key, type: SelectionType.Player })}
+            className={merge("player-item", {
+                "player-item--selected": selected,
+            })}
+            onClick={() =>
+                onSelect({ key: player.key, type: SelectionType.Player })
+            }
         >
             <div className="player-item__header">
-                <div onPointerDown={() => onSelect({ key: player.key, type: SelectionType.Player })} ref={handle}>
+                <div
+                    onPointerDown={() =>
+                        onSelect({
+                            key: player.key,
+                            type: SelectionType.Player,
+                        })
+                    }
+                    ref={handle}
+                >
                     <Icon style={{ marginRight: 16 }} path={icon} size={24} />
                 </div>
 
@@ -73,13 +98,24 @@ export const PlayerItem: FC<Props> = ({
 
                 {selected && (
                     <>
-                        <Icon style={{ marginLeft: 12 }} size={24} path={mdiDeleteOutline} onClick={onRemove} />
-                        {(player.instruments.length === 0 || player.player_type === PlayerType.Solo) && (
+                        <Icon
+                            style={{ marginLeft: 12 }}
+                            size={24}
+                            path={mdiDeleteOutline}
+                            onClick={onRemove}
+                        />
+                        {(player.instruments.length === 0 ||
+                            player.player_type === PlayerType.Solo) && (
                             <Icon
                                 style={{ marginLeft: 12 }}
                                 path={mdiPlus}
                                 size={24}
-                                onClick={() => onAddInstrument(player.key)}
+                                onClick={() =>
+                                    onAddInstrument(
+                                        player.key,
+                                        player.player_type
+                                    )
+                                }
                             />
                         )}
                     </>
@@ -96,7 +132,11 @@ export const PlayerItem: FC<Props> = ({
                     direction="y"
                     className="player-item__list"
                     onEnd={(oldIndex: number, newIndex: number) =>
-                        actions.score.instrument.reorder(player.key, oldIndex, newIndex)
+                        actions.score.instrument.reorder(
+                            player.key,
+                            oldIndex,
+                            newIndex
+                        )
                     }
                 >
                     {player.instruments.map((key, i) => {
@@ -104,7 +144,12 @@ export const PlayerItem: FC<Props> = ({
                             <InstrumentItem
                                 key={key}
                                 index={i}
-                                onSelect={() => onSelect({ key: player.key, type: SelectionType.Player })}
+                                onSelect={() =>
+                                    onSelect({
+                                        key: player.key,
+                                        type: SelectionType.Player,
+                                    })
+                                }
                                 selected={selected}
                                 instrument={instruments[key]}
                                 player_key={player.key}

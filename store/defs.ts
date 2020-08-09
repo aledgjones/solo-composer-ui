@@ -4,6 +4,8 @@ import {
     Accidental,
     NoteDuration,
     TimeSignatureDrawType,
+    Articulation,
+    InstrumentType,
 } from "solo-composer-engine";
 import { PlaybackDefs } from "./playback/defs";
 
@@ -59,6 +61,7 @@ export interface Tone {
     duration: { int: number }; // ticks
     pitch: { int: number; accidental: Accidental }; // MIDI pitch number
     velocity: { int: number }; // 0-127
+    articulation: Articulation;
 }
 
 export interface TimeSignature {
@@ -90,10 +93,14 @@ export interface Patches {
 export interface Instrument {
     key: string;
     id: string;
+    instrument_type: InstrumentType;
     long_name: string;
     short_name: string;
     staves: string[];
     count?: number;
+    volume: number;
+    mute: boolean;
+    solo: boolean;
 }
 
 export interface Player {

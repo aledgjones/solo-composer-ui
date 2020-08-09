@@ -4,11 +4,12 @@ import {
     PlayerType,
     TimeSignatureDrawType,
     NoteDuration,
+    Articulation,
 } from "solo-composer-engine";
 import { engine, store } from "./use-store";
 import { ThemeMode, View, Tool, Score } from "./defs";
 import { playbackActions } from "./playback";
-import { Transport, Progress } from "solo-composer-scheduler";
+import { Transport, Progress, Player } from "solo-composer-scheduler";
 import { download, chooseFiles } from "../ui";
 
 // I know these are just wrapping funcs but it allows more acurate typings than wasm-pack produces
@@ -78,8 +79,19 @@ export const actions = {
                                     score.instruments[instrument_key];
                                 await actions.playback.instrument.load(
                                     instrument.id,
-                                    instrument.key
+                                    instrument.key,
+                                    player.player_type
                                 );
+                                Player.volume(
+                                    instrument_key,
+                                    instrument.volume / 100
+                                );
+                                if (instrument.mute) {
+                                    Player.mute(instrument_key);
+                                }
+                                if (instrument.solo) {
+                                    Player.solo(instrument_key);
+                                }
                             })
                         );
                     })
@@ -147,6 +159,30 @@ export const actions = {
                 actions.playback.instrument.destroy(instrument_key);
                 engine.remove_instrument(player_key, instrument_key);
             },
+            /**
+             * Se volume of an instrument 0 - 100
+             */
+            volume(instrument_key: string, volume: number) {
+                const value = parseInt(volume.toFixed(0));
+                engine.set_instrument_volume(instrument_key, value);
+                Player.volume(instrument_key, value / 100);
+            },
+            mute(instrument_key: string) {
+                engine.set_instrument_mute(instrument_key, true);
+                Player.mute(instrument_key);
+            },
+            unmute(instrument_key: string) {
+                engine.set_instrument_mute(instrument_key, false);
+                Player.unmute(instrument_key);
+            },
+            solo(instrument_key: string) {
+                engine.set_instrument_solo(instrument_key, true);
+                Player.solo(instrument_key);
+            },
+            unsolo(instrument_key: string) {
+                engine.set_instrument_solo(instrument_key, false);
+                Player.unsolo(instrument_key);
+            },
         },
         entries: {
             time_signature: {
@@ -203,7 +239,8 @@ export const actions = {
                     tick: number,
                     duration: number,
                     pitch: number,
-                    velocity: number
+                    velocity: number,
+                    articulation: Articulation
                 ): string =>
                     engine.create_tone(
                         flow_key,
@@ -211,7 +248,8 @@ export const actions = {
                         tick,
                         duration,
                         pitch,
-                        velocity
+                        velocity,
+                        articulation
                     ),
                 update: (
                     flow_key: string,
@@ -219,7 +257,8 @@ export const actions = {
                     entry_key: string,
                     tick: number,
                     duration: number,
-                    pitch: number
+                    pitch: number,
+                    articulation: Articulation
                 ) =>
                     engine.update_tone(
                         flow_key,
@@ -227,7 +266,8 @@ export const actions = {
                         entry_key,
                         tick,
                         duration,
-                        pitch
+                        pitch,
+                        articulation
                     ),
                 slice: (
                     flow_key: string,

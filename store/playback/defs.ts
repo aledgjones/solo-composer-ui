@@ -15,9 +15,6 @@ export interface PlaybackInstrument {
     id: string;
     status: Status;
     progress: number;
-    volume: number;
-    mute: boolean;
-    solo: boolean;
     expressions: {
         [key: number]: {
             key: number;

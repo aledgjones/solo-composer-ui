@@ -1,7 +1,7 @@
 import React, { FC, useEffect, Suspense } from "react";
 import { mdiUndo, mdiRedo } from "@mdi/js";
 import { useStore, actions, ThemeMode, View, useAutoSetup } from "../../store";
-import { Tabs, useTheme, merge, Tab, Icon, Log } from "../../ui";
+import { Tabs, useTheme, merge, Tab, Icon } from "../../ui";
 import { TransportComponent } from "./transport";
 import { Loading } from "../components/loading";
 import { File } from "./file";
@@ -77,8 +77,6 @@ export const Root: FC = () => {
                     </Suspense>
                 </div>
             </div>
-
-            <Log />
         </>
     );
 };

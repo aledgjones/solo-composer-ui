@@ -6,6 +6,7 @@ import {
     Tool,
     actions,
     duration_to_ticks,
+    Articulation,
 } from "../../../store";
 import { dragHandler } from "../../../ui";
 import { ToneTrackEntry } from "../tone-track-entry";
@@ -108,13 +109,24 @@ export const ToneTrack: FC<Props> = ({
                     start,
                     duration,
                     pitch,
-                    100
+                    100,
+                    Articulation.None
                 );
 
                 actions.ui.play.selection.clear();
                 actions.ui.play.selection.select(toneKey);
 
-                onEdit(e, toneKey, start, duration, pitch, true, false, true);
+                onEdit(
+                    e,
+                    toneKey,
+                    start,
+                    duration,
+                    pitch,
+                    Articulation.None,
+                    true,
+                    false,
+                    true
+                );
                 onAudition(pitch);
             }
 
@@ -145,6 +157,7 @@ export const ToneTrack: FC<Props> = ({
             start: number,
             duration: number,
             pitch: number,
+            articulation: Articulation,
             fixedStart: boolean,
             fixedDuration: boolean,
             fixedPitch: boolean
@@ -195,7 +208,8 @@ export const ToneTrack: FC<Props> = ({
                         toneKey,
                         s,
                         d,
-                        p
+                        p,
+                        articulation
                     );
                 },
                 onEnd: (ev, init) => {

@@ -1,6 +1,13 @@
 import React, { FC, useMemo, PointerEvent, useCallback } from "react";
 import { merge } from "../../../ui";
-import { TickList, Tone, Tool, useStore, actions } from "../../../store";
+import {
+    TickList,
+    Tone,
+    Tool,
+    useStore,
+    actions,
+    Articulation,
+} from "../../../store";
 import { SLOT_HEIGHT } from "../const";
 
 import "./styles.css";
@@ -33,11 +40,17 @@ interface Props {
         start: number,
         duration: number,
         pitch: number,
+        articulation: Articulation,
         fixedStart: boolean,
         fixedDuration: boolean,
         fixedPitch: boolean
     ) => void;
-    onSlice: (e: PointerEvent<HTMLElement>, toneKey: string, start: number, duration: number) => void;
+    onSlice: (
+        e: PointerEvent<HTMLElement>,
+        toneKey: string,
+        start: number,
+        duration: number
+    ) => void;
     onAudition: (pitch: number) => void;
 }
 
@@ -52,7 +65,7 @@ export const ToneTrackEntry: FC<Props> = ({
     onRemove,
     onEdit,
     onSlice,
-    onAudition
+    onAudition,
 }) => {
     const selected = useStore((s) => s.ui.play.selected[tone.key], [tone.key]);
 
@@ -94,33 +107,65 @@ export const ToneTrackEntry: FC<Props> = ({
 
     const actionWest = useCallback(
         (e: PointerEvent<HTMLElement>) =>
-            onEdit(e, tone.key, tone.tick, tone.duration.int, tone.pitch.int, false, false, true),
+            onEdit(
+                e,
+                tone.key,
+                tone.tick,
+                tone.duration.int,
+                tone.pitch.int,
+                tone.articulation,
+                false,
+                false,
+                true
+            ),
         [tone, onEdit]
     );
 
     const action = useCallback(
         (e: PointerEvent<HTMLElement>) =>
-            onEdit(e, tone.key, tone.tick, tone.duration.int, tone.pitch.int, false, true, false),
+            onEdit(
+                e,
+                tone.key,
+                tone.tick,
+                tone.duration.int,
+                tone.pitch.int,
+                tone.articulation,
+                false,
+                true,
+                false
+            ),
         [tone, onEdit]
     );
 
     const actionEast = useCallback(
         (e: PointerEvent<HTMLElement>) =>
-            onEdit(e, tone.key, tone.tick, tone.duration.int, tone.pitch.int, true, false, true),
+            onEdit(
+                e,
+                tone.key,
+                tone.tick,
+                tone.duration.int,
+                tone.pitch.int,
+                tone.articulation,
+                true,
+                false,
+                true
+            ),
         [tone, onEdit]
     );
 
     if (shouldDraw(tone.pitch.int, base, slots)) {
         return (
             <div
-                className={merge("tone-track-entry", "no-scroll", { "tone-track-entry--selected": selected })}
+                className={merge("tone-track-entry", "no-scroll", {
+                    "tone-track-entry--selected": selected,
+                })}
                 style={{
                     position: "absolute",
                     top: (base - tone.pitch.int) * SLOT_HEIGHT,
                     left,
                     width,
                     height: SLOT_HEIGHT,
-                    backgroundColor: color
+                    backgroundColor: color,
                 }}
                 onPointerDown={actionMain}
             >

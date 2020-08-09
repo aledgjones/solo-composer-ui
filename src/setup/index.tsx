@@ -16,27 +16,62 @@ const Setup: FC = () => {
 
     // local selection is good -- we don't need to keep on nav.
     const [selection, setSelection] = useState<Selection>(null);
-    const [typePicker, setTypePicker] = useState<boolean>(false);
-    const [instrumentPicker, setInstrumentPicker] = useState<boolean>(false);
 
-    const onTypeSelected = useCallback((type: PlayerType) => {
-        setTypePicker(false);
-        const player_key = actions.score.player.create(type);
-        setSelection({ key: player_key, type: SelectionType.Player });
-        setInstrumentPicker(true);
-    }, []);
+    const [typePicker, setTypePicker] = useState<
+        (player_type: PlayerType) => void
+    >(null);
+    const [instrumentPicker, setInstrumentPicker] = useState<
+        (id: string) => void
+    >(null);
 
-    const onSelectInstrument = useCallback(
-        (id: string) => {
-            if (selection) {
-                const instrumentKey = actions.score.instrument.create(id);
-                actions.score.player.assign_instrument(selection.key, instrumentKey);
-                actions.playback.instrument.load(id, instrumentKey);
-            }
-            setInstrumentPicker(false);
+    /**
+     * Async conductor for selecting and assigning an instrument to player
+     */
+    const onAddInstrument = useCallback(
+        (playerKey: string, player_type: PlayerType) => {
+            const run = async () => {
+                const instrument_id = await new Promise<string>((resolve) => {
+                    setInstrumentPicker(() => {
+                        return resolve;
+                    });
+                });
+                setInstrumentPicker(null);
+                const instrumentKey = actions.score.instrument.create(
+                    instrument_id
+                );
+                actions.score.player.assign_instrument(
+                    playerKey,
+                    instrumentKey
+                );
+                actions.playback.instrument.load(
+                    instrument_id,
+                    instrumentKey,
+                    player_type
+                );
+                setInstrumentPicker(null);
+            };
+            run();
         },
-        [selection]
+        []
     );
+
+    /**
+     * Async conductor for selecting player type
+     */
+    const onAddPlayer = useCallback(() => {
+        const run = async () => {
+            const player_type = await new Promise<PlayerType>((resolve) => {
+                setTypePicker(() => {
+                    return resolve;
+                });
+            });
+            setTypePicker(null);
+            const player_key = actions.score.player.create(player_type);
+            setSelection({ key: player_key, type: SelectionType.Player });
+            onAddInstrument(player_key, player_type);
+        };
+        run();
+    }, [onAddInstrument]);
 
     return (
         <>
@@ -44,12 +79,14 @@ const Setup: FC = () => {
                 <PlayerList
                     selection={selection}
                     onSelect={setSelection}
-                    onAddInstrument={() => setInstrumentPicker(true)} // <== TO DO
-                    onCreatePlayer={() => setTypePicker(true)}
+                    onAddInstrument={onAddInstrument}
+                    onCreatePlayer={onAddPlayer}
                 />
 
                 <div className="setup__middle">
-                    <RenderRegion className="setup__view">{/* <RenderWriteMode /> */}</RenderRegion>
+                    <RenderRegion className="setup__view">
+                        {/* <RenderWriteMode /> */}
+                    </RenderRegion>
                     <FlowList selection={selection} onSelect={setSelection} />
                 </div>
                 <LayoutList />
@@ -57,15 +94,15 @@ const Setup: FC = () => {
 
             <PlayerTypePicker
                 width={400}
-                open={typePicker}
-                onCancel={() => setTypePicker(false)}
-                onSelect={onTypeSelected}
+                open={!!typePicker}
+                onSelect={typePicker}
+                onCancel={() => setTypePicker(null)}
             />
             <InstrumentPicker
                 width={900}
-                open={instrumentPicker}
-                onSelect={onSelectInstrument}
-                onCancel={() => setInstrumentPicker(false)}
+                open={!!instrumentPicker}
+                onSelect={instrumentPicker}
+                onCancel={() => setInstrumentPicker(null)}
             />
         </>
     );

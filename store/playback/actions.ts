@@ -1,4 +1,4 @@
-import { get_patches, Expression } from "solo-composer-engine";
+import { get_patches, Expression, PlayerType } from "solo-composer-engine";
 import { store } from "../use-store";
 import { Status } from "../defs";
 import { Transport, Player } from "solo-composer-scheduler";
@@ -20,12 +20,16 @@ export const playbackActions = {
             Player.stopAll();
         },
         to_start: () => {
-            Transport.seek(0);
             Player.stopAll();
+            Transport.seek(0);
         },
     },
     instrument: {
-        load: async (id: string, instrumentKey: string) => {
+        load: async (
+            id: string,
+            instrumentKey: string,
+            player_type: PlayerType
+        ) => {
             // kick things off ready for loading in the sampler
             store.update((s) => {
                 s.playback.instruments[instrumentKey] = {
@@ -33,16 +37,16 @@ export const playbackActions = {
                     id,
                     status: Status.Pending,
                     progress: 0,
-                    volume: 80,
-                    mute: false,
-                    solo: false,
                     expressions: {},
                 };
             });
 
             const instrument = Player.createSampler(instrumentKey);
 
-            const map: { [expression: number]: string } = get_patches(id);
+            const map: { [expression: number]: string } = get_patches(
+                id,
+                player_type
+            );
             let expressions = Object.entries(map);
 
             await Promise.all(
@@ -103,42 +107,6 @@ export const playbackActions = {
                     delete s.playback.instruments[key];
                     Player.disconnect(key);
                 });
-            });
-        },
-        mute: {
-            toggle: (instrument_key: string) => {
-                store.update((s) => {
-                    const muted = s.playback.instruments[instrument_key].mute;
-                    s.playback.instruments[instrument_key].mute = !muted;
-                    if (muted) {
-                        Player.unmute(instrument_key);
-                    } else {
-                        Player.mute(instrument_key);
-                    }
-                });
-            },
-        },
-        solo: {
-            toggle: (instrument_key: string) => {
-                store.update((s) => {
-                    const solo = s.playback.instruments[instrument_key].solo;
-                    s.playback.instruments[instrument_key].solo = !solo;
-                    if (solo) {
-                        Player.unsolo(instrument_key);
-                    } else {
-                        Player.solo(instrument_key);
-                    }
-                });
-            },
-        },
-        /**
-         * Set the volume (0 - 100)
-         */
-        volume: (instrument_key: string, volume: number) => {
-            store.update((s) => {
-                const value = parseInt(volume.toFixed(0));
-                s.playback.instruments[instrument_key].volume = value;
-                Player.volume(instrument_key, value / 100);
             });
         },
     },

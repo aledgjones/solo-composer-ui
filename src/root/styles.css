@@ -9,21 +9,21 @@
 }
 
 .ui-light {
-    --background-200: #dddddd;
+    --background-200: #ffffff; /**/
     --foreground-200: var(--black);
     --background-300: #aaaaaa;
     --foreground-300: var(--black);
     --background-400: #bbbbbb;
     --foreground-400: var(--black);
-    --background-500: #ffffff;
+    --background-500: #d2d3ce; /**/
     --foreground-500: var(--black);
-    --background-700: #aaaaaa;
+    --background-700: #c7c7c3; /**/
     --foreground-700: var(--black);
-    --background-800: #cccccc;
+    --background-800: #cacbc6; /**/
     --foreground-800: var(--black);
-    --background-900: #dddddd;
+    --background-900: #bfbfbc; /**/
     --foreground-900: var(--black);
-    --background-1000: #888888;
+    --background-1000: #bfbfbc; /**/
     --foreground-1000: var(--black);
 }
 

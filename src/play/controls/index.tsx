@@ -28,9 +28,9 @@ export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
                 s.score.instruments[instrumentKey],
                 keyboard ? keyboard.height : 17,
                 s.ui.play.expanded[instrumentKey],
-                s.playback.instruments[instrumentKey].volume,
-                s.playback.instruments[instrumentKey].mute,
-                s.playback.instruments[instrumentKey].solo,
+                s.score.instruments[instrumentKey].volume,
+                s.score.instruments[instrumentKey].mute,
+                s.score.instruments[instrumentKey].solo,
             ];
         },
         [instrumentKey]
@@ -61,17 +61,25 @@ export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
                     style={{ marginRight: 12 }}
                     path={mdiSizeS}
                     size={24}
-                    onClick={() =>
-                        actions.playback.instrument.solo.toggle(instrument.key)
-                    }
+                    onClick={() => {
+                        if (solo) {
+                            actions.score.instrument.unsolo(instrument.key);
+                        } else {
+                            actions.score.instrument.solo(instrument.key);
+                        }
+                    }}
                 />
                 <Icon
                     toggled={mute}
                     path={mdiSizeM}
                     size={24}
-                    onClick={() =>
-                        actions.playback.instrument.mute.toggle(instrument.key)
-                    }
+                    onClick={() => {
+                        if (mute) {
+                            actions.score.instrument.unmute(instrument.key);
+                        } else {
+                            actions.score.instrument.mute(instrument.key);
+                        }
+                    }}
                 />
                 <Icon
                     style={{
@@ -93,7 +101,7 @@ export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
                                     volume={volume}
                                     color={color}
                                     onChange={(volume: number) =>
-                                        actions.playback.instrument.volume(
+                                        actions.score.instrument.volume(
                                             instrument.key,
                                             volume
                                         )

@@ -3,6 +3,7 @@ export {
     PlayerType,
     NoteDuration,
     Expression,
+    Articulation,
 } from "solo-composer-engine";
 
 export * from "./defs";
