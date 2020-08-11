@@ -21,5 +21,5 @@
     height: calc(100% - 48px);
     overflow: auto;
     white-space: nowrap;
-    padding: 8px;
+    padding: 8px 8px 0 8px;
 }

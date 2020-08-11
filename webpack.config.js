@@ -5,7 +5,7 @@ const CopyWebpackPlugin = require("copy-webpack-plugin");
 
 module.exports = {
     entry: "./bootstrap.ts",
-    devtool: "inline-source-map",
+    devtool: "source-map",
     plugins: [
         new CleanWebpackPlugin(),
         new CopyWebpackPlugin({ patterns: [{ from: "public" }] }),

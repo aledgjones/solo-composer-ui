@@ -37,6 +37,7 @@
     },
     "dependencies": {
         "@mdi/js": "5.3.45",
+        "@types/lodash.throttle": "^4.1.6",
         "app-reset": "1.0.2",
         "big.js": "5.2.2",
         "color": "3.1.2",
@@ -45,6 +46,7 @@
         "localforage": "1.8.1",
         "lodash.isobject": "3.0.2",
         "lodash.isstring": "4.0.1",
+        "lodash.throttle": "^4.1.1",
         "pullstate": "1.16.0",
         "react": "16.13.1",
         "react-dom": "16.13.1",

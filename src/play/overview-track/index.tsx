@@ -1,4 +1,4 @@
-import React, { FC, useRef, useMemo, memo } from "react";
+import React, { FC, useRef, useMemo } from "react";
 import Color from "color";
 import { TickList, useStore, Tone } from "../../../store";
 
@@ -12,110 +12,106 @@ interface Props {
     zoom: number;
 }
 
-export const OverviewTrack: FC<Props> = memo(
-    ({ flowKey, instrumentKey, color, ticks, zoom }) => {
-        const track = useRef<HTMLDivElement>(null);
+export const OverviewTrack: FC<Props> = ({
+    flowKey,
+    instrumentKey,
+    color,
+    ticks,
+    zoom,
+}) => {
+    const track = useRef<HTMLDivElement>(null);
 
-        const [tones] = useStore(
-            (s) => {
-                const flow = s.score.flows.by_key[flowKey];
-                const instrument = s.score.instruments[instrumentKey];
+    const [tones] = useStore(
+        (s) => {
+            const flow = s.score.flows.by_key[flowKey];
+            const instrument = s.score.instruments[instrumentKey];
 
-                return [
-                    instrument.staves.reduce<Tone[]>((out, stave_key) => {
-                        flow.staves[stave_key].tracks.forEach((track_key) => {
-                            const track = flow.tracks[track_key];
-                            Object.values(track.entries.by_key).forEach(
-                                (entry) => {
-                                    if (entry.Tone) {
-                                        out.push(entry.Tone as Tone);
-                                    }
-                                }
-                            );
+            return [
+                instrument.staves.reduce<Tone[]>((out, stave_key) => {
+                    flow.staves[stave_key].tracks.forEach((track_key) => {
+                        const track = flow.tracks[track_key];
+                        Object.values(track.entries.by_key).forEach((entry) => {
+                            if (entry.Tone) {
+                                out.push(entry.Tone as Tone);
+                            }
                         });
-                        return out;
-                    }, []),
-                ];
-            },
-            [flowKey, instrumentKey]
-        );
-
-        const blocks = useMemo(() => {
-            return tones
-                .sort((a, b) => a.tick - b.tick)
-                .reduce<[number, number][]>((out, tone) => {
-                    const prev = out[out.length - 1];
-                    const start = tone.tick;
-                    const stop = tone.tick + tone.duration.int;
-                    if (prev) {
-                        const [, prevStop] = prev;
-                        if (start < prevStop && stop < prevStop) {
-                            // the tone is within the previous range so ignore
-                        } else if (start > prevStop) {
-                            // the tone lays outside the previous range so start a new range
-                            out.push([start, stop]);
-                        } else if (stop > prevStop) {
-                            // the tone starts in the previous range but carries on longer so extend the range
-                            prev[1] = stop;
-                        }
-                    } else {
-                        out.push([start, stop]);
-                    }
-
+                    });
                     return out;
-                }, []);
-        }, [tones]);
+                }, []),
+            ];
+        },
+        [flowKey, instrumentKey]
+    );
 
-        return (
-            <div
-                ref={track}
-                className="overview-track"
-                style={{ width: ticks.width * zoom }}
-            >
-                {blocks.map(([start, stop], i) => {
-                    return (
-                        <div
-                            key={i}
-                            className="overview-track__block"
-                            style={{
-                                backgroundColor: Color(color)
-                                    .alpha(0.1)
-                                    .toString(),
-                                left: ticks.list[start].x * zoom,
-                                width: ticks.list[stop]
-                                    ? (ticks.list[stop].x -
-                                          ticks.list[start].x) *
-                                      zoom
-                                    : (ticks.width - ticks.list[start].x) *
-                                      zoom,
-                            }}
-                        />
-                    );
-                })}
-                {tones.map((tone) => {
-                    const start = tone.tick;
-                    const stop = tone.tick + tone.duration.int;
-                    return (
-                        <div
-                            key={tone.key}
-                            className="overview-track__tone"
-                            style={{
-                                position: "absolute",
-                                backgroundColor: color,
-                                left: ticks.list[start].x * zoom,
-                                width: ticks.list[stop]
-                                    ? (ticks.list[stop].x -
-                                          ticks.list[start].x) *
-                                      zoom
-                                    : (ticks.width - ticks.list[start].x) *
-                                      zoom,
-                                height: `calc(100% / 100)`,
-                                bottom: `calc(1% * ${tone.pitch.int - 12})`, // C0 -> E8 (12 -> 112)
-                            }}
-                        />
-                    );
-                })}
-            </div>
-        );
-    }
-);
+    const blocks = useMemo(() => {
+        return tones
+            .sort((a, b) => a.tick - b.tick)
+            .reduce<[number, number][]>((out, tone) => {
+                const prev = out[out.length - 1];
+                const start = tone.tick;
+                const stop = tone.tick + tone.duration.int;
+                if (prev) {
+                    const [, prevStop] = prev;
+                    if (start < prevStop && stop < prevStop) {
+                        // the tone is within the previous range so ignore
+                    } else if (start > prevStop) {
+                        // the tone lays outside the previous range so start a new range
+                        out.push([start, stop]);
+                    } else if (stop > prevStop) {
+                        // the tone starts in the previous range but carries on longer so extend the range
+                        prev[1] = stop;
+                    }
+                } else {
+                    out.push([start, stop]);
+                }
+
+                return out;
+            }, []);
+    }, [tones]);
+
+    return (
+        <div
+            ref={track}
+            className="overview-track"
+            style={{ width: ticks.width * zoom }}
+        >
+            {blocks.map(([start, stop], i) => {
+                return (
+                    <div
+                        key={i}
+                        className="overview-track__block"
+                        style={{
+                            backgroundColor: Color(color).alpha(0.1).toString(),
+                            left: ticks.list[start].x * zoom,
+                            width: ticks.list[stop]
+                                ? (ticks.list[stop].x - ticks.list[start].x) *
+                                  zoom
+                                : (ticks.width - ticks.list[start].x) * zoom,
+                        }}
+                    />
+                );
+            })}
+            {tones.map((tone) => {
+                const start = tone.tick;
+                const stop = tone.tick + tone.duration.int;
+                return (
+                    <div
+                        key={tone.key}
+                        className="overview-track__tone"
+                        style={{
+                            position: "absolute",
+                            backgroundColor: color,
+                            left: ticks.list[start].x * zoom,
+                            width: ticks.list[stop]
+                                ? (ticks.list[stop].x - ticks.list[start].x) *
+                                  zoom
+                                : (ticks.width - ticks.list[start].x) * zoom,
+                            height: `calc(100% / 100)`,
+                            bottom: `calc(1% * ${tone.pitch.int - 12})`, // C0 -> E8 (12 -> 112)
+                        }}
+                    />
+                );
+            })}
+        </div>
+    );
+};
