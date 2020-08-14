@@ -1,5 +1,3 @@
-import throttle from "lodash.throttle";
-
 type DownCallback<T> = (e: React.PointerEvent) => T | false;
 type OtherCallback<T> = (e: PointerEvent, data: T) => void;
 
@@ -28,12 +26,12 @@ export function dragHandler<T>({
         if (data !== false) {
             pointer = e.pointerId;
 
-            const move = throttle((ev: PointerEvent) => {
+            const move = (ev: PointerEvent) => {
                 if (pointer !== ev.pointerId) return;
 
                 onMove(ev, data);
                 return false;
-            }, 1000 / 30);
+            };
 
             const stop = (ev: PointerEvent) => {
                 if (pointer !== ev.pointerId) return;

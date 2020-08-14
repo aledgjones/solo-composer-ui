@@ -3,7 +3,12 @@ import { TickList, Tick } from "../../../store";
 import { FC } from "react";
 import { merge } from "../../../ui";
 
-function tickHeight(tick: Tick, isTrack: boolean, height: number, zoom: number) {
+function tickHeight(
+    tick: Tick,
+    isTrack: boolean,
+    height: number,
+    zoom: number
+) {
     if (tick.is_first_beat) {
         return height;
     } else if (tick.is_grouping_boundry) {
@@ -45,7 +50,13 @@ interface Props {
     zoom: number;
 }
 
-export const Ticks: FC<Props> = memo(({ className, ticks, height, isTrack, zoom }) => {
+export const Ticks: FC<Props> = ({
+    className,
+    ticks,
+    height,
+    isTrack,
+    zoom,
+}) => {
     let bar = 0;
     return (
         <svg
@@ -89,4 +100,4 @@ export const Ticks: FC<Props> = memo(({ className, ticks, height, isTrack, zoom 
             })}
         </svg>
     );
-});
+};

@@ -126,14 +126,3 @@ export function duration_to_ticks(
             return subdivisions;
     }
 }
-
-export function useAutoSetup() {
-    const flowKey = useStore((s) => s.ui.flow_key || s.score.flows.order[0]);
-    console.log(flowKey);
-
-    // make actions available globally for debugging
-    useEffect(() => {
-        const win = window as any;
-        win.sc_actions = actions;
-    }, []);
-}

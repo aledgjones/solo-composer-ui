@@ -21,89 +21,93 @@ interface Props {
     zoom: number;
 }
 
-export const Track: FC<Props> = memo(
-    ({ flowKey, instrumentKey, color, ticks, zoom }) => {
-        const [expanded, tool, slots, base, playing] = useStore(
-            (s) => {
-                const keyboard = s.ui.play.keyboard[instrumentKey];
-                return [
-                    s.ui.play.expanded[instrumentKey],
-                    s.ui.play.tool,
-                    keyboard ? keyboard.height : 17,
-                    keyboard ? keyboard.base : 76,
-                    s.playback.transport.playing,
-                ];
-            },
-            [instrumentKey]
-        );
+export const Track: FC<Props> = ({
+    flowKey,
+    instrumentKey,
+    color,
+    ticks,
+    zoom,
+}) => {
+    const [expanded, tool, slots, base, playing] = useStore(
+        (s) => {
+            const keyboard = s.ui.play.keyboard[instrumentKey];
+            return [
+                s.ui.play.expanded[instrumentKey],
+                s.ui.play.tool,
+                keyboard ? keyboard.height : 17,
+                keyboard ? keyboard.base : 76,
+                s.playback.transport.playing,
+            ];
+        },
+        [instrumentKey]
+    );
 
-        const cursor = useMemo(() => {
-            switch (tool) {
-                case Tool.Draw:
-                    return `url(${pencil}) 4 20, default`;
-                case Tool.Erase:
-                    return `url(${eraser}) 4 20, default`;
-                case Tool.Slice:
-                    return `url(${knife}) 4 20, default`;
-                default:
-                    return "default";
-            }
-        }, [tool]);
+    const cursor = useMemo(() => {
+        switch (tool) {
+            case Tool.Draw:
+                return `url(${pencil}) 4 20, default`;
+            case Tool.Erase:
+                return `url(${eraser}) 4 20, default`;
+            case Tool.Slice:
+                return `url(${knife}) 4 20, default`;
+            default:
+                return "default";
+        }
+    }, [tool]);
 
-        return (
-            <div className="track">
-                <Ticks
-                    isTrack={true}
+    return (
+        <div className="track">
+            <Ticks
+                isTrack={true}
+                ticks={ticks}
+                height={48}
+                className="track__header"
+                zoom={zoom}
+            />
+            {!expanded && (
+                <OverviewTrack
+                    color={color}
+                    flowKey={flowKey}
+                    instrumentKey={instrumentKey}
                     ticks={ticks}
-                    height={48}
-                    className="track__header"
                     zoom={zoom}
                 />
-                {!expanded && (
-                    <OverviewTrack
-                        color={color}
-                        flowKey={flowKey}
-                        instrumentKey={instrumentKey}
-                        ticks={ticks}
-                        zoom={zoom}
-                    />
-                )}
-                {expanded && (
-                    <>
-                        <div
-                            className={merge("track__tone-channel", {
-                                "no-scroll": tool !== Tool.Select,
-                            })}
-                            style={{ height: SLOT_HEIGHT * slots, cursor }}
-                        >
-                            <Slots
-                                style={{ width: ticks.width * zoom }}
-                                className="track__tone-channel-slots"
-                                base={base}
-                                count={slots}
-                                isKeyboard={false}
-                            />
-                            <Ticks
-                                isTrack={true}
-                                className="track__tone-channel-ticks"
-                                ticks={ticks}
-                                height={SLOT_HEIGHT * slots}
-                                zoom={zoom}
-                            />
-                            <ToneTrack
-                                color={color}
-                                flowKey={flowKey}
-                                instrumentKey={instrumentKey}
-                                ticks={ticks}
-                                base={base}
-                                tool={tool}
-                                slots={slots}
-                                zoom={zoom}
-                            />
-                        </div>
-                    </>
-                )}
-            </div>
-        );
-    }
-);
+            )}
+            {expanded && (
+                <>
+                    <div
+                        className={merge("track__tone-channel", {
+                            "no-scroll": tool !== Tool.Select,
+                        })}
+                        style={{ height: SLOT_HEIGHT * slots, cursor }}
+                    >
+                        <Slots
+                            style={{ width: ticks.width * zoom }}
+                            className="track__tone-channel-slots"
+                            base={base}
+                            count={slots}
+                            isKeyboard={false}
+                        />
+                        <Ticks
+                            isTrack={true}
+                            className="track__tone-channel-ticks"
+                            ticks={ticks}
+                            height={SLOT_HEIGHT * slots}
+                            zoom={zoom}
+                        />
+                        <ToneTrack
+                            color={color}
+                            flowKey={flowKey}
+                            instrumentKey={instrumentKey}
+                            ticks={ticks}
+                            base={base}
+                            tool={tool}
+                            slots={slots}
+                            zoom={zoom}
+                        />
+                    </div>
+                </>
+            )}
+        </div>
+    );
+};

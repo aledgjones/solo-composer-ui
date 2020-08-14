@@ -26,3 +26,4 @@ acoustic-guitar, natural, /output/acoustic-guitar/natural.json
 distortion-guitar, natural, /output/distortion-guitar/natural.json
 alto-saxophone, staccato, /output/alto-saxophone/staccato.json
 alto-saxophone, natural, /output/alto-saxophone/natural.json
+harpsichord, natural, /output/harpsichord/natural.json
