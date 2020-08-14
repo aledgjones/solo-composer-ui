@@ -8,6 +8,7 @@ import {
     InstrumentType,
 } from "solo-composer-engine";
 import { PlaybackDefs } from "./playback/defs";
+import { Track } from "./track";
 
 export * from "./playback/defs";
 
@@ -108,16 +109,6 @@ export interface Player {
     player_type: PlayerType;
     instruments: string[];
     name?: string;
-}
-
-export interface Entries {
-    by_tick: { [tick: number]: string[] };
-    by_key: { [key: string]: any }; // The typing stop here we will never actually use these js side.
-}
-
-export interface Track {
-    key: string;
-    entries: Entries;
 }
 
 export interface Stave {

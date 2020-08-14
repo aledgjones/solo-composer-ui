@@ -3,7 +3,7 @@ import { Store, useStoreState } from "pullstate";
 import { State, ThemeMode, View, Tool, Score, TickList } from "./defs";
 import localforage from "localforage";
 
-export const store = new Store<State>({
+export const empty: State = {
     app: {
         theme: ThemeMode.Dark,
         audition: false,
@@ -51,7 +51,9 @@ export const store = new Store<State>({
             zoom: 1,
         },
     },
-});
+};
+
+export const store = new Store<State>(empty);
 
 (async () => {
     const audition = await localforage.getItem<boolean>("sc:audition/v1");

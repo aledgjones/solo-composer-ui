@@ -6,11 +6,13 @@ import {
     NoteDuration,
     Articulation,
 } from "solo-composer-engine";
-import { engine, store } from "./use-store";
-import { ThemeMode, View, Tool, Score } from "./defs";
+import { store, empty, engine } from "./use-store";
+import { ThemeMode, View, Tool, Score, Flow } from "./defs";
 import { playbackActions } from "./playback";
 import { Transport, Progress, Player } from "solo-composer-scheduler";
 import { download, chooseFiles } from "../ui";
+import shortid from "shortid";
+import { Track } from "./track";
 
 // I know these are just wrapping funcs but it allows more acurate typings than wasm-pack produces
 // and it's really easy to swap between js and wasm funcs if needed.
@@ -37,7 +39,7 @@ export const actions = {
          * Export the current score
          */
         export: () => {
-            const score = engine.export();
+            const score = store.getRawState().score;
             download(
                 score,
                 score.meta.title.toLocaleLowerCase().replace(/\s/g, "-") ||
@@ -65,7 +67,12 @@ export const actions = {
                 progress(4, 2);
 
                 // set the imported state in the engine
-                engine.import(score);
+                store.update((s) => {
+                    return {
+                        ...empty,
+                        score,
+                    };
+                });
 
                 progress(4, 3);
 
@@ -100,23 +107,49 @@ export const actions = {
             }
         },
         meta: {
-            title: (value: string) => engine.set_title(value),
-            subtitle: (value: string) => engine.set_subtitle(value),
-            composer: (value: string) => engine.set_composer(value),
-            arranger: (value: string) => engine.set_arranger(value),
-            lyricist: (value: string) => engine.set_lyricist(value),
-            copyright: (value: string) => engine.set_copyright(value),
+            title: (value: string) =>
+                store.update((s) => (s.score.meta.title = value)),
+            subtitle: (value: string) =>
+                store.update((s) => (s.score.meta.title = value)),
+            composer: (value: string) =>
+                store.update((s) => (s.score.meta.composer = value)),
+            arranger: (value: string) =>
+                store.update((s) => (s.score.meta.arranger = value)),
+            lyricist: (value: string) =>
+                store.update((s) => (s.score.meta.lyricist = value)),
+            copyright: (value: string) =>
+                store.update((s) => (s.score.meta.copyright = value)),
         },
         config: {
             auto_count: {
                 solo: (value: AutoCountStyle) =>
-                    engine.set_auto_count_style_solo(value),
+                    store.update(
+                        (s) => (s.score.config.auto_count.solo = value)
+                    ),
                 section: (value: AutoCountStyle) =>
-                    engine.set_auto_count_style_section(value),
+                    store.update(
+                        (s) => (s.score.config.auto_count.section = value)
+                    ),
             },
         },
         flow: {
-            create: () => engine.create_flow(),
+            create: () => {
+                store.update((s) => {
+                    const flow: Flow = {
+                        key: shortid(),
+                        title: "",
+                        players: [],
+                        length: 16,
+                        subdivisions: 16,
+
+                        master: new Track(),
+                        staves: {},
+                        tracks: {},
+                    };
+                    s.score.flows.order.push(flow.key);
+                    s.score.flows.by_key[flow.key] = flow;
+                });
+            },
             rename: (flow_key: string, title: string) =>
                 engine.rename_flow(flow_key, title),
             length: (flow_key: string, length: number) =>
