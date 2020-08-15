@@ -12,6 +12,7 @@
     height: 48px;
     background-color: var(--background-700);
     color: var(--foreground-700);
+    border-right: 1px solid var(--background-200);
     margin-right: 64px;
 }
 
@@ -34,4 +35,5 @@
     left: 0;
     pointer-events: none;
     z-index: 2;
+    border-right: 1px solid var(--background-200);
 }

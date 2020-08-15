@@ -85,6 +85,8 @@
 
 .play__tick-track {
     display: block;
+    border-right: 1px solid var(--background-1000);
+    margin-right: 64px;
 }
 
 .play__bottom-panel {

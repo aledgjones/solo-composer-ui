@@ -1,43 +1,51 @@
 import shortid from "shortid";
-import { Entry } from "./entry";
-import { Tick } from "./generic";
+import { Track, Entry } from "./defs";
 
-export class Entries {
-    by_tick: { [tick: string]: string[] };
-    by_key: { [key: string]: Entry }; // The typing stop here we will never actually use these js side.
+export function create_empty_track(key: string = shortid()): Track {
+    return {
+        key,
+        entries: { by_key: {}, by_tick: {} },
+    };
+}
 
-    public insert(entry: Entry) {
-        const tick = this.by_tick[entry.tick.toString()] || [];
-        tick.push(entry.key);
-        this.by_key[entry.key] = entry;
+/** Insert an entry into the track */
+export function insert_entry(track: Track, entry: Entry) {
+    track.entries.by_key[entry.key] = entry;
+    if (track.entries.by_tick[entry.tick] === undefined) {
+        track.entries.by_tick[entry.tick] = [];
     }
+    track.entries.by_tick[entry.tick].push(entry.key);
+}
 
-    /// Move an entry to a new tick
-    public move(key: string, new_tick: Tick) {
-        let entry = this.by_key[key];
-        let old_tick = entry.tick;
+/** Move an entry to a new tick of the track */
+export function move_entry(track: Track, entry_key: string, tick: number) {
+    const entry = track.entries.by_key[entry_key];
+    if (tick !== entry.tick) {
+        // remove from previous tick entry and cleanup
+        track.entries.by_tick[entry.tick] = track.entries.by_tick[
+            entry.tick
+        ].filter((k) => k !== entry_key);
+        track.entries.by_tick[entry.tick].length === 0;
+        delete track.entries.by_tick[entry.tick];
 
-        // move the entry tp the new tick only if it has actually moved
-        if (old_tick != new_tick) {
-            // update the entry itself
-            entry.tick = new_tick;
-            // move the entry key to the new tick
-            this.by_tick[old_tick].filter((k) => k !== key);
-            let tick = this.by_tick[new_tick] || [];
-            tick.push(key);
+        // create a new tick entry if not present
+        if (track.entries.by_tick[tick] === undefined) {
+            track.entries.by_tick[tick] = [];
         }
-    }
+        track.entries.by_tick[tick].push(entry_key);
 
-    /// remove an entry and return the removed entry
-    public remove(key: string): Entry {
-        let entry = this.by_key[key];
-        this.by_tick[entry.tick].filter((k) => k !== entry.key);
-        delete this.by_key[key];
-        return entry;
+        // update the actual entry
+        entry.tick = tick;
     }
 }
 
-export class Track {
-    public key = shortid();
-    public entries = new Entries();
+/** Remove the entry from the track */
+export function remove_entry(track: Track, entry_key: string) {
+    const entry = track.entries.by_key[entry_key];
+    track.entries.by_tick[entry.tick] = track.entries.by_tick[
+        entry.tick
+    ].filter((k) => k !== entry_key);
+    track.entries.by_tick[entry.tick].length === 0;
+    delete track.entries.by_tick[entry.tick];
+    delete track.entries.by_key[entry_key];
 }

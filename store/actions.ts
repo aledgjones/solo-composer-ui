@@ -1,18 +1,32 @@
-import localforage from "localforage";
+import { Transport, Progress, Player } from "solo-composer-scheduler";
+import { store, empty } from "./use-store";
 import {
+    ThemeMode,
+    View,
+    Tool,
+    Score,
+    Flow,
     AutoCountStyle,
     PlayerType,
-    TimeSignatureDrawType,
     NoteDuration,
+    TimeSignatureDrawType,
+    EntryType,
     Articulation,
-} from "solo-composer-engine";
-import { store, empty, engine } from "./use-store";
-import { ThemeMode, View, Tool, Score, Flow } from "./defs";
+    Pitch,
+    Tone,
+} from "./defs";
+import { get_def } from "./instrument-defs";
 import { playbackActions } from "./playback";
-import { Transport, Progress, Player } from "solo-composer-scheduler";
 import { download, chooseFiles } from "../ui";
-import shortid from "shortid";
-import { Track } from "./track";
+import { create_empty_stave } from "./stave";
+import { create_player } from "./player";
+import { move } from "./utils";
+import { create_instrument } from "./instrument";
+import { create_absolute_tempo } from "./absolute-tempo";
+import { insert_entry, remove_entry, move_entry } from "./track";
+import { create_time_signature } from "./time_signature";
+import { create_tone } from "./tone";
+import { create_flow } from "./flow";
 
 // I know these are just wrapping funcs but it allows more acurate typings than wasm-pack produces
 // and it's really easy to swap between js and wasm funcs if needed.
@@ -21,14 +35,17 @@ export const actions = {
         audition: {
             toggle: () => {
                 store.update((s) => {
-                    localforage.setItem("sc:audition/v1", !s.app.audition);
+                    localStorage.setItem(
+                        "sc:audition/v1",
+                        JSON.stringify(!s.app.audition)
+                    );
                     s.app.audition = !s.app.audition;
                 });
             },
         },
         theme: (value: ThemeMode) => {
             store.update((s) => {
-                localforage.setItem("sc:theme-mode/v1", value);
+                localStorage.setItem("sc:theme-mode/v1", JSON.stringify(value));
                 s.app.theme = value;
             });
         },
@@ -39,11 +56,12 @@ export const actions = {
          * Export the current score
          */
         export: () => {
-            const score = store.getRawState().score;
+            const state = store.getRawState();
             download(
-                score,
-                score.meta.title.toLocaleLowerCase().replace(/\s/g, "-") ||
-                    "untitled",
+                state.score,
+                state.score.meta.title
+                    .toLocaleLowerCase()
+                    .replace(/\s/g, "-") || "untitled",
                 "application/json"
             );
         },
@@ -55,7 +73,6 @@ export const actions = {
             const file = resp.files[0];
             if (file) {
                 // cleanup old state
-                actions.ui.view(View.Setup);
                 actions.playback.transport.stop();
                 actions.playback.transport.to_start();
                 actions.playback.instrument.destroyAll();
@@ -67,10 +84,15 @@ export const actions = {
                 progress(4, 2);
 
                 // set the imported state in the engine
-                store.update((s) => {
+                store.update(() => {
+                    const e = empty();
                     return {
-                        ...empty,
+                        ...e,
                         score,
+                        ui: {
+                            ...e.ui,
+                            flow_key: score.flows.order[0],
+                        },
                     };
                 });
 
@@ -108,112 +130,277 @@ export const actions = {
         },
         meta: {
             title: (value: string) =>
-                store.update((s) => (s.score.meta.title = value)),
+                store.update((s) => {
+                    s.score.meta.title = value;
+                }),
             subtitle: (value: string) =>
-                store.update((s) => (s.score.meta.title = value)),
+                store.update((s) => {
+                    s.score.meta.subtitle = value;
+                }),
             composer: (value: string) =>
-                store.update((s) => (s.score.meta.composer = value)),
+                store.update((s) => {
+                    s.score.meta.composer = value;
+                }),
             arranger: (value: string) =>
-                store.update((s) => (s.score.meta.arranger = value)),
+                store.update((s) => {
+                    s.score.meta.arranger = value;
+                }),
             lyricist: (value: string) =>
-                store.update((s) => (s.score.meta.lyricist = value)),
+                store.update((s) => {
+                    s.score.meta.lyricist = value;
+                }),
             copyright: (value: string) =>
-                store.update((s) => (s.score.meta.copyright = value)),
+                store.update((s) => {
+                    s.score.meta.copyright = value;
+                }),
         },
         config: {
             auto_count: {
                 solo: (value: AutoCountStyle) =>
-                    store.update(
-                        (s) => (s.score.config.auto_count.solo = value)
-                    ),
+                    store.update((s) => {
+                        s.score.config.auto_count.solo = value;
+                    }),
                 section: (value: AutoCountStyle) =>
-                    store.update(
-                        (s) => (s.score.config.auto_count.section = value)
-                    ),
+                    store.update((s) => {
+                        s.score.config.auto_count.section = value;
+                    }),
             },
         },
         flow: {
-            create: () => {
+            create: (): string => {
+                const flow: Flow = create_flow();
                 store.update((s) => {
-                    const flow: Flow = {
-                        key: shortid(),
-                        title: "",
-                        players: [],
-                        length: 16,
-                        subdivisions: 16,
-
-                        master: new Track(),
-                        staves: {},
-                        tracks: {},
-                    };
                     s.score.flows.order.push(flow.key);
                     s.score.flows.by_key[flow.key] = flow;
                 });
+                return flow.key;
             },
             rename: (flow_key: string, title: string) =>
-                engine.rename_flow(flow_key, title),
+                store.update((s) => {
+                    s.score.flows.by_key[flow_key].title = title;
+                }),
             length: (flow_key: string, length: number) =>
-                engine.set_flow_length(flow_key, length),
+                store.update((s) => {
+                    s.score.flows.by_key[flow_key].length = length;
+                }),
             reorder: (old_index: number, new_index: number) =>
-                engine.reorder_flow(old_index, new_index),
+                store.update((draft) => {
+                    move(draft.score.flows.order, old_index, new_index);
+                }),
             assign_player: (flow_key: string, player_key: string) =>
-                engine.assign_player(flow_key, player_key),
+                store.update((draft, state) => {
+                    const flow = draft.score.flows.by_key[flow_key];
+                    flow.players.push(player_key);
+
+                    const player = state.score.players.by_key[player_key];
+                    player.instruments.forEach((instrumentKey) => {
+                        const instrument =
+                            state.score.instruments[instrumentKey];
+                        const instrumentDef = get_def(instrument.id);
+                        instrument.staves.forEach((staveKey, i) => {
+                            const staveDef = instrumentDef.staves[i];
+                            const stave = create_empty_stave(
+                                staveKey,
+                                staveDef
+                            );
+                            flow.staves[staveKey] = stave;
+                        });
+                    });
+                }),
             unassign_player: (flow_key: string, player_key: string) =>
-                engine.unassign_player(flow_key, player_key),
-            remove: (flow_key: string) => engine.remove_flow(flow_key),
+                store.update((draft, state) => {
+                    // remove each instrument from the flow
+                    const player = state.score.players.by_key[player_key];
+                    player.instruments.forEach((instrumentKey) => {
+                        state.score.instruments[instrumentKey].staves.forEach(
+                            (stave_key) => {
+                                delete draft.score.flows.by_key[flow_key]
+                                    .staves[stave_key];
+                            }
+                        );
+                    });
+
+                    draft.score.flows.by_key[
+                        flow_key
+                    ].players = state.score.flows.by_key[
+                        flow_key
+                    ].players.filter((k) => k !== player_key);
+                }),
+            remove: (flow_key: string) =>
+                store.update((draft, state) => {
+                    draft.score.flows.order = state.score.flows.order.filter(
+                        (k) => k !== flow_key
+                    );
+                    delete draft.score.flows.by_key[flow_key];
+                }),
         },
         player: {
-            create: (player_type: PlayerType): string =>
-                engine.create_player(player_type),
-            assign_instrument: (
-                player_key: string,
-                instrument_key: string
-            ): string => engine.assign_instrument(player_key, instrument_key),
+            create: (player_type: PlayerType): string => {
+                const player = create_player(player_type);
+                store.update((draft, state) => {
+                    draft.score.players.order.push(player.key);
+                    draft.score.players.by_key[player.key] = player;
+
+                    state.score.flows.order.forEach((flowKey) => {
+                        draft.score.flows.by_key[flowKey].players.push(
+                            player.key
+                        );
+                    });
+                });
+                return player.key;
+            },
+            assign_instrument: (player_key: string, instrument_key: string) =>
+                store.update((draft, state) => {
+                    draft.score.players.by_key[player_key].instruments.push(
+                        instrument_key
+                    );
+                    const instrument = state.score.instruments[instrument_key];
+
+                    state.score.flows.order.forEach((flowKey) => {
+                        const flow = draft.score.flows.by_key[flowKey];
+                        if (flow.players.includes(player_key)) {
+                            const instrumentDef = get_def(instrument.id);
+                            instrument.staves.forEach((staveKey, i) => {
+                                const staveDef = instrumentDef.staves[i];
+                                const stave = create_empty_stave(
+                                    staveKey,
+                                    staveDef
+                                );
+                                flow.staves[staveKey] = stave;
+                            });
+                        }
+                    });
+                }),
             reorder: (old_index: number, new_index: number) =>
-                engine.reorder_player(old_index, new_index),
+                store.update((draft) => {
+                    move(draft.score.players.order, old_index, new_index);
+                }),
             remove: (player_key: string) => {
-                const s = store.getRawState();
-                s.score.players.by_key[player_key].instruments.forEach(
-                    (key) => {
-                        actions.playback.instrument.destroy(key);
-                    }
-                );
-                engine.remove_player(player_key);
+                store.update((draft, state) => {
+                    // for each instrument...
+                    state.score.players.by_key[player_key].instruments.forEach(
+                        (instrument_key) => {
+                            // destroy instrument staves in each flow
+                            state.score.flows.order.forEach((flow_key) => {
+                                const flow = state.score.flows.by_key[flow_key];
+                                if (flow.players.includes(player_key)) {
+                                    state.score.instruments[
+                                        instrument_key
+                                    ].staves.forEach((stave_key) => {
+                                        delete draft.score.flows.by_key[
+                                            flow_key
+                                        ].staves[stave_key];
+                                    });
+                                }
+                            });
+
+                            // delete the actual instrument
+                            delete draft.score.instruments[instrument_key];
+
+                            // destroy the playback
+                            delete draft.playback.instruments[instrument_key];
+                            Player.disconnect(instrument_key);
+                        }
+                    );
+
+                    // remove the player from each flow
+                    state.score.flows.order.forEach((flow_key) => {
+                        draft.score.flows.by_key[
+                            flow_key
+                        ].players = state.score.flows.by_key[
+                            flow_key
+                        ].players.filter((k) => k !== player_key);
+                    });
+
+                    // remove the player itself
+                    delete draft.score.players.by_key[player_key];
+                    draft.score.players.order = state.score.players.order.filter(
+                        (k) => k !== player_key
+                    );
+                });
             },
         },
         instrument: {
-            create: (id: string): string => engine.create_instrument(id),
+            create: (id: string): string => {
+                const instrument = create_instrument(id);
+                store.update((draft) => {
+                    draft.score.instruments[instrument.key] = instrument;
+                });
+                return instrument.key;
+            },
             reorder: (
                 player_key: string,
                 old_index: number,
                 new_index: number
-            ) => engine.reorder_instrument(player_key, old_index, new_index),
-            remove: (player_key: string, instrument_key: string) => {
-                actions.playback.instrument.destroy(instrument_key);
-                engine.remove_instrument(player_key, instrument_key);
-            },
+            ) =>
+                store.update((draft) => {
+                    move(
+                        draft.score.players.by_key[player_key].instruments,
+                        old_index,
+                        new_index
+                    );
+                }),
+            remove: (player_key: string, instrument_key: string) =>
+                store.update((draft, state) => {
+                    // destroy instrument staves in each flow
+                    state.score.flows.order.forEach((flow_key) => {
+                        const flow = state.score.flows.by_key[flow_key];
+                        if (flow.players.includes(player_key)) {
+                            state.score.instruments[
+                                instrument_key
+                            ].staves.forEach((stave_key) => {
+                                delete draft.score.flows.by_key[flow_key]
+                                    .staves[stave_key];
+                            });
+                        }
+                    });
+
+                    // delete the instrument from the player
+                    draft.score.players.by_key[
+                        player_key
+                    ].instruments = state.score.players.by_key[
+                        player_key
+                    ].instruments.filter((k) => k !== instrument_key);
+
+                    // delete the actual instrument
+                    delete draft.score.instruments[instrument_key];
+
+                    // destroy the playback
+                    delete draft.playback.instruments[instrument_key];
+                    Player.disconnect(instrument_key);
+                }),
             /**
-             * Se volume of an instrument 0 - 100
+             * Set volume of an instrument 0 - 100
              */
             volume(instrument_key: string, volume: number) {
                 const value = parseInt(volume.toFixed(0));
-                engine.set_instrument_volume(instrument_key, value);
+                store.update((draft) => {
+                    draft.score.instruments[instrument_key].volume = value;
+                });
                 Player.volume(instrument_key, value / 100);
             },
             mute(instrument_key: string) {
-                engine.set_instrument_mute(instrument_key, true);
+                store.update((draft) => {
+                    draft.score.instruments[instrument_key].mute = true;
+                });
                 Player.mute(instrument_key);
             },
             unmute(instrument_key: string) {
-                engine.set_instrument_mute(instrument_key, false);
+                store.update((draft) => {
+                    draft.score.instruments[instrument_key].mute = false;
+                });
                 Player.unmute(instrument_key);
             },
             solo(instrument_key: string) {
-                engine.set_instrument_solo(instrument_key, true);
+                store.update((draft) => {
+                    draft.score.instruments[instrument_key].solo = true;
+                });
                 Player.solo(instrument_key);
             },
             unsolo(instrument_key: string) {
-                engine.set_instrument_solo(instrument_key, false);
+                store.update((draft) => {
+                    draft.score.instruments[instrument_key].mute = false;
+                });
                 Player.unsolo(instrument_key);
             },
         },
@@ -225,16 +412,40 @@ export const actions = {
                     beats: number,
                     beat_type: NoteDuration,
                     draw_type: TimeSignatureDrawType,
-                    groupings?: Uint8Array
-                ) =>
-                    engine.create_time_signature(
-                        flow_key,
+                    groupings?: number[]
+                ): string => {
+                    const time_signature = create_time_signature(
                         tick,
                         beats,
                         beat_type,
                         draw_type,
                         groupings
-                    ),
+                    );
+                    store.update((draft, state) => {
+                        // remove any time signature already at the current tick
+                        const entries =
+                            state.score.flows.by_key[flow_key].master.entries
+                                .by_tick[tick] || [];
+                        entries.forEach((entry_key) => {
+                            if (
+                                state.score.flows.by_key[flow_key].master
+                                    .entries.by_key[entry_key].type ===
+                                EntryType.TimeSignature
+                            ) {
+                                remove_entry(
+                                    draft.score.flows.by_key[flow_key].master,
+                                    entry_key
+                                );
+                            }
+                        });
+                        insert_entry(
+                            draft.score.flows.by_key[flow_key].master,
+                            time_signature
+                        );
+                    });
+
+                    return time_signature.key;
+                },
             },
             absolute_tempo: {
                 create: (
@@ -247,9 +458,8 @@ export const actions = {
                     parenthesis_visible: boolean,
                     text_visible: boolean,
                     bpm_visible: boolean
-                ) =>
-                    engine.create_absolute_tempo(
-                        flow_key,
+                ): string => {
+                    const tempo = create_absolute_tempo(
                         tick,
                         text,
                         beat_type,
@@ -258,7 +468,35 @@ export const actions = {
                         parenthesis_visible,
                         text_visible,
                         bpm_visible
-                    ),
+                    );
+
+                    store.update((draft, state) => {
+                        // remove any tempo already at the current tick
+                        const entries =
+                            state.score.flows.by_key[flow_key].master.entries
+                                .by_tick[tick] || [];
+                        entries.forEach((entry_key) => {
+                            if (
+                                state.score.flows.by_key[flow_key].master
+                                    .entries.by_key[entry_key].type ===
+                                EntryType.AbsoluteTempo
+                            ) {
+                                delete draft.score.flows.by_key[flow_key].master
+                                    .entries.by_key[entry_key];
+                            }
+                        });
+
+                        // insert the new tempo
+                        insert_entry(
+                            draft.score.flows.by_key[flow_key].master,
+                            tempo
+                        );
+
+                        // TODO: make sure we have full bars
+                    });
+
+                    return tempo.key;
+                },
             },
             tone: {
                 /**
@@ -268,52 +506,98 @@ export const actions = {
                  */
                 create: (
                     flow_key: string,
+                    stave_key: string,
                     track_key: string,
                     tick: number,
                     duration: number,
-                    pitch: number,
+                    pitch: Pitch,
                     velocity: number,
                     articulation: Articulation
-                ): string =>
-                    engine.create_tone(
-                        flow_key,
-                        track_key,
+                ): string => {
+                    const tone = create_tone(
                         tick,
                         duration,
                         pitch,
                         velocity,
                         articulation
-                    ),
+                    );
+
+                    store.update((draft, state) => {
+                        insert_entry(
+                            draft.score.flows.by_key[flow_key].staves[stave_key]
+                                .tracks.by_key[track_key],
+                            tone
+                        );
+                    });
+
+                    return tone.key;
+                },
                 update: (
                     flow_key: string,
+                    stave_key: string,
                     track_key: string,
                     entry_key: string,
                     tick: number,
                     duration: number,
-                    pitch: number,
+                    pitch: Pitch,
                     articulation: Articulation
-                ) =>
-                    engine.update_tone(
-                        flow_key,
-                        track_key,
-                        entry_key,
-                        tick,
-                        duration,
-                        pitch,
-                        articulation
-                    ),
+                ) => {
+                    store.update((draft) => {
+                        move_entry(
+                            draft.score.flows.by_key[flow_key].staves[stave_key]
+                                .tracks.by_key[track_key],
+                            entry_key,
+                            tick
+                        );
+                        const tone = draft.score.flows.by_key[flow_key].staves[
+                            stave_key
+                        ].tracks.by_key[track_key].entries.by_key[
+                            entry_key
+                        ] as Tone;
+                        tone.duration = duration;
+                        tone.pitch = pitch;
+                        tone.articulation = articulation;
+                    });
+                },
                 slice: (
                     flow_key: string,
+                    stave_key: string,
                     track_key: string,
                     entry_key: string,
                     slice_at: number
-                ) =>
-                    engine.slice_tone(flow_key, track_key, entry_key, slice_at),
+                ) => {
+                    store.update((draft, state) => {
+                        const track =
+                            draft.score.flows.by_key[flow_key].staves[stave_key]
+                                .tracks.by_key[track_key];
+                        const old_tone = track.entries.by_key[
+                            entry_key
+                        ] as Tone;
+                        const new_tone = create_tone(
+                            slice_at,
+                            old_tone.duration - (slice_at - old_tone.tick),
+                            old_tone.pitch,
+                            old_tone.velocity,
+                            old_tone.articulation
+                        );
+                        insert_entry(track, new_tone);
+                        old_tone.duration = slice_at - old_tone.tick;
+                    });
+                },
                 remove: (
                     flow_key: string,
+                    stave_key: string,
                     track_key: string,
                     entry_key: string
-                ) => engine.remove_tone(flow_key, track_key, entry_key),
+                ) => {
+                    store.update((draft) => {
+                        remove_entry(
+                            draft.score.flows.by_key[flow_key].staves[stave_key]
+                                .tracks.by_key[track_key],
+                            entry_key
+                        );
+                    });
+                },
             },
         },
     },
@@ -393,3 +677,7 @@ export const actions = {
         },
     },
 };
+
+// debuggable
+const self = window as any;
+self._actions = actions;

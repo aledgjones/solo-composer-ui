@@ -1,16 +1,96 @@
-import {
-    PlayerType,
-    AutoCountStyle,
-    Accidental,
-    NoteDuration,
-    TimeSignatureDrawType,
-    Articulation,
-    InstrumentType,
-} from "solo-composer-engine";
 import { PlaybackDefs } from "./playback/defs";
-import { Track } from "./track";
-
 export * from "./playback/defs";
+
+export enum TimeSignatureDrawType {
+    Hidden,
+    Normal,
+    CommonTime,
+    SplitCommonTime,
+}
+
+export enum NoteDuration {
+    Whole,
+    Half,
+    Quarter,
+    Eighth,
+    Sixteenth,
+    ThirtySecond,
+}
+
+export enum DottedValue {
+    Single = 1,
+    Double = 2,
+}
+
+export enum Articulation {
+    None,
+    Staccato,
+    Staccatissimo,
+    Tenuto,
+    StaccatoTenuto,
+}
+
+export enum Accidental {
+    DoubleSharp,
+    Sharp,
+    Natural,
+    Flat,
+    DoubleFlat,
+}
+
+export interface Pitch {
+    int: number;
+    accidental: Accidental;
+}
+
+export enum Expression {
+    Natural,
+    Pizzicato,
+    Spiccato,
+    Staccato,
+    Tremolo,
+    Mute,
+}
+
+export enum ClefDrawType {
+    Hidden,
+    G,
+    F,
+    C,
+    Percussion,
+}
+
+export enum InstrumentType {
+    Melodic,
+    Percussive,
+}
+
+export interface StaveDef {
+    lines: number[];
+    clef: {
+        draw_as: ClefDrawType;
+        pitch: number;
+        offset: number;
+    };
+}
+
+export interface InstrumentDef {
+    id: string;
+    instrument_type: InstrumentType;
+    path: string[];
+    long_name: string;
+    short_name: string;
+    staves: StaveDef[];
+    patches: {
+        [PlayerType.Solo]: Patches;
+        [PlayerType.Section]: Patches;
+    };
+}
+
+export enum AutoCountStyle {
+    Arabic,
+    Roman,
+}
 
 export enum Status {
     Pending,
@@ -40,9 +120,6 @@ export enum ThemeMode {
 
 export interface Tick {
     tick: number;
-    bar: number;
-    beat: number;
-    sixteenth: number;
     x: number;
     width: number;
     is_beat: boolean;
@@ -54,37 +131,6 @@ export interface Tick {
 export interface TickList {
     list: Tick[];
     width: number;
-}
-
-export interface Tone {
-    key: string;
-    tick: number;
-    duration: { int: number }; // ticks
-    pitch: { int: number; accidental: Accidental }; // MIDI pitch number
-    velocity: { int: number }; // 0-127
-    articulation: Articulation;
-}
-
-export interface TimeSignature {
-    key: string;
-    tick: number;
-    beats: number;
-    beat_type: number;
-    draw_type: TimeSignatureDrawType;
-    groupings: number[];
-}
-
-export interface AbsoluteTempo {
-    key: string;
-    tick: number;
-    normalized_bpm: number; // beats per minute in crotchets
-    text: string;
-    beat_type: NoteDuration;
-    dotted: number;
-    bpm: number;
-    parenthesis_visible: boolean;
-    text_visible: boolean;
-    bpm_visible: boolean;
 }
 
 export interface Patches {
@@ -104,6 +150,11 @@ export interface Instrument {
     solo: boolean;
 }
 
+export enum PlayerType {
+    Solo,
+    Section,
+}
+
 export interface Player {
     key: string;
     player_type: PlayerType;
@@ -111,11 +162,76 @@ export interface Player {
     name?: string;
 }
 
-export interface Stave {
+export enum EntryType {
+    TimeSignature,
+    AbsoluteTempo,
+    Clef,
+    Tone,
+}
+
+export interface Entry {
     key: string;
-    lines: number;
+    tick: number;
+    type: EntryType;
+}
+
+export interface TimeSignature extends Entry {
+    type: EntryType.TimeSignature;
+    beats: number;
+    beat_type: number;
+    draw_type: TimeSignatureDrawType;
+    groupings: number[];
+}
+
+export interface AbsoluteTempo extends Entry {
+    type: EntryType.AbsoluteTempo;
+    // written representation
+    text: string;
+    beat_type: NoteDuration;
+    dotted: DottedValue;
+    bpm: number;
+
+    // written representation config
+    parenthesis_visible: boolean;
+    text_visible: boolean;
+    bpm_visible: boolean;
+}
+
+export interface Clef extends Entry {
+    type: EntryType.Clef;
+    draw_as: ClefDrawType;
+    pitch: Pitch; // the pitch that the clef sits on
+    offset: number; // visual offset from top stave line
+}
+
+export interface Tone extends Entry {
+    type: EntryType.Tone;
+    duration: number; // ticks
+    pitch: Pitch; // MIDI pitch number
+    velocity: number; // 0-127
+    articulation: Articulation;
+}
+
+export interface Entries {
+    by_tick: { [tick: number]: string[] };
+    by_key: { [key: string]: Entry }; // The typing stop here we will never actually use these js side.
+}
+
+export interface Track {
+    key: string;
+    entries: Entries;
+}
+
+export interface Stave {
+    key: String;
+    lines: number[];
     master: Track;
-    tracks: string[];
+    tracks: {
+        order: string[];
+        by_key: {
+            [key: string]: Track;
+        };
+    };
 }
 
 export interface Flow {
@@ -127,7 +243,6 @@ export interface Flow {
 
     master: Track;
     staves: { [key: string]: Stave };
-    tracks: { [key: string]: Track };
 }
 
 export interface Score {
@@ -170,7 +285,6 @@ export interface State {
     playback: PlaybackDefs;
     score: Score;
     ui: {
-        ticks: { [flow_key: string]: TickList };
         view: View;
         snap: NoteDuration;
         flow_key: string;

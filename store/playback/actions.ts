@@ -1,7 +1,7 @@
-import { get_patches, Expression, PlayerType } from "solo-composer-engine";
 import { store } from "../use-store";
-import { Status } from "../defs";
+import { Status, PlayerType, Expression } from "../defs";
 import { Transport, Player } from "solo-composer-scheduler";
+import { get_patches } from "../instrument-defs";
 
 export const playbackActions = {
     metronome: {
@@ -43,10 +43,7 @@ export const playbackActions = {
 
             const instrument = Player.createSampler(instrumentKey);
 
-            const map: { [expression: number]: string } = get_patches(
-                id,
-                player_type
-            );
+            const map = get_patches(id, player_type);
             let expressions = Object.entries(map);
 
             await Promise.all(
