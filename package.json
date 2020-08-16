@@ -13,6 +13,7 @@
         "@types/big.js": "4.0.5",
         "@types/color": "3.0.1",
         "@types/humanize-duration": "3.18.0",
+        "@types/jsonpack": "^1.1.0",
         "@types/lodash.isobject": "3.0.6",
         "@types/lodash.isstring": "4.0.6",
         "@types/react": "16.9.43",
@@ -37,22 +38,19 @@
     },
     "dependencies": {
         "@mdi/js": "5.3.45",
-        "@types/lodash.throttle": "^4.1.6",
         "app-reset": "1.0.2",
         "big.js": "5.2.2",
         "color": "3.1.2",
-        "fast-deep-equal": "3.1.3",
         "humanize-duration": "3.23.1",
+        "jsonpack": "^1.1.5",
         "localforage": "1.8.1",
         "lodash.isobject": "3.0.2",
         "lodash.isstring": "4.0.1",
-        "lodash.throttle": "^4.1.1",
         "pullstate": "1.16.0",
         "react": "16.13.1",
         "react-dom": "16.13.1",
         "react-inspector": "5.0.1",
         "roman-numerals": "0.3.2",
-        "shortid": "2.2.15",
-        "solo-composer-engine": "file:../solo-composer-engine/pkg"
+        "shortid": "2.2.15"
     }
 }

@@ -7,6 +7,8 @@ import {
     actions,
     duration_to_ticks,
     Articulation,
+    EntryType,
+    pitch_from_number,
 } from "../../../store";
 import { dragHandler } from "../../../ui";
 import { ToneTrackEntry } from "../tone-track-entry";
@@ -19,7 +21,6 @@ import {
 } from "../utils";
 
 import "./styles.css";
-import { Player } from "solo-composer-scheduler";
 
 interface Props {
     flowKey: string;
@@ -44,34 +45,37 @@ export const ToneTrack: FC<Props> = ({
 }) => {
     const track = useRef<HTMLDivElement>(null);
 
-    const [audition, snap, tones, trackKey] = useStore(
+    const [audition, snap, tones, staveKey, trackKey] = useStore(
         (s) => {
             const flow = s.score.flows.by_key[flowKey];
             const instrument = s.score.instruments[instrumentKey];
 
             // TODO: make trackKey dynamic so it can be selectable by user
             // == delete ==
-            const stave = flow.staves[instrument.staves[0]];
-            const trackKey = stave.tracks[0];
+            const staveKey = instrument.staves[0];
+            const stave = flow.staves[staveKey];
+            const trackKey = stave.tracks.order[0];
             // == delete ==
 
             return [
                 s.app.audition,
                 duration_to_ticks(
-                    s.score.flows.by_key[flowKey].subdivisions,
-                    s.ui.snap
+                    s.ui.snap,
+                    s.score.flows.by_key[flowKey].subdivisions
                 ),
                 instrument.staves.reduce<Tone[]>((out, stave_key) => {
-                    flow.staves[stave_key].tracks.forEach((track_key) => {
-                        const track = flow.tracks[track_key];
+                    flow.staves[stave_key].tracks.order.forEach((track_key) => {
+                        const track =
+                            flow.staves[stave_key].tracks.by_key[track_key];
                         Object.values(track.entries.by_key).forEach((entry) => {
-                            if (entry.Tone) {
-                                out.push(entry.Tone as Tone);
+                            if (entry.type === EntryType.Tone) {
+                                out.push(entry as Tone);
                             }
                         });
                     });
                     return out;
                 }, []),
+                staveKey,
                 trackKey,
             ];
         },
@@ -105,10 +109,11 @@ export const ToneTrack: FC<Props> = ({
                 const pitch = getPitchFromYPosition(y, base, slots);
                 const toneKey = actions.score.entries.tone.create(
                     flowKey,
+                    staveKey,
                     trackKey,
                     start,
                     duration,
-                    pitch,
+                    pitch_from_number(pitch),
                     100,
                     Articulation.None
                 );
@@ -136,6 +141,7 @@ export const ToneTrack: FC<Props> = ({
         },
         [
             flowKey,
+            staveKey,
             instrumentKey,
             trackKey,
             track,
@@ -204,11 +210,12 @@ export const ToneTrack: FC<Props> = ({
                     );
                     actions.score.entries.tone.update(
                         flowKey,
+                        staveKey,
                         trackKey,
                         toneKey,
                         s,
                         d,
-                        p,
+                        pitch_from_number(p),
                         articulation
                     );
                 },
@@ -234,6 +241,7 @@ export const ToneTrack: FC<Props> = ({
                     if (d <= 0) {
                         actions.score.entries.tone.remove(
                             flowKey,
+                            staveKey,
                             trackKey,
                             toneKey
                         );
@@ -245,6 +253,7 @@ export const ToneTrack: FC<Props> = ({
         },
         [
             flowKey,
+            staveKey,
             instrumentKey,
             trackKey,
             track,
@@ -273,21 +282,22 @@ export const ToneTrack: FC<Props> = ({
                 actions.ui.play.selection.clear();
                 actions.score.entries.tone.slice(
                     flowKey,
+                    staveKey,
                     trackKey,
                     toneKey,
                     slice
                 );
             }
         },
-        [flowKey, trackKey, ticks, snap, zoom]
+        [flowKey, staveKey, trackKey, ticks, snap, zoom]
     );
 
     const onRemove = useCallback(
         (key: string) => {
             actions.ui.play.selection.clear();
-            actions.score.entries.tone.remove(flowKey, trackKey, key);
+            actions.score.entries.tone.remove(flowKey, staveKey, trackKey, key);
         },
-        [flowKey, trackKey]
+        [flowKey, staveKey, trackKey]
     );
 
     return (

@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import { mdiChevronRight } from "@mdi/js";
 import { Dialog, Icon, Button } from "../../../ui";
 import { MenuItem } from "../../components/menu-item";
-import { useDefsList, getFullPathFromPartial } from "../../../store";
 
 import "../generic-settings.css";
 import "./styles.css";
+import {
+    get_full_path_from_partial,
+    useDefsList,
+} from "../../../store/instrument-defs";
+import { Text } from "../../components/text";
 
 interface Props {
     onSelect: (id: string) => void;
@@ -13,9 +17,11 @@ interface Props {
 }
 
 export const InstrumentPicker = Dialog<Props>(({ onSelect, onCancel }) => {
-    const [selection, setSelection] = useState<{ path: string[]; id: string }>(() => {
-        return getFullPathFromPartial([]);
-    });
+    const [selection, setSelection] = useState<{ path: string[]; id: string }>(
+        () => {
+            return get_full_path_from_partial([]);
+        }
+    );
     const lists = useDefsList(selection.path);
 
     return (
@@ -26,7 +32,11 @@ export const InstrumentPicker = Dialog<Props>(({ onSelect, onCancel }) => {
                         <div key={i} className="instrument-picker__section">
                             {list.map((item) => {
                                 const selected = item === selection.path[i];
-                                const final = !(selected && lists[i + 1] && lists[i + 1].length > 0);
+                                const final = !(
+                                    selected &&
+                                    lists[i + 1] &&
+                                    lists[i + 1].length > 0
+                                );
 
                                 return (
                                     <MenuItem
@@ -35,14 +45,29 @@ export const InstrumentPicker = Dialog<Props>(({ onSelect, onCancel }) => {
                                         onClick={() => {
                                             // only alow fresh selection else it will revert to first
                                             if (!selected) {
-                                                const path = [...selection.path.slice(0, i), item];
-                                                const def = getFullPathFromPartial(path);
+                                                const path = [
+                                                    ...selection.path.slice(
+                                                        0,
+                                                        i
+                                                    ),
+                                                    item,
+                                                ];
+                                                const def = get_full_path_from_partial(
+                                                    path
+                                                );
                                                 setSelection(def);
                                             }
                                         }}
                                     >
-                                        <span>{item}</span>
-                                        {!final && <Icon size={24} path={mdiChevronRight} />}
+                                        <span>
+                                            <Text content={item} />
+                                        </span>
+                                        {!final && (
+                                            <Icon
+                                                size={24}
+                                                path={mdiChevronRight}
+                                            />
+                                        )}
                                     </MenuItem>
                                 );
                             })}
@@ -52,7 +77,12 @@ export const InstrumentPicker = Dialog<Props>(({ onSelect, onCancel }) => {
             </div>
             <div className="instrument-picker__buttons">
                 <div className="instrument-picker__spacer" />
-                <Button compact outline style={{ marginRight: 8 }} onClick={onCancel}>
+                <Button
+                    compact
+                    outline
+                    style={{ marginRight: 8 }}
+                    onClick={onCancel}
+                >
                     Cancel
                 </Button>
                 <Button compact onClick={() => onSelect(selection.id)}>

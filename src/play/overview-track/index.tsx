@@ -1,6 +1,6 @@
 import React, { FC, useRef, useMemo } from "react";
 import Color from "color";
-import { TickList, useStore, Tone } from "../../../store";
+import { TickList, useStore, Tone, EntryType } from "../../../store";
 
 import "./styles.css";
 
@@ -28,11 +28,12 @@ export const OverviewTrack: FC<Props> = ({
 
             return [
                 instrument.staves.reduce<Tone[]>((out, stave_key) => {
-                    flow.staves[stave_key].tracks.forEach((track_key) => {
-                        const track = flow.tracks[track_key];
+                    flow.staves[stave_key].tracks.order.forEach((track_key) => {
+                        const track =
+                            flow.staves[stave_key].tracks.by_key[track_key];
                         Object.values(track.entries.by_key).forEach((entry) => {
-                            if (entry.Tone) {
-                                out.push(entry.Tone as Tone);
+                            if (entry.type === EntryType.Tone) {
+                                out.push(entry as Tone);
                             }
                         });
                     });
@@ -49,7 +50,7 @@ export const OverviewTrack: FC<Props> = ({
             .reduce<[number, number][]>((out, tone) => {
                 const prev = out[out.length - 1];
                 const start = tone.tick;
-                const stop = tone.tick + tone.duration.int;
+                const stop = tone.tick + tone.duration;
                 if (prev) {
                     const [, prevStop] = prev;
                     if (start < prevStop && stop < prevStop) {
@@ -93,7 +94,7 @@ export const OverviewTrack: FC<Props> = ({
             })}
             {tones.map((tone) => {
                 const start = tone.tick;
-                const stop = tone.tick + tone.duration.int;
+                const stop = tone.tick + tone.duration;
                 return (
                     <div
                         key={tone.key}

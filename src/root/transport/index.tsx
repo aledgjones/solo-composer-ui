@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useMemo } from "react";
+import React, { FC, useEffect } from "react";
 import { mdiPlay, mdiMetronome, mdiSkipPrevious, mdiPause } from "@mdi/js";
 import {
     useStore,
@@ -8,23 +8,22 @@ import {
     Expression,
     AbsoluteTempo,
     Articulation,
+    EntryType,
+    useTimestamp,
 } from "../../../store";
 import { Icon } from "../../../ui";
 import { store } from "../../../store/use-store";
 import { Transport, Player } from "solo-composer-scheduler";
+import { normalize_bpm } from "../../../store/absolute-tempo";
 
 import "./styles.css";
 
 export const TransportComponent: FC = () => {
-    const [flow_key, ticks, metronome, playing] = useStore((s) => {
-        const flow_key = s.ui.flow_key ? s.ui.flow_key : s.score.flows.order[0];
-        return [
-            flow_key,
-            s.ui.ticks[flow_key].list,
-            s.playback.metronome,
-            s.playback.transport.playing,
-        ];
-    });
+    const [flow_key, metronome, playing] = useStore((s) => [
+        s.ui.flow_key,
+        s.playback.metronome,
+        s.playback.transport.playing,
+    ]);
 
     useEffect(() => {
         const startCb = () => {
@@ -46,10 +45,7 @@ export const TransportComponent: FC = () => {
     }, [flow_key]);
 
     const tick = useTick();
-    const timestamp = useMemo(() => {
-        const t = ticks[tick];
-        return `${t.bar}:${t.beat}:${t.sixteenth.toFixed(3)}`;
-    }, [ticks, tick]);
+    const timestamp = useTimestamp(tick, flow_key);
 
     // FIXME: this is just for testing. Think of a better way of doing this.
     // or is it? This seems to work okay for now actually!
@@ -73,11 +69,16 @@ export const TransportComponent: FC = () => {
 
                 Object.values(flow.master.entries.by_key).forEach((entry) => {
                     // 1) tempo changes
-                    if (entry.AbsoluteTempo) {
-                        const tempo = entry.AbsoluteTempo as AbsoluteTempo;
+                    if (entry.type === EntryType.AbsoluteTempo) {
+                        const tempo = entry as AbsoluteTempo;
                         Transport.scheduleTempoChange(
                             tempo.tick,
-                            tempo.normalized_bpm
+                            normalize_bpm(
+                                flow.subdivisions,
+                                tempo.beat_type,
+                                tempo.dotted,
+                                tempo.bpm
+                            )
                         );
                     }
                 });
@@ -88,16 +89,19 @@ export const TransportComponent: FC = () => {
                     player.instruments.forEach((instrumentKey) => {
                         const instrument = instruments[instrumentKey];
                         instrument.staves.forEach((stave_key) => {
-                            flow.staves[stave_key].tracks.forEach(
+                            flow.staves[stave_key].tracks.order.forEach(
                                 (track_key) => {
-                                    const track = flow.tracks[track_key];
+                                    const track =
+                                        flow.staves[stave_key].tracks.by_key[
+                                            track_key
+                                        ];
                                     Object.values(track.entries.by_key).forEach(
                                         (entry) => {
-                                            if (entry.Tone) {
-                                                const tone = entry.Tone as Tone;
+                                            if (entry.type === EntryType.Tone) {
+                                                const tone = entry as Tone;
                                                 Transport.scheduleEvent(
                                                     tone.tick,
-                                                    tone.duration.int,
+                                                    tone.duration,
                                                     (when, duration) => {
                                                         Player.play(
                                                             instrumentKey,
