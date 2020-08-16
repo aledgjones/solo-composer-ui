@@ -203,19 +203,26 @@ export function move(arr: any[], from: number, to: number) {
 }
 
 export function useTimestamp(current: number, flow_key: string) {
-    const flow = useStore((s) => s.score.flows.by_key[flow_key], [flow_key]);
+    const [length, subdivisions, master] = useStore(
+        (s) => [
+            s.score.flows.by_key[flow_key].length,
+            s.score.flows.by_key[flow_key].subdivisions,
+            s.score.flows.by_key[flow_key].master,
+        ],
+        [flow_key]
+    );
     const timestamps = useMemo(() => {
         let bar = 0;
         let time_signature: TimeSignature = null;
         const stamps: string[] = [];
 
         // look for the previous time signature
-        for (let tick = 0; tick <= flow.length; tick++) {
-            const entries = flow.master.entries.by_tick[tick] || [];
+        for (let tick = 0; tick <= length; tick++) {
+            const entries = master.entries.by_tick[tick] || [];
             const result = entries
                 .map(
                     (key): Entry => {
-                        return flow.master.entries.by_key[key];
+                        return master.entries.by_key[key];
                     }
                 )
                 .filter((entry) => {
@@ -228,16 +235,16 @@ export function useTimestamp(current: number, flow_key: string) {
 
             let ticks_per_quarter = duration_to_ticks(
                 NoteDuration.Quarter,
-                flow.subdivisions
+                subdivisions
             );
             let ticks_per_sixteenth = duration_to_ticks(
                 NoteDuration.Sixteenth,
-                flow.subdivisions
+                subdivisions
             );
 
             let distance = distance_from_barline(
                 tick,
-                flow.subdivisions,
+                subdivisions,
                 time_signature
             );
 
@@ -252,13 +259,20 @@ export function useTimestamp(current: number, flow_key: string) {
             stamps.push(`${bar}:${beat}:${sixteenth.toFixed(3)}`);
         }
         return stamps;
-    }, [flow]);
+    }, [length, subdivisions, master]);
 
     return timestamps[current];
 }
 
 export function useTicks(flow_key: string): TickList {
-    const flow = useStore((s) => s.score.flows.by_key[flow_key], [flow_key]);
+    const [length, subdivisions, master] = useStore(
+        (s) => [
+            s.score.flows.by_key[flow_key].length,
+            s.score.flows.by_key[flow_key].subdivisions,
+            s.score.flows.by_key[flow_key].master,
+        ],
+        [flow_key]
+    );
 
     return useMemo(() => {
         const quarter_width = 72.0;
@@ -269,10 +283,10 @@ export function useTicks(flow_key: string): TickList {
 
         let time_signature: TimeSignature = null;
 
-        for (let tick = 0; tick < flow.length; tick++) {
-            const entries = flow.master.entries.by_tick[tick] || [];
+        for (let tick = 0; tick < length; tick++) {
+            const entries = master.entries.by_tick[tick] || [];
             const result = entries
-                .map((key): Entry => flow.master.entries.by_key[key])
+                .map((key): Entry => master.entries.by_key[key])
                 .filter((entry) => entry.type === EntryType.TimeSignature);
 
             if (result.length > 0) {
@@ -281,11 +295,11 @@ export function useTicks(flow_key: string): TickList {
 
             let ticks_per_quarter = duration_to_ticks(
                 NoteDuration.Quarter,
-                flow.subdivisions
+                subdivisions
             );
             let distance = distance_from_barline(
                 tick,
-                flow.subdivisions,
+                subdivisions,
                 time_signature
             );
 
@@ -297,20 +311,20 @@ export function useTicks(flow_key: string): TickList {
                 width: tick_width,
                 is_beat: is_on_beat_type(
                     tick,
-                    flow.subdivisions,
+                    subdivisions,
                     time_signature,
                     time_signature.beat_type
                 ),
                 is_first_beat: distance === 0,
                 is_quaver_beat: is_on_beat_type(
                     tick,
-                    flow.subdivisions,
+                    subdivisions,
                     time_signature,
                     NoteDuration.Eighth
                 ),
                 is_grouping_boundry: is_on_grouping_boundry(
                     tick,
-                    flow.subdivisions,
+                    subdivisions,
                     time_signature
                 ),
             });
@@ -319,5 +333,5 @@ export function useTicks(flow_key: string): TickList {
         }
 
         return ticks;
-    }, [flow]);
+    }, [length, subdivisions, master]);
 }

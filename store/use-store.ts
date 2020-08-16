@@ -13,6 +13,7 @@ export const empty = (): State => {
     const audition = localStorage.getItem("sc:audition/v1");
     const theme = localStorage.getItem("sc:theme-mode/v1");
     const flow = create_flow();
+    console.log(flow.key);
     return {
         app: {
             theme: theme === undefined ? ThemeMode.Dark : JSON.parse(theme),

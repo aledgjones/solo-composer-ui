@@ -1,3 +1,4 @@
+import { unpack } from "jsonpack";
 import { Transport, Progress, Player } from "solo-composer-scheduler";
 import { store, empty } from "./use-store";
 import {
@@ -14,17 +15,22 @@ import {
     Articulation,
     Pitch,
     Tone,
+    TimeSignature,
 } from "./defs";
 import { get_def } from "./instrument-defs";
 import { playbackActions } from "./playback";
 import { download, chooseFiles } from "../ui";
 import { create_empty_stave } from "./stave";
 import { create_player } from "./player";
-import { move } from "./utils";
+import { move, duration_to_ticks } from "./utils";
 import { create_instrument } from "./instrument";
 import { create_absolute_tempo } from "./absolute-tempo";
 import { insert_entry, remove_entry, move_entry } from "./track";
-import { create_time_signature } from "./time_signature";
+import {
+    create_time_signature,
+    get_entry_after_tick,
+    get_entries_at_tick,
+} from "./time_signature";
 import { create_tone } from "./tone";
 import { create_flow } from "./flow";
 
@@ -57,19 +63,18 @@ export const actions = {
          */
         export: () => {
             const state = store.getRawState();
-            download(
-                state.score,
-                state.score.meta.title
-                    .toLocaleLowerCase()
-                    .replace(/\s/g, "-") || "untitled",
-                "application/json"
-            );
+            const filename = state.score.meta.title
+                ? state.score.meta.title
+                      .toLocaleLowerCase()
+                      .replace(/\s/g, "-") + ".scf"
+                : "untitled.scf";
+            download(state.score, filename);
         },
         /**
          * Import a score
          */
         import: async (progress: Progress) => {
-            const resp = await chooseFiles(["application/json"]);
+            const resp = await chooseFiles();
             const file = resp.files[0];
             if (file) {
                 // cleanup old state
@@ -80,7 +85,7 @@ export const actions = {
 
                 // import the json file
                 const content = await file.text();
-                const score: Score = JSON.parse(content);
+                const score: Score = unpack(content);
                 progress(4, 2);
 
                 // set the imported state in the engine
@@ -399,7 +404,7 @@ export const actions = {
             },
             unsolo(instrument_key: string) {
                 store.update((draft) => {
-                    draft.score.instruments[instrument_key].mute = false;
+                    draft.score.instruments[instrument_key].solo = false;
                 });
                 Player.unsolo(instrument_key);
             },
@@ -423,13 +428,11 @@ export const actions = {
                     );
                     store.update((draft, state) => {
                         // remove any time signature already at the current tick
-                        const entries =
-                            state.score.flows.by_key[flow_key].master.entries
-                                .by_tick[tick] || [];
+                        const flow = state.score.flows.by_key[flow_key];
+                        const entries = flow.master.entries.by_tick[tick] || [];
                         entries.forEach((entry_key) => {
                             if (
-                                state.score.flows.by_key[flow_key].master
-                                    .entries.by_key[entry_key].type ===
+                                flow.master.entries.by_key[entry_key].type ===
                                 EntryType.TimeSignature
                             ) {
                                 remove_entry(
@@ -442,6 +445,41 @@ export const actions = {
                             draft.score.flows.by_key[flow_key].master,
                             time_signature
                         );
+                        const ticks_per_bar =
+                            duration_to_ticks(
+                                time_signature.beat_type,
+                                flow.subdivisions
+                            ) * time_signature.beats;
+                        const next = get_entry_after_tick(
+                            tick,
+                            flow.master,
+                            EntryType.TimeSignature
+                        ) as TimeSignature;
+                        const overflow = next
+                            ? (next.tick - tick) % ticks_per_bar
+                            : (flow.length - tick) % ticks_per_bar;
+
+                        if (overflow > 0) {
+                            // add aditional ticks to flow length to make full bars
+                            draft.score.flows.by_key[flow_key].length =
+                                flow.length + (ticks_per_bar - overflow);
+                        }
+
+                        // move the future time signatures by the offset
+                        for (let i = tick + 1; i < flow.length; i++) {
+                            const entries = get_entries_at_tick(
+                                i,
+                                flow.master,
+                                EntryType.TimeSignature
+                            );
+                            entries.forEach((entry) => {
+                                move_entry(
+                                    draft.score.flows.by_key[flow_key].master,
+                                    entry.key,
+                                    i + (ticks_per_bar - overflow)
+                                );
+                            });
+                        }
                     });
 
                     return time_signature.key;
@@ -491,8 +529,6 @@ export const actions = {
                             draft.score.flows.by_key[flow_key].master,
                             tempo
                         );
-
-                        // TODO: make sure we have full bars
                     });
 
                     return tempo.key;

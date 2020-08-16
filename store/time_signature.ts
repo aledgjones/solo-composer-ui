@@ -4,6 +4,8 @@ import {
     EntryType,
     TimeSignature,
     TimeSignatureDrawType,
+    Track,
+    Entry,
 } from "./defs";
 
 /** Create a time signature with optional beat groupings */
@@ -67,4 +69,34 @@ function default_groupings(beats: number): number[] {
                 return [];
         }
     }
+}
+
+export function get_entries_at_tick(
+    tick: number,
+    track: Track,
+    type: EntryType
+) {
+    const entries = track.entries.by_tick[tick] || [];
+    return entries
+        .map((key) => track.entries.by_key[key])
+        .filter((entry) => entry.type === type);
+}
+
+export function get_entry_after_tick(
+    tick: number,
+    track: Track,
+    type: EntryType
+) {
+    let found: Entry = null;
+    const entries = Object.values(track.entries.by_key);
+    for (let i = 0; i < entries.length; i++) {
+        const entry = entries[i];
+        if (entry.type === type && entry.tick > tick) {
+            if (!found || found.tick > entry.tick) {
+                found = entry;
+            }
+        }
+    }
+
+    return found;
 }
