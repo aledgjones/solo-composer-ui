@@ -10,6 +10,7 @@ import { PlayerTypePicker } from "../dialogs/player-type-picker";
 import { InstrumentPicker } from "../dialogs/instrument-picker";
 
 import "./styles.css";
+import { Renderer } from "../components/renderer";
 
 const Setup: FC = () => {
     useTitle("Solo Composer | Setup");
@@ -85,7 +86,7 @@ const Setup: FC = () => {
 
                 <div className="setup__middle">
                     <RenderRegion className="setup__view">
-                        {/* <RenderWriteMode /> */}
+                        <Renderer />
                     </RenderRegion>
                     <FlowList selection={selection} onSelect={setSelection} />
                 </div>

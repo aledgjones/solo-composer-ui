@@ -1,6 +1,6 @@
 import shortid from "shortid";
 import { Flow, NoteDuration, TimeSignatureDrawType } from "./defs";
-import { create_time_signature } from "./time_signature";
+import { create_time_signature } from "./entries";
 import { create_empty_track, insert_entry } from "./track";
 
 export function create_flow(): Flow {

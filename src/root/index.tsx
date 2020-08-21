@@ -1,7 +1,7 @@
 import React, { FC, useEffect, Suspense } from "react";
 import { mdiUndo, mdiRedo } from "@mdi/js";
 import { useStore, actions, ThemeMode, View } from "../../store";
-import { Tabs, useTheme, merge, Tab, Icon } from "../../ui";
+import { Tabs, useTheme, merge, Tab, Icon, Log } from "../../ui";
 import { TransportComponent } from "./transport";
 import { Loading } from "../components/loading";
 import { File } from "./file";
@@ -9,7 +9,7 @@ import { File } from "./file";
 import "./styles.css";
 
 const Setup = React.lazy(() => import("../setup"));
-// const Write = React.lazy(() => import("../../routes/write"));
+const Write = React.lazy(() => import("../write"));
 // const Engrave = React.lazy(() => import("../../routes/engrave"));
 const Play = React.lazy(() => import("../play"));
 
@@ -69,13 +69,15 @@ export const Root: FC = () => {
                 <div className="root__content">
                     <Suspense fallback={<Loading />}>
                         {view === View.Setup && <Setup />}
-                        {/* {tab === TabState.write && <Write />} */}
+                        {view === View.Write && <Write />}
                         {/* {tab === TabState.engrave && <Engrave />} */}
                         {view === View.Play && <Play />}
                         {/* {tab === TabState.print && <Fallback color={theme.background[500].fg} type="empty" />} */}
                     </Suspense>
                 </div>
             </div>
+
+            <Log />
         </>
     );
 };

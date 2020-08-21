@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from "react";
+import React, { FC, Fragment, CSSProperties } from "react";
 import { State, useStore } from "../../../store";
 
 import "./styles.css";

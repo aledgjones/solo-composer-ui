@@ -1,5 +1,11 @@
 import { PlaybackDefs } from "./playback/defs";
+import { EngravingConfig } from "./score-engraving/defs";
+
 export * from "./playback/defs";
+export * from "./score-engraving/defs";
+
+export type MMs = number;
+export type Spaces = number;
 
 export enum TimeSignatureDrawType {
     Hidden,
@@ -18,8 +24,9 @@ export enum NoteDuration {
 }
 
 export enum DottedValue {
-    Single = 1,
-    Double = 2,
+    None,
+    Single,
+    Double,
 }
 
 export enum Articulation {
@@ -76,7 +83,7 @@ export interface StaveDef {
 
 export interface InstrumentDef {
     id: string;
-    instrument_type: InstrumentType;
+    type: InstrumentType;
     path: string[];
     long_name: string;
     short_name: string;
@@ -140,11 +147,10 @@ export interface Patches {
 export interface Instrument {
     key: string;
     id: string;
-    instrument_type: InstrumentType;
+    type: InstrumentType;
     long_name: string;
     short_name: string;
     staves: string[];
-    count?: number;
     volume: number;
     mute: boolean;
     solo: boolean;
@@ -157,7 +163,7 @@ export enum PlayerType {
 
 export interface Player {
     key: string;
-    player_type: PlayerType;
+    type: PlayerType;
     instruments: string[];
     name?: string;
 }
@@ -245,22 +251,27 @@ export interface Flow {
     staves: { [key: string]: Stave };
 }
 
+export interface Meta {
+    title: string;
+    subtitle: string;
+    composer: string;
+    arranger: string;
+    lyricist: string;
+    copyright: string;
+    created: number;
+    modified: number;
+}
+
 export interface Score {
-    meta: {
-        title: string;
-        subtitle: string;
-        composer: string;
-        arranger: string;
-        lyricist: string;
-        copyright: string;
-        created: number;
-        modified: number;
-    };
+    meta: Meta;
     config: {
         auto_count: {
             solo: AutoCountStyle;
             section: AutoCountStyle;
         };
+    };
+    engraving: {
+        [key: string]: EngravingConfig;
     };
     flows: {
         order: string[];

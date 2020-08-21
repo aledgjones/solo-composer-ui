@@ -1,0 +1,7 @@
+.write {
+    height: 100%;
+}
+
+.write__renderer {
+    padding-left: 148px !important;
+}

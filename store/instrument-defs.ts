@@ -10,7 +10,7 @@ import { useMemo } from "react";
 const defs: InstrumentDef[] = [
     {
         id: "brass.bass-trombone",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Brass", "Bass Trombone"],
         long_name: "Bass Trombone",
         short_name: "B. Tbn.",
@@ -35,7 +35,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "brass.horn.f",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Brass", "Horn", "F"],
         long_name: "Horn in F",
         short_name: "F Hn.",
@@ -64,7 +64,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "brass.trombone",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Brass", "Trombone"],
         long_name: "Trombone",
         short_name: "Tbn.",
@@ -91,7 +91,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "brass.trumpet.b-flat",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Brass", "Trumpet", "B${flat}"],
         long_name: "Trumpet in B${flat}",
         short_name: "B${flat} Tpt.",
@@ -120,7 +120,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "brass.trumpet.c",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Brass", "Trumpet", "C"],
         long_name: "Trumpet in C",
         short_name: "C Tpt.",
@@ -149,7 +149,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "brass.tuba",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Brass", "Tuba"],
         long_name: "Tuba",
         short_name: "Tba.",
@@ -176,7 +176,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "guitar.acoustic",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Guitar", "Acoustic Guitar"],
         long_name: "Acoustic Guitar",
         short_name: "A. Gtr.",
@@ -201,7 +201,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "guitar.bass",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Guitar", "Bass Guitar"],
         long_name: "Bass Guitar",
         short_name: "B. Gtr.",
@@ -226,7 +226,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "guitar.distortion",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Guitar", "Distortion Guitar"],
         long_name: "Distortion Guitar",
         short_name: "Gtr.",
@@ -251,7 +251,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "unpitched-percussion.crash-cymbal",
-        instrument_type: InstrumentType.Percussive,
+        type: InstrumentType.Percussive,
         path: ["Unpitched Percussion", "Crash Cymbal"],
         long_name: "Crash Cymbal",
         short_name: "Cym.",
@@ -276,7 +276,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "unpitched-percussion.hi-hat",
-        instrument_type: InstrumentType.Percussive,
+        type: InstrumentType.Percussive,
         path: ["Unpitched Percussion", "Hi-Hat"],
         long_name: "Hi-Hat",
         short_name: "HH.",
@@ -301,7 +301,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "unpitched-percussion.kick",
-        instrument_type: InstrumentType.Percussive,
+        type: InstrumentType.Percussive,
         path: ["Unpitched Percussion", "Kick Drum"],
         long_name: "Kick Drum",
         short_name: "K Drm.",
@@ -326,7 +326,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "unpitched-percussion.snare",
-        instrument_type: InstrumentType.Percussive,
+        type: InstrumentType.Percussive,
         path: ["Unpitched Percussion", "Snare"],
         long_name: "Snare",
         short_name: "Sn.",
@@ -351,7 +351,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "pitched-percussion.glockenspiel",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Pitched Percussion", "Glockenspiel"],
         long_name: "Glokenspiel",
         short_name: "Glock.",
@@ -376,7 +376,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "pitched-percussion.harp",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Pitched Percussion", "Harp"],
         long_name: "Harp",
         short_name: "Hrp.",
@@ -409,7 +409,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "pitched-percussion.marimba",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Pitched Percussion", "Marimba"],
         long_name: "Marimba",
         short_name: "Mrm.",
@@ -442,7 +442,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "pitched-percussion.timpani",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Pitched Percussion", "Timpani"],
         long_name: "Timpani",
         short_name: "Timp.",
@@ -469,7 +469,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "pitched-percussion.vibraphone",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Pitched Percussion", "Vibraphone"],
         long_name: "Vibraphone",
         short_name: "Vib.",
@@ -494,7 +494,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "pitched-percussion.xylophone",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Pitched Percussion", "Xylophone"],
         long_name: "Xylophone",
         short_name: "Xyl.",
@@ -519,7 +519,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "keyboard.celesta",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Keyboards", "Celesta"],
         long_name: "Celesta",
         short_name: "Cel.",
@@ -552,7 +552,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "keyboard.harpsichord",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Keyboards", "Harpsichord"],
         long_name: "Harpsichord",
         short_name: "Hch.",
@@ -585,7 +585,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "keyboard.piano",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Keyboards", "Piano"],
         long_name: "Piano",
         short_name: "Pno.",
@@ -618,7 +618,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "strings.contrabass",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Strings", "Contrabass"],
         long_name: "Contrabass",
         short_name: "Cb.",
@@ -650,7 +650,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "strings.viola",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Strings", "Viola"],
         long_name: "Viola",
         short_name: "Vla.",
@@ -682,7 +682,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "strings.violin",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Strings", "Violin"],
         long_name: "Violin",
         short_name: "Vln.",
@@ -717,7 +717,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "strings.violoncello",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Strings", "Violoncello"],
         long_name: "Violoncello",
         short_name: "Vc.",
@@ -749,7 +749,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "woodwinds.alto-flute",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Woodwinds", "Alto Flute"],
         long_name: "Alto Flute",
         short_name: "A. Fl.",
@@ -774,7 +774,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "woodwinds.alto-sxophone",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Woodwinds", "Alto Saxophone"],
         long_name: "Alto Saxophone",
         short_name: "A. Sax.",
@@ -801,7 +801,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "woodwinds.bassoon",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Woodwinds", "Bassoon"],
         long_name: "Bassoon",
         short_name: "Bsn.",
@@ -828,7 +828,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "woodwinds.bass-clarinet",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Woodwinds", "Bass Clarinet"],
         long_name: "Bass Clarinet",
         short_name: "B. Cl.",
@@ -855,7 +855,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "woodwinds.clarinet.a",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Woodwinds", "Clarinet", "A"],
         long_name: "Clarinet in A",
         short_name: "A Cl.",
@@ -882,7 +882,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "woodwinds.clarinet.b-flat",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Woodwinds", "Clarinet", "B${flat}"],
         long_name: "Clarinet in B${flat}",
         short_name: "B${flat} Cl.",
@@ -909,7 +909,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "woodwinds.contrabassoon",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Woodwinds", "Contrabassoon"],
         long_name: "Contrabasson",
         short_name: "Cbsn.",
@@ -934,7 +934,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "woodwinds.english-horn",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Woodwinds", "English Horn"],
         long_name: "English Horn",
         short_name: "E Hn.",
@@ -961,7 +961,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "woodwinds.flute",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Woodwinds", "Flute"],
         long_name: "Flute",
         short_name: "Fl.",
@@ -988,7 +988,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "woodwinds.oboe",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Woodwinds", "Oboe"],
         long_name: "Oboe",
         short_name: "Ob.",
@@ -1015,7 +1015,7 @@ const defs: InstrumentDef[] = [
     },
     {
         id: "woodwinds.piccolo",
-        instrument_type: InstrumentType.Melodic,
+        type: InstrumentType.Melodic,
         path: ["Woodwinds", "Piccolo"],
         long_name: "Piccolo",
         short_name: "Pc.",

@@ -16,6 +16,7 @@ import {
     Pitch,
     Tone,
     TimeSignature,
+    Meta,
 } from "./defs";
 import { get_def } from "./instrument-defs";
 import { playbackActions } from "./playback";
@@ -24,15 +25,16 @@ import { create_empty_stave } from "./stave";
 import { create_player } from "./player";
 import { move, duration_to_ticks } from "./utils";
 import { create_instrument } from "./instrument";
-import { create_absolute_tempo } from "./absolute-tempo";
+import { create_absolute_tempo } from "./entries/absolute-tempo";
 import { insert_entry, remove_entry, move_entry } from "./track";
 import {
     create_time_signature,
     get_entry_after_tick,
     get_entries_at_tick,
-} from "./time_signature";
-import { create_tone } from "./tone";
+    create_tone,
+} from "./entries";
 import { create_flow } from "./flow";
+import { LayoutType, PartialEngravingConfig } from "./score-engraving/defs";
 
 // I know these are just wrapping funcs but it allows more acurate typings than wasm-pack produces
 // and it's really easy to swap between js and wasm funcs if needed.
@@ -86,6 +88,7 @@ export const actions = {
                 // import the json file
                 const content = await file.text();
                 const score: Score = unpack(content);
+                console.log(score.flows.order[0]);
                 progress(4, 2);
 
                 // set the imported state in the engine
@@ -114,7 +117,7 @@ export const actions = {
                                 await actions.playback.instrument.load(
                                     instrument.id,
                                     instrument.key,
-                                    player.player_type
+                                    player.type
                                 );
                                 Player.volume(
                                     instrument_key,
@@ -134,30 +137,11 @@ export const actions = {
             }
         },
         meta: {
-            title: (value: string) =>
-                store.update((s) => {
-                    s.score.meta.title = value;
-                }),
-            subtitle: (value: string) =>
-                store.update((s) => {
-                    s.score.meta.subtitle = value;
-                }),
-            composer: (value: string) =>
-                store.update((s) => {
-                    s.score.meta.composer = value;
-                }),
-            arranger: (value: string) =>
-                store.update((s) => {
-                    s.score.meta.arranger = value;
-                }),
-            lyricist: (value: string) =>
-                store.update((s) => {
-                    s.score.meta.lyricist = value;
-                }),
-            copyright: (value: string) =>
-                store.update((s) => {
-                    s.score.meta.copyright = value;
-                }),
+            update: (value: Partial<Meta>) => {
+                store.update((draft, state) => {
+                    draft.score.meta = { ...state.score.meta, ...value };
+                });
+            },
         },
         config: {
             auto_count: {
@@ -169,6 +153,16 @@ export const actions = {
                     store.update((s) => {
                         s.score.config.auto_count.section = value;
                     }),
+            },
+        },
+        engraving: {
+            set: (layout: LayoutType, config: PartialEngravingConfig) => {
+                store.update((s) => {
+                    s.score.engraving[layout] = {
+                        ...s.score.engraving[layout],
+                        ...config,
+                    };
+                });
             },
         },
         flow: {
@@ -427,23 +421,11 @@ export const actions = {
                         groupings
                     );
                     store.update((draft, state) => {
-                        // remove any time signature already at the current tick
                         const flow = state.score.flows.by_key[flow_key];
-                        const entries = flow.master.entries.by_tick[tick] || [];
-                        entries.forEach((entry_key) => {
-                            if (
-                                flow.master.entries.by_key[entry_key].type ===
-                                EntryType.TimeSignature
-                            ) {
-                                remove_entry(
-                                    draft.score.flows.by_key[flow_key].master,
-                                    entry_key
-                                );
-                            }
-                        });
                         insert_entry(
                             draft.score.flows.by_key[flow_key].master,
-                            time_signature
+                            time_signature,
+                            true
                         );
                         const ticks_per_bar =
                             duration_to_ticks(
@@ -509,25 +491,11 @@ export const actions = {
                     );
 
                     store.update((draft, state) => {
-                        // remove any tempo already at the current tick
-                        const entries =
-                            state.score.flows.by_key[flow_key].master.entries
-                                .by_tick[tick] || [];
-                        entries.forEach((entry_key) => {
-                            if (
-                                state.score.flows.by_key[flow_key].master
-                                    .entries.by_key[entry_key].type ===
-                                EntryType.AbsoluteTempo
-                            ) {
-                                delete draft.score.flows.by_key[flow_key].master
-                                    .entries.by_key[entry_key];
-                            }
-                        });
-
                         // insert the new tempo
                         insert_entry(
                             draft.score.flows.by_key[flow_key].master,
-                            tempo
+                            tempo,
+                            true
                         );
                     });
 

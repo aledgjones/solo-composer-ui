@@ -4,7 +4,7 @@ import shortid from "shortid";
 export function create_player(player_type: PlayerType): Player {
     return {
         key: shortid(),
-        player_type,
+        type: player_type,
         instruments: [],
     };
 }

@@ -22,6 +22,7 @@ import {
     NoteDuration,
     TickList,
     useTicks,
+    useCounts,
 } from "../../store";
 import { Controls } from "./controls";
 import { Track } from "./track";
@@ -58,6 +59,7 @@ const Play: FC = () => {
         ];
     });
 
+    const counts = useCounts();
     const ticks = useTicks(flowKey);
     const colors = useRainbow(players.length);
 
@@ -155,9 +157,10 @@ const Play: FC = () => {
                             return (
                                 <Controls
                                     key={instrument_key}
+                                    count={counts[instrument_key]}
                                     instrumentKey={instrument_key}
                                     color={colors[i]}
-                                    playerType={player.player_type}
+                                    playerType={player.type}
                                 />
                             );
                         });

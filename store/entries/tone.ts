@@ -1,5 +1,5 @@
 import shortid from "shortid";
-import { Pitch, Articulation, Tone, EntryType } from "./defs";
+import { Pitch, Articulation, Tone, EntryType } from "../defs";
 
 export function create_tone(
     tick: number,

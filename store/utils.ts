@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { toRoman } from "roman-numerals";
 import { mdiAccount, mdiAccountGroup } from "@mdi/js";
 import { useStore } from "./use-store";
 import {
@@ -10,27 +11,14 @@ import {
     Accidental,
     Pitch,
     TickList,
-    Flow,
     TimeSignature,
     EntryType,
     Entry,
+    Score,
 } from "./defs";
-import { toRoman } from "roman-numerals";
-import { kind_from_beats, TimeSignatureType } from "./time_signature";
+import { kind_from_beats, TimeSignatureType } from "./entries";
 
 export * from "./playback/utils";
-
-function count_to_string(style: AutoCountStyle, count?: number) {
-    if (count === undefined) {
-        return "";
-    } else {
-        if (style === AutoCountStyle.Roman) {
-            return " " + toRoman(count);
-        } else {
-            return " " + count;
-        }
-    }
-}
 
 export function useCountStyle(playerType: PlayerType) {
     return useStore(
@@ -45,26 +33,35 @@ export function useCountStyle(playerType: PlayerType) {
     );
 }
 
-export function useInstrumentName(
+function count_to_string(style: AutoCountStyle, count?: number) {
+    if (count === undefined) {
+        return "";
+    } else {
+        if (style === AutoCountStyle.Roman) {
+            return " " + toRoman(count);
+        } else {
+            return " " + count;
+        }
+    }
+}
+
+export function instrumentName(
     instrument: Instrument,
-    count_style: AutoCountStyle
+    count_style: AutoCountStyle,
+    count?: number
 ) {
-    return useMemo(() => {
-        return (
-            instrument.long_name +
-            count_to_string(count_style, instrument.count)
-        );
-    }, [instrument, count_style]);
+    return instrument.long_name + count_to_string(count_style, count);
 }
 
 export function usePlayerName(
     player: Player,
     instruments: { [key: string]: Instrument },
+    counts: InstrumentCounts,
     count_style: AutoCountStyle
 ) {
     return useMemo(() => {
         if (player.instruments.length === 0) {
-            switch (player.player_type) {
+            switch (player.type) {
                 case PlayerType.Solo:
                     return "Empty-handed Player";
                 default:
@@ -75,9 +72,11 @@ export function usePlayerName(
             return player.instruments.reduce((output, key, i) => {
                 const isFirst = i === 0;
                 const isLast = i === len - 1;
-                const name =
-                    instruments[key].long_name +
-                    count_to_string(count_style, instruments[key].count);
+                const name = instrumentName(
+                    instruments[key],
+                    count_style,
+                    counts[key]
+                );
                 if (isFirst) {
                     return name;
                 } else if (isLast) {
@@ -87,11 +86,11 @@ export function usePlayerName(
                 }
             }, "");
         }
-    }, [player, instruments, count_style]);
+    }, [player, instruments, counts, count_style]);
 }
 
 export function usePlayerIcon(player: Player) {
-    switch (player.player_type) {
+    switch (player.type) {
         case PlayerType.Solo:
             return mdiAccount;
         default:
@@ -334,4 +333,70 @@ export function useTicks(flow_key: string): TickList {
 
         return ticks;
     }, [length, subdivisions, master]);
+}
+
+interface InstrumentCountsTotals {
+    [name: string]: {
+        [PlayerType.Solo]: string[];
+        [PlayerType.Section]: string[];
+    };
+}
+
+export type InstrumentCounts = { [instrumentKey: string]: number };
+
+/**
+ * Counts duplicate instrument names
+ *
+ * If there is more than one of the same instrument we add an auto inc count.
+ * we use the length of the count array to tell if > 1 if so index + 1 = instrument number.
+ *
+ * eg violin ${counts['violin'].length + 1} = Violin *1*
+ */
+export function useCounts() {
+    const [players, instruments] = useStore((s) => [
+        s.score.players,
+        s.score.instruments,
+    ]);
+
+    return useMemo(() => {
+        const counts = players.order.reduce<InstrumentCountsTotals>(
+            (output, playerKey) => {
+                const player = players.by_key[playerKey];
+                player.instruments.forEach((instrumentKey) => {
+                    const instrument = instruments[instrumentKey];
+                    if (!output[instrument.long_name]) {
+                        output[instrument.long_name] = {
+                            [PlayerType.Solo]: [],
+                            [PlayerType.Section]: [],
+                        };
+                    }
+                    output[instrument.long_name][player.type].push(
+                        instrument.key
+                    );
+                });
+                return output;
+            },
+            {}
+        );
+
+        const names = Object.keys(counts);
+        return names.reduce<InstrumentCounts>((out, name) => {
+            counts[name][PlayerType.Solo].forEach(
+                (instrumentKey, i, _names) => {
+                    if (_names.length > 1) {
+                        out[instrumentKey] = i + 1;
+                    }
+                }
+            );
+
+            counts[name][PlayerType.Solo].forEach(
+                (instrumentKey, i, _names) => {
+                    if (_names.length > 1) {
+                        out[instrumentKey] = i + 1;
+                    }
+                }
+            );
+            return out;
+        }, {});
+    }, [players, instruments]);
 }

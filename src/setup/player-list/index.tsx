@@ -1,8 +1,8 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useMemo } from "react";
 import { mdiPlus, mdiCogOutline } from "@mdi/js";
 import { Icon, SortableContainer } from "../../../ui";
 import { Selection } from "../selection";
-import { useStore, actions, PlayerType } from "../../../store";
+import { useStore, actions, PlayerType, useCounts } from "../../../store";
 import { PlayerItem } from "../player-list-item";
 import { SetupSettings } from "../../dialogs/setup-settings";
 
@@ -24,13 +24,12 @@ export const PlayerList: FC<Props> = ({
 }) => {
     const [players, instruments, expanded] = useStore((s) => {
         return [
-            s.score.players.order.map((key) => {
-                return s.score.players.by_key[key];
-            }),
+            s.score.players.order.map((key) => s.score.players.by_key[key]),
             s.score.instruments,
             s.ui.setup.expanded,
         ];
     });
+    const counts = useCounts();
     const [settings, setSettings] = useState<boolean>(false);
 
     return (
@@ -58,6 +57,7 @@ export const PlayerList: FC<Props> = ({
                                 key={player.key}
                                 player={player}
                                 instruments={instruments}
+                                counts={counts}
                                 selected={
                                     selection && player.key === selection.key
                                 }

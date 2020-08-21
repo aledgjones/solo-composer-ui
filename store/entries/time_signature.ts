@@ -6,7 +6,7 @@ import {
     TimeSignatureDrawType,
     Track,
     Entry,
-} from "./defs";
+} from "../defs";
 
 /** Create a time signature with optional beat groupings */
 export function create_time_signature(

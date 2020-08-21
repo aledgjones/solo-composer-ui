@@ -1,5 +1,5 @@
 import shortid from "shortid";
-import { AbsoluteTempo, NoteDuration, DottedValue, EntryType } from "./defs";
+import { AbsoluteTempo, NoteDuration, DottedValue, EntryType } from "../defs";
 
 export function create_absolute_tempo(
     tick: number,
@@ -51,17 +51,35 @@ function calculate_dot(duration: number, dotted: DottedValue) {
         case DottedValue.Double:
             return duration / 2 + duration / 4;
         default:
-            return duration;
+            return 0;
     }
 }
 
-export function normalize_bpm(
-    subdivisions: number,
-    beat_type: NoteDuration,
-    dotted: DottedValue,
-    bpm: number
-): number {
-    const base_duration = beat_to_ticks(subdivisions, beat_type);
-    const duration = base_duration + calculate_dot(base_duration, dotted);
-    return bpm * (duration / subdivisions);
+export function normalize_bpm(time_signature: AbsoluteTempo): number {
+    let base = 1;
+    switch (time_signature.beat_type) {
+        case NoteDuration.Whole:
+            base = 4;
+            break;
+        case NoteDuration.Half:
+            base = 2;
+            break;
+        case NoteDuration.Quarter:
+            base = 1;
+            break;
+        case NoteDuration.Eighth:
+            base = 0.5;
+            break;
+        case NoteDuration.Sixteenth:
+            base = 0.25;
+            break;
+        case NoteDuration.ThirtySecond:
+            base = 0.125;
+            break;
+        default:
+            base = 1;
+            break;
+    }
+    const duration = base + calculate_dot(base, time_signature.dotted);
+    return time_signature.bpm * duration;
 }

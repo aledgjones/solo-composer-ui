@@ -14,7 +14,7 @@ import {
 import { Icon } from "../../../ui";
 import { store } from "../../../store/use-store";
 import { Transport, Player } from "solo-composer-scheduler";
-import { normalize_bpm } from "../../../store/absolute-tempo";
+import { normalize_bpm } from "../../../store/entries/absolute-tempo";
 
 import "./styles.css";
 
@@ -73,12 +73,7 @@ export const TransportComponent: FC = () => {
                         const tempo = entry as AbsoluteTempo;
                         Transport.scheduleTempoChange(
                             tempo.tick,
-                            normalize_bpm(
-                                flow.subdivisions,
-                                tempo.beat_type,
-                                tempo.dotted,
-                                tempo.bpm
-                            )
+                            normalize_bpm(tempo)
                         );
                     }
                 });

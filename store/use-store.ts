@@ -7,17 +7,17 @@ import {
     AutoCountStyle,
     NoteDuration,
 } from "./defs";
+import { engravingEmptyState } from "./score-engraving/utils";
 import { create_flow } from "./flow";
 
 export const empty = (): State => {
     const audition = localStorage.getItem("sc:audition/v1");
     const theme = localStorage.getItem("sc:theme-mode/v1");
     const flow = create_flow();
-    console.log(flow.key);
     return {
         app: {
-            theme: theme === undefined ? ThemeMode.Dark : JSON.parse(theme),
-            audition: audition === undefined ? true : JSON.parse(audition),
+            theme: theme === null ? ThemeMode.Dark : JSON.parse(theme),
+            audition: audition === null ? true : JSON.parse(audition),
         },
         playback: {
             metronome: false,
@@ -41,6 +41,7 @@ export const empty = (): State => {
                     section: AutoCountStyle.Roman,
                 },
             },
+            engraving: engravingEmptyState(),
             flows: { order: [flow.key], by_key: { [flow.key]: flow } },
             players: {
                 order: [],

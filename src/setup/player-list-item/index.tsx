@@ -13,6 +13,7 @@ import {
     usePlayerName,
     usePlayerIcon,
     useCountStyle,
+    InstrumentCounts,
 } from "../../../store";
 import { Selection, SelectionType } from "../selection";
 import { SortableItem, merge, Icon, SortableContainer } from "../../../ui";
@@ -25,6 +26,7 @@ interface Props {
     index: number;
     player: Player;
     instruments: { [key: string]: Instrument };
+    counts: InstrumentCounts;
     selected: boolean;
     expanded: boolean;
 
@@ -36,6 +38,7 @@ export const PlayerItem: FC<Props> = ({
     index,
     player,
     instruments,
+    counts,
     selected,
     expanded,
     onSelect,
@@ -64,8 +67,8 @@ export const PlayerItem: FC<Props> = ({
         [onSelect, actions.score.player, player.key]
     );
 
-    const count_style = useCountStyle(player.player_type);
-    const name = usePlayerName(player, instruments, count_style);
+    const count_style = useCountStyle(player.type);
+    const name = usePlayerName(player, instruments, counts, count_style);
     const icon = usePlayerIcon(player);
 
     return (
@@ -105,16 +108,13 @@ export const PlayerItem: FC<Props> = ({
                             onClick={onRemove}
                         />
                         {(player.instruments.length === 0 ||
-                            player.player_type === PlayerType.Solo) && (
+                            player.type === PlayerType.Solo) && (
                             <Icon
                                 style={{ marginLeft: 12 }}
                                 path={mdiPlus}
                                 size={24}
                                 onClick={() =>
-                                    onAddInstrument(
-                                        player.key,
-                                        player.player_type
-                                    )
+                                    onAddInstrument(player.key, player.type)
                                 }
                             />
                         )}
@@ -153,6 +153,7 @@ export const PlayerItem: FC<Props> = ({
                                 selected={selected}
                                 instrument={instruments[key]}
                                 player_key={player.key}
+                                count={counts[key]}
                                 count_style={count_style}
                             />
                         );

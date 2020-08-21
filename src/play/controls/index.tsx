@@ -2,7 +2,7 @@ import React, { FC, useCallback } from "react";
 import { mdiChevronDown, mdiCogOutline, mdiSizeS, mdiSizeM } from "@mdi/js";
 import { Icon, noop, Label } from "../../../ui";
 import {
-    useInstrumentName,
+    instrumentName,
     PlayerType,
     useCountStyle,
     actions,
@@ -17,10 +17,16 @@ import "./styles.css";
 interface Props {
     color: string;
     playerType: PlayerType;
+    count?: number;
     instrumentKey: string;
 }
 
-export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
+export const Controls: FC<Props> = ({
+    color,
+    playerType,
+    count,
+    instrumentKey,
+}) => {
     const [instrument, slots, expanded, volume, mute, solo] = useStore(
         (s) => {
             const keyboard = s.ui.play.keyboard[instrumentKey];
@@ -36,7 +42,7 @@ export const Controls: FC<Props> = ({ color, playerType, instrumentKey }) => {
         [instrumentKey]
     );
     const count_style = useCountStyle(playerType);
-    const name = useInstrumentName(instrument, count_style);
+    const name = instrumentName(instrument, count_style, count);
 
     const onExpand = useCallback(() => {
         if (expanded) {
