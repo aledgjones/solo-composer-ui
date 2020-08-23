@@ -2,7 +2,8 @@ import React, { FC } from "react";
 import { useDragHandler } from "../../../ui";
 import { Slots } from "./slots";
 import { SLOT_HEIGHT } from "../const";
-import { useStore, actions } from "../../../store";
+import { useStore } from "../../store/use-store";
+import { actions } from "../../store/actions";
 
 import "./styles.css";
 
@@ -25,7 +26,7 @@ export const Keyboard: FC<Props> = ({ instrumentKey, height }) => {
             onDown: (e) => {
                 return {
                     y: e.screenY,
-                    base
+                    base,
                 };
             },
             onMove: (e, init) => {
@@ -36,13 +37,17 @@ export const Keyboard: FC<Props> = ({ instrumentKey, height }) => {
                     actions.ui.play.keyboard(instrumentKey, init.base - change);
                 }
             },
-            onEnd: () => {}
+            onEnd: () => {},
         },
         [base, instrumentKey]
     );
 
     return (
-        <div className="keyboard" onPointerDown={onDrag} style={{ height: height * SLOT_HEIGHT }}>
+        <div
+            className="keyboard"
+            onPointerDown={onDrag}
+            style={{ height: height * SLOT_HEIGHT }}
+        >
             <Slots base={base} count={height} isKeyboard={true} />
         </div>
     );

@@ -1,16 +1,14 @@
 import React, { FC, useMemo, PointerEvent, useCallback } from "react";
 import { merge } from "../../../ui";
-import {
-    TickList,
-    Tone,
-    Tool,
-    useStore,
-    actions,
-    Articulation,
-} from "../../../store";
 import { SLOT_HEIGHT } from "../const";
+import { useStore } from "../../store/use-store";
+import { Articulation } from "../../store/entries";
+import { Tone } from "../../store/entries/tone/defs";
+import { TickList } from "../../store/score-flow/defs";
+import { Tool } from "../../store/ui/defs";
 
 import "./styles.css";
+import { actions } from "../../store/actions";
 
 // TODO: write a should render function: is ticks in view?
 function shouldDraw(pitch: number, base: number, slots: number) {

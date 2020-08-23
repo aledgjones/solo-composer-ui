@@ -1,9 +1,10 @@
 import React, { FC } from "react";
 import { mdiPlus } from "@mdi/js";
 import { Icon, SortableContainer } from "../../../ui";
-import { useStore, actions } from "../../../store";
 import { FlowItem } from "../flow-item";
 import { Selection, SelectionType } from "../selection";
+import { useStore } from "../../store/use-store";
+import { actions } from "../../store/actions";
 
 import "./styles.css";
 
@@ -34,7 +35,11 @@ export const FlowList: FC<Props> = ({ selection, onSelect }) => {
                 />
             </div>
             <div className="flow-list__wrapper">
-                <SortableContainer direction="x" className="flow-list__content" onEnd={actions.score.flow.reorder}>
+                <SortableContainer
+                    direction="x"
+                    className="flow-list__content"
+                    onEnd={actions.score.flow.reorder}
+                >
                     {flows.map((flow, i) => (
                         <FlowItem
                             index={i}

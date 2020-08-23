@@ -15,10 +15,11 @@ import {
 import { About } from "../../dialogs/about";
 import { Preferences } from "../../dialogs/preferences";
 import { Meta } from "../../dialogs/meta";
-import { useStore, actions } from "../../../store";
 import { Duration } from "../../components/duration";
 import { Text } from "../../components/text";
 import { Importer } from "../../dialogs/importer";
+import { useStore } from "../../store/use-store";
+import { actions } from "../../store/actions";
 
 import "./styles.css";
 

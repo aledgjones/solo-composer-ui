@@ -2,7 +2,7 @@ export enum InstructionType {
     path = 1,
     text,
     circle,
-    curve
+    curve,
 }
 
 export interface InstructionBase {
@@ -12,7 +12,6 @@ export interface InstructionBase {
 export type Instruction<T> = InstructionBase & T;
 
 export interface RenderInstructions {
-    space: number; // px to 1 space
     height: number;
     width: number;
     entries: Instruction<any>[];

@@ -1,16 +1,14 @@
 import React, { FC, useCallback } from "react";
 import { mdiChevronDown, mdiCogOutline, mdiSizeS, mdiSizeM } from "@mdi/js";
 import { Icon, noop, Label } from "../../../ui";
-import {
-    instrumentName,
-    PlayerType,
-    useCountStyle,
-    actions,
-    useStore,
-} from "../../../store";
 import { Text } from "../../components/text";
 import { Keyboard } from "../keyboard";
 import { Fader } from "../fader";
+import { useStore } from "../../store/use-store";
+import { PlayerType } from "../../store/score-player/defs";
+import { useCountStyle } from "../../store/score-config/utils";
+import { instrumentName } from "../../store/score-instrument/utils";
+import { actions } from "../../store/actions";
 
 import "./styles.css";
 

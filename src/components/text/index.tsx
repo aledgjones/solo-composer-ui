@@ -1,5 +1,6 @@
-import React, { FC, Fragment, CSSProperties } from "react";
-import { State, useStore } from "../../../store";
+import React, { FC, Fragment } from "react";
+import { useStore } from "../../store/use-store";
+import { State } from "../../store/defs";
 
 import "./styles.css";
 

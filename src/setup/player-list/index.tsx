@@ -1,10 +1,13 @@
-import React, { FC, useState, useMemo } from "react";
+import React, { FC, useState } from "react";
 import { mdiPlus, mdiCogOutline } from "@mdi/js";
 import { Icon, SortableContainer } from "../../../ui";
 import { Selection } from "../selection";
-import { useStore, actions, PlayerType, useCounts } from "../../../store";
 import { PlayerItem } from "../player-list-item";
 import { SetupSettings } from "../../dialogs/setup-settings";
+import { useStore } from "../../store/use-store";
+import { PlayerType } from "../../store/score-player/defs";
+import { useCounts } from "../../store/score-instrument/utils";
+import { actions } from "../../store/actions";
 
 import "./styles.css";
 

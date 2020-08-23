@@ -1,16 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { mdiClose } from "@mdi/js";
-import {
-    Dialog,
-    Icon,
-    Label,
-    Content,
-    Subheader,
-    Divider,
-    Link,
-    Progress,
-} from "../../../ui";
-import { actions } from "../../../store";
+import { Dialog, Content, Subheader, Progress } from "../../../ui";
+import { actions } from "../../store/actions";
 
 import "./styles.css";
 

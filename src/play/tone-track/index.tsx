@@ -1,15 +1,4 @@
 import React, { FC, PointerEvent, useRef, useCallback } from "react";
-import {
-    TickList,
-    useStore,
-    Tone,
-    Tool,
-    actions,
-    duration_to_ticks,
-    Articulation,
-    EntryType,
-    pitch_from_number,
-} from "../../../store";
 import { dragHandler } from "../../../ui";
 import { ToneTrackEntry } from "../tone-track-entry";
 import { SLOT_HEIGHT } from "../const";
@@ -19,6 +8,17 @@ import {
     getStartOfTone,
     getDurationOfTone,
 } from "../utils";
+import { useStore } from "../../store/use-store";
+import { TickList } from "../../store/score-flow/defs";
+import { Tool } from "../../store/ui/defs";
+import { duration_to_ticks } from "../../store/entries/time_signature/utils";
+import { Tone } from "../../store/entries/tone/defs";
+import {
+    EntryType,
+    pitch_from_number,
+    Articulation,
+} from "../../store/entries";
+import { actions } from "../../store/actions";
 
 import "./styles.css";
 
@@ -85,7 +85,7 @@ export const ToneTrack: FC<Props> = ({
     const onAudition = useCallback(
         (pitch: number) => {
             if (audition) {
-                actions.playback.instrument.audition(instrumentKey, pitch);
+                actions.playback.sampler.audition(instrumentKey, pitch);
             }
         },
         [instrumentKey, audition]

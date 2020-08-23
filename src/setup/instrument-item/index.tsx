@@ -2,12 +2,10 @@ import React, { FC, useRef } from "react";
 import { mdiDeleteOutline, mdiDrag } from "@mdi/js";
 import { SortableItem, Icon, merge } from "../../../ui";
 import { Text } from "../../components/text";
-import {
-    Instrument,
-    AutoCountStyle,
-    instrumentName,
-    actions,
-} from "../../../store";
+import { Instrument } from "../../store/score-instrument/defs";
+import { AutoCountStyle } from "../../store/score-config/defs";
+import { instrumentName } from "../../store/score-instrument/utils";
+import { actions } from "../../store/actions";
 
 import "./styles.css";
 
@@ -32,7 +30,7 @@ export const InstrumentItem: FC<Props> = ({
     onSelect,
 }) => {
     const handle = useRef<HTMLDivElement>(null);
-    const name = instrumentName(instrument, count_style);
+    const name = instrumentName(instrument, count_style, count);
 
     return (
         <SortableItem
@@ -59,7 +57,7 @@ export const InstrumentItem: FC<Props> = ({
                                 player_key,
                                 instrument.key
                             );
-                            actions.playback.instrument.destroy(instrument.key);
+                            actions.playback.sampler.destroy(instrument.key);
                         }}
                     />
                 </>

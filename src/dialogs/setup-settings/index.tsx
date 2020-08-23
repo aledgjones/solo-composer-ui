@@ -1,13 +1,16 @@
 import React, { useState } from "react";
-import { Dialog, Subheader, Select, Option, Label, Button, ListItem, Switch } from "../../../ui";
-import { useStore, actions, AutoCountStyle } from "../../../store";
+import { Dialog, Subheader, Select, Option, Label, Button } from "../../../ui";
 import { MenuItem } from "../../components/menu-item";
+import { useStore } from "../../store/use-store";
+import { PlayerType } from "../../store/score-player/defs";
+import { AutoCountStyle } from "../../store/score-config/defs";
+import { actions } from "../../store/actions";
 
 import "../generic-settings.css";
 import "./styles.css";
 
 enum Page {
-    AutoNumbering
+    AutoNumbering,
 }
 
 interface Props {
@@ -22,7 +25,10 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
         <div className="setup-settings">
             <div className="generic-settings__content">
                 <div className="generic-settings__left-panel">
-                    <MenuItem selected={page === Page.AutoNumbering} onClick={() => setPage(Page.AutoNumbering)}>
+                    <MenuItem
+                        selected={page === Page.AutoNumbering}
+                        onClick={() => setPage(Page.AutoNumbering)}
+                    >
                         Auto Numbering
                     </MenuItem>
                 </div>
@@ -35,16 +41,26 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
                                 <Subheader subtle>Solo Player</Subheader>
                                 <Select
                                     margin
-                                    value={config.auto_count.solo}
-                                    onChange={(val: AutoCountStyle) => actions.score.config.auto_count.solo(val)}
+                                    value={config.auto_count[PlayerType.Solo]}
+                                    onChange={(val: AutoCountStyle) =>
+                                        actions.score.config.auto_count.solo(
+                                            val
+                                        )
+                                    }
                                 >
-                                    <Option value={AutoCountStyle.Arabic} displayAs="Arabic">
+                                    <Option
+                                        value={AutoCountStyle.Arabic}
+                                        displayAs="Arabic"
+                                    >
                                         <Label>
                                             <p>Arabic</p>
                                             <p>1, 2, 3...</p>
                                         </Label>
                                     </Option>
-                                    <Option value={AutoCountStyle.Roman} displayAs="Roman">
+                                    <Option
+                                        value={AutoCountStyle.Roman}
+                                        displayAs="Roman"
+                                    >
                                         <Label>
                                             <p>Roman</p>
                                             <p>I, II, III...</p>
@@ -53,16 +69,28 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
                                 </Select>
                                 <Subheader subtle>Section Player</Subheader>
                                 <Select
-                                    value={config.auto_count.section}
-                                    onChange={(val: AutoCountStyle) => actions.score.config.auto_count.section(val)}
+                                    value={
+                                        config.auto_count[PlayerType.Section]
+                                    }
+                                    onChange={(val: AutoCountStyle) =>
+                                        actions.score.config.auto_count.section(
+                                            val
+                                        )
+                                    }
                                 >
-                                    <Option value={AutoCountStyle.Arabic} displayAs="Arabic">
+                                    <Option
+                                        value={AutoCountStyle.Arabic}
+                                        displayAs="Arabic"
+                                    >
                                         <Label>
                                             <p>Arabic</p>
                                             <p>1, 2, 3...</p>
                                         </Label>
                                     </Option>
-                                    <Option value={AutoCountStyle.Roman} displayAs="Roman">
+                                    <Option
+                                        value={AutoCountStyle.Roman}
+                                        displayAs="Roman"
+                                    >
                                         <Label>
                                             <p>Roman</p>
                                             <p>I, II, III...</p>

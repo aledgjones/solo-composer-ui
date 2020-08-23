@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { mdiChevronRight } from "@mdi/js";
 import { Dialog, Icon, Button } from "../../../ui";
 import { MenuItem } from "../../components/menu-item";
-
-import "../generic-settings.css";
-import "./styles.css";
+import { Text } from "../../components/text";
 import {
     get_full_path_from_partial,
     useDefsList,
-} from "../../../store/instrument-defs";
-import { Text } from "../../components/text";
+} from "../../store/score-instrument/utils";
+
+import "../generic-settings.css";
+import "./styles.css";
 
 interface Props {
     onSelect: (id: string) => void;

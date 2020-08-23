@@ -1,9 +1,12 @@
 import React, { FC, useEffect, Suspense } from "react";
 import { mdiUndo, mdiRedo } from "@mdi/js";
-import { useStore, actions, ThemeMode, View } from "../../store";
-import { Tabs, useTheme, merge, Tab, Icon, Log } from "../../ui";
+import { Tabs, useTheme, merge, Tab, Icon } from "../../ui";
 import { TransportComponent } from "./transport";
 import { Loading } from "../components/loading";
+import { useStore } from "../store/use-store";
+import { actions } from "../store/actions";
+import { ThemeMode } from "../store/app/defs";
+import { View } from "../store/ui/defs";
 import { File } from "./file";
 
 import "./styles.css";
@@ -77,7 +80,7 @@ export const Root: FC = () => {
                 </div>
             </div>
 
-            <Log />
+            {/* <Log /> */}
         </>
     );
 };

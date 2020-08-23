@@ -1,7 +1,6 @@
-import React, { Fragment, memo } from "react";
-import { TickList, Tick } from "../../../store";
-import { FC } from "react";
+import React, { Fragment, FC } from "react";
 import { merge } from "../../../ui";
+import { TickList, Tick } from "../../store/score-flow/defs";
 
 function tickHeight(
     tick: Tick,

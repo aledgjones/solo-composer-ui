@@ -1,11 +1,13 @@
-import React, { FC, useMemo, memo } from "react";
+import React, { FC, useMemo } from "react";
 import { merge } from "../../../ui";
-import { useStore, TickList, Tool } from "../../../store";
 import { SLOT_HEIGHT } from "../const";
 import { Ticks } from "../ticks";
 import { Slots } from "../keyboard/slots";
 import { ToneTrack } from "../tone-track";
 import { OverviewTrack } from "../overview-track";
+import { useStore } from "../../store/use-store";
+import { TickList } from "../../store/score-flow/defs";
+import { Tool } from "../../store/ui/defs";
 
 import "./styles.css";
 

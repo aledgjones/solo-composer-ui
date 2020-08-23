@@ -5,20 +5,16 @@ import {
     mdiDeleteOutline,
     mdiChevronUp,
 } from "@mdi/js";
-import {
-    Player,
-    Instrument,
-    actions,
-    PlayerType,
-    usePlayerName,
-    usePlayerIcon,
-    useCountStyle,
-    InstrumentCounts,
-} from "../../../store";
 import { Selection, SelectionType } from "../selection";
 import { SortableItem, merge, Icon, SortableContainer } from "../../../ui";
 import { Text } from "../../components/text";
 import { InstrumentItem } from "../instrument-item";
+import { Player, PlayerType } from "../../store/score-player/defs";
+import { Instrument } from "../../store/score-instrument/defs";
+import { InstrumentCounts } from "../../store/score-instrument/utils";
+import { useCountStyle } from "../../store/score-config/utils";
+import { usePlayerName, usePlayerIcon } from "../../store/score-player/utils";
+import { actions } from "../../store/actions";
 
 import "./styles.css";
 

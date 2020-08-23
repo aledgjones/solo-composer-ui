@@ -1,15 +1,15 @@
 import { Instruction, InstructionType } from "./instructions";
 
 export enum Justify {
-    start = "flex-start",
-    middle = "center",
-    end = "flex-end"
+    Start = "flex-start",
+    Middle = "center",
+    End = "flex-end",
 }
 
 export enum Align {
-    top = "flex-start",
-    middle = "center",
-    bottom = "flex-end"
+    Top = "flex-start",
+    Middle = "center",
+    Bottom = "flex-end",
 }
 
 export interface TextStyles {
@@ -36,6 +36,6 @@ export function buildText(
         styles,
         x,
         y,
-        value
+        value,
     };
 }

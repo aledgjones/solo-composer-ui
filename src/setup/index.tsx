@@ -1,6 +1,5 @@
 import React, { FC, useState, useCallback } from "react";
 import { useTitle } from "../../ui";
-import { actions, PlayerType } from "../../store";
 import { FlowList } from "./flow-list";
 import { LayoutList } from "./layout-list";
 import { RenderRegion } from "../components/render-region";
@@ -8,9 +7,11 @@ import { PlayerList } from "./player-list";
 import { Selection, SelectionType } from "./selection";
 import { PlayerTypePicker } from "../dialogs/player-type-picker";
 import { InstrumentPicker } from "../dialogs/instrument-picker";
+import { Renderer } from "../components/renderer";
+import { actions } from "../store/actions";
 
 import "./styles.css";
-import { Renderer } from "../components/renderer";
+import { PlayerType } from "../store/score-player/defs";
 
 const Setup: FC = () => {
     useTitle("Solo Composer | Setup");
@@ -44,7 +45,7 @@ const Setup: FC = () => {
                     playerKey,
                     instrumentKey
                 );
-                actions.playback.instrument.load(
+                actions.playback.sampler.load(
                     instrument_id,
                     instrumentKey,
                     player_type

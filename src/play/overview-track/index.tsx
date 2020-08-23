@@ -1,8 +1,11 @@
 import React, { FC, useRef, useMemo } from "react";
 import Color from "color";
-import { TickList, useStore, Tone, EntryType } from "../../../store";
+import { useStore } from "../../store/use-store";
+import { TickList } from "../../store/score-flow/defs";
 
 import "./styles.css";
+import { Tone } from "../../store/entries/tone/defs";
+import { EntryType } from "../../store/entries";
 
 interface Props {
     flowKey: string;

@@ -1,6 +1,6 @@
 import React, { FC, useCallback, KeyboardEvent, useRef } from "react";
-import { useWaveform } from "../../../store";
 import { merge, useDragHandler } from "../../../ui";
+import { useWaveform } from "../../store/playback";
 
 import "./styles.css";
 

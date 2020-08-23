@@ -1,7 +1,8 @@
 import React from "react";
 import { Dialog, Button, Subheader, Input, Textarea } from "../../../ui";
-import { useStore, actions } from "../../../store";
 import { TagCopier } from "../../components/tag-copier";
+import { useStore } from "../../store/use-store";
+import { actions } from "../../store/actions";
 
 import "../generic-settings.css";
 import "./styles.css";

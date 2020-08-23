@@ -1,8 +1,8 @@
 import { useMemo, useEffect, useState } from "react";
-import { Score } from "../../../store";
 import { RenderInstructions } from "../../render/instructions";
+import { Score } from "../../store/score/defs";
 import { useMM } from "./use-mm";
-import myWorker from "../../../parse/parse.worker";
+import myWorker from "../../parse/parse.worker";
 
 export function useParseWorker(score: Score, flow_key: string) {
     const [instructions, setInstructions] = useState<RenderInstructions>();
@@ -21,6 +21,7 @@ export function useParseWorker(score: Score, flow_key: string) {
         const cb = (e: any) => {
             setInstructions(e.data);
         };
+
         worker.addEventListener("message", cb);
         return () => {
             worker.removeEventListener("message", cb);

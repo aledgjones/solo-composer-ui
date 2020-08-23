@@ -1,20 +1,15 @@
 import React, { FC, useEffect } from "react";
 import { mdiPlay, mdiMetronome, mdiSkipPrevious, mdiPause } from "@mdi/js";
-import {
-    useStore,
-    actions,
-    useTick,
-    Tone,
-    Expression,
-    AbsoluteTempo,
-    Articulation,
-    EntryType,
-    useTimestamp,
-} from "../../../store";
-import { Icon } from "../../../ui";
-import { store } from "../../../store/use-store";
 import { Transport, Player } from "solo-composer-scheduler";
-import { normalize_bpm } from "../../../store/entries/absolute-tempo";
+import { Icon } from "../../../ui";
+import { Expression } from "../../store/score-instrument/defs";
+import { actions } from "../../store/actions";
+import { useStore, store } from "../../store/use-store";
+import { useTick, useTimestamp } from "../../store/playback";
+import { EntryType, Articulation } from "../../store/entries";
+import { AbsoluteTempo } from "../../store/entries/absolute_tempo/defs";
+import { normalize_bpm } from "../../store/entries/absolute_tempo/utils";
+import { Tone } from "../../store/entries/tone/defs";
 
 import "./styles.css";
 

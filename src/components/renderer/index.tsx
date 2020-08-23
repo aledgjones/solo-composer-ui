@@ -1,16 +1,15 @@
 import React, { FC, memo } from "react";
-
 import { merge } from "../../../ui";
-import { useStore } from "../../../store";
+import { useParseWorker } from "./use-parse-worker";
 import { Instruction, InstructionType } from "../../render/instructions";
 import { PathInstruction } from "../../render/path";
 import { CircleInstruction } from "../../render/circle";
 import { TextInstruction } from "../../render/text";
 import { CurveInstruction, getControlPoints } from "../../render/curve";
 import { Text } from "../text";
+import { useStore } from "../../store/use-store";
 
 import "./styles.css";
-import { useParseWorker } from "./use-parse-worker";
 
 interface Props {
     className?: string;
@@ -27,14 +26,11 @@ export const Renderer: FC<Props> = memo(({ className }) => {
         return null;
     }
 
-    const { space, width, height, entries } = instructions;
+    const { width, height, entries } = instructions;
 
     return (
         <div className={merge("renderer", className)}>
-            <div
-                className="renderer__container"
-                style={{ width: width * space, height: height * space }}
-            >
+            <div className="renderer__container" style={{ width, height }}>
                 <p className="renderer__flow-name">
                     {score.flows.by_key[flow_key].title || "Untitled Flow"}
                 </p>
@@ -45,8 +41,8 @@ export const Renderer: FC<Props> = memo(({ className }) => {
                                 const path = instruction as PathInstruction;
                                 const def = path.points.map((point, i) => {
                                     return `${i === 0 ? "M" : "L"} ${
-                                        point[0] * space
-                                    } ${point[1] * space}`;
+                                        point[0]
+                                    } ${point[1]}`;
                                 });
                                 return (
                                     <path
@@ -54,9 +50,7 @@ export const Renderer: FC<Props> = memo(({ className }) => {
                                         fill="none"
                                         d={def.join(" ")}
                                         stroke={path.styles.color}
-                                        strokeWidth={
-                                            path.styles.thickness * space
-                                        }
+                                        strokeWidth={path.styles.thickness}
                                     />
                                 );
                             }
@@ -65,9 +59,9 @@ export const Renderer: FC<Props> = memo(({ className }) => {
                                 return (
                                     <circle
                                         key={circle.key}
-                                        cx={circle.x * space}
-                                        cy={circle.y * space}
-                                        r={circle.radius * space}
+                                        cx={circle.x}
+                                        cy={circle.y}
+                                        r={circle.radius}
                                         fill={circle.styles.color}
                                     />
                                 );
@@ -78,11 +72,11 @@ export const Renderer: FC<Props> = memo(({ className }) => {
                                     <foreignObject
                                         className="renderer__entry--text"
                                         key={text.key}
-                                        x={text.x * space}
-                                        y={text.y * space}
+                                        x={text.x}
+                                        y={text.y}
                                         style={{
                                             fontFamily: text.styles.font,
-                                            fontSize: text.styles.size * space,
+                                            fontSize: text.styles.size,
                                             alignItems: text.styles.align,
                                             justifyContent: text.styles.justify,
                                         }}
@@ -102,18 +96,10 @@ export const Renderer: FC<Props> = memo(({ className }) => {
                                 );
                                 const [P0, P1, P2, P3, P4, P5] = points;
 
-                                def.push(`M ${P0.x * space} ${P0.y * space}`);
-                                def.push(
-                                    `Q ${P1.x * space} ${P1.y * space}, ${
-                                        P2.x * space
-                                    } ${P2.y * space}`
-                                );
-                                def.push(`L ${P3.x * space} ${P3.y * space}`);
-                                def.push(
-                                    `Q ${P4.x * space} ${P4.y * space}, ${
-                                        P5.x * space
-                                    } ${P5.y * space}`
-                                );
+                                def.push(`M ${P0.x} ${P0.y}`);
+                                def.push(`Q ${P1.x} ${P1.y}, ${P2.x} ${P2.y}`);
+                                def.push(`L ${P3.x} ${P3.y}`);
+                                def.push(`Q ${P4.x} ${P4.y}, ${P5.x} ${P5.y}`);
 
                                 return (
                                     <path
