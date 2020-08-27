@@ -28,8 +28,8 @@ export function defaultEngravingConfig(type: LayoutType): EngravingConfig {
         },
 
         systemicBarlineSingleInstrumentSystem: false,
-        bracketing: BracketingType.orchestral,
-        bracketEndStyle: BracketEndStyle.wing,
+        bracketing: BracketingType.Orchestral,
+        bracketEndStyle: BracketEndStyle.Wing,
         bracketSingleStaves: false,
         subBracket: true,
 

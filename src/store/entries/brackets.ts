@@ -1,11 +1,11 @@
 export enum BracketingType {
-    none = 1,
-    orchestral,
-    smallEnsemble,
+    None,
+    Orchestral,
+    SmallEnsemble,
 }
 
 export enum BracketEndStyle {
-    wing = 1,
-    line,
-    none,
+    None,
+    Wing,
+    Line,
 }

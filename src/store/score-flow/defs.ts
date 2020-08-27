@@ -4,7 +4,7 @@ import { Stave } from "../score-stave/defs";
 export interface Flow {
     key: string;
     title: string;
-    players: string[];
+    players: { [key: string]: boolean };
     subdivisions: number;
     length: number;
 

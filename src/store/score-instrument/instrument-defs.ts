@@ -11,7 +11,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "B. Tbn.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 53,
                     offset: 2,
@@ -36,7 +36,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "F Hn.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -65,7 +65,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Tbn.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 53,
                     offset: 2,
@@ -92,7 +92,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "B${flat} Tpt.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -121,7 +121,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "C Tpt.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -150,7 +150,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Tba.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 53,
                     offset: 2,
@@ -177,7 +177,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "A. Gtr.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 53,
                     offset: 2,
@@ -202,7 +202,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "B. Gtr.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 53,
                     offset: 2,
@@ -227,7 +227,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Gtr.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 53,
                     offset: 2,
@@ -252,7 +252,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Cym.",
         staves: [
             {
-                lines: [1],
+                lines: [0, 1, 0],
                 clef: {
                     pitch: 60,
                     offset: 0,
@@ -277,7 +277,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "HH.",
         staves: [
             {
-                lines: [1],
+                lines: [0, 1, 0],
                 clef: {
                     pitch: 60,
                     offset: 0,
@@ -302,7 +302,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "K Drm.",
         staves: [
             {
-                lines: [1],
+                lines: [0, 1, 0],
                 clef: {
                     pitch: 60,
                     offset: 0,
@@ -327,7 +327,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Sn.",
         staves: [
             {
-                lines: [1],
+                lines: [0, 1, 0],
                 clef: {
                     pitch: 60,
                     offset: 0,
@@ -352,7 +352,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Glock.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -377,7 +377,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Hrp.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -385,7 +385,7 @@ export const instrumentDefs: InstrumentDef[] = [
                 },
             },
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 53,
                     offset: 2,
@@ -410,7 +410,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Mrm.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -418,7 +418,7 @@ export const instrumentDefs: InstrumentDef[] = [
                 },
             },
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 53,
                     offset: 2,
@@ -443,7 +443,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Timp.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 53,
                     offset: 2,
@@ -470,7 +470,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Vib.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -495,7 +495,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Xyl.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 79,
                     offset: -2,
@@ -520,7 +520,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Cel.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 79,
                     offset: -2,
@@ -528,7 +528,7 @@ export const instrumentDefs: InstrumentDef[] = [
                 },
             },
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 65,
                     offset: 2,
@@ -553,7 +553,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Hch.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -561,7 +561,7 @@ export const instrumentDefs: InstrumentDef[] = [
                 },
             },
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 53,
                     offset: 2,
@@ -586,7 +586,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Pno.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -594,7 +594,7 @@ export const instrumentDefs: InstrumentDef[] = [
                 },
             },
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 53,
                     offset: 2,
@@ -619,7 +619,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Cb.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 41,
                     offset: 2,
@@ -651,7 +651,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Vla.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 60,
                     offset: 0,
@@ -683,7 +683,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Vln.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -718,7 +718,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Vc.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 53,
                     offset: 2,
@@ -750,7 +750,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "A. Fl.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -775,7 +775,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "A. Sax.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -802,7 +802,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Bsn.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 53,
                     offset: 2,
@@ -829,7 +829,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "B. Cl.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -856,7 +856,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "A Cl.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -883,7 +883,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "B${flat} Cl.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -910,7 +910,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Cbsn.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 53,
                     offset: 2,
@@ -935,7 +935,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "E Hn.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -962,7 +962,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Fl.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -989,7 +989,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Ob.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 67,
                     offset: -2,
@@ -1016,7 +1016,7 @@ export const instrumentDefs: InstrumentDef[] = [
         short_name: "Pc.",
         staves: [
             {
-                lines: [1, 0, 1, 0, 1, 0, 1, 0, 1],
+                lines: [1, 1, 1, 1, 1],
                 clef: {
                     pitch: 79,
                     offset: -2,

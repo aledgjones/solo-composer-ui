@@ -3,9 +3,7 @@ import { toRoman } from "roman-numerals";
 import { Instrument } from "./defs";
 import { instrumentDefs } from "./instrument-defs";
 import { PlayerType, Player } from "../score-player/defs";
-import { useMemo } from "react";
 import { AutoCountStyle } from "../score-config/defs";
-import { useStore } from "../use-store";
 
 export function create_instrument(id: string): Instrument {
     const { type: instrument_type, long_name, short_name, staves } = get_def(
@@ -51,25 +49,6 @@ export function get_full_path_from_partial(
         path: def.path,
         id: def.id,
     };
-}
-
-export function useDefsList(path: string[]): string[][] {
-    return useMemo(() => {
-        const seen: Set<string> = new Set();
-        const tree: string[][] = [[], [], []];
-        instrumentDefs.forEach((def) => {
-            for (let i = 0; i < def.path.length; i++) {
-                if (!seen.has(def.path[i])) {
-                    tree[i].push(def.path[i]);
-                    seen.add(def.path[i]);
-                }
-                if (def.path[i] !== path[i]) {
-                    break;
-                }
-            }
-        });
-        return tree;
-    }, [path]);
 }
 
 function count_to_string(style: AutoCountStyle, count?: number) {
@@ -138,45 +117,4 @@ export function getCounts(
         });
         return out;
     }, {});
-}
-
-/**
- * Counts duplicate instrument names
- *
- * If there is more than one of the same instrument we add an auto inc count.
- * we use the length of the count array to tell if > 1 if so index + 1 = instrument number.
- *
- * eg violin ${counts['violin'].length + 1} = Violin *1*
- */
-export function useCounts() {
-    const [players, instruments] = useStore((s) => [
-        s.score.players,
-        s.score.instruments,
-    ]);
-
-    return useMemo(() => {
-        return getCounts(players, instruments);
-    }, [players, instruments]);
-}
-
-export function getNames(
-    players: { order: string[]; by_key: { [key: string]: Player } },
-    instruments: { [key: string]: Instrument },
-    count_styles: { [type in PlayerType]: AutoCountStyle }
-) {
-    const counts = getCounts(players, instruments);
-    return players.order.reduce<string[]>((out, player_key) => {
-        const player = players.by_key[player_key];
-        player.instruments.forEach((instrument_key) => {
-            const instrument = instruments[instrument_key];
-            out.push(
-                instrumentName(
-                    instrument,
-                    count_styles[player.type],
-                    counts[instrument_key]
-                )
-            );
-        });
-        return out;
-    }, []);
 }

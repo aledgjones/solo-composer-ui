@@ -6,8 +6,8 @@ import { PlayerItem } from "../player-list-item";
 import { SetupSettings } from "../../dialogs/setup-settings";
 import { useStore } from "../../store/use-store";
 import { PlayerType } from "../../store/score-player/defs";
-import { useCounts } from "../../store/score-instrument/utils";
 import { actions } from "../../store/actions";
+import { useCounts } from "../../store/score-instrument/hooks";
 
 import "./styles.css";
 

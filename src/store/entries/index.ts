@@ -35,11 +35,11 @@ export enum Articulation {
 }
 
 export enum Accidental {
-    DoubleSharp,
-    Sharp,
-    Natural,
-    Flat,
-    DoubleFlat,
+    DoubleSharp = 2,
+    Sharp = 1,
+    Natural = 0,
+    Flat = -1,
+    DoubleFlat = -2,
 }
 
 export interface Pitch {
@@ -47,6 +47,10 @@ export interface Pitch {
     accidental: Accidental;
 }
 
+/**
+ * Converts a int value to a full pitch with appropriate accidental
+ * // TODO: Make this more sophisticated
+ */
 export function pitch_from_number(pitch: number): Pitch {
     let step = pitch % 12;
     switch (step) {

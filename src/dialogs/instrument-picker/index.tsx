@@ -3,10 +3,8 @@ import { mdiChevronRight } from "@mdi/js";
 import { Dialog, Icon, Button } from "../../../ui";
 import { MenuItem } from "../../components/menu-item";
 import { Text } from "../../components/text";
-import {
-    get_full_path_from_partial,
-    useDefsList,
-} from "../../store/score-instrument/utils";
+import { get_full_path_from_partial } from "../../store/score-instrument/utils";
+import { useDefsList } from "../../store/score-instrument/hooks";
 
 import "../generic-settings.css";
 import "./styles.css";

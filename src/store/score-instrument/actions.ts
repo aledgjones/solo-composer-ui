@@ -24,7 +24,7 @@ export const instrumentActions = {
             // destroy instrument staves in each flow
             state.score.flows.order.forEach((flow_key) => {
                 const flow = state.score.flows.by_key[flow_key];
-                if (flow.players.includes(player_key)) {
+                if (flow.players[player_key]) {
                     state.score.instruments[instrument_key].staves.forEach(
                         (stave_key) => {
                             delete draft.score.flows.by_key[flow_key].staves[

@@ -74,7 +74,7 @@ export const TransportComponent: FC = () => {
                 });
 
                 // 2) individual notes
-                flow.players.forEach((playerKey) => {
+                Object.keys(flow.players).forEach((playerKey) => {
                     const player = players.by_key[playerKey];
                     player.instruments.forEach((instrumentKey) => {
                         const instrument = instruments[instrumentKey];

@@ -20,7 +20,7 @@ import { Track } from "./track";
 import { PlayHead } from "./play-head";
 import { Ticks } from "./ticks";
 import { useStore } from "../store/use-store";
-import { useCounts } from "../store/score-instrument/utils";
+import { useCounts } from "../store/score-instrument/hooks";
 import { useTicks } from "../store/score-flow/utils";
 import { actions } from "../store/actions";
 import { Tool } from "../store/ui/defs";
@@ -48,7 +48,7 @@ const Play: FC = () => {
             // }),
             flowKey,
             s.score.players.order
-                .filter((playerKey) => flow_players.includes(playerKey))
+                .filter((playerKey) => flow_players[playerKey])
                 .map((player_key) => s.score.players.by_key[player_key]),
             s.ui.play.tool,
             s.ui.play.zoom,

@@ -14,7 +14,7 @@ export const playerActions = {
             draft.score.players.by_key[player.key] = player;
 
             state.score.flows.order.forEach((flowKey) => {
-                draft.score.flows.by_key[flowKey].players.push(player.key);
+                draft.score.flows.by_key[flowKey].players[player.key] = true;
             });
         });
         return player.key;
@@ -28,7 +28,7 @@ export const playerActions = {
 
             state.score.flows.order.forEach((flowKey) => {
                 const flow = draft.score.flows.by_key[flowKey];
-                if (flow.players.includes(player_key)) {
+                if (flow.players[player_key]) {
                     const instrumentDef = get_def(instrument.id);
                     instrument.staves.forEach((staveKey, i) => {
                         const staveDef = instrumentDef.staves[i];
@@ -50,7 +50,7 @@ export const playerActions = {
                     // destroy instrument staves in each flow
                     state.score.flows.order.forEach((flow_key) => {
                         const flow = state.score.flows.by_key[flow_key];
-                        if (flow.players.includes(player_key)) {
+                        if (flow.players[player_key]) {
                             state.score.instruments[
                                 instrument_key
                             ].staves.forEach((stave_key) => {
@@ -71,11 +71,7 @@ export const playerActions = {
 
             // remove the player from each flow
             state.score.flows.order.forEach((flow_key) => {
-                draft.score.flows.by_key[
-                    flow_key
-                ].players = state.score.flows.by_key[flow_key].players.filter(
-                    (k) => k !== player_key
-                );
+                delete draft.score.flows.by_key[flow_key].players[player_key];
             });
 
             // remove the player itself

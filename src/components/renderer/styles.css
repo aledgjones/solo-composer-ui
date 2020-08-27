@@ -30,16 +30,3 @@
     height: 100%;
     width: 100%;
 }
-
-.renderer__entry--text {
-    overflow: visible;
-}
-
-.renderer__entry--text > div {
-    white-space: pre;
-    position: absolute;
-    display: flex;
-    height: 0;
-    width: 0;
-    line-height: 1em;
-}

@@ -42,7 +42,7 @@ export const FlowItem: FC<Props> = ({
     const active: boolean =
         selection &&
         selection.type === SelectionType.Player &&
-        flow.players.includes(selection.key);
+        flow.players[selection.key];
 
     const onCheckboxChange = useCallback(
         (value: boolean) => {

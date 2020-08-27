@@ -28,7 +28,7 @@ export function create_flow(): Flow {
     return {
         key: shortid(),
         title: "",
-        players: [],
+        players: {},
         length: 16 * 4 * 4,
         subdivisions: 16,
 

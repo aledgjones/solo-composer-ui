@@ -1,7 +1,7 @@
 import { Track } from "../score-track/defs";
 
 export interface Stave {
-    key: String;
+    key: string;
     lines: number[];
     master: Track;
     tracks: {

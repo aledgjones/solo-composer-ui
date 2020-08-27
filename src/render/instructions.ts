@@ -12,6 +12,7 @@ export interface InstructionBase {
 export type Instruction<T> = InstructionBase & T;
 
 export interface RenderInstructions {
+    space: number;
     height: number;
     width: number;
     entries: Instruction<any>[];

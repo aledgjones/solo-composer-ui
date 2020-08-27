@@ -29,7 +29,7 @@ export const flowActions = {
     assign_player: (flow_key: string, player_key: string) =>
         store.update((draft, state) => {
             const flow = draft.score.flows.by_key[flow_key];
-            flow.players.push(player_key);
+            flow.players[player_key] = true;
 
             const player = state.score.players.by_key[player_key];
             player.instruments.forEach((instrumentKey) => {
@@ -56,11 +56,7 @@ export const flowActions = {
                 );
             });
 
-            draft.score.flows.by_key[
-                flow_key
-            ].players = state.score.flows.by_key[flow_key].players.filter(
-                (k) => k !== player_key
-            );
+            delete draft.score.flows.by_key[flow_key].players[player_key];
         }),
     remove: (flow_key: string) =>
         store.update((draft, state) => {
