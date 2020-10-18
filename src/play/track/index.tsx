@@ -11,10 +11,6 @@ import { Tool } from "../../store/ui/defs";
 
 import "./styles.css";
 
-import pencil from "../../assets/pencil.svg";
-import knife from "../../assets/knife.svg";
-import eraser from "../../assets/eraser.svg";
-
 interface Props {
     flowKey: string;
     instrumentKey: string;
@@ -44,19 +40,6 @@ export const Track: FC<Props> = ({
         [instrumentKey]
     );
 
-    const cursor = useMemo(() => {
-        switch (tool) {
-            case Tool.Draw:
-                return `url(${pencil}) 4 20, default`;
-            case Tool.Erase:
-                return `url(${eraser}) 4 20, default`;
-            case Tool.Slice:
-                return `url(${knife}) 4 20, default`;
-            default:
-                return "default";
-        }
-    }, [tool]);
-
     return (
         <div className="track">
             <Ticks
@@ -81,7 +64,7 @@ export const Track: FC<Props> = ({
                         className={merge("track__tone-channel", {
                             "no-scroll": tool !== Tool.Select,
                         })}
-                        style={{ height: SLOT_HEIGHT * slots, cursor }}
+                        style={{ height: SLOT_HEIGHT * slots }}
                     >
                         <Slots
                             style={{ width: ticks.width * zoom }}

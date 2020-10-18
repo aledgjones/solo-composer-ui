@@ -5,6 +5,8 @@ import { FlowItem } from "../flow-item";
 import { Selection, SelectionType } from "../selection";
 import { useStore } from "../../store/use-store";
 import { actions } from "../../store/actions";
+import { Panel } from "../../components/panel";
+import { PanelHeader } from "../../components/panel-header";
 
 import "./styles.css";
 
@@ -22,9 +24,9 @@ export const FlowList: FC<Props> = ({ selection, onSelect }) => {
     const width = `calc(${100 / flows.length}% - 8px)`;
 
     return (
-        <div className="flow-list">
-            <div className="flow-list__header">
-                <span>Flows</span>
+        <Panel className="flow-list">
+            <PanelHeader>
+                <span className="flow-list__label">Flows</span>
                 <Icon
                     size={24}
                     path={mdiPlus}
@@ -33,7 +35,7 @@ export const FlowList: FC<Props> = ({ selection, onSelect }) => {
                         onSelect({ key, type: SelectionType.Flow });
                     }}
                 />
-            </div>
+            </PanelHeader>
             <div className="flow-list__wrapper">
                 <SortableContainer
                     direction="x"
@@ -52,6 +54,6 @@ export const FlowList: FC<Props> = ({ selection, onSelect }) => {
                     ))}
                 </SortableContainer>
             </div>
-        </div>
+        </Panel>
     );
 };

@@ -52,6 +52,7 @@ export const Root: FC = () => {
                         <Tab value={View.Print}>Publish</Tab>
                     </Tabs>
                     <TransportComponent />
+                    <div className="root__spacer" />
                     <div className="root__history">
                         <Icon
                             disabled

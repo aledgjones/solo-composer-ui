@@ -45,11 +45,23 @@ const symDict: { [key: string]: { content: string; sym: boolean } } = {
     "${sharp}": { content: "\u{E262}", sym: true },
     "${natural}": { content: "\u{E261}", sym: true },
     "${flat}": { content: "\u{E260}", sym: true },
+
+    "${time-0}": { content: "\u{E080}", sym: true },
+    "${time-1}": { content: "\u{E081}", sym: true },
+    "${time-2}": { content: "\u{E082}", sym: true },
+    "${time-3}": { content: "\u{E083}", sym: true },
+    "${time-4}": { content: "\u{E084}", sym: true },
+    "${time-5}": { content: "\u{E085}", sym: true },
+    "${time-6}": { content: "\u{E086}", sym: true },
+    "${time-7}": { content: "\u{E087}", sym: true },
+    "${time-8}": { content: "\u{E088}", sym: true },
+    "${time-9}": { content: "\u{E089}", sym: true },
+    "${time-c}": { content: "\u{E08A}", sym: true },
+    "${time-cutc}": { content: "\u{E08B}", sym: true },
 };
 
 function injectSym(content: string) {
-    const sym_regex = /(\${[^\s@]*})/g;
-
+    const sym_regex = /(\${[^\s}]*})/g;
     const split = content.split(sym_regex).filter((entry) => entry); // filter any empties
     return split.map((entry) => {
         const replacer = symDict[entry];

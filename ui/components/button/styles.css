@@ -14,6 +14,7 @@
     color: var(--primary-fg);
     background-color: var(--primary-bg);
     border: none;
+    border-radius: var(--border-radius);
 }
 
 .ui-button:hover,

@@ -8,6 +8,8 @@ import { useStore } from "../../store/use-store";
 import { PlayerType } from "../../store/score-player/defs";
 import { actions } from "../../store/actions";
 import { useCounts } from "../../store/score-instrument/hooks";
+import { CollpaseDirection, Panel } from "../../components/panel";
+import { PanelHeader } from "../../components/panel-header";
 
 import "./styles.css";
 
@@ -25,8 +27,9 @@ export const PlayerList: FC<Props> = ({
     onAddInstrument,
     onCreatePlayer,
 }) => {
-    const [players, instruments, expanded] = useStore((s) => {
+    const [open, players, instruments, expanded] = useStore((s) => {
         return [
+            s.ui.setup.panels.players,
             s.score.players.order.map((key) => s.score.players.by_key[key]),
             s.score.instruments,
             s.ui.setup.expanded,
@@ -37,8 +40,13 @@ export const PlayerList: FC<Props> = ({
 
     return (
         <>
-            <div className="player-list">
-                <div className="player-list__header">
+            <Panel
+                className="player-list"
+                collapse={CollpaseDirection.Right}
+                collapsed={!open}
+                onToggle={actions.ui.setup.panels.toggle.players}
+            >
+                <PanelHeader>
                     <span className="player-list__label">Players</span>
                     <Icon
                         style={{ marginRight: 12 }}
@@ -47,7 +55,7 @@ export const PlayerList: FC<Props> = ({
                         onClick={() => setSettings(true)}
                     />
                     <Icon size={24} path={mdiPlus} onClick={onCreatePlayer} />
-                </div>
+                </PanelHeader>
                 <SortableContainer
                     direction="y"
                     className="player-list__content"
@@ -71,7 +79,7 @@ export const PlayerList: FC<Props> = ({
                         );
                     })}
                 </SortableContainer>
-            </div>
+            </Panel>
 
             <SetupSettings
                 width={900}

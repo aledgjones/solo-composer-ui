@@ -10,6 +10,7 @@
     width: 100%;
     background-color: var(--background-500);
     border: 1px solid var(--background-200);
+    border-radius: var(--border-radius);
 }
 
 .fader__meter {
@@ -28,6 +29,7 @@
     cursor: pointer;
     outline: none;
     color: inherit;
+    border-radius: var(--border-radius);
 }
 
 .fader__handle:active {

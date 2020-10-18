@@ -110,7 +110,7 @@ export function getCounts(
             }
         });
 
-        counts[name][PlayerType.Solo].forEach((instrumentKey, i, _names) => {
+        counts[name][PlayerType.Section].forEach((instrumentKey, i, _names) => {
             if (_names.length > 1) {
                 out[instrumentKey] = i + 1;
             }

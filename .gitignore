@@ -1,3 +1,4 @@
+.cache
 .firebase
 .firebaserc
 node_modules

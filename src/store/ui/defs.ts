@@ -21,6 +21,15 @@ export interface UiDefs {
     flow_key: string;
     setup: {
         expanded: { [key: string]: boolean };
+        panels: {
+            players: boolean;
+            layouts: boolean;
+        };
+    };
+    write: {
+        panels: {
+            elements: boolean;
+        };
     };
     play: {
         selected: { [key: string]: boolean };
