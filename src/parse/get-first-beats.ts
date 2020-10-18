@@ -2,9 +2,9 @@ import { Flow } from "../store/score-flow/defs";
 import {
     get_entries_at_tick,
     distance_from_barline,
-} from "../store/entries/time_signature/utils";
+} from "../store/entries/time-signature/utils";
 import { EntryType } from "../store/entries";
-import { TimeSignature } from "../store/entries/time_signature/defs";
+import { TimeSignature } from "../store/entries/time-signature/defs";
 
 /**
  * Gets the first beats as number[] where number is tick index

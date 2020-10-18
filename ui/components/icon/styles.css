@@ -23,7 +23,11 @@
     z-index: 0;
     background-color: currentColor;
     opacity: 0;
+<<<<<<< HEAD
     border-radius: var(--border-radius);
+=======
+    border-radius: 3px;
+>>>>>>> master
 }
 
 .ui-icon--hover:hover:before {

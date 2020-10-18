@@ -8,8 +8,8 @@ import { configActions } from "./score-config/actions";
 import { playbackActions } from "./playback";
 import { instrumentActions } from "./score-instrument/actions";
 import { playerActions } from "./score-player/actions";
-import { timeSignatureActions } from "./entries/time_signature/actions";
-import { absoluteTempoActions } from "./entries/absolute_tempo/actions";
+import { timeSignatureActions } from "./entries/time-signature/actions";
+import { absoluteTempoActions } from "./entries/absolute-tempo/actions";
 import { toneActions } from "./entries/tone/actions";
 import { uiActions } from "./ui/actions";
 

@@ -1,33 +1,32 @@
-import { NotationTrack } from "./notation-track";
+import { NotationTrack, getNearestNotationToTick } from "./notation-track";
 import { Flow } from "../store/score-flow/defs";
 import { getIsRest } from "./get-is-rest";
 import { splitNotationTrack } from "./split-notation-track";
-import { getNearestNotationToTick } from "./get-nearest-notation-to-tick";
 import {
     duration_to_ticks,
     get_entries_at_tick,
-} from "../store/entries/time_signature/utils";
-import { EntryType } from "../store/entries";
-import { TimeSignature } from "../store/entries/time_signature/defs";
+} from "../store/entries/time-signature/utils";
+import { EntryType, NoteDuration } from "../store/entries";
+import { TimeSignature } from "../store/entries/time-signature/defs";
 import { getIsEmpty } from "./get-is-empty";
 import { getIsWritable } from "./get-is-writable";
 import { getBeatGroupingBoundries } from "./get-beat-group-boundries";
 
-function getNextGroupingAndBeat(grouping: number, beatType: number) {
+function getNextGroupingAndBeat(grouping: number, beatType: NoteDuration) {
     switch (grouping) {
         case 2:
-            return { groupings: [1, 1], beats: 2, beatType: beatType };
+            return { groupings: [1, 1], beats: 2, beatType };
         case 3:
-            return { groupings: [1, 1, 1], beats: 3, beatType: beatType };
+            return { groupings: [1, 1, 1], beats: 3, beatType };
         case 4:
-            return { groupings: [1, 1, 1, 1], beats: 4, beatType: beatType };
+            return { groupings: [1, 1, 1, 1], beats: 4, beatType };
 
         case 1:
         default:
             return {
                 groupings: [1, 1, 1, 1],
                 beats: 4,
-                beatType: beatType * 4,
+                beatType: beatType + 1,
             };
     }
 }
@@ -37,7 +36,7 @@ export function splitUnit(
     stop: number,
     subdivisions: number,
     beats: number,
-    beatType: number,
+    beatType: NoteDuration,
     ticksPerOriginalBeat: number,
     groupings: number[],
     track: NotationTrack,

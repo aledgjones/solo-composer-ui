@@ -14,7 +14,11 @@
     color: var(--primary-fg);
     background-color: var(--primary-bg);
     border: none;
+<<<<<<< HEAD
     border-radius: var(--border-radius);
+=======
+    border-radius: 3px;
+>>>>>>> master
 }
 
 .ui-button:hover,

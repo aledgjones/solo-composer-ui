@@ -51,7 +51,7 @@ export function measureVerticalSpacing(
                     const is_last_stave =
                         stave_i === instrument.staves.length - 1;
                     const stave_entry = {
-                        y: output.height,
+                        y: output.height + (stave.lines.length - 1) / 2,
                         height: stave.lines.length - 1,
                     };
 

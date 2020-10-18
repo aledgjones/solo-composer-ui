@@ -1,12 +1,12 @@
 import { Tone } from "../store/entries/tone/defs";
 
 export enum NotationBaseDuration {
-    semiquaver = 0.25,
-    quaver = 0.5,
-    crotchet = 1,
-    minim = 2,
-    semibreve = 4,
-    breve = 8,
+    ThirtySecond = 0.125,
+    Sixteenth = 0.25,
+    Eighth = 0.5,
+    Quarter = 1,
+    Half = 2,
+    Whole = 4,
 }
 
 export interface Notation {
@@ -21,6 +21,21 @@ export interface NotationTrack {
 
 export interface NotationTracks {
     [trackKey: string]: NotationTrack;
+}
+
+export function getNearestNotationToTick(
+    _tick: number,
+    track: NotationTrack
+): { at: number; entry: Notation } | undefined {
+    for (let tick = _tick; tick >= 0; tick--) {
+        const entry = track[tick];
+        if (entry) {
+            return {
+                at: tick,
+                entry: entry,
+            };
+        }
+    }
 }
 
 export function getNotationBaseDuration(

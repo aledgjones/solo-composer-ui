@@ -14,7 +14,11 @@
     outline: none;
     color: var(--foreground-500);
     transition: color 0.2s;
+<<<<<<< HEAD
     border-radius: var(--border-radius);
+=======
+    border-radius: 3px;
+>>>>>>> master
 }
 
 .ui-tab:hover {

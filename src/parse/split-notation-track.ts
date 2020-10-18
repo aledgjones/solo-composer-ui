@@ -1,5 +1,4 @@
-import { NotationTrack } from "./notation-track";
-import { getNearestNotationToTick } from "./get-nearest-notation-to-tick";
+import { NotationTrack, getNearestNotationToTick } from "./notation-track";
 
 /**
  * Split the notation track at split points

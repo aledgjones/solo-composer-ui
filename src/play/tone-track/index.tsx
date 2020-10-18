@@ -11,7 +11,7 @@ import {
 import { useStore } from "../../store/use-store";
 import { TickList } from "../../store/score-flow/defs";
 import { Tool } from "../../store/ui/defs";
-import { duration_to_ticks } from "../../store/entries/time_signature/utils";
+import { duration_to_ticks } from "../../store/entries/time-signature/utils";
 import { Tone } from "../../store/entries/tone/defs";
 import {
     EntryType,
