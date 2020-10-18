@@ -1,5 +1,4 @@
 .firebase
 .firebaserc
-.cache
 node_modules
 dist
