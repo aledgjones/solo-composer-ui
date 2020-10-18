@@ -36,6 +36,7 @@
     animation-fill-mode: backwards;
     transition: opacity 0.4s, transform 0.4s;
     pointer-events: all;
+    border-radius: 3px;
 }
 
 .ui-dialog--hidden .ui-dialog__card {

@@ -15,21 +15,23 @@ import { drawBrackets } from "./draw-brackets";
 import { drawSubBrackets } from "./draw-sub-brackets";
 import { measureBracketAndBraces } from "./measure-brackets-and-braces";
 import { getFirstBeats } from "./get-first-beats";
-import { FlowItem } from "../setup/flow-item";
 import { getWrittenDurations } from "./get-written-durations";
+import { HorizontalSpacing, measureTick } from "./measure-tick";
+import { drawBarline, measureBarlineBox } from "../store/entries/barline/utils";
+import { BarlineDrawType } from "../store/entries/barline/defs";
 
 export function parse(
     score: Score,
     flow_key: string,
     px_per_mm: number
 ): RenderInstructions {
-    const TEMPORARY_WIDTH = 100;
-
     const draw_instructions: Instruction<any>[] = [];
 
     const flow = score.flows.by_key[flow_key];
     const config = defaultEngravingConfig(LayoutType.Score);
     const { px, mm, spaces } = getConverter(px_per_mm, config.space, 2);
+
+    const TEMPORARY_STAVE_WIDTH = 50;
 
     const counts = getCounts(score.players, score.instruments);
     const names = getInstrumentNamesList(
@@ -55,8 +57,6 @@ export function parse(
         flow
     );
 
-    const barlines = getFirstBeats(flow);
-
     const x =
         mm.toSpaces(config.framePadding.left) +
         names_width +
@@ -64,12 +64,25 @@ export function parse(
         measureBracketAndBraces(vertical_spacing, vertical_spans, config);
     const y = mm.toSpaces(config.framePadding.top);
 
+    const barlines = getFirstBeats(flow);
     const notation = getWrittenDurations(
         score.players,
         score.instruments,
         flow,
         barlines
     );
+
+    const horizontalMeasurements: { [tick: number]: HorizontalSpacing } = {};
+    for (let tick = 0; tick < flow.length; tick++) {
+        horizontalMeasurements[tick] = measureTick(
+            tick,
+            score.players,
+            score.instruments,
+            flow,
+            barlines.has(tick),
+            notation
+        );
+    }
 
     draw_instructions.push(
         ...drawNames(
@@ -85,7 +98,8 @@ export function parse(
         ...drawStaves(
             x,
             y,
-            TEMPORARY_WIDTH - x - mm.toSpaces(config.framePadding.right),
+            TEMPORARY_STAVE_WIDTH +
+                measureBarlineBox(config.finalBarlineType).width,
             score.players,
             score.instruments,
             flow,
@@ -94,12 +108,27 @@ export function parse(
         ),
         ...drawBraces(x, y, vertical_spacing, vertical_spans),
         ...drawBrackets(x, y, vertical_spacing, vertical_spans, config),
-        ...drawSubBrackets(x, y, vertical_spacing, vertical_spans)
+        ...drawSubBrackets(x, y, vertical_spacing, vertical_spans),
+        ...drawBarline(
+            x + TEMPORARY_STAVE_WIDTH,
+            y,
+            score.players,
+            score.instruments,
+            flow,
+            vertical_spacing,
+            vertical_spans,
+            config.finalBarlineType,
+            "final"
+        )
     );
 
     return {
         space: spaces.toPX(1),
-        width: TEMPORARY_WIDTH,
+        width:
+            x +
+            TEMPORARY_STAVE_WIDTH +
+            measureBarlineBox(config.finalBarlineType).width +
+            mm.toSpaces(config.framePadding.right),
         height:
             mm.toSpaces(config.framePadding.top) +
             vertical_spacing.height +

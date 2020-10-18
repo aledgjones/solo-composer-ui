@@ -8,6 +8,7 @@
     height: 48px;
     margin-bottom: 8px;
     background-color: var(--background-900);
+    border-radius: 3px;
 }
 
 .instrument-item--selected {

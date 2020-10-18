@@ -3,12 +3,19 @@ export enum EntryType {
     AbsoluteTempo,
     Clef,
     Tone,
+    Barline,
+    KeySignature,
 }
 
 export interface Entry {
     key: string;
     tick: number;
     type: EntryType;
+}
+
+export interface Box {
+    height: number;
+    width: number;
 }
 
 export enum NoteDuration {
@@ -65,4 +72,21 @@ export function pitch_from_number(pitch: number): Pitch {
         default:
             return { int: pitch, accidental: Accidental.Sharp };
     }
+}
+
+/** Returns pitch parts [letter, accidental, octave] */
+export function pitch_to_parts(pitch: Pitch): [string, Accidental, number] {
+    const letters: { [key: number]: string } = {
+        0: "C",
+        2: "D",
+        4: "E",
+        5: "F",
+        7: "G",
+        9: "A",
+        11: "B",
+    };
+    const C0 = 12;
+    const octave = Math.floor((pitch.int - pitch.accidental - C0) / 12);
+    const letter = letters[(pitch.int - pitch.accidental - C0) % 12];
+    return [letter, pitch.accidental, octave];
 }

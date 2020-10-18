@@ -7,12 +7,12 @@ import {
     distance_from_barline,
     is_on_beat_type,
     is_on_grouping_boundry,
-} from "../entries/time_signature/utils";
+} from "../entries/time-signature/utils";
 import { NoteDuration, Entry, EntryType } from "../entries";
 import {
     TimeSignatureDrawType,
     TimeSignature,
-} from "../entries/time_signature/defs";
+} from "../entries/time-signature/defs";
 import { useStore } from "../use-store";
 import { useMemo } from "react";
 

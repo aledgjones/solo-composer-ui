@@ -7,8 +7,8 @@ import { actions } from "../../store/actions";
 import { useStore, store } from "../../store/use-store";
 import { useTick, useTimestamp } from "../../store/playback";
 import { EntryType, Articulation } from "../../store/entries";
-import { AbsoluteTempo } from "../../store/entries/absolute_tempo/defs";
-import { normalize_bpm } from "../../store/entries/absolute_tempo/utils";
+import { AbsoluteTempo } from "../../store/entries/absolute-tempo/defs";
+import { normalize_bpm } from "../../store/entries/absolute-tempo/utils";
 import { Tone } from "../../store/entries/tone/defs";
 
 import "./styles.css";
