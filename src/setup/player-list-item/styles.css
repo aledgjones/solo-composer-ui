@@ -3,7 +3,7 @@
     background-color: var(--background-800);
     color: var(--foreground-800);
     margin-bottom: 8px;
-    border-radius: 3px;
+    border-radius: var(--border-radius);
 }
 
 .player-item--selected {

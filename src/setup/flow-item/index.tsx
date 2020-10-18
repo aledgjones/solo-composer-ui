@@ -37,6 +37,7 @@ export const FlowItem: FC<Props> = ({
     const handle = useRef<HTMLDivElement>(null);
     const input = useRef<HTMLInputElement>(null);
 
+    const [savedValue, setSavedValue] = useState(flow.title);
     const [editing, setEditing] = useState(false);
     const selected = selection && selection.key === flow.key;
     const active: boolean =
@@ -44,35 +45,48 @@ export const FlowItem: FC<Props> = ({
         selection.type === SelectionType.Player &&
         flow.players[selection.key];
 
-    const onCheckboxChange = useCallback(
-        (value: boolean) => {
-            if (selection) {
-                const playerKey = selection.key;
-                if (value) {
-                    actions.score.flow.assign_player(flow.key, playerKey);
-                } else {
-                    actions.score.flow.unassign_player(flow.key, playerKey);
-                }
+    const onCheckboxChange = (value: boolean) => {
+        if (selection) {
+            const playerKey = selection.key;
+            if (value) {
+                actions.score.flow.assign_player(flow.key, playerKey);
+            } else {
+                actions.score.flow.unassign_player(flow.key, playerKey);
             }
-        },
-        [selection, flow.key, actions.score.flow]
-    );
+        }
+    };
 
-    const onRemove = useCallback(
-        (e: MouseEvent<HTMLButtonElement>) => {
-            e.stopPropagation();
-            actions.score.flow.remove(flow.key);
-            onSelect(null);
-        },
-        [onSelect, actions.score.flow, flow.key]
-    );
+    const onRemove = (e: MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
+        actions.score.flow.remove(flow.key);
+        onSelect(null);
+    };
 
-    const onEdit = useCallback(() => {
+    const onEdit = () => {
         if (input.current) {
+            setSavedValue(flow.title);
             input.current.focus();
         }
         setEditing(true);
-    }, [input]);
+    };
+
+    const onKeyDown = (e: any) => {
+        switch (e.key) {
+            case "Enter":
+                // confirm
+                if (input.current) {
+                    input.current.blur();
+                }
+                break;
+            case "Escape":
+                // revert
+                actions.score.flow.rename(flow.key, savedValue);
+                input.current.blur();
+                break;
+            default:
+                break;
+        }
+    };
 
     return (
         <SortableItem
@@ -110,6 +124,7 @@ export const FlowItem: FC<Props> = ({
                     className="flow-item__name"
                     tabIndex={editing ? 0 : -1}
                     value={editing ? flow.title : flow.title || "Untitled Flow"}
+                    onKeyDown={onKeyDown}
                     onInput={(e: any) =>
                         actions.score.flow.rename(flow.key, e.target.value)
                     }

@@ -31,6 +31,32 @@ export const uiActions = {
                 delete s.ui.setup.expanded[key];
             });
         },
+        panels: {
+            toggle: {
+                players: () => {
+                    store.update((s) => {
+                        s.ui.setup.panels.players = !s.ui.setup.panels.players;
+                    });
+                },
+                layouts: () => {
+                    store.update((s) => {
+                        s.ui.setup.panels.layouts = !s.ui.setup.panels.layouts;
+                    });
+                },
+            },
+        },
+    },
+    write: {
+        panels: {
+            toggle: {
+                elements: () => {
+                    store.update((s) => {
+                        s.ui.write.panels.elements = !s.ui.write.panels
+                            .elements;
+                    });
+                },
+            },
+        },
     },
     play: {
         selection: {

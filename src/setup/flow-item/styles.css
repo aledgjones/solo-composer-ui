@@ -6,7 +6,7 @@
     background-color: var(--background-800);
     color: var(--foreground-800);
     min-width: 280px;
-    border-radius: 3px;
+    border-radius: var(--border-radius);
 }
 
 .flow-item--selected {

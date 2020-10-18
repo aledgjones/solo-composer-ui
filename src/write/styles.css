@@ -1,7 +1,11 @@
 .write {
     height: 100%;
+    display: flex;
 }
 
 .write__renderer {
     padding-left: 148px !important;
+}
+
+.write__right-toolkit {
 }

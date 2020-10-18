@@ -54,7 +54,18 @@ export const empty = (): State => {
             view: View.Setup,
             snap: NoteDuration.Sixteenth,
             flow_key: flow.key,
-            setup: { expanded: {} },
+            setup: {
+                expanded: {},
+                panels: {
+                    players: true,
+                    layouts: true,
+                },
+            },
+            write: {
+                panels: {
+                    elements: true,
+                },
+            },
             play: {
                 selected: {},
                 expanded: {},
