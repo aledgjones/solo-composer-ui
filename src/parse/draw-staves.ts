@@ -37,7 +37,11 @@ export function drawStaves(
     staves.forEach((stave) => {
         for (let i = 0; i < stave.lines.length; i++) {
             if (stave.lines[i] === 1) {
-                const start = y + vertical_layout.staves[stave.key].y + i;
+                const start =
+                    y +
+                    (vertical_layout.staves[stave.key].y -
+                        vertical_layout.staves[stave.key].height / 2) +
+                    i;
                 paths.push(
                     buildPath(
                         `${stave.key}-stave-${i}`,

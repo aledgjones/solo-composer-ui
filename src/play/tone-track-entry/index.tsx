@@ -6,9 +6,9 @@ import { Articulation } from "../../store/entries";
 import { Tone } from "../../store/entries/tone/defs";
 import { TickList } from "../../store/score-flow/defs";
 import { Tool } from "../../store/ui/defs";
+import { actions } from "../../store/actions";
 
 import "./styles.css";
-import { actions } from "../../store/actions";
 
 // TODO: write a should render function: is ticks in view?
 function shouldDraw(pitch: number, base: number, slots: number) {

@@ -1,7 +1,7 @@
 import { MMs, Spaces } from "../defs";
 import { Justify } from "../../render/text";
 import { BracketingType, BracketEndStyle } from "../entries/brackets";
-import { BarlineType } from "../entries/barline";
+import { BarlineType } from "../entries/defs";
 
 export enum LayoutType {
     Score, // used for default score

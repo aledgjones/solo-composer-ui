@@ -5,6 +5,7 @@
     min-height: 40px;
     padding: 0 16px;
     cursor: pointer;
+    border-radius: 3px;
 }
 
 .menu-item--clickable:hover {

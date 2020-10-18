@@ -2,7 +2,7 @@ import shortid from "shortid";
 import { EngravingConfig, LayoutType } from "./defs";
 import { Justify } from "../../render/text";
 import { BracketingType, BracketEndStyle } from "../entries/brackets";
-import { BarlineType } from "../entries/barline";
+import { BarlineDrawType } from "../entries/barline/defs";
 
 export function defaultEngravingConfig(type: LayoutType): EngravingConfig {
     return {
@@ -35,7 +35,7 @@ export function defaultEngravingConfig(type: LayoutType): EngravingConfig {
 
         minNoteSpacing: 1.6,
 
-        finalBarlineType: BarlineType.final,
+        finalBarlineType: BarlineDrawType.Final,
     };
 }
 

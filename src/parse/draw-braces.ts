@@ -21,7 +21,7 @@ export function drawBraces(
         const stop = spacing.staves[brace.stop];
 
         const height = stop.y + stop.height - start.y;
-        const top = y + (stop.y + stop.height);
+        const top = y + (stop.y + stop.height / 2);
 
         return buildText(
             `${brace.start}-brace`,

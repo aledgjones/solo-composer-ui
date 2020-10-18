@@ -2,12 +2,11 @@ import { NotationBaseDuration } from "./notation-track";
 
 function isWritable(duration: number, subdivisions: number) {
     switch (duration / subdivisions) {
-        case NotationBaseDuration.semiquaver:
-        case NotationBaseDuration.quaver:
-        case NotationBaseDuration.crotchet:
-        case NotationBaseDuration.minim:
-        case NotationBaseDuration.semibreve:
-        case NotationBaseDuration.breve:
+        case NotationBaseDuration.Sixteenth:
+        case NotationBaseDuration.Eighth:
+        case NotationBaseDuration.Quarter:
+        case NotationBaseDuration.Half:
+        case NotationBaseDuration.Whole:
             return true;
         default:
             return false;
