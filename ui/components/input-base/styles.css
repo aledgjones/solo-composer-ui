@@ -25,11 +25,7 @@
     font-family: Roboto, sans-serif;
     min-height: 32px;
     z-index: 1;
-<<<<<<< HEAD
     border-radius: var(--border-radius);
-=======
-    border-radius: 3px;
->>>>>>> master
 }
 
 .ui-input--focus .ui-input__container {
