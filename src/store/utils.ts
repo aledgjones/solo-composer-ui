@@ -3,7 +3,6 @@ import { create_flow } from "./score-flow/utils";
 import { PlayerType } from "./score-player/defs";
 import { View, Tool } from "./ui/defs";
 import { NoteDuration } from "./entries";
-import { ThemeMode } from "./app/defs";
 import { AutoCountStyle } from "./score-config/defs";
 import { engravingEmptyState } from "./score-engraving/utils";
 
@@ -13,11 +12,9 @@ export function move(arr: any[], from: number, to: number) {
 
 export const empty = (): State => {
     const audition = localStorage.getItem("sc:audition/v1");
-    const theme = localStorage.getItem("sc:theme-mode/v1");
     const flow = create_flow();
     return {
         app: {
-            theme: theme === null ? ThemeMode.Dark : JSON.parse(theme),
             audition: audition === null ? true : JSON.parse(audition),
         },
         playback: {

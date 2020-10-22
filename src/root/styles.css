@@ -1,4 +1,7 @@
 :root {
+
+    --border-radius: 4px;
+    
     --black: #252429;
     --white: #dddddd;
 
@@ -7,31 +10,6 @@
 
     --error: #ff6347;
 
-    --border-radius: 4px;
-}
-
-.ui-light {
-    --background-100: #ffffff;
-    --foreground-100: var(--black);
-    --background-200: #dddddd; /**/
-    --foreground-200: var(--black);
-    --background-300: #aaaaaa;
-    --foreground-300: var(--black);
-    --background-400: #bbbbbb;
-    --foreground-400: var(--black);
-    --background-500: #d2d3ce; /**/
-    --foreground-500: var(--black);
-    --background-700: #c7c7c3; /**/
-    --foreground-700: var(--black);
-    --background-800: #cacbc6; /**/
-    --foreground-800: var(--black);
-    --background-900: #bfbfbc; /**/
-    --foreground-900: var(--black);
-    --background-1000: #bfbfbc; /**/
-    --foreground-1000: var(--black);
-}
-
-.ui-dark {
     --background-100: #222024;
     --foreground-100: var(--white);
     --background-200: #252429;
