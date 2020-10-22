@@ -1,5 +1,4 @@
 import { store } from "../use-store";
-import { ThemeMode } from "./defs";
 
 export const appActions = {
     audition: {
@@ -12,11 +11,5 @@ export const appActions = {
                 s.app.audition = !s.app.audition;
             });
         },
-    },
-    theme: (value: ThemeMode) => {
-        store.update((s) => {
-            localStorage.setItem("sc:theme-mode/v1", JSON.stringify(value));
-            s.app.theme = value;
-        });
-    },
+    }
 };

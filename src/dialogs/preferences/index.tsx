@@ -12,7 +12,6 @@ import {
 } from "../../../ui";
 import { MenuItem } from "../../components/menu-item";
 import { useStore } from "../../store/use-store";
-import { ThemeMode } from "../../store/app/defs";
 import { actions } from "../../store/actions";
 
 import "../generic-settings.css";
@@ -28,7 +27,7 @@ interface Props {
 }
 
 export const Preferences = Dialog<Props>(({ onClose }) => {
-    const [theme, audition] = useStore((s) => [s.app.theme, s.app.audition]);
+    const [audition] = useStore((s) => [s.app.audition]);
 
     const [page, setPage] = useState<Page>(Page.General);
 
@@ -61,32 +60,6 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
                                         displayAs="English (UK)"
                                     >
                                         English (UK)
-                                    </Option>
-                                </Select>
-                            </div>
-                            <div className="generic-settings__section">
-                                <Subheader>THEME</Subheader>
-                                <Select
-                                    margin
-                                    value={theme}
-                                    onChange={(mode: ThemeMode) =>
-                                        actions.app.theme(mode)
-                                    }
-                                >
-                                    <Option
-                                        value={ThemeMode.Dark}
-                                        displayAs="Dark"
-                                    >
-                                        <Label>
-                                            <p>Dark</p>
-                                            <p>Default</p>
-                                        </Label>
-                                    </Option>
-                                    <Option
-                                        value={ThemeMode.Light}
-                                        displayAs="Light"
-                                    >
-                                        Light
                                     </Option>
                                 </Select>
                             </div>

@@ -5,7 +5,6 @@ import { TransportComponent } from "./transport";
 import { Loading } from "../components/loading";
 import { useStore } from "../store/use-store";
 import { actions } from "../store/actions";
-import { ThemeMode } from "../store/app/defs";
 import { View } from "../store/ui/defs";
 import { File } from "./file";
 
@@ -17,27 +16,11 @@ const Write = React.lazy(() => import("../write"));
 const Play = React.lazy(() => import("../play"));
 
 export const Root: FC = () => {
-    const [view, theme] = useStore((s) => [s.ui.view, s.app.theme]);
-    useTheme(theme === ThemeMode.Light ? "#ffffff" : "#252429");
-
-    useEffect(() => {
-        if (theme == ThemeMode.Light) {
-            document.body.classList.remove("ui-dark");
-            document.body.classList.add("ui-light");
-        } else {
-            document.body.classList.remove("ui-light");
-            document.body.classList.add("ui-dark");
-        }
-    }, [theme]);
+    const [view] = useStore((s) => [s.ui.view]);
 
     return (
         <>
-            <div
-                className={merge("root", {
-                    "root--light": theme === ThemeMode.Light,
-                    "root--dark": theme === ThemeMode.Dark,
-                })}
-            >
+            <div className="root">
                 <div className="root__title-bar">
                     <File />
                     <Tabs

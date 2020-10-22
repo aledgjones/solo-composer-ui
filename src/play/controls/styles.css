@@ -3,6 +3,8 @@
     background-color: var(--background-700);
     color: var(--foreground-700);
     margin: 8px 0 8px 8px;
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+    overflow: hidden;
 }
 
 .controls__color {
