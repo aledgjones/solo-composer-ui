@@ -15,22 +15,22 @@ import { uiActions } from "./ui/actions";
 
 // and it's really easy to swap between js and wasm funcs if needed.
 export const actions = {
-    app: appActions,
-    playback: playbackActions,
-    score: {
-        ...scoreActions,
-        config: configActions,
-        engraving: engravingActions,
-        flow: flowActions,
-        player: playerActions,
-        instrument: instrumentActions,
-        entries: {
-            time_signature: timeSignatureActions,
-            absolute_tempo: absoluteTempoActions,
-            tone: toneActions,
-        },
+  app: appActions,
+  playback: playbackActions,
+  score: {
+    ...scoreActions,
+    config: configActions,
+    engraving: engravingActions,
+    flow: flowActions,
+    player: playerActions,
+    instrument: instrumentActions,
+    entries: {
+      time_signature: timeSignatureActions,
+      absolute_tempo: absoluteTempoActions,
+      tone: toneActions,
     },
-    ui: uiActions,
+  },
+  ui: uiActions,
 };
 
 // debuggable

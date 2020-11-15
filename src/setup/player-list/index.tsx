@@ -14,63 +14,76 @@ import { PanelHeader } from "../../components/panel-header";
 import "./styles.css";
 
 interface Props {
-    selection: Selection;
+  selection: Selection;
 
-    onSelect: (selection: Selection) => void;
-    onAddInstrument: (playerKey: string, player_type: PlayerType) => void;
-    onCreatePlayer: () => void;
+  onSelect: (selection: Selection) => void;
+  onAddInstrument: (playerKey: string, player_type: PlayerType) => void;
+  onCreatePlayer: () => void;
 }
 
-export const PlayerList: FC<Props> = ({ selection, onSelect, onAddInstrument, onCreatePlayer }) => {
-    const [open, players, instruments, expanded] = useStore((s) => {
-        return [
-            s.ui.setup.panels.players,
-            s.score.players.order.map((key) => s.score.players.by_key[key]),
-            s.score.instruments,
-            s.ui.setup.expanded,
-        ];
-    });
-    const counts = useCounts();
-    const [settings, setSettings] = useState<boolean>(false);
+export const PlayerList: FC<Props> = ({
+  selection,
+  onSelect,
+  onAddInstrument,
+  onCreatePlayer,
+}) => {
+  const [open, players, instruments, expanded] = useStore((s) => {
+    return [
+      s.ui.setup.panels.players,
+      s.score.players.order.map((key) => s.score.players.by_key[key]),
+      s.score.instruments,
+      s.ui.setup.expanded,
+    ];
+  });
+  const counts = useCounts();
+  const [settings, setSettings] = useState<boolean>(false);
 
-    return (
-        <>
-            <Panel
-                className="player-list"
-                collapse={CollpaseDirection.Right}
-                collapsed={!open}
-                onToggle={actions.ui.setup.panels.toggle.players}
-            >
-                <PanelHeader>
-                    <span className="player-list__label">Players</span>
-                    <Icon
-                        style={{ marginRight: 12 }}
-                        size={24}
-                        path={mdiCogOutline}
-                        onClick={() => setSettings(true)}
-                    />
-                    <Icon size={24} path={mdiPlus} onClick={onCreatePlayer} />
-                </PanelHeader>
-                <SortableContainer direction="y" className="player-list__content" onEnd={actions.score.player.reorder}>
-                    {players.map((player, i) => {
-                        return (
-                            <PlayerItem
-                                index={i}
-                                key={player.key}
-                                player={player}
-                                instruments={instruments}
-                                counts={counts}
-                                selected={selection && player.key === selection.key}
-                                expanded={expanded[player.key]}
-                                onSelect={onSelect}
-                                onAddInstrument={onAddInstrument}
-                            />
-                        );
-                    })}
-                </SortableContainer>
-            </Panel>
+  return (
+    <>
+      <Panel
+        className="player-list"
+        collapse={CollpaseDirection.Right}
+        collapsed={!open}
+        onToggle={actions.ui.setup.panels.toggle.players}
+      >
+        <PanelHeader>
+          <span className="player-list__label">Players</span>
+          <Icon
+            style={{ marginRight: 12 }}
+            size={24}
+            path={mdiCogOutline}
+            onClick={() => setSettings(true)}
+          />
+          <Icon size={24} path={mdiPlus} onClick={onCreatePlayer} />
+        </PanelHeader>
+        <SortableContainer
+          direction="y"
+          className="player-list__content"
+          onEnd={actions.score.player.reorder}
+        >
+          {players.map((player, i) => {
+            return (
+              <PlayerItem
+                index={i}
+                key={player.key}
+                player={player}
+                instruments={instruments}
+                counts={counts}
+                selected={selection && player.key === selection.key}
+                expanded={expanded[player.key]}
+                onSelect={onSelect}
+                onAddInstrument={onAddInstrument}
+              />
+            );
+          })}
+        </SortableContainer>
+      </Panel>
 
-            <SetupSettings width={900} open={settings} onClose={() => setSettings(false)} />
-        </>
-    );
+      <SetupSettings
+        width={900}
+        open={settings}
+        onClose={() => setSettings(false)}
+      />
+    </>
+  );
 };

@@ -20,90 +20,118 @@ import { HorizontalSpacing, measureTick } from "./measure-tick";
 import { measureBarlineBox } from "../store/entries/barline/utils";
 import { drawBarlines } from "./draw-barlines";
 
-export function parse(score: Score, flow_key: string, px_per_mm: number): RenderInstructions {
-    const drawInstructions: Instruction<any>[] = [];
+export function parse(
+  score: Score,
+  flow_key: string,
+  px_per_mm: number
+): RenderInstructions {
+  const drawInstructions: Instruction<any>[] = [];
 
-    const flow = score.flows.by_key[flow_key];
-    const config = defaultEngravingConfig(LayoutType.Score);
-    const { px, mm, spaces } = getConverter(px_per_mm, config.space, 2);
+  const flow = score.flows.by_key[flow_key];
+  const config = defaultEngravingConfig(LayoutType.Score);
+  const { px, mm, spaces } = getConverter(px_per_mm, config.space, 2);
 
-    const TEMPORARY_STAVE_WIDTH = 50;
+  const TEMPORARY_STAVE_WIDTH = 50;
 
-    const counts = getCounts(score.players, score.instruments);
-    const names = getInstrumentNamesList(score.players, score.instruments, counts, score.config.auto_count, flow);
-    const names_width = measureNames(Object.values(names), config, spaces, px);
+  const counts = getCounts(score.players, score.instruments);
+  const names = getInstrumentNamesList(
+    score.players,
+    score.instruments,
+    counts,
+    score.config.auto_count,
+    flow
+  );
+  const names_width = measureNames(Object.values(names), config, spaces, px);
 
-    const verticalSpacing = measureVerticalSpacing(score.players, score.instruments, config, flow);
+  const verticalSpacing = measureVerticalSpacing(
+    score.players,
+    score.instruments,
+    config,
+    flow
+  );
 
-    const verticalSpans = measureVerticalSpans(score.players, score.instruments, config, flow);
+  const verticalSpans = measureVerticalSpans(
+    score.players,
+    score.instruments,
+    config,
+    flow
+  );
 
-    const x =
-        mm.toSpaces(config.framePadding.left) +
-        names_width +
-        config.instrumentName.gap +
-        measureBracketAndBraces(verticalSpacing, verticalSpans, config);
-    const y = mm.toSpaces(config.framePadding.top);
+  const x =
+    mm.toSpaces(config.framePadding.left) +
+    names_width +
+    config.instrumentName.gap +
+    measureBracketAndBraces(verticalSpacing, verticalSpans, config);
+  const y = mm.toSpaces(config.framePadding.top);
 
-    const barlines = getFirstBeats(flow);
-    const notation = getWrittenDurations(score.players, score.instruments, flow, barlines);
+  const barlines = getFirstBeats(flow);
+  const notation = getWrittenDurations(
+    score.players,
+    score.instruments,
+    flow,
+    barlines
+  );
 
-    const horizontalMeasurements: { [tick: number]: HorizontalSpacing } = {};
-    for (let tick = 0; tick < flow.length; tick++) {
-        horizontalMeasurements[tick] = measureTick(
-            tick,
-            score.players,
-            score.instruments,
-            flow,
-            barlines.has(tick),
-            notation
-        );
-    }
-
-    drawInstructions.push(
-        ...drawNames(
-            mm.toSpaces(config.framePadding.left),
-            mm.toSpaces(config.framePadding.top),
-            names_width,
-            names,
-            score.players,
-            flow,
-            verticalSpacing,
-            config
-        ),
-        ...drawStaves(
-            x,
-            y,
-            TEMPORARY_STAVE_WIDTH + measureBarlineBox(config.finalBarlineType).width,
-            score.players,
-            score.instruments,
-            flow,
-            verticalSpacing
-        ),
-        ...drawBraces(x, y, verticalSpacing, verticalSpans),
-        ...drawBrackets(x, y, verticalSpacing, verticalSpans, config),
-        ...drawSubBrackets(x, y, verticalSpacing, verticalSpans),
-        ...drawBarlines(
-            x,
-            y,
-            score.players,
-            score.instruments,
-            flow,
-            verticalSpacing,
-            verticalSpans,
-            TEMPORARY_STAVE_WIDTH,
-            config.systemicBarlineSingleInstrumentSystem,
-            config.finalBarlineType
-        )
+  const horizontalMeasurements: { [tick: number]: HorizontalSpacing } = {};
+  for (let tick = 0; tick < flow.length; tick++) {
+    horizontalMeasurements[tick] = measureTick(
+      tick,
+      score.players,
+      score.instruments,
+      flow,
+      barlines.has(tick),
+      notation
     );
+  }
 
-    return {
-        space: spaces.toPX(1),
-        width:
-            x +
-            TEMPORARY_STAVE_WIDTH +
-            measureBarlineBox(config.finalBarlineType).width +
-            mm.toSpaces(config.framePadding.right),
-        height: mm.toSpaces(config.framePadding.top) + verticalSpacing.height + mm.toSpaces(config.framePadding.bottom),
-        entries: drawInstructions,
-    };
+  drawInstructions.push(
+    ...drawNames(
+      mm.toSpaces(config.framePadding.left),
+      mm.toSpaces(config.framePadding.top),
+      names_width,
+      names,
+      score.players,
+      flow,
+      verticalSpacing,
+      config
+    ),
+    ...drawStaves(
+      x,
+      y,
+      TEMPORARY_STAVE_WIDTH + measureBarlineBox(config.finalBarlineType).width,
+      score.players,
+      score.instruments,
+      flow,
+      verticalSpacing
+    ),
+    ...drawBraces(x, y, verticalSpacing, verticalSpans),
+    ...drawBrackets(x, y, verticalSpacing, verticalSpans, config),
+    ...drawSubBrackets(x, y, verticalSpacing, verticalSpans),
+    ...drawBarlines(
+      x,
+      y,
+      score.players,
+      score.instruments,
+      flow,
+      verticalSpacing,
+      verticalSpans,
+      TEMPORARY_STAVE_WIDTH,
+      config.systemicBarlineSingleInstrumentSystem,
+      config.finalBarlineType
+    )
+  );
+
+  return {
+    space: spaces.toPX(1),
+    width:
+      x +
+      TEMPORARY_STAVE_WIDTH +
+      measureBarlineBox(config.finalBarlineType).width +
+      mm.toSpaces(config.framePadding.right),
+    height:
+      mm.toSpaces(config.framePadding.top) +
+      verticalSpacing.height +
+      mm.toSpaces(config.framePadding.bottom),
+    entries: drawInstructions,
+  };
 }

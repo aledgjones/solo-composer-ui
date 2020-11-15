@@ -7,26 +7,28 @@ const worker = new Worker("../../parse/parse.worker.ts");
 let cache: RenderInstructions;
 
 export function useParseWorker(score: Score, flow_key: string) {
-    const [instructions, setInstructions] = useState<RenderInstructions | undefined>(cache);
+  const [instructions, setInstructions] = useState<
+    RenderInstructions | undefined
+  >(cache);
 
-    const mm = useMM();
+  const mm = useMM();
 
-    useEffect(() => {
-        worker.postMessage({ mm, score, flow_key });
-    }, [mm, score, flow_key]);
+  useEffect(() => {
+    worker.postMessage({ mm, score, flow_key });
+  }, [mm, score, flow_key]);
 
-    useEffect(() => {
-        const cb = (e: any) => {
-            cache = e.data;
-            setInstructions(e.data);
-        };
+  useEffect(() => {
+    const cb = (e: any) => {
+      cache = e.data;
+      setInstructions(e.data);
+    };
 
-        worker.addEventListener("message", cb);
-        return () => {
-            worker.removeEventListener("message", cb);
-            // worker.terminate();
-        };
-    }, []);
+    worker.addEventListener("message", cb);
+    return () => {
+      worker.removeEventListener("message", cb);
+      // worker.terminate();
+    };
+  }, []);
 
-    return instructions;
+  return instructions;
 }

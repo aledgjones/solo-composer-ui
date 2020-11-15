@@ -11,28 +11,31 @@ import { instrumentDefs } from "./instrument-defs";
  * eg violin ${counts['violin'].length + 1} = Violin *1*
  */
 export function useCounts() {
-    const [players, instruments] = useStore((s) => [s.score.players, s.score.instruments]);
+  const [players, instruments] = useStore((s) => [
+    s.score.players,
+    s.score.instruments,
+  ]);
 
-    return useMemo(() => {
-        return getCounts(players, instruments);
-    }, [players, instruments]);
+  return useMemo(() => {
+    return getCounts(players, instruments);
+  }, [players, instruments]);
 }
 
 export function useDefsList(path: string[]): string[][] {
-    return useMemo(() => {
-        const seen: Set<string> = new Set();
-        const tree: string[][] = [[], [], []];
-        instrumentDefs.forEach((def) => {
-            for (let i = 0; i < def.path.length; i++) {
-                if (!seen.has(def.path[i])) {
-                    tree[i].push(def.path[i]);
-                    seen.add(def.path[i]);
-                }
-                if (def.path[i] !== path[i]) {
-                    break;
-                }
-            }
-        });
-        return tree;
-    }, [path]);
+  return useMemo(() => {
+    const seen: Set<string> = new Set();
+    const tree: string[][] = [[], [], []];
+    instrumentDefs.forEach((def) => {
+      for (let i = 0; i < def.path.length; i++) {
+        if (!seen.has(def.path[i])) {
+          tree[i].push(def.path[i]);
+          seen.add(def.path[i]);
+        }
+        if (def.path[i] !== path[i]) {
+          break;
+        }
+      }
+    });
+    return tree;
+  }, [path]);
 }

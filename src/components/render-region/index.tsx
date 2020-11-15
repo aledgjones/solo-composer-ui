@@ -4,13 +4,13 @@ import { DragScroll, merge } from "../../../ui";
 import "./styles.css";
 
 interface Props {
-    className?: string;
+  className?: string;
 }
 
 export const RenderRegion: FC<Props> = ({ children, className }) => {
-    return (
-        <DragScroll x y className={merge("render-region", className)}>
-            {children}
-        </DragScroll>
-    );
+  return (
+    <DragScroll x y className={merge("render-region", className)}>
+      {children}
+    </DragScroll>
+  );
 };

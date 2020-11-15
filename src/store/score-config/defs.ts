@@ -1,4 +1,4 @@
 export enum AutoCountStyle {
-    Arabic,
-    Roman,
+  Arabic,
+  Roman,
 }

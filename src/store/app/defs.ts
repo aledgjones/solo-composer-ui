@@ -1,3 +1,3 @@
 export interface AppDefs {
-    audition: boolean;
+  audition: boolean;
 }

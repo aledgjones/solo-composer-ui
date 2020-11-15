@@ -1,19 +1,19 @@
 .flow-list {
-    width: 100%;
+  width: 100%;
 }
 
 .flow-list__label {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .flow-list__wrapper {
-    overflow: auto;
-    width: 100%;
+  overflow: auto;
+  width: 100%;
 }
 
 .flow-list__content {
-    white-space: nowrap;
-    min-width: 100%;
-    height: calc(100% - 48px);
-    padding: 8px 0 8px 8px;
+  white-space: nowrap;
+  min-width: 100%;
+  height: calc(100% - 48px);
+  padding: 8px 0 8px 8px;
 }

@@ -1,5 +1,5 @@
 /* This should start loading ASAP so I have taken it out the Webpack system to acheive this */
 @font-face {
-    font-family: "Bravura";
-    src: url("/fonts/Bravura.woff2");
+  font-family: "Bravura";
+  src: url("/fonts/Bravura.woff2");
 }
