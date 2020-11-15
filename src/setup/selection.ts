@@ -1,10 +1,10 @@
 export enum SelectionType {
-    Player,
-    Flow,
-    Layout
+  Player,
+  Flow,
+  Layout,
 }
 
 export type Selection = {
-    key: string;
-    type: SelectionType;
+  key: string;
+  type: SelectionType;
 } | null;

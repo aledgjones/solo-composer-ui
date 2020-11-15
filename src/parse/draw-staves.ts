@@ -4,67 +4,41 @@ import { Player } from "../store/score-player/defs";
 import { Instrument } from "../store/score-instrument/defs";
 import { Flow } from "../store/score-flow/defs";
 import { Stave } from "../store/score-stave/defs";
+import { getStavesAsArray } from "./get-staves-as-array";
 
 export function drawStaves(
-    x: number,
-    y: number,
-    width: number,
-    players: { order: string[]; by_key: { [key: string]: Player } },
-    instruments: { [key: string]: Instrument },
-    flow: Flow,
-    vertical_layout: VerticalSpacing,
-    drawSystemicBarlineSingleStave: boolean
+  x: number,
+  y: number,
+  width: number,
+  players: { order: string[]; by_key: { [key: string]: Player } },
+  instruments: { [key: string]: Instrument },
+  flow: Flow,
+  verticalSpacing: VerticalSpacing
 ) {
-    const tweakForStaveLineWidth = 0.0625;
-    const styles = { color: "#000000", thickness: 0.125 };
+  const paths: PathInstruction[] = [];
+  const staves = getStavesAsArray(players, instruments, flow);
+  const styles = { color: "#000000", thickness: 0.125 };
 
-    const paths: PathInstruction[] = [];
-
-    const staves = players.order.reduce<Stave[]>((out, player_key) => {
-        if (flow.players[player_key]) {
-            const player = players.by_key[player_key];
-            player.instruments.forEach((instrument_key) => {
-                const instrument = instruments[instrument_key];
-                instrument.staves.forEach((stave_key) => {
-                    out.push(flow.staves[stave_key]);
-                });
-            });
-        }
-        return out;
-    }, []);
-
-    // render staves
-    staves.forEach((stave) => {
-        for (let i = 0; i < stave.lines.length; i++) {
-            if (stave.lines[i] === 1) {
-                const start =
-                    y +
-                    (vertical_layout.staves[stave.key].y -
-                        vertical_layout.staves[stave.key].height / 2) +
-                    i;
-                paths.push(
-                    buildPath(
-                        `${stave.key}-stave-${i}`,
-                        styles,
-                        [x, start],
-                        [x + width, start]
-                    )
-                );
-            }
-        }
-    });
-
-    // render stystemic barline
-    if (staves.length > 1 || drawSystemicBarlineSingleStave) {
+  // render staves
+  staves.forEach((stave) => {
+    for (let i = 0; i < stave.lines.length; i++) {
+      if (stave.lines[i] === 1) {
+        const start =
+          y +
+          (verticalSpacing.staves[stave.key].y -
+            verticalSpacing.staves[stave.key].height / 2) +
+          i;
         paths.push(
-            buildPath(
-                "systemic-barline",
-                styles,
-                [x, y - tweakForStaveLineWidth],
-                [x, y + vertical_layout.height + tweakForStaveLineWidth]
-            )
+          buildPath(
+            `${stave.key}-stave-${i}`,
+            styles,
+            [x, start],
+            [x + width, start]
+          )
         );
+      }
     }
+  });
 
-    return paths;
+  return paths;
 }

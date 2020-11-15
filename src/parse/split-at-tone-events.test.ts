@@ -9,10 +9,7 @@ describe("Notate Tones", () => {
         const len = c * 4;
 
         const track = create_track();
-        insert_entry(
-            track,
-            create_tone(0, c * 2, pitch_from_number(60), 80, Articulation.None)
-        );
+        insert_entry(track, create_tone(0, c * 2, pitch_from_number(60), 80, Articulation.None));
         const notation = splitAtToneEvents(len, track);
 
         expect(Object.keys(notation).length).toBe(2);
@@ -27,14 +24,8 @@ describe("Notate Tones", () => {
         const len = c * 4;
 
         const track = create_track();
-        insert_entry(
-            track,
-            create_tone(0, c * 3, pitch_from_number(60), 80, Articulation.None)
-        );
-        insert_entry(
-            track,
-            create_tone(c, c * 2, pitch_from_number(62), 80, Articulation.None)
-        );
+        insert_entry(track, create_tone(0, c * 3, pitch_from_number(60), 80, Articulation.None));
+        insert_entry(track, create_tone(c, c * 2, pitch_from_number(62), 80, Articulation.None));
         const notation = splitAtToneEvents(len, track);
 
         expect(Object.keys(notation).length).toBe(3);

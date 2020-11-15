@@ -1,24 +1,22 @@
-import React, { FC, CSSProperties } from 'react';
+import React, { FC, CSSProperties } from "react";
 
-import { merge } from '../../utils/merge';
+import { merge } from "../../utils/merge";
 
-import './styles.css';
+import "./styles.css";
 
 interface Props {
-    id?: string;
-    className?: string;
-    style?: CSSProperties;
+  id?: string;
+  className?: string;
+  style?: CSSProperties;
 }
 
 /**
  * Content component with default padding.
  */
 export const Content: FC<Props> = ({ id, className, style, children }) => {
-    return <div
-        id={id}
-        className={merge('ui-content', className)}
-        style={style}
-    >
-        {children}
-    </div>;
-}
+  return (
+    <div id={id} className={merge("ui-content", className)} style={style}>
+      {children}
+    </div>
+  );
+};

@@ -8,114 +8,111 @@ import { Tone } from "../../store/entries/tone/defs";
 import { EntryType } from "../../store/entries";
 
 interface Props {
-    flowKey: string;
-    instrumentKey: string;
-    color: string;
-    ticks: TickList;
-    zoom: number;
+  flowKey: string;
+  instrumentKey: string;
+  color: string;
+  ticks: TickList;
+  zoom: number;
 }
 
 export const OverviewTrack: FC<Props> = ({
-    flowKey,
-    instrumentKey,
-    color,
-    ticks,
-    zoom,
+  flowKey,
+  instrumentKey,
+  color,
+  ticks,
+  zoom,
 }) => {
-    const track = useRef<HTMLDivElement>(null);
+  const track = useRef<HTMLDivElement>(null);
 
-    const [tones] = useStore(
-        (s) => {
-            const flow = s.score.flows.by_key[flowKey];
-            const instrument = s.score.instruments[instrumentKey];
+  const [tones] = useStore(
+    (s) => {
+      const flow = s.score.flows.by_key[flowKey];
+      const instrument = s.score.instruments[instrumentKey];
 
-            return [
-                instrument.staves.reduce<Tone[]>((out, stave_key) => {
-                    flow.staves[stave_key].tracks.order.forEach((track_key) => {
-                        const track =
-                            flow.staves[stave_key].tracks.by_key[track_key];
-                        Object.values(track.entries.by_key).forEach((entry) => {
-                            if (entry.type === EntryType.Tone) {
-                                out.push(entry as Tone);
-                            }
-                        });
-                    });
-                    return out;
-                }, []),
-            ];
-        },
-        [flowKey, instrumentKey]
-    );
+      return [
+        instrument.staves.reduce<Tone[]>((out, stave_key) => {
+          flow.staves[stave_key].tracks.order.forEach((track_key) => {
+            const track = flow.staves[stave_key].tracks.by_key[track_key];
+            Object.values(track.entries.by_key).forEach((entry) => {
+              if (entry.type === EntryType.Tone) {
+                out.push(entry as Tone);
+              }
+            });
+          });
+          return out;
+        }, []),
+      ];
+    },
+    [flowKey, instrumentKey]
+  );
 
-    const blocks = useMemo(() => {
-        return tones
-            .sort((a, b) => a.tick - b.tick)
-            .reduce<[number, number][]>((out, tone) => {
-                const prev = out[out.length - 1];
-                const start = tone.tick;
-                const stop = tone.tick + tone.duration;
-                if (prev) {
-                    const [, prevStop] = prev;
-                    if (start < prevStop && stop < prevStop) {
-                        // the tone is within the previous range so ignore
-                    } else if (start > prevStop) {
-                        // the tone lays outside the previous range so start a new range
-                        out.push([start, stop]);
-                    } else if (stop > prevStop) {
-                        // the tone starts in the previous range but carries on longer so extend the range
-                        prev[1] = stop;
-                    }
-                } else {
-                    out.push([start, stop]);
-                }
+  const blocks = useMemo(() => {
+    return tones
+      .sort((a, b) => a.tick - b.tick)
+      .reduce<[number, number][]>((out, tone) => {
+        const prev = out[out.length - 1];
+        const start = tone.tick;
+        const stop = tone.tick + tone.duration;
+        if (prev) {
+          const [, prevStop] = prev;
+          if (start < prevStop && stop < prevStop) {
+            // the tone is within the previous range so ignore
+          } else if (start > prevStop) {
+            // the tone lays outside the previous range so start a new range
+            out.push([start, stop]);
+          } else if (stop > prevStop) {
+            // the tone starts in the previous range but carries on longer so extend the range
+            prev[1] = stop;
+          }
+        } else {
+          out.push([start, stop]);
+        }
 
-                return out;
-            }, []);
-    }, [tones]);
+        return out;
+      }, []);
+  }, [tones]);
 
-    return (
-        <div
-            ref={track}
-            className="overview-track"
-            style={{ width: ticks.width * zoom }}
-        >
-            {blocks.map(([start, stop], i) => {
-                return (
-                    <div
-                        key={i}
-                        className="overview-track__block"
-                        style={{
-                            backgroundColor: Color(color).alpha(0.1).toString(),
-                            left: ticks.list[start].x * zoom,
-                            width: ticks.list[stop]
-                                ? (ticks.list[stop].x - ticks.list[start].x) *
-                                  zoom
-                                : (ticks.width - ticks.list[start].x) * zoom,
-                        }}
-                    />
-                );
-            })}
-            {tones.map((tone) => {
-                const start = tone.tick;
-                const stop = tone.tick + tone.duration;
-                return (
-                    <div
-                        key={tone.key}
-                        className="overview-track__tone"
-                        style={{
-                            position: "absolute",
-                            backgroundColor: color,
-                            left: ticks.list[start].x * zoom,
-                            width: ticks.list[stop]
-                                ? (ticks.list[stop].x - ticks.list[start].x) *
-                                  zoom
-                                : (ticks.width - ticks.list[start].x) * zoom,
-                            height: `calc(100% / 100)`,
-                            bottom: `calc(1% * ${tone.pitch.int - 12})`, // C0 -> E8 (12 -> 112)
-                        }}
-                    />
-                );
-            })}
-        </div>
-    );
+  return (
+    <div
+      ref={track}
+      className="overview-track"
+      style={{ width: ticks.width * zoom }}
+    >
+      {blocks.map(([start, stop], i) => {
+        return (
+          <div
+            key={i}
+            className="overview-track__block"
+            style={{
+              backgroundColor: Color(color).alpha(0.1).toString(),
+              left: ticks.list[start].x * zoom,
+              width: ticks.list[stop]
+                ? (ticks.list[stop].x - ticks.list[start].x) * zoom
+                : (ticks.width - ticks.list[start].x) * zoom,
+            }}
+          />
+        );
+      })}
+      {tones.map((tone) => {
+        const start = tone.tick;
+        const stop = tone.tick + tone.duration;
+        return (
+          <div
+            key={tone.key}
+            className="overview-track__tone"
+            style={{
+              position: "absolute",
+              backgroundColor: color,
+              left: ticks.list[start].x * zoom,
+              width: ticks.list[stop]
+                ? (ticks.list[stop].x - ticks.list[start].x) * zoom
+                : (ticks.width - ticks.list[start].x) * zoom,
+              height: `calc(100% / 100)`,
+              bottom: `calc(1% * ${tone.pitch.int - 12})`, // C0 -> E8 (12 -> 112)
+            }}
+          />
+        );
+      })}
+    </div>
+  );
 };

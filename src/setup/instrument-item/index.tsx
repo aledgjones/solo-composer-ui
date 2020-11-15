@@ -10,58 +10,55 @@ import { actions } from "../../store/actions";
 import "./styles.css";
 
 interface Props {
-    index: number;
-    selected: boolean;
-    instrument: Instrument;
-    player_key: string;
-    count?: number;
-    count_style: AutoCountStyle;
+  index: number;
+  selected: boolean;
+  instrument: Instrument;
+  player_key: string;
+  count?: number;
+  count_style: AutoCountStyle;
 
-    onSelect: () => void;
+  onSelect: () => void;
 }
 
 export const InstrumentItem: FC<Props> = ({
-    index,
-    selected,
-    instrument,
-    player_key,
-    count,
-    count_style,
-    onSelect,
+  index,
+  selected,
+  instrument,
+  player_key,
+  count,
+  count_style,
+  onSelect,
 }) => {
-    const handle = useRef<HTMLDivElement>(null);
-    const name = instrumentName(instrument, count_style, count);
+  const handle = useRef<HTMLDivElement>(null);
+  const name = instrumentName(instrument, count_style, count);
 
-    return (
-        <SortableItem
-            handle={handle}
-            index={index}
-            className={merge("instrument-item", {
-                "instrument-item--selected": selected,
-            })}
-        >
-            <div ref={handle} onPointerDown={onSelect}>
-                <Icon style={{ marginRight: 20 }} path={mdiDrag} size={24} />
-            </div>
-            <p className="instrument-item__name">
-                <Text content={name} />
-            </p>
-            {selected && (
-                <>
-                    <Icon
-                        aria-label="Remove Instrument"
-                        size={24}
-                        path={mdiDeleteOutline}
-                        onClick={() => {
-                            actions.score.instrument.remove(
-                                player_key,
-                                instrument.key
-                            );
-                            actions.playback.sampler.destroy(instrument.key);
-                        }}
-                    />
-                </>
-            )}
-        </SortableItem>
-    );
+  return (
+    <SortableItem
+      handle={handle}
+      index={index}
+      className={merge("instrument-item", {
+        "instrument-item--selected": selected,
+      })}
+    >
+      <div ref={handle} onPointerDown={onSelect}>
+        <Icon style={{ marginRight: 20 }} path={mdiDrag} size={24} />
+      </div>
+      <p className="instrument-item__name">
+        <Text content={name} />
+      </p>
+      {selected && (
+        <>
+          <Icon
+            aria-label="Remove Instrument"
+            size={24}
+            path={mdiDeleteOutline}
+            onClick={() => {
+              actions.score.instrument.remove(player_key, instrument.key);
+              actions.playback.sampler.destroy(instrument.key);
+            }}
+          />
+        </>
+      )}
+    </SortableItem>
+  );
 };

@@ -1,18 +1,18 @@
 .setup {
-    display: flex;
-    position: relative;
-    height: 100%;
-    width: 100%;
+  display: flex;
+  position: relative;
+  height: 100%;
+  width: 100%;
 }
 
 .setup__middle {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
 }
 
 .setup__view {
-    flex-grow: 1;
-    max-height: calc(100vh - 208px);
-    position: relative;
+  flex-grow: 1;
+  max-height: calc(100vh - 208px);
+  position: relative;
 }

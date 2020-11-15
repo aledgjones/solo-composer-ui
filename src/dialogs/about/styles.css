@@ -1,83 +1,83 @@
 .about {
-    overflow: auto;
-    max-height: calc(100vh - 80px);
+  overflow: auto;
+  max-height: calc(100vh - 80px);
 }
 
 .about__header {
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 0 20px;
-    background-color: var(--background-800);
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 20px;
+  background-color: var(--background-800);
 }
 
 .about__logo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 0 20px 40px 20px;
-    background-color: var(--background-800);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px 40px 20px;
+  background-color: var(--background-800);
 }
 
 .about__logo-img {
-    height: 64px;
-    width: 64px;
-    margin-bottom: 12px;
+  height: 64px;
+  width: 64px;
+  margin-bottom: 12px;
 }
 
 .about__logo-text {
-    font-size: 24px;
-    line-height: 0.9em;
-    text-align: center;
-    font-weight: bold;
-    font-family: "Josefin Sans", sans-serif;
-    text-transform: uppercase;
+  font-size: 24px;
+  line-height: 0.9em;
+  text-align: center;
+  font-weight: bold;
+  font-family: "Josefin Sans", sans-serif;
+  text-transform: uppercase;
 }
 
 .about__logo-text p:nth-child(1) {
-    position: relative;
-    left: 2px;
-    letter-spacing: 3.5px;
-    font-weight: 600;
+  position: relative;
+  left: 2px;
+  letter-spacing: 3.5px;
+  font-weight: 600;
 }
 
 .about__logo-text p:nth-child(2) {
-    font-size: 16px;
-    font-weight: 600;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .about__content {
-    padding-bottom: 0;
+  padding-bottom: 0;
 }
 
 .about__version {
-    display: flex;
-    font-size: 14px;
-    font-family: "Courier New", Courier, monospace;
+  display: flex;
+  font-size: 14px;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .about__grow {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .about__foot {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 48px;
-    padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  padding: 0 20px;
 }
 
 .about__paragraph b {
-    font-weight: bold;
+  font-weight: bold;
 }
 
 .about__paragraph a {
-    color: var(--primary-bg);
+  color: var(--primary-bg);
 }
 
 .about__paragraph a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }

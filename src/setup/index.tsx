@@ -14,100 +14,95 @@ import "./styles.css";
 import { PlayerType } from "../store/score-player/defs";
 
 const Setup: FC = () => {
-    useTitle("Solo Composer | Setup");
+  useTitle("Solo Composer | Setup");
 
-    // local selection is good -- we don't need to keep on nav.
-    const [selection, setSelection] = useState<Selection>(null);
+  // local selection is good -- we don't need to keep on nav.
+  const [selection, setSelection] = useState<Selection>(null);
 
-    const [typePicker, setTypePicker] = useState<
-        (player_type: PlayerType) => void
-    >(null);
-    const [instrumentPicker, setInstrumentPicker] = useState<
-        (id: string) => void
-    >(null);
+  const [typePicker, setTypePicker] = useState<
+    (player_type: PlayerType) => void
+  >(null);
+  const [instrumentPicker, setInstrumentPicker] = useState<
+    (id: string) => void
+  >(null);
 
-    /**
-     * Async conductor for selecting and assigning an instrument to player
-     */
-    const onAddInstrument = useCallback(
-        (playerKey: string, player_type: PlayerType) => {
-            const run = async () => {
-                const instrument_id = await new Promise<string>((resolve) => {
-                    setInstrumentPicker(() => {
-                        return resolve;
-                    });
-                });
-                setInstrumentPicker(null);
-                const instrumentKey = actions.score.instrument.create(
-                    instrument_id
-                );
-                actions.score.player.assign_instrument(
-                    playerKey,
-                    instrumentKey
-                );
-                actions.playback.sampler.load(
-                    instrument_id,
-                    instrumentKey,
-                    player_type
-                );
-                setInstrumentPicker(null);
-            };
-            run();
-        },
-        []
-    );
+  /**
+   * Async conductor for selecting and assigning an instrument to player
+   */
+  const onAddInstrument = useCallback(
+    (playerKey: string, player_type: PlayerType) => {
+      const run = async () => {
+        const instrument_id = await new Promise<string>((resolve) => {
+          setInstrumentPicker(() => {
+            return resolve;
+          });
+        });
+        setInstrumentPicker(null);
+        const instrumentKey = actions.score.instrument.create(instrument_id);
+        actions.score.player.assign_instrument(playerKey, instrumentKey);
+        actions.playback.sampler.load(
+          instrument_id,
+          instrumentKey,
+          player_type
+        );
+        setInstrumentPicker(null);
+      };
+      run();
+    },
+    []
+  );
 
-    /**
-     * Async conductor for selecting player type
-     */
-    const onAddPlayer = useCallback(() => {
-        const run = async () => {
-            const player_type = await new Promise<PlayerType>((resolve) => {
-                setTypePicker(() => {
-                    return resolve;
-                });
-            });
-            setTypePicker(null);
-            const player_key = actions.score.player.create(player_type);
-            setSelection({ key: player_key, type: SelectionType.Player });
-            onAddInstrument(player_key, player_type);
-        };
-        run();
-    }, [onAddInstrument]);
+  /**
+   * Async conductor for selecting player type
+   */
+  const onAddPlayer = useCallback(() => {
+    const run = async () => {
+      const player_type = await new Promise<PlayerType>((resolve) => {
+        setTypePicker(() => {
+          return resolve;
+        });
+      });
+      setTypePicker(null);
+      const player_key = actions.score.player.create(player_type);
+      setSelection({ key: player_key, type: SelectionType.Player });
+      onAddInstrument(player_key, player_type);
+    };
+    run();
+  }, [onAddInstrument]);
 
-    return (
-        <>
-            <div className="setup">
-                <PlayerList
-                    selection={selection}
-                    onSelect={setSelection}
-                    onAddInstrument={onAddInstrument}
-                    onCreatePlayer={onAddPlayer}
-                />
+  return (
+    <>
+      <div className="setup">
+        <PlayerList
+          selection={selection}
+          onSelect={setSelection}
+          onAddInstrument={onAddInstrument}
+          onCreatePlayer={onAddPlayer}
+        />
 
-                <div className="setup__middle">
-                    <RenderRegion className="setup__view">
-                        <Renderer />
-                    </RenderRegion>
-                    <FlowList selection={selection} onSelect={setSelection} />
-                </div>
-                <LayoutList />
-            </div>
+        <div className="setup__middle">
+          <RenderRegion className="setup__view">
+            <Renderer />
+          </RenderRegion>
+          <FlowList selection={selection} onSelect={setSelection} />
+        </div>
+        <LayoutList />
+      </div>
 
-            <PlayerTypePicker
-                width={400}
-                open={!!typePicker}
-                onSelect={typePicker}
-                onCancel={() => setTypePicker(null)}
-            />
-            <InstrumentPicker
-                width={900}
-                open={!!instrumentPicker}
-                onSelect={instrumentPicker}
-                onCancel={() => setInstrumentPicker(null)}
-            />
-        </>
-    );
+      <PlayerTypePicker
+        width={400}
+        open={!!typePicker}
+        onSelect={typePicker}
+        onCancel={() => setTypePicker(null)}
+      />
+      <InstrumentPicker
+        width={900}
+        open={!!instrumentPicker}
+        onSelect={instrumentPicker}
+        onCancel={() => setInstrumentPicker(null)}
+      />
+    </>
+  );
 };
 
 export default Setup;

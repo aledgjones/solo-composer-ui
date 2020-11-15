@@ -1,32 +1,32 @@
 .renderer {
-    position: relative;
-    padding: 80px;
-    display: inline-block;
+  position: relative;
+  padding: 80px;
+  display: inline-block;
 }
 
 .renderer__flow-name {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    padding: 8px 10px;
-    font-size: 12px;
-    line-height: 12px;
-    background-color: var(--primary-bg);
-    color: var(--primary-fg);
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  padding: 8px 10px;
+  font-size: 12px;
+  line-height: 12px;
+  background-color: var(--primary-bg);
+  color: var(--primary-fg);
 }
 
 .renderer__container {
-    position: relative;
-    box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
-    background-color: rgb(255, 255, 255);
+  position: relative;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+  background-color: rgb(255, 255, 255);
 }
 
 .renderer__svg-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    height: 100%;
-    width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  height: 100%;
+  width: 100%;
 }

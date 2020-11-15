@@ -10,8 +10,8 @@ export type MMs = number;
 export type Spaces = number;
 
 export interface State {
-    app: AppDefs;
-    playback: PlaybackDefs;
-    score: Score;
-    ui: UiDefs;
+  app: AppDefs;
+  playback: PlaybackDefs;
+  score: Score;
+  ui: UiDefs;
 }

@@ -7,69 +7,69 @@ import { AutoCountStyle } from "./score-config/defs";
 import { engravingEmptyState } from "./score-engraving/utils";
 
 export function move(arr: any[], from: number, to: number) {
-    return arr.splice(to, 0, arr.splice(from, 1)[0]);
+  return arr.splice(to, 0, arr.splice(from, 1)[0]);
 }
 
 export const empty = (): State => {
-    const audition = localStorage.getItem("sc:audition/v1");
-    const flow = create_flow();
-    return {
-        app: {
-            audition: audition === null ? true : JSON.parse(audition),
+  const audition = localStorage.getItem("sc:audition/v1");
+  const flow = create_flow();
+  return {
+    app: {
+      audition: audition === null ? true : JSON.parse(audition),
+    },
+    playback: {
+      metronome: false,
+      transport: { playing: false },
+      instruments: {},
+    },
+    score: {
+      meta: {
+        title: "",
+        subtitle: "",
+        composer: "",
+        arranger: "",
+        lyricist: "",
+        copyright: "",
+        created: Date.now(),
+        modified: Date.now(),
+      },
+      config: {
+        auto_count: {
+          [PlayerType.Solo]: AutoCountStyle.Roman,
+          [PlayerType.Section]: AutoCountStyle.Roman,
         },
-        playback: {
-            metronome: false,
-            transport: { playing: false },
-            instruments: {},
+      },
+      engraving: engravingEmptyState(),
+      flows: { order: [flow.key], by_key: { [flow.key]: flow } },
+      players: {
+        order: [],
+        by_key: {},
+      },
+      instruments: {},
+    },
+    ui: {
+      view: View.Setup,
+      snap: NoteDuration.Sixteenth,
+      flow_key: flow.key,
+      setup: {
+        expanded: {},
+        panels: {
+          players: true,
+          layouts: true,
         },
-        score: {
-            meta: {
-                title: "",
-                subtitle: "",
-                composer: "",
-                arranger: "",
-                lyricist: "",
-                copyright: "",
-                created: Date.now(),
-                modified: Date.now(),
-            },
-            config: {
-                auto_count: {
-                    [PlayerType.Solo]: AutoCountStyle.Roman,
-                    [PlayerType.Section]: AutoCountStyle.Roman,
-                },
-            },
-            engraving: engravingEmptyState(),
-            flows: { order: [flow.key], by_key: { [flow.key]: flow } },
-            players: {
-                order: [],
-                by_key: {},
-            },
-            instruments: {},
+      },
+      write: {
+        panels: {
+          elements: true,
         },
-        ui: {
-            view: View.Setup,
-            snap: NoteDuration.Sixteenth,
-            flow_key: flow.key,
-            setup: {
-                expanded: {},
-                panels: {
-                    players: true,
-                    layouts: true,
-                },
-            },
-            write: {
-                panels: {
-                    elements: true,
-                },
-            },
-            play: {
-                selected: {},
-                expanded: {},
-                keyboard: {},
-                tool: Tool.Select,
-                zoom: 1,
-            },
-        },
-    };
+      },
+      play: {
+        selected: {},
+        expanded: {},
+        keyboard: {},
+        tool: Tool.Select,
+        zoom: 1,
+      },
+    },
+  };
 };

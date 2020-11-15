@@ -38,10 +38,7 @@ export function getNearestNotationToTick(
     }
 }
 
-export function getNotationBaseDuration(
-    duration: number,
-    subdivisions: number
-): NotationBaseDuration | undefined {
+export function getNotationBaseDuration(duration: number, subdivisions: number): NotationBaseDuration | undefined {
     const length = duration / subdivisions;
     if (NotationBaseDuration[length]) {
         return length;
