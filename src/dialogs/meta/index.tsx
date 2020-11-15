@@ -18,9 +18,7 @@ export const Meta = Dialog<Props>(({ onClose }) => {
         <div className="meta">
             <div className="generic-settings__content">
                 <div className="generic-settings__section">
-                    <Subheader style={{ paddingLeft: 160 }}>
-                        Project Information
-                    </Subheader>
+                    <Subheader style={{ paddingLeft: 160 }}>Project Information</Subheader>
                     <div className="generic-settings__label-with-input">
                         <p className="generic-settings__label">
                             <span>Title</span>
@@ -29,9 +27,7 @@ export const Meta = Dialog<Props>(({ onClose }) => {
                         <Input
                             type="text"
                             value={meta.title}
-                            onChange={(title) =>
-                                actions.score.meta.update({ title })
-                            }
+                            onChange={(title) => actions.score.meta.update({ title })}
                         />
                     </div>
                     <div className="generic-settings__label-with-input">
@@ -42,9 +38,7 @@ export const Meta = Dialog<Props>(({ onClose }) => {
                         <Input
                             type="text"
                             value={meta.subtitle}
-                            onChange={(subtitle) =>
-                                actions.score.meta.update({ subtitle })
-                            }
+                            onChange={(subtitle) => actions.score.meta.update({ subtitle })}
                         />
                     </div>
                     <div className="generic-settings__label-with-input">
@@ -55,9 +49,7 @@ export const Meta = Dialog<Props>(({ onClose }) => {
                         <Input
                             type="text"
                             value={meta.composer}
-                            onChange={(composer) =>
-                                actions.score.meta.update({ title: composer })
-                            }
+                            onChange={(composer) => actions.score.meta.update({ title: composer })}
                         />
                     </div>
                     <div className="generic-settings__label-with-input">
@@ -68,9 +60,7 @@ export const Meta = Dialog<Props>(({ onClose }) => {
                         <Input
                             type="text"
                             value={meta.arranger}
-                            onChange={(arranger) =>
-                                actions.score.meta.update({ title: arranger })
-                            }
+                            onChange={(arranger) => actions.score.meta.update({ title: arranger })}
                         />
                     </div>
                     <div className="generic-settings__label-with-input">
@@ -81,9 +71,7 @@ export const Meta = Dialog<Props>(({ onClose }) => {
                         <Input
                             type="text"
                             value={meta.lyricist}
-                            onChange={(lyricist) =>
-                                actions.score.meta.update({ title: lyricist })
-                            }
+                            onChange={(lyricist) => actions.score.meta.update({ title: lyricist })}
                         />
                     </div>
                     <div className="generic-settings__label-with-input">
@@ -93,9 +81,7 @@ export const Meta = Dialog<Props>(({ onClose }) => {
                         </p>
                         <Textarea
                             value={meta.copyright}
-                            onChange={(copyright) =>
-                                actions.score.meta.update({ title: copyright })
-                            }
+                            onChange={(copyright) => actions.score.meta.update({ title: copyright })}
                         />
                     </div>
                 </div>

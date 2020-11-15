@@ -1,8 +1,5 @@
 import { Flow } from "../store/score-flow/defs";
-import {
-    get_entries_at_tick,
-    distance_from_barline,
-} from "../store/entries/time-signature/utils";
+import { get_entries_at_tick, distance_from_barline } from "../store/entries/time-signature/utils";
 import { EntryType } from "../store/entries";
 import { TimeSignature } from "../store/entries/time-signature/defs";
 
@@ -16,18 +13,12 @@ export function getFirstBeats(flow: Flow) {
     let time_signature: TimeSignature;
 
     for (let tick = 0; tick < flow.length; tick++) {
-        const result = get_entries_at_tick(
-            tick,
-            flow.master,
-            EntryType.TimeSignature
-        );
+        const result = get_entries_at_tick(tick, flow.master, EntryType.TimeSignature);
         if (result[0]) {
             time_signature = result[0] as TimeSignature;
         }
 
-        if (
-            distance_from_barline(tick, flow.subdivisions, time_signature) === 0
-        ) {
+        if (distance_from_barline(tick, flow.subdivisions, time_signature) === 0) {
             ticks.add(tick);
         }
     }

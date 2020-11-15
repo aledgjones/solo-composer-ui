@@ -34,15 +34,7 @@ export function drawNames(
                     y +
                     verticalLayout.instruments[instrument_key].y +
                     verticalLayout.instruments[instrument_key].height / 2;
-                instructions.push(
-                    buildText(
-                        `${instrument_key}-name`,
-                        styles,
-                        left,
-                        top,
-                        names[instrument_key]
-                    )
-                );
+                instructions.push(buildText(`${instrument_key}-name`, styles, left, top, names[instrument_key]));
             });
         }
     });

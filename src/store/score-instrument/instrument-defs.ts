@@ -634,12 +634,9 @@ export const instrumentDefs: InstrumentDef[] = [
                 [Expression.Staccato]: "/patches/contrabass/spiccato.json",
             },
             [PlayerType.Section]: {
-                [Expression.Natural]:
-                    "/patches/contrabass-[PlayerType.Section]/natural.json",
-                [Expression.Pizzicato]:
-                    "/patches/contrabass-[PlayerType.Section]/pizzicato.json",
-                [Expression.Staccato]:
-                    "/patches/contrabass-[PlayerType.Section]/spiccato.json",
+                [Expression.Natural]: "/patches/contrabass-[PlayerType.Section]/natural.json",
+                [Expression.Pizzicato]: "/patches/contrabass-[PlayerType.Section]/pizzicato.json",
+                [Expression.Staccato]: "/patches/contrabass-[PlayerType.Section]/spiccato.json",
             },
         },
     },
@@ -666,12 +663,9 @@ export const instrumentDefs: InstrumentDef[] = [
                 [Expression.Staccato]: "/patches/viola/staccato.json",
             },
             [PlayerType.Section]: {
-                [Expression.Natural]:
-                    "/patches/viola-[PlayerType.Section]/natural.json",
-                [Expression.Pizzicato]:
-                    "/patches/viola-[PlayerType.Section]/pizzicato.json",
-                [Expression.Staccato]:
-                    "/patches/viola-[PlayerType.Section]/staccato.json",
+                [Expression.Natural]: "/patches/viola-[PlayerType.Section]/natural.json",
+                [Expression.Pizzicato]: "/patches/viola-[PlayerType.Section]/pizzicato.json",
+                [Expression.Staccato]: "/patches/viola-[PlayerType.Section]/staccato.json",
             },
         },
     },
@@ -699,14 +693,10 @@ export const instrumentDefs: InstrumentDef[] = [
                 [Expression.Tremolo]: "/patches/violin/tremolo.json",
             },
             [PlayerType.Section]: {
-                [Expression.Natural]:
-                    "/patches/violin-[PlayerType.Section]/natural.json",
-                [Expression.Pizzicato]:
-                    "/patches/violin-[PlayerType.Section]/pizzicato.json",
-                [Expression.Staccato]:
-                    "/patches/violin-[PlayerType.Section]/spiccato.json",
-                [Expression.Tremolo]:
-                    "/patches/violin-[PlayerType.Section]/tremolo.json",
+                [Expression.Natural]: "/patches/violin-[PlayerType.Section]/natural.json",
+                [Expression.Pizzicato]: "/patches/violin-[PlayerType.Section]/pizzicato.json",
+                [Expression.Staccato]: "/patches/violin-[PlayerType.Section]/spiccato.json",
+                [Expression.Tremolo]: "/patches/violin-[PlayerType.Section]/tremolo.json",
             },
         },
     },
@@ -733,12 +723,9 @@ export const instrumentDefs: InstrumentDef[] = [
                 [Expression.Staccato]: "/patches/violoncello/staccato.json",
             },
             [PlayerType.Section]: {
-                [Expression.Natural]:
-                    "/patches/violoncello-[PlayerType.Section]/natural.json",
-                [Expression.Pizzicato]:
-                    "/patches/violoncello-[PlayerType.Section]/pizzicato.json",
-                [Expression.Staccato]:
-                    "/patches/violoncello-[PlayerType.Section]/staccato.json",
+                [Expression.Natural]: "/patches/violoncello-[PlayerType.Section]/natural.json",
+                [Expression.Pizzicato]: "/patches/violoncello-[PlayerType.Section]/pizzicato.json",
+                [Expression.Staccato]: "/patches/violoncello-[PlayerType.Section]/staccato.json",
             },
         },
     },

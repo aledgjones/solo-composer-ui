@@ -3,12 +3,7 @@ import { measureText } from "./measure-text";
 import { EngravingConfig } from "../store/defs";
 import { ConverterGroup } from "./converter";
 
-export function measureNames(
-    names: string[],
-    config: EngravingConfig,
-    spaces: ConverterGroup,
-    px: ConverterGroup
-) {
+export function measureNames(names: string[], config: EngravingConfig, spaces: ConverterGroup, px: ConverterGroup) {
     const styles: TextStyles = {
         color: "#000000",
         font: config.instrumentName.font,

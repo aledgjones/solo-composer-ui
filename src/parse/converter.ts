@@ -11,11 +11,7 @@ export interface Converter {
     spaces: ConverterGroup;
 }
 
-export function getConverter(
-    width: number,
-    space: number,
-    accuracy?: number
-): Converter {
+export function getConverter(width: number, space: number, accuracy?: number): Converter {
     return {
         px: {
             toPX: (px: number) => px,
@@ -25,16 +21,11 @@ export function getConverter(
             },
         },
         mm: {
-            toPX: (mm: number) =>
-                parseFloat(new Big(mm).times(width).toFixed(accuracy)),
-            toSpaces: (mm: number) =>
-                parseFloat(new Big(mm).div(space).toFixed(accuracy)),
+            toPX: (mm: number) => parseFloat(new Big(mm).times(width).toFixed(accuracy)),
+            toSpaces: (mm: number) => parseFloat(new Big(mm).div(space).toFixed(accuracy)),
         },
         spaces: {
-            toPX: (spaces: number) =>
-                parseFloat(
-                    new Big(spaces).times(space).times(width).toFixed(accuracy)
-                ),
+            toPX: (spaces: number) => parseFloat(new Big(spaces).times(space).times(width).toFixed(accuracy)),
             toSpaces: (spaces: number) => spaces,
         },
     };

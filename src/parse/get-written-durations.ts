@@ -24,11 +24,7 @@ export function getWrittenDurations(
                     stave.tracks.order.forEach((track_key) => {
                         const track = stave.tracks.by_key[track_key];
                         const notation = splitAtToneEvents(flow.length, track);
-                        output[track_key] = splitAsPerMeter(
-                            flow,
-                            notation,
-                            barlines
-                        );
+                        output[track_key] = splitAsPerMeter(flow, notation, barlines);
                     });
                 });
             });

@@ -1,14 +1,6 @@
 import React from "react";
 import { mdiClose } from "@mdi/js";
-import {
-    Dialog,
-    Icon,
-    Label,
-    Content,
-    Subheader,
-    Divider,
-    Link,
-} from "../../../ui";
+import { Dialog, Icon, Label, Content, Subheader, Divider, Link } from "../../../ui";
 
 import pkg from "../../../package.json";
 import logo from "./logo-silo.svg";
@@ -26,11 +18,7 @@ export const About = Dialog<Props>(({ onClose }) => {
                 <Icon path={mdiClose} size={24} onClick={onClose} />
             </div>
             <div className="about__logo">
-                <img
-                    className="about__logo-img"
-                    alt="Solo Composer Logo"
-                    src={logo}
-                />
+                <img className="about__logo-img" alt="Solo Composer Logo" src={logo} />
                 <Label className="about__logo-text">
                     <p>Solo Composer</p>
                     <p>Music notation everywhere</p>
@@ -39,14 +27,10 @@ export const About = Dialog<Props>(({ onClose }) => {
             <Divider compact />
             <Content className="about__content">
                 <p className="about__paragraph">
-                    This project is very much an experimental work in progress.
-                    Things <b>will</b> break, not exist, make no sense and
-                    crash! This project is greatly inspired by the amazing work
-                    the people at Steinberg are doing on{" "}
-                    <Link
-                        href="https://new.steinberg.net/dorico/"
-                        target="_blank"
-                    >
+                    This project is very much an experimental work in progress. Things <b>will</b> break, not exist,
+                    make no sense and crash! This project is greatly inspired by the amazing work the people at
+                    Steinberg are doing on{" "}
+                    <Link href="https://new.steinberg.net/dorico/" target="_blank">
                         Dorico
                     </Link>
                     .
@@ -63,9 +47,7 @@ export const About = Dialog<Props>(({ onClose }) => {
                     <span>{pkg.version}</span>
                 </p>
                 <p className="about__version">
-                    <span className="about__grow">
-                        Rendering Engine (React.js)
-                    </span>
+                    <span className="about__grow">Rendering Engine (React.js)</span>
                     <span>{pkg.dependencies.react}</span>
                 </p>
             </Content>

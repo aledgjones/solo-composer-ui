@@ -47,22 +47,16 @@ export const flowActions = {
             // remove each instrument from the flow
             const player = state.score.players.by_key[player_key];
             player.instruments.forEach((instrumentKey) => {
-                state.score.instruments[instrumentKey].staves.forEach(
-                    (stave_key) => {
-                        delete draft.score.flows.by_key[flow_key].staves[
-                            stave_key
-                        ];
-                    }
-                );
+                state.score.instruments[instrumentKey].staves.forEach((stave_key) => {
+                    delete draft.score.flows.by_key[flow_key].staves[stave_key];
+                });
             });
 
             delete draft.score.flows.by_key[flow_key].players[player_key];
         }),
     remove: (flow_key: string) =>
         store.update((draft, state) => {
-            draft.score.flows.order = state.score.flows.order.filter(
-                (k) => k !== flow_key
-            );
+            draft.score.flows.order = state.score.flows.order.filter((k) => k !== flow_key);
             delete draft.score.flows.by_key[flow_key];
         }),
 };

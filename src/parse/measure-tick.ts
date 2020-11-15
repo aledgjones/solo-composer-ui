@@ -3,10 +3,7 @@ import { Instrument } from "../store/score-instrument/defs";
 import { Flow } from "../store/score-flow/defs";
 import { NotationTracks } from "./notation-track";
 import { BarlineDrawType, Barline } from "../store/entries/barline/defs";
-import {
-    get_entries_at_tick,
-    measureTimeSignatureBounds,
-} from "../store/entries/time-signature/utils";
+import { get_entries_at_tick, measureTimeSignatureBounds } from "../store/entries/time-signature/utils";
 import { EntryType } from "../store/entries";
 import { TimeSignature } from "../store/entries/time-signature/defs";
 import { KeySignature } from "../store/entries/key-signature/defs";
@@ -15,16 +12,17 @@ import { measureKeySignatureBounds } from "../store/entries/key-signature/utils"
 import { measureBarlineBounds } from "../store/entries/barline/utils";
 
 export type HorizontalSpacing = [
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number,
-    number
+    number, // End Repeat
+    number, // Clef
+    number, // Barline
+    number, // Key Signature
+    number, // Time Signature
+    number, // Start Repeat
+    number, // Accidentals
+    number, // Pre Note Slot
+    number, // Note Slot
+    number, // Note Spacing
+    number // Padding
 ];
 
 export function measureTick(
@@ -46,55 +44,43 @@ export function measureTick(
         0.0,
         0.2, // TODO: remove static spacing
         0.0,
+        0.0,
     ];
 
-    const time = get_entries_at_tick(
-        tick,
-        flow.master,
-        EntryType.TimeSignature
-    )[0] as TimeSignature;
-    const key = get_entries_at_tick(
-        tick,
-        flow.master,
-        EntryType.KeySignature
-    )[0] as KeySignature;
-    const barline = get_entries_at_tick(
-        tick,
-        flow.master,
-        EntryType.Barline
-    )[0] as Barline;
+    const time = get_entries_at_tick(tick, flow.master, EntryType.TimeSignature)[0] as TimeSignature;
+    const key = get_entries_at_tick(tick, flow.master, EntryType.KeySignature)[0] as KeySignature;
+    const barline = get_entries_at_tick(tick, flow.master, EntryType.Barline)[0] as Barline;
 
     if (time) {
-        measurements[WidthOf.TimeSignature] = measureTimeSignatureBounds(
-            time
-        ).width;
+        measurements[WidthOf.TimeSignature] = measureTimeSignatureBounds(time).width;
     }
 
     if (key) {
-        measurements[WidthOf.KeySignature] = measureKeySignatureBounds(
-            key
-        ).width;
+        measurements[WidthOf.KeySignature] = measureKeySignatureBounds(key).width;
     }
 
-    if (barline) {
-        // TODO: seperate start/end barlines if clef, key or timesig.
-        const width = measureBarlineBounds(barline.draw_type).width;
-        if (barline.draw_type === BarlineDrawType.StartRepeat) {
-            measurements[WidthOf.StartRepeat] = width;
-        } else if (barline.draw_type === BarlineDrawType.EndRepeat) {
-            measurements[WidthOf.EndRepeat] = width;
-        } else {
-            measurements[WidthOf.Barline] = width;
-        }
-    } else if (tick !== 0) {
+    // non-explicit barlines (vetoed by explicit barlies)
+    if (!barline) {
         if (key || time) {
-            measurements[WidthOf.Barline] = measureBarlineBounds(
-                BarlineDrawType.Double
-            ).width;
+            measurements[WidthOf.Barline] = measureBarlineBounds(BarlineDrawType.Double).width;
         } else if (isFirstBeat) {
-            measurements[WidthOf.Barline] = measureBarlineBounds(
-                BarlineDrawType.Normal
-            ).width;
+            measurements[WidthOf.Barline] = measureBarlineBounds(BarlineDrawType.Normal).width;
+        }
+    }
+
+    // if there is an explicit barline
+    if (barline) {
+        const width = measureBarlineBounds(barline.draw_type).width;
+        switch (barline.draw_type) {
+            case BarlineDrawType.StartRepeat:
+                measurements[WidthOf.StartRepeat] = width;
+                break;
+            case BarlineDrawType.EndRepeat:
+                measurements[WidthOf.EndRepeat] = width;
+                break;
+            default:
+                measurements[WidthOf.Barline] = width;
+                break;
         }
     }
 

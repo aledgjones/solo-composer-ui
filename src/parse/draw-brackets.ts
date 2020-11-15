@@ -50,18 +50,8 @@ export function drawBrackets(
 
         if (isLine) {
             out.push(
-                buildPath(
-                    `${bracket.start}-cap--top`,
-                    thin,
-                    [left - 0.25, top],
-                    [x, top]
-                ),
-                buildPath(
-                    `${bracket.start}-cap--bottom`,
-                    thin,
-                    [left - 0.25, bottom],
-                    [x, bottom]
-                )
+                buildPath(`${bracket.start}-cap--top`, thin, [left - 0.25, top], [x, top]),
+                buildPath(`${bracket.start}-cap--bottom`, thin, [left - 0.25, bottom], [x, bottom])
             );
         }
 
@@ -77,20 +67,8 @@ export function drawBrackets(
                 size: 4,
             };
             out.push(
-                buildText(
-                    `${bracket.start}-wing--top`,
-                    styles,
-                    capLeft,
-                    top,
-                    glyphTop
-                ),
-                buildText(
-                    `${bracket.start}-wing--bottom`,
-                    styles,
-                    capLeft,
-                    bottom,
-                    glyphBottom
-                )
+                buildText(`${bracket.start}-wing--top`, styles, capLeft, top, glyphTop),
+                buildText(`${bracket.start}-wing--bottom`, styles, capLeft, bottom, glyphBottom)
             );
         }
 

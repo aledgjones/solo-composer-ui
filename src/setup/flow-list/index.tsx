@@ -37,11 +37,7 @@ export const FlowList: FC<Props> = ({ selection, onSelect }) => {
                 />
             </PanelHeader>
             <div className="flow-list__wrapper">
-                <SortableContainer
-                    direction="x"
-                    className="flow-list__content"
-                    onEnd={actions.score.flow.reorder}
-                >
+                <SortableContainer direction="x" className="flow-list__content" onEnd={actions.score.flow.reorder}>
                     {flows.map((flow, i) => (
                         <FlowItem
                             index={i}

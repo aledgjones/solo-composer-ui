@@ -16,6 +16,6 @@ export function buildPath(key: string, styles: PathStyles, ...points: Path): Pat
         key,
         type: InstructionType.path,
         styles,
-        points
+        points,
     };
 }

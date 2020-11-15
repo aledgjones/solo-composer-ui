@@ -4,12 +4,7 @@ import { create_clef } from "../entries/clef";
 import { create_track, insert_entry } from "../score-track/utils";
 
 export function create_stave(key: string, staveDef: StaveDef): Stave {
-    const clef = create_clef(
-        0,
-        staveDef.clef.pitch,
-        staveDef.clef.offset,
-        staveDef.clef.draw_as
-    );
+    const clef = create_clef(0, staveDef.clef.pitch, staveDef.clef.offset, staveDef.clef.draw_as);
     const master = create_track();
     insert_entry(master, clef);
 

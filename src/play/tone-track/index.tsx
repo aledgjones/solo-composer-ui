@@ -2,22 +2,13 @@ import React, { FC, PointerEvent, useRef, useCallback } from "react";
 import { dragHandler } from "../../../ui";
 import { ToneTrackEntry } from "../tone-track-entry";
 import { SLOT_HEIGHT } from "../const";
-import {
-    getTickFromXPosition,
-    getPitchFromYPosition,
-    getStartOfTone,
-    getDurationOfTone,
-} from "../utils";
+import { getTickFromXPosition, getPitchFromYPosition, getStartOfTone, getDurationOfTone } from "../utils";
 import { useStore } from "../../store/use-store";
 import { TickList } from "../../store/score-flow/defs";
 import { Tool } from "../../store/ui/defs";
 import { duration_to_ticks } from "../../store/entries/time-signature/utils";
 import { Tone } from "../../store/entries/tone/defs";
-import {
-    EntryType,
-    pitch_from_number,
-    Articulation,
-} from "../../store/entries";
+import { EntryType, pitch_from_number, Articulation } from "../../store/entries";
 import { actions } from "../../store/actions";
 
 import "./styles.css";
@@ -33,16 +24,7 @@ interface Props {
     zoom: number;
 }
 
-export const ToneTrack: FC<Props> = ({
-    flowKey,
-    instrumentKey,
-    color,
-    base,
-    tool,
-    ticks,
-    slots,
-    zoom,
-}) => {
+export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool, ticks, slots, zoom }) => {
     const track = useRef<HTMLDivElement>(null);
 
     const [audition, snap, tones, staveKey, trackKey] = useStore(
@@ -59,14 +41,10 @@ export const ToneTrack: FC<Props> = ({
 
             return [
                 s.app.audition,
-                duration_to_ticks(
-                    s.ui.snap,
-                    s.score.flows.by_key[flowKey].subdivisions
-                ),
+                duration_to_ticks(s.ui.snap, s.score.flows.by_key[flowKey].subdivisions),
                 instrument.staves.reduce<Tone[]>((out, stave_key) => {
                     flow.staves[stave_key].tracks.order.forEach((track_key) => {
-                        const track =
-                            flow.staves[stave_key].tracks.by_key[track_key];
+                        const track = flow.staves[stave_key].tracks.by_key[track_key];
                         Object.values(track.entries.by_key).forEach((entry) => {
                             if (entry.type === EntryType.Tone) {
                                 out.push(entry as Tone);
@@ -97,15 +75,8 @@ export const ToneTrack: FC<Props> = ({
                 const box = track.current.getBoundingClientRect();
                 const x = e.clientX - box.left;
                 const y = e.clientY - box.top;
-                const start = getTickFromXPosition(
-                    x,
-                    ticks,
-                    snap,
-                    zoom,
-                    "down"
-                );
-                const duration =
-                    getTickFromXPosition(x, ticks, snap, zoom) - start;
+                const start = getTickFromXPosition(x, ticks, snap, zoom, "down");
+                const duration = getTickFromXPosition(x, ticks, snap, zoom) - start;
                 const pitch = getPitchFromYPosition(y, base, slots);
                 const toneKey = actions.score.entries.tone.create(
                     flowKey,
@@ -121,17 +92,7 @@ export const ToneTrack: FC<Props> = ({
                 actions.ui.play.selection.clear();
                 actions.ui.play.selection.select(toneKey);
 
-                onEdit(
-                    e,
-                    toneKey,
-                    start,
-                    duration,
-                    pitch,
-                    Articulation.None,
-                    true,
-                    false,
-                    true
-                );
+                onEdit(e, toneKey, start, duration, pitch, Articulation.None, true, false, true);
                 onAudition(pitch);
             }
 
@@ -139,21 +100,7 @@ export const ToneTrack: FC<Props> = ({
                 actions.ui.play.selection.clear();
             }
         },
-        [
-            flowKey,
-            staveKey,
-            instrumentKey,
-            trackKey,
-            track,
-            ticks,
-            base,
-            slots,
-            tool,
-            snap,
-            audition,
-            zoom,
-            onAudition,
-        ]
+        [flowKey, staveKey, instrumentKey, trackKey, track, ticks, base, slots, tool, snap, audition, zoom, onAudition]
     );
 
     const onEdit = useCallback(
@@ -184,30 +131,9 @@ export const ToneTrack: FC<Props> = ({
                     const x = ev.clientX - init.box.left;
                     const y = ev.clientY - init.box.top;
 
-                    const p = fixedPitch
-                        ? pitch
-                        : getPitchFromYPosition(y, base, slots);
-                    const s = getStartOfTone(
-                        x,
-                        init.x,
-                        ticks,
-                        snap,
-                        zoom,
-                        start,
-                        duration,
-                        fixedStart,
-                        fixedDuration
-                    );
-                    const d = getDurationOfTone(
-                        x,
-                        ticks,
-                        snap,
-                        zoom,
-                        start,
-                        duration,
-                        fixedStart,
-                        fixedDuration
-                    );
+                    const p = fixedPitch ? pitch : getPitchFromYPosition(y, base, slots);
+                    const s = getStartOfTone(x, init.x, ticks, snap, zoom, start, duration, fixedStart, fixedDuration);
+                    const d = getDurationOfTone(x, ticks, snap, zoom, start, duration, fixedStart, fixedDuration);
                     actions.score.entries.tone.update(
                         flowKey,
                         staveKey,
@@ -222,71 +148,31 @@ export const ToneTrack: FC<Props> = ({
                 onEnd: (ev, init) => {
                     const x = ev.clientX - init.box.left;
                     const y = ev.clientY - init.box.top;
-                    const p = fixedPitch
-                        ? pitch
-                        : getPitchFromYPosition(y, base, slots);
-                    const d = getDurationOfTone(
-                        x,
-                        ticks,
-                        snap,
-                        zoom,
-                        start,
-                        duration,
-                        fixedStart,
-                        fixedDuration
-                    );
+                    const p = fixedPitch ? pitch : getPitchFromYPosition(y, base, slots);
+                    const d = getDurationOfTone(x, ticks, snap, zoom, start, duration, fixedStart, fixedDuration);
                     if (p !== pitch) {
                         onAudition(p);
                     }
                     if (d <= 0) {
-                        actions.score.entries.tone.remove(
-                            flowKey,
-                            staveKey,
-                            trackKey,
-                            toneKey
-                        );
+                        actions.score.entries.tone.remove(flowKey, staveKey, trackKey, toneKey);
                     }
                 },
             });
 
             handler(e);
         },
-        [
-            flowKey,
-            staveKey,
-            instrumentKey,
-            trackKey,
-            track,
-            ticks,
-            base,
-            slots,
-            snap,
-            audition,
-            zoom,
-            onAudition,
-        ]
+        [flowKey, staveKey, instrumentKey, trackKey, track, ticks, base, slots, snap, audition, zoom, onAudition]
     );
 
     const onSlice = useCallback(
-        (
-            e: PointerEvent<HTMLDivElement>,
-            toneKey: string,
-            start: number,
-            duration: number
-        ) => {
+        (e: PointerEvent<HTMLDivElement>, toneKey: string, start: number, duration: number) => {
             const box = track.current.getBoundingClientRect();
             const x = e.clientX - box.left;
             const slice = getTickFromXPosition(x, ticks, snap, zoom);
 
             if (slice > start && slice < start + duration) {
                 actions.ui.play.selection.clear();
-                actions.score.entries.tone.slice(
-                    flowKey,
-                    staveKey,
-                    trackKey,
-                    toneKey,
-                    slice
-                );
+                actions.score.entries.tone.slice(flowKey, staveKey, trackKey, toneKey, slice);
             }
         },
         [flowKey, staveKey, trackKey, ticks, snap, zoom]

@@ -27,11 +27,12 @@ ctx.addEventListener("message", (e) => {
             return out + entry.duration;
         }, 0) / entries.length;
     console.log(
-        `%c ${duration}`,
-        (duration < 1000 / 60 && "color: green") ||
-            (duration < 1000 / 30 && "color: orange") ||
-            "color: red",
-        average
+        `duration: %c${duration}`,
+        (duration < 1000 / 60 && "color: green") || (duration < 1000 / 30 && "color: orange") || "color: red"
+    );
+    console.log(
+        `average: %c${average}`,
+        (average < 1000 / 60 && "color: green") || (average < 1000 / 30 && "color: orange") || "color: red"
     );
 
     if (taskID === latestTaskID) {

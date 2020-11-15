@@ -20,6 +20,6 @@ export function buildCircle(
         styles,
         x,
         y,
-        radius
+        radius,
     };
 }

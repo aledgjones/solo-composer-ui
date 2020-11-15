@@ -43,12 +43,7 @@ interface Props {
         fixedDuration: boolean,
         fixedPitch: boolean
     ) => void;
-    onSlice: (
-        e: PointerEvent<HTMLElement>,
-        toneKey: string,
-        start: number,
-        duration: number
-    ) => void;
+    onSlice: (e: PointerEvent<HTMLElement>, toneKey: string, start: number, duration: number) => void;
     onAudition: (pitch: number) => void;
 }
 
@@ -105,49 +100,19 @@ export const ToneTrackEntry: FC<Props> = ({
 
     const actionWest = useCallback(
         (e: PointerEvent<HTMLElement>) =>
-            onEdit(
-                e,
-                tone.key,
-                tone.tick,
-                tone.duration,
-                tone.pitch.int,
-                tone.articulation,
-                false,
-                false,
-                true
-            ),
+            onEdit(e, tone.key, tone.tick, tone.duration, tone.pitch.int, tone.articulation, false, false, true),
         [tone, onEdit]
     );
 
     const action = useCallback(
         (e: PointerEvent<HTMLElement>) =>
-            onEdit(
-                e,
-                tone.key,
-                tone.tick,
-                tone.duration,
-                tone.pitch.int,
-                tone.articulation,
-                false,
-                true,
-                false
-            ),
+            onEdit(e, tone.key, tone.tick, tone.duration, tone.pitch.int, tone.articulation, false, true, false),
         [tone, onEdit]
     );
 
     const actionEast = useCallback(
         (e: PointerEvent<HTMLElement>) =>
-            onEdit(
-                e,
-                tone.key,
-                tone.tick,
-                tone.duration,
-                tone.pitch.int,
-                tone.articulation,
-                true,
-                false,
-                true
-            ),
+            onEdit(e, tone.key, tone.tick, tone.duration, tone.pitch.int, tone.articulation, true, false, true),
         [tone, onEdit]
     );
 

@@ -1,15 +1,6 @@
 import React, { useState } from "react";
 
-import {
-    Dialog,
-    Button,
-    Subheader,
-    Select,
-    Option,
-    ListItem,
-    Label,
-    Switch,
-} from "../../../ui";
+import { Dialog, Button, Subheader, Select, Option, ListItem, Label, Switch } from "../../../ui";
 import { MenuItem } from "../../components/menu-item";
 import { useStore } from "../../store/use-store";
 import { actions } from "../../store/actions";
@@ -35,16 +26,10 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
         <div className="preferences">
             <div className="generic-settings__content">
                 <div className="generic-settings__left-panel">
-                    <MenuItem
-                        selected={page === Page.General}
-                        onClick={() => setPage(Page.General)}
-                    >
+                    <MenuItem selected={page === Page.General} onClick={() => setPage(Page.General)}>
                         General
                     </MenuItem>
-                    <MenuItem
-                        selected={page === Page.NoteInput}
-                        onClick={() => setPage(Page.NoteInput)}
-                    >
+                    <MenuItem selected={page === Page.NoteInput} onClick={() => setPage(Page.NoteInput)}>
                         Note Input &amp; Editing
                     </MenuItem>
                 </div>
@@ -55,10 +40,7 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
                             <div className="generic-settings__section">
                                 <Subheader>Language</Subheader>
                                 <Select value="en-gb" onChange={() => {}}>
-                                    <Option
-                                        value="en-gb"
-                                        displayAs="English (UK)"
-                                    >
+                                    <Option value="en-gb" displayAs="English (UK)">
                                         English (UK)
                                     </Option>
                                 </Select>
@@ -68,21 +50,13 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
 
                     {page === Page.NoteInput && (
                         <>
-                            <div
-                                className="generic-settings__section"
-                                style={{ paddingBottom: 0 }}
-                            >
+                            <div className="generic-settings__section" style={{ paddingBottom: 0 }}>
                                 <Subheader>Auditioning</Subheader>
                             </div>
-                            <ListItem
-                                onClick={() => actions.app.audition.toggle()}
-                            >
+                            <ListItem onClick={() => actions.app.audition.toggle()}>
                                 <Label>
                                     <p>Enable auditioning</p>
-                                    <p>
-                                        Play notes during note input and
-                                        selection
-                                    </p>
+                                    <p>Play notes during note input and selection</p>
                                 </Label>
                                 <Switch value={audition} />
                             </ListItem>

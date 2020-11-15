@@ -2,12 +2,7 @@ import { PathInstruction, buildPath } from "../render/path";
 import { VerticalSpacing } from "./measure-verical-spacing";
 import { VerticalSpans } from "./measure-vertical-spans";
 
-export function drawSubBrackets(
-    x: number,
-    y: number,
-    spacing: VerticalSpacing,
-    spans: VerticalSpans
-) {
+export function drawSubBrackets(x: number, y: number, spacing: VerticalSpacing, spans: VerticalSpans) {
     // if n > 1 neightbouring instruments in same family -- woodwind, brass, strings only!
     // subbrace if same instrument type next to each other
 
@@ -21,16 +16,7 @@ export function drawSubBrackets(
         const top = y + start.y;
         const bottom = y + stop.y + stop.height;
 
-        out.push(
-            buildPath(
-                `${bracket.start}-bracket`,
-                styles,
-                [x, top],
-                [left, top],
-                [left, bottom],
-                [x, bottom]
-            )
-        );
+        out.push(buildPath(`${bracket.start}-bracket`, styles, [x, top], [left, top], [left, bottom], [x, bottom]));
 
         return out;
     }, []);

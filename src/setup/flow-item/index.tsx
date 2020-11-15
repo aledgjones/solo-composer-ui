@@ -1,16 +1,5 @@
-import React, {
-    useCallback,
-    MouseEvent,
-    FC,
-    useRef,
-    CSSProperties,
-    useState,
-} from "react";
-import {
-    mdiDeleteOutline,
-    mdiFileDocumentOutline,
-    mdiPencilOutline,
-} from "@mdi/js";
+import React, { useCallback, MouseEvent, FC, useRef, CSSProperties, useState } from "react";
+import { mdiDeleteOutline, mdiFileDocumentOutline, mdiPencilOutline } from "@mdi/js";
 import { SortableItem, merge, Icon, Checkbox } from "../../../ui";
 import { Selection, SelectionType } from "../selection";
 import { Flow } from "../../store/score-flow/defs";
@@ -27,23 +16,14 @@ interface Props {
     onSelect: (selection: Selection) => void;
 }
 
-export const FlowItem: FC<Props> = ({
-    index,
-    flow,
-    selection,
-    style,
-    onSelect,
-}) => {
+export const FlowItem: FC<Props> = ({ index, flow, selection, style, onSelect }) => {
     const handle = useRef<HTMLDivElement>(null);
     const input = useRef<HTMLInputElement>(null);
 
     const [savedValue, setSavedValue] = useState(flow.title);
     const [editing, setEditing] = useState(false);
     const selected = selection && selection.key === flow.key;
-    const active: boolean =
-        selection &&
-        selection.type === SelectionType.Player &&
-        flow.players[selection.key];
+    const active: boolean = selection && selection.type === SelectionType.Player && flow.players[selection.key];
 
     const onCheckboxChange = (value: boolean) => {
         if (selection) {
@@ -98,22 +78,11 @@ export const FlowItem: FC<Props> = ({
                 "flow-item--active": active,
             })}
             style={style}
-            onClick={() =>
-                onSelect({ key: flow.key, type: SelectionType.Flow })
-            }
+            onClick={() => onSelect({ key: flow.key, type: SelectionType.Flow })}
         >
             <div className="flow-item__header">
-                <div
-                    onPointerDown={() =>
-                        onSelect({ key: flow.key, type: SelectionType.Flow })
-                    }
-                    ref={handle}
-                >
-                    <Icon
-                        style={{ marginRight: 12 }}
-                        path={mdiFileDocumentOutline}
-                        size={24}
-                    />
+                <div onPointerDown={() => onSelect({ key: flow.key, type: SelectionType.Flow })} ref={handle}>
+                    <Icon style={{ marginRight: 12 }} path={mdiFileDocumentOutline} size={24} />
                 </div>
 
                 <input
@@ -125,25 +94,13 @@ export const FlowItem: FC<Props> = ({
                     tabIndex={editing ? 0 : -1}
                     value={editing ? flow.title : flow.title || "Untitled Flow"}
                     onKeyDown={onKeyDown}
-                    onInput={(e: any) =>
-                        actions.score.flow.rename(flow.key, e.target.value)
-                    }
+                    onInput={(e: any) => actions.score.flow.rename(flow.key, e.target.value)}
                 />
 
                 {selected && (
                     <>
-                        <Icon
-                            style={{ marginLeft: 12 }}
-                            size={24}
-                            path={mdiPencilOutline}
-                            onClick={onEdit}
-                        />
-                        <Icon
-                            style={{ marginLeft: 12 }}
-                            size={24}
-                            path={mdiDeleteOutline}
-                            onClick={onRemove}
-                        />
+                        <Icon style={{ marginLeft: 12 }} size={24} path={mdiPencilOutline} onClick={onEdit} />
+                        <Icon style={{ marginLeft: 12 }} size={24} path={mdiDeleteOutline} onClick={onRemove} />
                     </>
                 )}
 

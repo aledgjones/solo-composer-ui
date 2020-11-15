@@ -33,11 +33,7 @@ export function usePlayerName(
             return player.instruments.reduce((output, key, i) => {
                 const isFirst = i === 0;
                 const isLast = i === len - 1;
-                const name = instrumentName(
-                    instruments[key],
-                    count_style,
-                    counts[key]
-                );
+                const name = instrumentName(instruments[key], count_style, counts[key]);
                 if (isFirst) {
                     return name;
                 } else if (isLast) {

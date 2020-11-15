@@ -7,9 +7,7 @@ const worker = new Worker("../../parse/parse.worker.ts");
 let cache: RenderInstructions;
 
 export function useParseWorker(score: Score, flow_key: string) {
-    const [instructions, setInstructions] = useState<
-        RenderInstructions | undefined
-    >(cache);
+    const [instructions, setInstructions] = useState<RenderInstructions | undefined>(cache);
 
     const mm = useMM();
 

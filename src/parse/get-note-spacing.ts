@@ -10,8 +10,7 @@ export function getNoteSpacing(
 ) {
     const base = getNotationBaseDuration(duration, subdivisions);
     const dotted = getIsDotted(duration, subdivisions);
-    const width =
-        quarter_spacing * (base * spacing_ratio) * (dotted ? dotted_ratio : 0);
+    const width = quarter_spacing * (base * spacing_ratio) * (dotted ? dotted_ratio : 0);
     if (width > minimum_width) {
         return width;
     } else {

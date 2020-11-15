@@ -40,10 +40,7 @@ export function measureBarlineBounds(type: BarlineDrawType): Box {
     }
 }
 
-export function createBarline(
-    tick: number,
-    barline_type: BarlineDrawType
-): Barline {
+export function createBarline(tick: number, barline_type: BarlineDrawType): Barline {
     return {
         type: EntryType.Barline,
         key: shortid(),
@@ -164,13 +161,9 @@ export function drawBarline(
                 break;
         }
 
-        if (
-            barline === BarlineDrawType.StartRepeat ||
-            barline === BarlineDrawType.EndRepeat
-        ) {
+        if (barline === BarlineDrawType.StartRepeat || barline === BarlineDrawType.EndRepeat) {
             const radius = 0.25;
-            const left =
-                barline === BarlineDrawType.StartRepeat ? x + 1.75 : x + 0.25;
+            const left = barline === BarlineDrawType.StartRepeat ? x + 1.75 : x + 0.25;
 
             players.order.forEach((player_key) => {
                 if (flow.players[player_key]) {

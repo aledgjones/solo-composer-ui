@@ -23,11 +23,7 @@ export const Root: FC = () => {
             <div className="root">
                 <div className="root__title-bar">
                     <File />
-                    <Tabs
-                        className="root__tabs"
-                        value={view}
-                        onChange={actions.ui.view}
-                    >
+                    <Tabs className="root__tabs" value={view} onChange={actions.ui.view}>
                         <Tab value={View.Setup}>Setup</Tab>
                         <Tab value={View.Write}>Write</Tab>
                         <Tab value={View.Engrave}>Engrave</Tab>
@@ -37,19 +33,8 @@ export const Root: FC = () => {
                     <TransportComponent />
                     <div className="root__spacer" />
                     <div className="root__history">
-                        <Icon
-                            disabled
-                            onClick={() => false}
-                            className="root__history-icon"
-                            size={24}
-                            path={mdiUndo}
-                        />
-                        <Icon
-                            disabled
-                            onClick={() => false}
-                            size={24}
-                            path={mdiRedo}
-                        />
+                        <Icon disabled onClick={() => false} className="root__history-icon" size={24} path={mdiUndo} />
+                        <Icon disabled onClick={() => false} size={24} path={mdiRedo} />
                     </div>
                 </div>
 

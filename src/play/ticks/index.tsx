@@ -2,12 +2,7 @@ import React, { Fragment, FC } from "react";
 import { merge } from "../../../ui";
 import { TickList, Tick } from "../../store/score-flow/defs";
 
-function tickHeight(
-    tick: Tick,
-    isTrack: boolean,
-    height: number,
-    zoom: number
-) {
+function tickHeight(tick: Tick, isTrack: boolean, height: number, zoom: number) {
     if (tick.is_first_beat) {
         return height;
     } else if (tick.is_grouping_boundry) {
@@ -49,13 +44,7 @@ interface Props {
     zoom: number;
 }
 
-export const Ticks: FC<Props> = ({
-    className,
-    ticks,
-    height,
-    isTrack,
-    zoom,
-}) => {
+export const Ticks: FC<Props> = ({ className, ticks, height, isTrack, zoom }) => {
     let bar = 0;
     return (
         <svg

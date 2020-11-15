@@ -21,10 +21,7 @@ export function isSpan(
         if (instrumentFamily === "keyboards") {
             return BracketSpan.None;
         }
-        if (
-            !previousInstrumentFamily ||
-            previousInstrumentFamily === "keyboards"
-        ) {
+        if (!previousInstrumentFamily || previousInstrumentFamily === "keyboards") {
             return BracketSpan.Start;
         }
         return BracketSpan.Continue;

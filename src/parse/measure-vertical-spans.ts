@@ -27,14 +27,8 @@ export function measureVerticalSpans(
                 player.instruments.forEach((instrument_key) => {
                     const instrument = instruments[instrument_key];
                     const family = getInstrumentFamily(instrument);
-                    const previous_family = getInstrumentFamily(
-                        previous_instrument
-                    );
-                    const is_span = isSpan(
-                        family,
-                        previous_family,
-                        config.bracketing
-                    );
+                    const previous_family = getInstrumentFamily(previous_instrument);
+                    const is_span = isSpan(family, previous_family, config.bracketing);
 
                     // BRACKETS
 
@@ -46,8 +40,7 @@ export function measureVerticalSpans(
                             });
                             break;
                         case BracketSpan.Continue:
-                            output.brackets[output.brackets.length - 1].stop =
-                                instrument.key;
+                            output.brackets[output.brackets.length - 1].stop = instrument.key;
                             break;
                         default:
                             break;
@@ -58,16 +51,11 @@ export function measureVerticalSpans(
                     if (
                         config.subBracket &&
                         previous_instrument &&
-                        (is_span === BracketSpan.Start ||
-                            is_span === BracketSpan.Continue) &&
+                        (is_span === BracketSpan.Start || is_span === BracketSpan.Continue) &&
                         instrument.id === previous_instrument.id
                     ) {
-                        const subBracketEntry =
-                            output.subBrackets[output.subBrackets.length - 1];
-                        if (
-                            subBracketEntry &&
-                            subBracketEntry.stop === previous_instrument.key
-                        ) {
+                        const subBracketEntry = output.subBrackets[output.subBrackets.length - 1];
+                        if (subBracketEntry && subBracketEntry.stop === previous_instrument.key) {
                             subBracketEntry.stop = instrument.key;
                         } else {
                             output.subBrackets.push({
@@ -82,8 +70,7 @@ export function measureVerticalSpans(
                     if (instrument.staves.length > 1) {
                         output.braces.push({
                             start: instrument.staves[0],
-                            stop:
-                                instrument.staves[instrument.staves.length - 1],
+                            stop: instrument.staves[instrument.staves.length - 1],
                         });
                     }
 
@@ -97,8 +84,7 @@ export function measureVerticalSpans(
                             });
                             break;
                         case BracketSpan.Continue:
-                            output.barlines[output.barlines.length - 1].stop =
-                                instrument.key;
+                            output.barlines[output.barlines.length - 1].stop = instrument.key;
                             break;
                         default:
                             output.barlines.push({

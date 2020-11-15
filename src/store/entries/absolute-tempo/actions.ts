@@ -28,11 +28,7 @@ export const absoluteTempoActions = {
 
         store.update((draft, state) => {
             // insert the new tempo
-            insert_entry(
-                draft.score.flows.by_key[flow_key].master,
-                tempo,
-                true
-            );
+            insert_entry(draft.score.flows.by_key[flow_key].master, tempo, true);
         });
 
         return tempo.key;

@@ -27,11 +27,7 @@ export const playbackActions = {
         },
     },
     sampler: {
-        load: async (
-            id: string,
-            instrumentKey: string,
-            player_type: PlayerType
-        ) => {
+        load: async (id: string, instrumentKey: string, player_type: PlayerType) => {
             // kick things off ready for loading in the sampler
             store.update((s) => {
                 s.playback.instruments[instrumentKey] = {
@@ -52,30 +48,19 @@ export const playbackActions = {
                 expressions.map(async ([exp, url]) => {
                     const expression = parseInt(exp);
                     store.update((s) => {
-                        s.playback.instruments[instrumentKey].expressions[
-                            expression
-                        ] = {
+                        s.playback.instruments[instrumentKey].expressions[expression] = {
                             key: expression,
                             status: Status.Pending,
                             progress: 0,
                         };
                     });
-                    await instrument.load(
-                        parseInt(exp),
-                        url,
-                        (total, progress) => {
-                            store.update((s) => {
-                                s.playback.instruments[
-                                    instrumentKey
-                                ].expressions[expression].progress =
-                                    progress / total;
-                            });
-                        }
-                    );
+                    await instrument.load(parseInt(exp), url, (total, progress) => {
+                        store.update((s) => {
+                            s.playback.instruments[instrumentKey].expressions[expression].progress = progress / total;
+                        });
+                    });
                     store.update((s) => {
-                        s.playback.instruments[instrumentKey].expressions[
-                            expression
-                        ].status = Status.Ready;
+                        s.playback.instruments[instrumentKey].expressions[expression].status = Status.Ready;
                     });
                 })
             );
@@ -86,13 +71,7 @@ export const playbackActions = {
             });
         },
         audition: (instrument_key: string, pitch: number) => {
-            Player.play(
-                instrument_key,
-                Expression.Natural,
-                pitch,
-                Player.ctx.currentTime,
-                0.5
-            );
+            Player.play(instrument_key, Expression.Natural, pitch, Player.ctx.currentTime, 0.5);
         },
         destroy: (instrument_key: string) => {
             store.update((s) => {

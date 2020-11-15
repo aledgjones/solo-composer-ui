@@ -42,14 +42,12 @@ export function measureVerticalSpacing(
 
             player.instruments.forEach((instrument_key, instrument_i) => {
                 const instrument = instruments[instrument_key];
-                const is_last_instrument =
-                    instrument_i === player.instruments.length - 1;
+                const is_last_instrument = instrument_i === player.instruments.length - 1;
                 const instrument_entry = { y: output.height, height: 0.0 };
 
                 instrument.staves.forEach((stave_key, stave_i) => {
                     const stave = flow.staves[stave_key];
-                    const is_last_stave =
-                        stave_i === instrument.staves.length - 1;
+                    const is_last_stave = stave_i === instrument.staves.length - 1;
                     const stave_entry = {
                         y: output.height + (stave.lines.length - 1) / 2,
                         height: stave.lines.length - 1,

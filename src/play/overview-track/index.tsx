@@ -15,13 +15,7 @@ interface Props {
     zoom: number;
 }
 
-export const OverviewTrack: FC<Props> = ({
-    flowKey,
-    instrumentKey,
-    color,
-    ticks,
-    zoom,
-}) => {
+export const OverviewTrack: FC<Props> = ({ flowKey, instrumentKey, color, ticks, zoom }) => {
     const track = useRef<HTMLDivElement>(null);
 
     const [tones] = useStore(
@@ -32,8 +26,7 @@ export const OverviewTrack: FC<Props> = ({
             return [
                 instrument.staves.reduce<Tone[]>((out, stave_key) => {
                     flow.staves[stave_key].tracks.order.forEach((track_key) => {
-                        const track =
-                            flow.staves[stave_key].tracks.by_key[track_key];
+                        const track = flow.staves[stave_key].tracks.by_key[track_key];
                         Object.values(track.entries.by_key).forEach((entry) => {
                             if (entry.type === EntryType.Tone) {
                                 out.push(entry as Tone);
@@ -74,11 +67,7 @@ export const OverviewTrack: FC<Props> = ({
     }, [tones]);
 
     return (
-        <div
-            ref={track}
-            className="overview-track"
-            style={{ width: ticks.width * zoom }}
-        >
+        <div ref={track} className="overview-track" style={{ width: ticks.width * zoom }}>
             {blocks.map(([start, stop], i) => {
                 return (
                     <div
@@ -88,8 +77,7 @@ export const OverviewTrack: FC<Props> = ({
                             backgroundColor: Color(color).alpha(0.1).toString(),
                             left: ticks.list[start].x * zoom,
                             width: ticks.list[stop]
-                                ? (ticks.list[stop].x - ticks.list[start].x) *
-                                  zoom
+                                ? (ticks.list[stop].x - ticks.list[start].x) * zoom
                                 : (ticks.width - ticks.list[start].x) * zoom,
                         }}
                     />
@@ -107,8 +95,7 @@ export const OverviewTrack: FC<Props> = ({
                             backgroundColor: color,
                             left: ticks.list[start].x * zoom,
                             width: ticks.list[stop]
-                                ? (ticks.list[stop].x - ticks.list[start].x) *
-                                  zoom
+                                ? (ticks.list[stop].x - ticks.list[start].x) * zoom
                                 : (ticks.width - ticks.list[start].x) * zoom,
                             height: `calc(100% / 100)`,
                             bottom: `calc(1% * ${tone.pitch.int - 12})`, // C0 -> E8 (12 -> 112)
