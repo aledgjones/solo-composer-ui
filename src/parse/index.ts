@@ -16,9 +16,9 @@ import { drawSubBrackets } from "./draw-sub-brackets";
 import { measureBracketAndBraces } from "./measure-brackets-and-braces";
 import { getFirstBeats } from "./get-first-beats";
 import { getWrittenDurations } from "./get-written-durations";
-import { HorizontalSpacing, measureTick } from "./measure-tick";
 import { measureBarlineBox } from "../store/entries/barline/utils";
 import { drawBarlines } from "./draw-barlines";
+import { measureHorizontalSpacing } from "./measure-horizonal-spacing";
 
 export function parse(
   score: Score,
@@ -30,8 +30,6 @@ export function parse(
   const flow = score.flows.by_key[flow_key];
   const config = defaultEngravingConfig(LayoutType.Score);
   const { px, mm, spaces } = getConverter(px_per_mm, config.space, 2);
-
-  const TEMPORARY_STAVE_WIDTH = 50;
 
   const counts = getCounts(score.players, score.instruments);
   const names = getInstrumentNamesList(
@@ -72,17 +70,13 @@ export function parse(
     barlines
   );
 
-  const horizontalMeasurements: { [tick: number]: HorizontalSpacing } = {};
-  for (let tick = 0; tick < flow.length; tick++) {
-    horizontalMeasurements[tick] = measureTick(
-      tick,
-      score.players,
-      score.instruments,
-      flow,
-      barlines.has(tick),
-      notation
-    );
-  }
+  const { horizontalMeasurements, width } = measureHorizontalSpacing(
+    score.players,
+    score.instruments,
+    flow,
+    barlines,
+    notation
+  );
 
   drawInstructions.push(
     ...drawNames(
@@ -98,7 +92,7 @@ export function parse(
     ...drawStaves(
       x,
       y,
-      TEMPORARY_STAVE_WIDTH + measureBarlineBox(config.finalBarlineType).width,
+      width + measureBarlineBox(config.finalBarlineType).width,
       score.players,
       score.instruments,
       flow,
@@ -115,7 +109,7 @@ export function parse(
       flow,
       verticalSpacing,
       verticalSpans,
-      TEMPORARY_STAVE_WIDTH,
+      width,
       config.systemicBarlineSingleInstrumentSystem,
       config.finalBarlineType
     )
@@ -125,7 +119,7 @@ export function parse(
     space: spaces.toPX(1),
     width:
       x +
-      TEMPORARY_STAVE_WIDTH +
+      width +
       measureBarlineBox(config.finalBarlineType).width +
       mm.toSpaces(config.framePadding.right),
     height:

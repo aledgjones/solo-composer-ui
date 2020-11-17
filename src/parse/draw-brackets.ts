@@ -35,8 +35,8 @@ export function drawBrackets(
     const tweekForWing = isWing ? 0.3125 : 0; // .25 + .0625;
     const tweekForStave = 0.0625;
 
-    const top = y + start.y - tweekForWing;
-    const bottom = y + stop.y + stop.height + tweekForWing;
+    const top = y + start.y - tweekForStave - tweekForWing;
+    const bottom = y + stop.y + stop.height + tweekForStave + tweekForWing;
 
     // vertical thick line shard with all styles
     out.push(
@@ -66,7 +66,7 @@ export function drawBrackets(
     }
 
     if (isWing) {
-      const capLeft = x - 1;
+      const capLeft = x - 1.0;
       const glyphTop = "\u{E003}";
       const glyphBottom = "\u{E004}";
       const styles: TextStyles = {
