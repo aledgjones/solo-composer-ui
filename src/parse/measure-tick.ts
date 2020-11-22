@@ -2,17 +2,13 @@ import { Player } from "../store/score-player/defs";
 import { Instrument } from "../store/score-instrument/defs";
 import { Flow } from "../store/score-flow/defs";
 import { NotationTracks } from "./notation-track";
-import { BarlineDrawType, Barline } from "../store/entries/barline/defs";
-import {
-  get_entries_at_tick,
-  measureTimeSignatureBounds,
-} from "../store/entries/time-signature/utils";
-import { EntryType } from "../store/entries";
-import { TimeSignature } from "../store/entries/time-signature/defs";
-import { KeySignature } from "../store/entries/key-signature/defs";
+import { BarlineDrawType } from "../store/entries/barline/defs";
+import { measureTimeSignatureBounds } from "../store/entries/time-signature/utils";
 import { WidthOf } from "./sum-width-up-to";
 import { measureKeySignatureBounds } from "../store/entries/key-signature/utils";
 import { measureBarlineBounds } from "../store/entries/barline/utils";
+import { getextrasAtTick } from "./getExtrasAtTick";
+import { getBarlineDrawTypeAtTick } from "./get-barline-draw-type-at-tick";
 
 export type HorizontalSpacing = [
   number, // End Repeat
@@ -45,26 +41,13 @@ export function measureTick(
     0.0,
     0.0,
     0.0,
-    0.2, // TODO: remove static spacing
+    0.3, // TODO: remove static spacing
     0.0,
     0.0,
   ];
 
-  const time = get_entries_at_tick(
-    tick,
-    flow.master,
-    EntryType.TimeSignature
-  )[0] as TimeSignature;
-  const key = get_entries_at_tick(
-    tick,
-    flow.master,
-    EntryType.KeySignature
-  )[0] as KeySignature;
-  const barline = get_entries_at_tick(
-    tick,
-    flow.master,
-    EntryType.Barline
-  )[0] as Barline;
+  // Time signature / Key Signature
+  const { time, key, barline } = getextrasAtTick(tick, flow);
 
   if (time) {
     measurements[WidthOf.TimeSignature] = measureTimeSignatureBounds(
@@ -76,33 +59,31 @@ export function measureTick(
     measurements[WidthOf.KeySignature] = measureKeySignatureBounds(key).width;
   }
 
-  // non-explicit barlines (vetoed by explicit barlies)
-  if (!barline) {
-    if (key || time) {
-      measurements[WidthOf.Barline] = measureBarlineBounds(
-        BarlineDrawType.Double
-      ).width;
-    } else if (isFirstBeat) {
-      measurements[WidthOf.Barline] = measureBarlineBounds(
-        BarlineDrawType.Normal
-      ).width;
-    }
+  // Barlines
+  const drawTypeAtTick = getBarlineDrawTypeAtTick(
+    tick,
+    key,
+    time,
+    barline,
+    isFirstBeat
+  );
+
+  if (drawTypeAtTick.endRepeat) {
+    measurements[WidthOf.EndRepeat] = measureBarlineBounds(
+      BarlineDrawType.EndRepeat
+    ).width;
   }
 
-  // if there is an explicit barline
-  if (barline) {
-    const width = measureBarlineBounds(barline.draw_type).width;
-    switch (barline.draw_type) {
-      case BarlineDrawType.StartRepeat:
-        measurements[WidthOf.StartRepeat] = width;
-        break;
-      case BarlineDrawType.EndRepeat:
-        measurements[WidthOf.EndRepeat] = width;
-        break;
-      default:
-        measurements[WidthOf.Barline] = width;
-        break;
-    }
+  if (drawTypeAtTick.draw_type) {
+    measurements[WidthOf.Barline] = measureBarlineBounds(
+      drawTypeAtTick.draw_type
+    ).width;
+  }
+
+  if (drawTypeAtTick.startRepeat) {
+    measurements[WidthOf.StartRepeat] = measureBarlineBounds(
+      BarlineDrawType.StartRepeat
+    ).width;
   }
 
   return measurements;

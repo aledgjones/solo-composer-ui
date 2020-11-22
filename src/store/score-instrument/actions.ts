@@ -4,6 +4,7 @@ import { store } from "../use-store";
 import { move } from "../utils";
 
 export const instrumentActions = {
+  /** create an instrument */
   create: (id: string): string => {
     const instrument = create_instrument(id);
     store.update((draft) => {
@@ -11,6 +12,8 @@ export const instrumentActions = {
     });
     return instrument.key;
   },
+
+  /** reorder player instruments */
   reorder: (player_key: string, old_index: number, new_index: number) =>
     store.update((draft) => {
       move(
@@ -19,6 +22,8 @@ export const instrumentActions = {
         new_index
       );
     }),
+
+  /** remove an instrument */
   remove: (player_key: string, instrument_key: string) =>
     store.update((draft, state) => {
       // destroy instrument staves in each flow
@@ -47,9 +52,8 @@ export const instrumentActions = {
       delete draft.playback.instruments[instrument_key];
       Player.disconnect(instrument_key);
     }),
-  /**
-   * Set volume of an instrument 0 - 100
-   */
+
+  /** Set volume of an instrument 0 - 10 */
   volume(instrument_key: string, volume: number) {
     const value = parseInt(volume.toFixed(0));
     store.update((draft) => {
@@ -57,24 +61,32 @@ export const instrumentActions = {
     });
     Player.volume(instrument_key, value / 100);
   },
+
+  /** mute instruemnt */
   mute(instrument_key: string) {
     store.update((draft) => {
       draft.score.instruments[instrument_key].mute = true;
     });
     Player.mute(instrument_key);
   },
+
+  /** unmute instrument */
   unmute(instrument_key: string) {
     store.update((draft) => {
       draft.score.instruments[instrument_key].mute = false;
     });
     Player.unmute(instrument_key);
   },
+
+  /** apply solo to instrument */
   solo(instrument_key: string) {
     store.update((draft) => {
       draft.score.instruments[instrument_key].solo = true;
     });
     Player.solo(instrument_key);
   },
+
+  /** remove solo from instrument */
   unsolo(instrument_key: string) {
     store.update((draft) => {
       draft.score.instruments[instrument_key].solo = false;

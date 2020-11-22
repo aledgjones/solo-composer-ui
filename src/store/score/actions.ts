@@ -3,7 +3,6 @@ import { Progress, Player } from "solo-composer-scheduler";
 import { store } from "../use-store";
 import { download, chooseFiles, wait } from "../../../ui";
 import { Score, Meta } from "./defs";
-import { empty } from "../utils";
 import { playbackActions } from "../playback";
 import { View } from "../ui/defs";
 
@@ -80,6 +79,11 @@ export const scoreActions = {
         };
       });
       progress(5, 5);
+
+      const flowKey = score.flows.order[0];
+      const flow = score.flows.by_key[flowKey];
+
+      console.log(flowKey, flow.subdivisions);
     }
   },
   meta: {

@@ -1,7 +1,6 @@
 import { Flow } from "../store/score-flow/defs";
 import { Instrument } from "../store/score-instrument/defs";
 import { Player } from "../store/score-player/defs";
-import { Score } from "../store/score/defs";
 import { HorizontalSpacing, measureTick } from "./measure-tick";
 import { NotationTracks } from "./notation-track";
 

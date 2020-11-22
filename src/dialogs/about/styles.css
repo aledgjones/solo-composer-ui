@@ -24,7 +24,7 @@
 .about__logo-img {
   height: 64px;
   width: 64px;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
 }
 
 .about__logo-text {
@@ -39,7 +39,7 @@
 .about__logo-text p:nth-child(1) {
   position: relative;
   left: 2px;
-  letter-spacing: 3.5px;
+  letter-spacing: 4px;
   font-weight: 600;
 }
 
@@ -68,6 +68,10 @@
   justify-content: space-between;
   height: 48px;
   padding: 0 20px;
+}
+
+.about__paragraph:first-of-type {
+  margin-bottom: 20px;
 }
 
 .about__paragraph b {
