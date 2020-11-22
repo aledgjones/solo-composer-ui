@@ -11,6 +11,7 @@ import {
 } from "../../../ui";
 
 import pkg from "../../../package.json";
+import audiopkg from "solo-composer-scheduler/package.json";
 import logo from "./logo-silo.svg";
 
 import "./styles.css";
@@ -36,9 +37,11 @@ export const About = Dialog<Props>(({ onClose }) => {
       <Content className="about__content">
         <p className="about__paragraph">
           This project is very much an experimental work in progress. Things{" "}
-          <b>will</b> break, not exist, make no sense and crash! This project is
-          greatly inspired by the amazing work the people at Steinberg are doing
-          on{" "}
+          <b>will</b> break, not exist, make no sense and crash!
+        </p>
+        <p className="about__paragraph">
+          This project is greatly inspired by the amazing work the people at
+          Steinberg are doing on{" "}
           <Link href="https://new.steinberg.net/dorico/" target="_blank">
             Dorico
           </Link>
@@ -53,7 +56,7 @@ export const About = Dialog<Props>(({ onClose }) => {
         </p>
         <p className="about__version">
           <span className="about__grow">Audio Engine</span>
-          <span>{pkg.version}</span>
+          <span>{audiopkg.version}</span>
         </p>
         <p className="about__version">
           <span className="about__grow">Rendering Engine (React.js)</span>

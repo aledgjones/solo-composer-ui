@@ -1,6 +1,7 @@
 import { Entry, EntryType } from "..";
 
 export enum BarlineDrawType {
+  None,
   Normal,
   Double,
   Final,

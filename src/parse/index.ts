@@ -70,7 +70,7 @@ export function parse(
     barlines
   );
 
-  const { horizontalMeasurements, width } = measureHorizontalSpacing(
+  const { horizontalSpacing, width } = measureHorizontalSpacing(
     score.players,
     score.instruments,
     flow,
@@ -109,7 +109,9 @@ export function parse(
       flow,
       verticalSpacing,
       verticalSpans,
+      horizontalSpacing,
       width,
+      barlines,
       config.systemicBarlineSingleInstrumentSystem,
       config.finalBarlineType
     )

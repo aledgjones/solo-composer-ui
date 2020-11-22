@@ -1,5 +1,3 @@
-// I know these are just wrapping funcs but it allows more acurate typings than wasm-pack produces
-
 import { scoreActions } from "./score/actions";
 import { appActions } from "./app/actions";
 import { engravingActions } from "./score-engraving/actions";
@@ -12,6 +10,7 @@ import { timeSignatureActions } from "./entries/time-signature/actions";
 import { absoluteTempoActions } from "./entries/absolute-tempo/actions";
 import { toneActions } from "./entries/tone/actions";
 import { uiActions } from "./ui/actions";
+import { barlineActions } from "./entries/barline/actions";
 
 // and it's really easy to swap between js and wasm funcs if needed.
 export const actions = {
@@ -25,6 +24,7 @@ export const actions = {
     player: playerActions,
     instrument: instrumentActions,
     entries: {
+      barline: barlineActions,
       time_signature: timeSignatureActions,
       absolute_tempo: absoluteTempoActions,
       tone: toneActions,

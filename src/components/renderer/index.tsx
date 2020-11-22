@@ -14,6 +14,7 @@ import { Text } from "../text";
 import { useStore } from "../../store/use-store";
 
 import "./styles.css";
+import { BoxInstruction } from "../../render/box";
 
 interface Props {
   className?: string;
@@ -142,6 +143,19 @@ export const Renderer: FC<Props> = memo(({ className }) => {
                 //         return <circle style={{ zIndex: 1000 }} cx={point.x * space} cy={point.y * space} r={0.25 * space} fill="red" />
                 //     })}
                 // </>
+              }
+              case InstructionType.box: {
+                const box = instruction as BoxInstruction;
+                return (
+                  <rect
+                    key={box.key}
+                    x={box.x * space}
+                    y={box.y * space}
+                    width={box.width * space}
+                    height={box.height * space}
+                    fill={box.styles.color}
+                  />
+                );
               }
               default:
                 return null;
