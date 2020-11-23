@@ -58,6 +58,41 @@ export function createBarline(
   };
 }
 
+function debugBarline(
+  type: BarlineDrawType,
+  key: string,
+  x: number,
+  y: number,
+  height: number
+) {
+  const instructions: Instruction<any> = [];
+  const box = measureBarlineBox(type);
+  const bounds = measureBarlineBounds(type);
+  instructions.push(
+    buildBox(
+      `${key}-BOX`,
+      {
+        color: "rgba(255,0,0,.2)",
+      },
+      x,
+      y,
+      box.width,
+      height
+    ),
+    buildBox(
+      `${key}-BOUNDS`,
+      {
+        color: "rgba(255,0,0,.2)",
+      },
+      x,
+      y,
+      bounds.width,
+      height
+    )
+  );
+  return instructions;
+}
+
 function drawRepeatDots(
   x: number,
   y: number,
@@ -141,18 +176,14 @@ export function drawBarline(
           )
         );
 
-        if (process.env.ENVIRONMENT === "dev") {
-          const { width } = measureBarlineBox(BarlineDrawType.Double);
+        if (process.env.ENVIRONMENT === "dev" && process.env.DEBUG === "1") {
           instructions.push(
-            buildBox(
-              `${key}-${entry.start}-barline--thin-start--DEBUG`,
-              {
-                color: "rgba(255,0,0,.2)",
-              },
+            ...debugBarline(
+              BarlineDrawType.Double,
+              `${key}-${entry.start}-double--DEBUG`,
               x,
-              y,
-              width,
-              bottom - y
+              top,
+              bottom - top
             )
           );
         }
@@ -176,18 +207,14 @@ export function drawBarline(
           )
         );
 
-        if (process.env.ENVIRONMENT === "dev") {
-          const { width } = measureBarlineBox(BarlineDrawType.Final);
+        if (process.env.ENVIRONMENT === "dev" && process.env.DEBUG === "1") {
           instructions.push(
-            buildBox(
-              `${key}-${entry.start}-barline--thin-start--DEBUG`,
-              {
-                color: "rgba(255,0,0,.2)",
-              },
+            ...debugBarline(
+              BarlineDrawType.Final,
+              `${key}-${entry.start}-final--DEBUG`,
               x,
-              y,
-              width,
-              bottom - y
+              top,
+              bottom - top
             )
           );
         }
@@ -211,18 +238,14 @@ export function drawBarline(
           )
         );
 
-        if (process.env.ENVIRONMENT === "dev") {
-          const { width } = measureBarlineBox(BarlineDrawType.EndRepeat);
+        if (process.env.ENVIRONMENT === "dev" && process.env.DEBUG === "1") {
           instructions.push(
-            buildBox(
-              `${key}-${entry.start}-barline--thin-start--DEBUG`,
-              {
-                color: "rgba(255,0,0,.2)",
-              },
+            ...debugBarline(
+              BarlineDrawType.EndRepeat,
+              `${key}-${entry.start}-end-repeat--DEBUG`,
               x,
-              y,
-              width,
-              bottom - y
+              top,
+              bottom - top
             )
           );
         }
@@ -246,18 +269,14 @@ export function drawBarline(
           )
         );
 
-        if (process.env.ENVIRONMENT === "dev") {
-          const { width } = measureBarlineBox(BarlineDrawType.StartRepeat);
+        if (process.env.ENVIRONMENT === "dev" && process.env.DEBUG === "1") {
           instructions.push(
-            buildBox(
-              `${key}-${entry.start}-barline--thin-start--DEBUG`,
-              {
-                color: "rgba(255,0,0,.2)",
-              },
+            ...debugBarline(
+              BarlineDrawType.StartRepeat,
+              `${key}-${entry.start}-start-repeat--DEBUG`,
               x,
-              y,
-              width,
-              bottom - y
+              top,
+              bottom - top
             )
           );
         }
@@ -289,18 +308,14 @@ export function drawBarline(
           )
         );
 
-        if (process.env.ENVIRONMENT === "dev") {
-          const { width } = measureBarlineBox(BarlineDrawType.EndStartRepeat);
+        if (process.env.ENVIRONMENT === "dev" && process.env.DEBUG === "1") {
           instructions.push(
-            buildBox(
-              `${key}-${entry.start}-barline--thin-start--DEBUG`,
-              {
-                color: "rgba(255,0,0,.2)",
-              },
+            ...debugBarline(
+              BarlineDrawType.EndStartRepeat,
+              `${key}-${entry.start}-end-start-repeat--DEBUG`,
               x,
-              y,
-              width,
-              bottom - y
+              top,
+              bottom - top
             )
           );
         }
@@ -317,18 +332,14 @@ export function drawBarline(
           )
         );
 
-        if (process.env.ENVIRONMENT === "dev") {
-          const { width } = measureBarlineBox(BarlineDrawType.Normal);
+        if (process.env.ENVIRONMENT === "dev" && process.env.DEBUG === "1") {
           instructions.push(
-            buildBox(
-              `${key}-${entry.start}-barline--thin-start--DEBUG`,
-              {
-                color: "rgba(255,0,0,.2)",
-              },
+            ...debugBarline(
+              BarlineDrawType.Normal,
+              `${key}-${entry.start}-normal--DEBUG`,
               x,
-              y,
-              width,
-              bottom - y
+              top,
+              bottom - top
             )
           );
         }
@@ -350,7 +361,7 @@ export function drawBarline(
               instruments,
               flow,
               vertical_spacing,
-              key
+              `${key}-${entry.start}-start`
             )
           );
           break;
@@ -364,7 +375,7 @@ export function drawBarline(
               instruments,
               flow,
               vertical_spacing,
-              key
+              `${key}-${entry.start}-end`
             )
           );
           break;
@@ -378,7 +389,7 @@ export function drawBarline(
               instruments,
               flow,
               vertical_spacing,
-              `${key}-end`
+              `${key}-${entry.start}-end`
             )
           );
           instructions.push(
@@ -389,7 +400,7 @@ export function drawBarline(
               instruments,
               flow,
               vertical_spacing,
-              `${key}-start`
+              `${key}-${entry.start}-start`
             )
           );
           break;

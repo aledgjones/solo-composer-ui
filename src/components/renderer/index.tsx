@@ -154,6 +154,14 @@ export const Renderer: FC<Props> = memo(({ className }) => {
                     width={box.width * space}
                     height={box.height * space}
                     fill={box.styles.color}
+                    stroke={
+                      box.styles.outline ? box.styles.outline.color : undefined
+                    }
+                    strokeWidth={
+                      box.styles.outline
+                        ? box.styles.outline.thickness * space
+                        : undefined
+                    }
                   />
                 );
               }

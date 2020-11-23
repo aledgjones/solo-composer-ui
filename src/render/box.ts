@@ -1,6 +1,10 @@
 import { Instruction, InstructionType } from "./instructions";
 
 export interface BoxStyles {
+  outline?: {
+    color: string;
+    thickness: number;
+  };
   color: string;
 }
 
