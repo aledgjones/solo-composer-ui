@@ -6,7 +6,7 @@
 
 </div>
 
-<p style="background: rgba(255,0,0,.1); padding: 20px; border-radius: 8px; border: 1px solid red;">⚠️ This project is very much an experimental work in progress. Things will break, not exist, make no sense and crash!</p>
+> ⚠️ **WARNING**: This project is very much an experimental work in progress. Things will break, not exist, make no sense and crash!
 
 ## About
 
