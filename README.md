@@ -6,7 +6,8 @@
 
 </div>
 
-> ⚠️ **WARNING**: This project is very much an experimental work in progress. Things will break, not exist, make no sense and crash!
+| ⚠️ **WARNING**: This project is very much an experimental work in progress. Things will break, not exist, make no sense and crash! |
+| --- |
 
 ## About
 
