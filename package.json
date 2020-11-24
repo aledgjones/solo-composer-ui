@@ -1,6 +1,6 @@
 {
     "name": "solo-composer-ui",
-    "version": "0.8.2",
+    "version": "0.8.3",
     "description": "Music Notation Everywhere",
     "main": "./bootstrap.ts",
     "scripts": {
@@ -48,6 +48,7 @@
         "react-dom": "17.0.1",
         "react-inspector": "5.1.0",
         "roman-numerals": "0.3.2",
-        "shortid": "2.2.16"
+        "shortid": "2.2.16",
+        "solo-composer-scheduler": "github:aledgjones/solo-composer-scheduler"
     }
 }

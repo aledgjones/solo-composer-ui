@@ -59,7 +59,7 @@ export const About = Dialog<Props>(({ onClose }) => {
           <span>{audiopkg.version}</span>
         </p>
         <p className="about__version">
-          <span className="about__grow">Rendering Engine (React.js)</span>
+          <span className="about__grow">Rendering Engine</span>
           <span>{pkg.dependencies.react}</span>
         </p>
       </Content>

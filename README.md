@@ -4,10 +4,12 @@
 
 ![CodeQL](https://github.com/aledgjones/solo-composer-ui/workflows/CodeQL/badge.svg)
 
+[Website](https://solo-composer.web.app)
+
 </div>
 
 | ⚠️ **WARNING**: This project is very much an experimental work in progress. Things will break, not exist, make no sense and crash! |
-| --- |
+| ---------------------------------------------------------------------------------------------------------------------------------- |
 
 ## About
 
@@ -30,6 +32,17 @@ This project is greatly inspired by the amazing work the people at Stienberg are
 ## Notes
 
 Taking inspiration from PDF.JS, the rendering layer is agnostic to the output method. Platform agnostic draw instructions are produced that can be plugged into any number of rendering layers. The idea is the same instructions could be used to produce the on-screen SVG rendered scores and PDF output.
+
+## Development
+
+After cloning the repository, start developing using the following commands in your terminal:
+
+```
+npm install
+npm run dev
+```
+
+This will start up the parcel dev server on port 3000.
 
 ## License
 
