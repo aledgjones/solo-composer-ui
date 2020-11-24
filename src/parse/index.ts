@@ -19,6 +19,7 @@ import { getWrittenDurations } from "./get-written-durations";
 import { measureBarlineBox } from "../store/entries/barline/utils";
 import { drawBarlines } from "./draw-barlines";
 import { measureHorizontalSpacing } from "./measure-horizonal-spacing";
+import { getStavesAsArray } from "./get-staves-as-array";
 
 export function parse(
   score: Score,
@@ -30,6 +31,7 @@ export function parse(
   const flow = score.flows.by_key[flow_key];
   const config = defaultEngravingConfig(LayoutType.Score);
   const { px, mm, spaces } = getConverter(px_per_mm, config.space, 2);
+  const staves = getStavesAsArray(score.players, score.instruments, flow);
 
   const counts = getCounts(score.players, score.instruments);
   const names = getInstrumentNamesList(
@@ -63,12 +65,7 @@ export function parse(
   const y = mm.toSpaces(config.framePadding.top);
 
   const barlines = getFirstBeats(flow);
-  const notation = getWrittenDurations(
-    score.players,
-    score.instruments,
-    flow,
-    barlines
-  );
+  const notation = getWrittenDurations(staves, flow, barlines);
 
   const { horizontalSpacing, width } = measureHorizontalSpacing(
     score.players,
@@ -93,9 +90,7 @@ export function parse(
       x,
       y,
       width + measureBarlineBox(config.finalBarlineType).width,
-      score.players,
-      score.instruments,
-      flow,
+      staves,
       verticalSpacing
     ),
     ...drawBraces(x, y, verticalSpacing, verticalSpans),
@@ -104,8 +99,7 @@ export function parse(
     ...drawBarlines(
       x,
       y,
-      score.players,
-      score.instruments,
+      staves,
       flow,
       verticalSpacing,
       verticalSpans,

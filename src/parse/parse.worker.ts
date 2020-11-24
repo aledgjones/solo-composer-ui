@@ -16,28 +16,24 @@ ctx.addEventListener("message", (e) => {
   const taskID = shortid();
   latestTaskID = taskID;
 
-  performance.mark("start");
-  const instructions = parse(score, flow_key, mm);
-  performance.measure("parse", "start");
+  if (process.env.NODE_ENV === "development") {
+    performance.mark("start");
+  }
 
-  const entries = performance.getEntriesByType("measure");
-  const duration = entries[entries.length - 1].duration;
-  const average =
-    entries.reduce<number>((out, entry) => {
-      return out + entry.duration;
-    }, 0) / entries.length;
-  console.log(
-    `duration: %c${duration}`,
-    (duration < 1000 / 60 && "color: green") ||
-      (duration < 1000 / 30 && "color: orange") ||
-      "color: red"
-  );
-  console.log(
-    `average: %c${average}`,
-    (average < 1000 / 60 && "color: green") ||
-      (average < 1000 / 30 && "color: orange") ||
-      "color: red"
-  );
+  const instructions = parse(score, flow_key, mm);
+
+  if (process.env.NODE_ENV === "development") {
+    performance.measure("parse", "start");
+
+    const entries = performance.getEntriesByType("measure");
+    const duration = entries[entries.length - 1].duration;
+    console.log(
+      `duration: %c${duration}`,
+      (duration < 1000 / 60 && "color: green") ||
+        (duration < 1000 / 30 && "color: orange") ||
+        "color: red"
+    );
+  }
 
   if (taskID === latestTaskID) {
     ctx.postMessage(instructions);

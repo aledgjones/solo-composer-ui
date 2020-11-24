@@ -3,10 +3,8 @@ import { buildPath } from "../render/path";
 import { BarlineDrawType } from "../store/entries/barline/defs";
 import { drawBarline } from "../store/entries/barline/utils";
 import { Flow } from "../store/score-flow/defs";
-import { Instrument } from "../store/score-instrument/defs";
-import { Player } from "../store/score-player/defs";
+import { Stave } from "../store/score-stave/defs";
 import { getBarlineDrawTypeAtTick } from "./get-barline-draw-type-at-tick";
-import { getStavesAsArray } from "./get-staves-as-array";
 import { getextrasAtTick } from "./getExtrasAtTick";
 import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
@@ -17,8 +15,7 @@ import { WidthOf } from "./sum-width-up-to";
 export function drawBarlines(
   x: number,
   y: number,
-  players: { order: string[]; by_key: { [key: string]: Player } },
-  instruments: { [key: string]: Instrument },
+  staves: Stave[],
   flow: Flow,
   vertical_spacing: VerticalSpacing,
   vertical_spans: VerticalSpans,
@@ -29,7 +26,6 @@ export function drawBarlines(
   finalBarlineType: BarlineDrawType
 ): Instruction<any>[] {
   const instructions: Instruction<any>[] = [];
-  const staves = getStavesAsArray(players, instruments, flow);
 
   // render stystemic barline
   if (staves.length > 1 || drawSystemicBarlineSingleStave) {
@@ -62,9 +58,7 @@ export function drawBarlines(
           x +
             measureWidthUpto(flow, horizontalSpacing, tick, WidthOf.EndRepeat),
           y,
-          players,
-          instruments,
-          flow,
+          staves,
           vertical_spacing,
           vertical_spans,
           BarlineDrawType.EndRepeat,
@@ -78,9 +72,7 @@ export function drawBarlines(
         ...drawBarline(
           x + measureWidthUpto(flow, horizontalSpacing, tick, WidthOf.Barline),
           y,
-          players,
-          instruments,
-          flow,
+          staves,
           vertical_spacing,
           vertical_spans,
           drawTypeAtTick.draw_type,
@@ -100,9 +92,7 @@ export function drawBarlines(
               WidthOf.StartRepeat
             ),
           y,
-          players,
-          instruments,
-          flow,
+          staves,
           vertical_spacing,
           vertical_spans,
           BarlineDrawType.StartRepeat,
@@ -117,9 +107,7 @@ export function drawBarlines(
     ...drawBarline(
       x + staveWidth,
       y,
-      players,
-      instruments,
-      flow,
+      staves,
       vertical_spacing,
       vertical_spans,
       finalBarlineType,

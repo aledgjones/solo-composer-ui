@@ -10,6 +10,7 @@ import { Flow } from "../../score-flow/defs";
 import { buildPath } from "../../../render/path";
 import { buildCircle } from "../../../render/circle";
 import { buildBox } from "../../../render/box";
+import { Stave } from "../../score-stave/defs";
 
 export function measureBarlineBox(type: BarlineDrawType): Box {
   switch (type) {
@@ -82,7 +83,7 @@ function debugBarline(
     buildBox(
       `${key}-BOUNDS`,
       {
-        color: "rgba(255,0,0,.2)",
+        color: "rgba(255,0,0,.1)",
       },
       x,
       y,
@@ -96,42 +97,32 @@ function debugBarline(
 function drawRepeatDots(
   x: number,
   y: number,
-  players: { order: string[]; by_key: { [key: string]: Player } },
-  instruments: { [key: string]: Instrument },
-  flow: Flow,
+  staves: Stave[],
   vertical_spacing: VerticalSpacing,
   key: string
 ) {
   const instructions: Instruction<any> = [];
   const radius = 0.25;
-  players.order.forEach((player_key) => {
-    if (flow.players[player_key]) {
-      const player = players.by_key[player_key];
-      player.instruments.forEach((instrument_key) => {
-        const instrument = instruments[instrument_key];
-        instrument.staves.forEach((stave_key) => {
-          const top = vertical_spacing.staves[stave_key].y;
-          instructions.push(
-            buildCircle(
-              `${key}-${instrument_key}-${stave_key}-dot--top`,
-              { color: "#000000" },
-              x,
-              y + top - 0.5,
-              radius
-            )
-          );
-          instructions.push(
-            buildCircle(
-              `${key}-${instrument_key}-${stave_key}-dot--bottom`,
-              { color: "#000000" },
-              x,
-              y + top + 0.5,
-              radius
-            )
-          );
-        });
-      });
-    }
+  staves.forEach((stave) => {
+    const top = vertical_spacing.staves[stave.key].y;
+    instructions.push(
+      buildCircle(
+        `${key}-${stave.key}-dot--top`,
+        { color: "#000000" },
+        x,
+        y + top - 0.5,
+        radius
+      )
+    );
+    instructions.push(
+      buildCircle(
+        `${key}-${stave.key}-dot--bottom`,
+        { color: "#000000" },
+        x,
+        y + top + 0.5,
+        radius
+      )
+    );
   });
   return instructions;
 }
@@ -139,9 +130,7 @@ function drawRepeatDots(
 export function drawBarline(
   x: number,
   y: number,
-  players: { order: string[]; by_key: { [key: string]: Player } },
-  instruments: { [key: string]: Instrument },
-  flow: Flow,
+  staves: Stave[],
   vertical_spacing: VerticalSpacing,
   vertical_spans: VerticalSpans,
   barline: BarlineDrawType,
@@ -176,7 +165,7 @@ export function drawBarline(
           )
         );
 
-        if (process.env.ENVIRONMENT === "dev" && process.env.DEBUG === "1") {
+        if (process.env.NODE_ENV === "development") {
           instructions.push(
             ...debugBarline(
               BarlineDrawType.Double,
@@ -207,7 +196,7 @@ export function drawBarline(
           )
         );
 
-        if (process.env.ENVIRONMENT === "dev" && process.env.DEBUG === "1") {
+        if (process.env.NODE_ENV === "development") {
           instructions.push(
             ...debugBarline(
               BarlineDrawType.Final,
@@ -238,7 +227,7 @@ export function drawBarline(
           )
         );
 
-        if (process.env.ENVIRONMENT === "dev" && process.env.DEBUG === "1") {
+        if (process.env.NODE_ENV === "development") {
           instructions.push(
             ...debugBarline(
               BarlineDrawType.EndRepeat,
@@ -269,7 +258,7 @@ export function drawBarline(
           )
         );
 
-        if (process.env.ENVIRONMENT === "dev" && process.env.DEBUG === "1") {
+        if (process.env.NODE_ENV === "development") {
           instructions.push(
             ...debugBarline(
               BarlineDrawType.StartRepeat,
@@ -308,7 +297,7 @@ export function drawBarline(
           )
         );
 
-        if (process.env.ENVIRONMENT === "dev" && process.env.DEBUG === "1") {
+        if (process.env.NODE_ENV === "development") {
           instructions.push(
             ...debugBarline(
               BarlineDrawType.EndStartRepeat,
@@ -332,7 +321,7 @@ export function drawBarline(
           )
         );
 
-        if (process.env.ENVIRONMENT === "dev" && process.env.DEBUG === "1") {
+        if (process.env.NODE_ENV === "development") {
           instructions.push(
             ...debugBarline(
               BarlineDrawType.Normal,
@@ -357,9 +346,7 @@ export function drawBarline(
             ...drawRepeatDots(
               x + 1.75,
               y,
-              players,
-              instruments,
-              flow,
+              staves,
               vertical_spacing,
               `${key}-${entry.start}-start`
             )
@@ -371,9 +358,7 @@ export function drawBarline(
             ...drawRepeatDots(
               x + 0.25,
               y,
-              players,
-              instruments,
-              flow,
+              staves,
               vertical_spacing,
               `${key}-${entry.start}-end`
             )
@@ -385,9 +370,7 @@ export function drawBarline(
             ...drawRepeatDots(
               x + 0.25,
               y,
-              players,
-              instruments,
-              flow,
+              staves,
               vertical_spacing,
               `${key}-${entry.start}-end`
             )
@@ -396,9 +379,7 @@ export function drawBarline(
             ...drawRepeatDots(
               x + 3.25,
               y,
-              players,
-              instruments,
-              flow,
+              staves,
               vertical_spacing,
               `${key}-${entry.start}-start`
             )

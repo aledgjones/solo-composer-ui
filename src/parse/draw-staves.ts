@@ -1,22 +1,15 @@
 import { VerticalSpacing } from "./measure-verical-spacing";
 import { PathInstruction, buildPath } from "../render/path";
-import { Player } from "../store/score-player/defs";
-import { Instrument } from "../store/score-instrument/defs";
-import { Flow } from "../store/score-flow/defs";
 import { Stave } from "../store/score-stave/defs";
-import { getStavesAsArray } from "./get-staves-as-array";
 
 export function drawStaves(
   x: number,
   y: number,
   width: number,
-  players: { order: string[]; by_key: { [key: string]: Player } },
-  instruments: { [key: string]: Instrument },
-  flow: Flow,
+  staves: Stave[],
   verticalSpacing: VerticalSpacing
 ) {
   const paths: PathInstruction[] = [];
-  const staves = getStavesAsArray(players, instruments, flow);
   const styles = { color: "#000000", thickness: 0.125 };
 
   // render staves
