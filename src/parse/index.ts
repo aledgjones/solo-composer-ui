@@ -20,6 +20,8 @@ import { measureBarlineBox } from "../store/entries/barline/utils";
 import { drawBarlines } from "./draw-barlines";
 import { measureHorizontalSpacing } from "./measure-horizonal-spacing";
 import { getStavesAsArray } from "./get-staves-as-array";
+import { drawTimeSignatures } from "./draw-time-signatures";
+import { debugTick } from "./debug-tick";
 
 export function parse(
   score: Score,
@@ -108,8 +110,22 @@ export function parse(
       barlines,
       config.systemicBarlineSingleInstrumentSystem,
       config.finalBarlineType
+    ),
+    ...drawTimeSignatures(
+      x,
+      y,
+      staves,
+      flow,
+      verticalSpacing,
+      horizontalSpacing
     )
   );
+
+  if (process.env.NODE_ENV === "development") {
+    drawInstructions.push(
+      ...debugTick(x, y, flow, horizontalSpacing, verticalSpacing.height)
+    );
+  }
 
   return {
     space: spaces.toPX(1),

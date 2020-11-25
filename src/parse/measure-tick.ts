@@ -7,7 +7,7 @@ import { measureTimeSignatureBounds } from "../store/entries/time-signature/util
 import { WidthOf } from "./sum-width-up-to";
 import { measureKeySignatureBounds } from "../store/entries/key-signature/utils";
 import { measureBarlineBounds } from "../store/entries/barline/utils";
-import { getextrasAtTick } from "./getExtrasAtTick";
+import { getextrasAtTick } from "./get-extras-at-tick";
 import { getBarlineDrawTypeAtTick } from "./get-barline-draw-type-at-tick";
 
 export type HorizontalSpacing = [
@@ -41,10 +41,15 @@ export function measureTick(
     0.0,
     0.0,
     0.0,
+    0.0,
     0.3, // TODO: remove static spacing
     0.0,
-    0.0,
   ];
+
+  if (tick === 0) {
+    // systemic barline spacing on first tick
+    measurements[WidthOf.Barline] = 1;
+  }
 
   // Time signature / Key Signature
   const { time, key, barline } = getextrasAtTick(tick, flow);

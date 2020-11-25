@@ -1,18 +1,9 @@
-import { Player } from "../store/score-player/defs";
-import { Instrument } from "../store/score-instrument/defs";
 import { Flow } from "../store/score-flow/defs";
-import { NotationTracks } from "./notation-track";
-import { BarlineDrawType, Barline } from "../store/entries/barline/defs";
-import {
-  get_entries_at_tick,
-  measureTimeSignatureBounds,
-} from "../store/entries/time-signature/utils";
+import { Barline } from "../store/entries/barline/defs";
+import { get_entries_at_tick } from "../store/entries/time-signature/utils";
 import { EntryType } from "../store/entries";
 import { TimeSignature } from "../store/entries/time-signature/defs";
 import { KeySignature } from "../store/entries/key-signature/defs";
-import { WidthOf } from "./sum-width-up-to";
-import { measureKeySignatureBounds } from "../store/entries/key-signature/utils";
-import { measureBarlineBounds } from "../store/entries/barline/utils";
 
 export type HorizontalSpacing = [
   number, // End Repeat

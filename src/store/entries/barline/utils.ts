@@ -59,41 +59,6 @@ export function createBarline(
   };
 }
 
-function debugBarline(
-  type: BarlineDrawType,
-  key: string,
-  x: number,
-  y: number,
-  height: number
-) {
-  const instructions: Instruction<any> = [];
-  const box = measureBarlineBox(type);
-  const bounds = measureBarlineBounds(type);
-  instructions.push(
-    buildBox(
-      `${key}-BOX`,
-      {
-        color: "rgba(255,0,0,.2)",
-      },
-      x,
-      y,
-      box.width,
-      height
-    ),
-    buildBox(
-      `${key}-BOUNDS`,
-      {
-        color: "rgba(255,0,0,.1)",
-      },
-      x,
-      y,
-      bounds.width,
-      height
-    )
-  );
-  return instructions;
-}
-
 function drawRepeatDots(
   x: number,
   y: number,
@@ -164,18 +129,6 @@ export function drawBarline(
             [x + 0.5, bottom]
           )
         );
-
-        if (process.env.NODE_ENV === "development") {
-          instructions.push(
-            ...debugBarline(
-              BarlineDrawType.Double,
-              `${key}-${entry.start}-double--DEBUG`,
-              x,
-              top,
-              bottom - top
-            )
-          );
-        }
         break;
 
       case BarlineDrawType.Final:
@@ -195,18 +148,6 @@ export function drawBarline(
             [x + 0.75, bottom]
           )
         );
-
-        if (process.env.NODE_ENV === "development") {
-          instructions.push(
-            ...debugBarline(
-              BarlineDrawType.Final,
-              `${key}-${entry.start}-final--DEBUG`,
-              x,
-              top,
-              bottom - top
-            )
-          );
-        }
         break;
 
       case BarlineDrawType.EndRepeat:
@@ -226,18 +167,6 @@ export function drawBarline(
             [x + 1.75, bottom]
           )
         );
-
-        if (process.env.NODE_ENV === "development") {
-          instructions.push(
-            ...debugBarline(
-              BarlineDrawType.EndRepeat,
-              `${key}-${entry.start}-end-repeat--DEBUG`,
-              x,
-              top,
-              bottom - top
-            )
-          );
-        }
         break;
 
       case BarlineDrawType.StartRepeat:
@@ -257,18 +186,6 @@ export function drawBarline(
             [x + 0.25, bottom]
           )
         );
-
-        if (process.env.NODE_ENV === "development") {
-          instructions.push(
-            ...debugBarline(
-              BarlineDrawType.StartRepeat,
-              `${key}-${entry.start}-start-repeat--DEBUG`,
-              x,
-              top,
-              bottom - top
-            )
-          );
-        }
         break;
 
       case BarlineDrawType.EndStartRepeat:
@@ -296,18 +213,6 @@ export function drawBarline(
             [x + 2.5, bottom]
           )
         );
-
-        if (process.env.NODE_ENV === "development") {
-          instructions.push(
-            ...debugBarline(
-              BarlineDrawType.EndStartRepeat,
-              `${key}-${entry.start}-end-start-repeat--DEBUG`,
-              x,
-              top,
-              bottom - top
-            )
-          );
-        }
         break;
 
       case BarlineDrawType.Normal:
@@ -320,18 +225,6 @@ export function drawBarline(
             [x, bottom]
           )
         );
-
-        if (process.env.NODE_ENV === "development") {
-          instructions.push(
-            ...debugBarline(
-              BarlineDrawType.Normal,
-              `${key}-${entry.start}-normal--DEBUG`,
-              x,
-              top,
-              bottom - top
-            )
-          );
-        }
         break;
     }
 

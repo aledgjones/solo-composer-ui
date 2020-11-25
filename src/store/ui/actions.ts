@@ -85,7 +85,6 @@ export const uiActions = {
         delete s.ui.play.expanded[key];
       });
     },
-    // TODO: make height a none fixed number
     keyboard: (instrument_key: string, base: number) => {
       store.update((s) => {
         s.ui.play.keyboard[instrument_key] = base;

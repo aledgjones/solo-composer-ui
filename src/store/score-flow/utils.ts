@@ -21,7 +21,7 @@ export function create_flow(): Flow {
     0,
     4,
     NoteDuration.Quarter,
-    TimeSignatureDrawType.Normal
+    TimeSignatureDrawType.Regular
   );
   const master = create_track();
   insert_entry(master, time_signature);
