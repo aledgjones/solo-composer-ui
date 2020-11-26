@@ -35,17 +35,9 @@ export const About = Dialog<Props>(({ onClose }) => {
       </div>
       <Divider compact />
       <Content className="about__content">
-        <p className="about__paragraph">
+        <p className="about__warning">
           This project is very much an experimental work in progress. Things{" "}
           <b>will</b> break, not exist, make no sense and crash!
-        </p>
-        <p className="about__paragraph">
-          This project is greatly inspired by the amazing work the people at
-          Steinberg are doing on{" "}
-          <Link href="https://new.steinberg.net/dorico/" target="_blank">
-            Dorico
-          </Link>
-          .
         </p>
       </Content>
       <Content className="about__versions">
