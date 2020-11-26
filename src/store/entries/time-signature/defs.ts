@@ -9,9 +9,10 @@ export enum TimeSignatureType {
 
 export enum TimeSignatureDrawType {
   Hidden,
-  Normal,
+  Regular,
   CommonTime,
   SplitCommonTime,
+  Open,
 }
 
 export interface TimeSignature extends Entry {

@@ -6,6 +6,10 @@ import {
   TimeSignatureType,
 } from "./defs";
 import { Track } from "../../score-track/defs";
+import { Align, buildText, Justify, TextStyles } from "../../../render/text";
+import { NotationBaseDuration } from "../../../parse/notation-track";
+import { Instruction } from "../../../render/instructions";
+import { buildBox } from "../../../render/box";
 
 export function measureTimeSignatureBox(entry: TimeSignature): Box {
   const isHidden = entry.draw_type === TimeSignatureDrawType.Hidden;
@@ -45,6 +49,57 @@ export function kind_from_beats(beats: number): TimeSignatureType {
     return TimeSignatureType.Simple;
   } else {
     return TimeSignatureType.Complex;
+  }
+}
+
+function glyph_from_digit(val: string) {
+  switch (val) {
+    case "0":
+      return "\u{E080}";
+    case "1":
+      return "\u{E081}";
+    case "2":
+      return "\u{E082}";
+    case "3":
+      return "\u{E083}";
+    case "4":
+      return "\u{E084}";
+    case "5":
+      return "\u{E085}";
+    case "6":
+      return "\u{E086}";
+    case "7":
+      return "\u{E087}";
+    case "8":
+      return "\u{E088}";
+    case "9":
+      return "\u{E059}";
+    default:
+      return "\u{E08A}";
+  }
+}
+
+function glyph_from_number(val: number) {
+  const parts = val.toString().split("");
+  return parts.map((part) => glyph_from_digit(part)).join("");
+}
+
+function glyph_from_type(val: NoteDuration) {
+  switch (val) {
+    case NoteDuration.Whole:
+      return glyph_from_number(1);
+    case NoteDuration.Half:
+      return glyph_from_number(2);
+    case NoteDuration.Quarter:
+      return glyph_from_number(4);
+    case NoteDuration.Eighth:
+      return glyph_from_number(8);
+    case NoteDuration.Sixteenth:
+      return glyph_from_number(16);
+    case NoteDuration.ThirtySecond:
+      return glyph_from_number(32);
+    default:
+      break;
   }
 }
 
@@ -183,4 +238,47 @@ export function get_entry_after_tick(
   }
 
   return found;
+}
+
+export function drawTimeSignature(
+  x: number,
+  y: number,
+  time: TimeSignature,
+  staveKey: string
+) {
+  const instructions = [];
+  const styles: TextStyles = {
+    color: "#000000",
+    font: "Bravura",
+    size: 4,
+    justify: Justify.Start,
+    align: Align.Middle,
+  };
+
+  switch (time.draw_type) {
+    case TimeSignatureDrawType.Hidden:
+      break;
+    case TimeSignatureDrawType.CommonTime:
+      instructions.push(buildText(time.key, styles, x, y, "\u{E08A}"));
+      break;
+    case TimeSignatureDrawType.SplitCommonTime:
+      instructions.push(buildText(time.key, styles, x, y, "\u{E08B}"));
+      break;
+    case TimeSignatureDrawType.Open:
+      instructions.push(buildText(time.key, styles, x, y, "\u{E09C}"));
+      break;
+    case TimeSignatureDrawType.Regular:
+    default:
+      const countGlyph = glyph_from_number(time.beats);
+      const beatGlyph = glyph_from_type(time.beat_type);
+      instructions.push(
+        buildText(`${time.key}-${staveKey}-count`, styles, x, y - 1, countGlyph)
+      );
+      instructions.push(
+        buildText(`${time.key}-${staveKey}-beat`, styles, x, y + 1, beatGlyph)
+      );
+      break;
+  }
+
+  return instructions;
 }
