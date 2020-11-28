@@ -30,7 +30,11 @@ export function debugTick(
   let left = x;
   for (let tick = 0; tick < flow.length; tick++) {
     horizontal_spacing[tick].forEach((width, i) => {
-      if (i !== WidthOf.PreSpacing && i !== WidthOf.NoteSpacing && width > 0) {
+      if (
+        i !== WidthOf.PaddingStart &&
+        i !== WidthOf.NoteSpacing &&
+        width > 0
+      ) {
         instructions.push(
           buildBox(
             `${tick}-${i}-DEBUG`,

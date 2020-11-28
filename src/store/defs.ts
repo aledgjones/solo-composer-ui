@@ -1,4 +1,5 @@
 import { AppDefs } from "./app/defs";
+import { DeveloperDefs } from "./developer/defs";
 import { PlaybackDefs } from "./playback/defs";
 import { Score } from "./score/defs";
 import { UiDefs } from "./ui/defs";
@@ -14,4 +15,5 @@ export interface State {
   playback: PlaybackDefs;
   score: Score;
   ui: UiDefs;
+  developer: DeveloperDefs;
 }

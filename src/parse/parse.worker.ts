@@ -9,20 +9,21 @@ interface Data {
   mm: number;
   score: any;
   flow_key: string;
+  debug: boolean;
 }
 
 ctx.addEventListener("message", (e) => {
-  const { mm, score, flow_key } = e.data as Data;
+  const { mm, score, flow_key, debug } = e.data as Data;
   const taskID = shortid();
   latestTaskID = taskID;
 
-  if (process.env.NODE_ENV === "development") {
+  if (debug) {
     performance.mark("start");
   }
 
-  const instructions = parse(score, flow_key, mm);
+  const instructions = parse(score, flow_key, mm, debug);
 
-  if (process.env.NODE_ENV === "development") {
+  if (debug) {
     performance.measure("parse", "start");
 
     const entries = performance.getEntriesByType("measure");

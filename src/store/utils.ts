@@ -6,16 +6,28 @@ import { NoteDuration } from "./entries";
 import { AutoCountStyle } from "./score-config/defs";
 import { engravingEmptyState } from "./score-engraving/utils";
 
+export function getStorage(key: string) {
+  const result = localStorage.getItem(key);
+  if (result) {
+    return JSON.parse(result);
+  } else {
+    return undefined;
+  }
+}
+
+export function setStorage(key: string, value: any) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
 export function move(arr: any[], from: number, to: number) {
   return arr.splice(to, 0, arr.splice(from, 1)[0]);
 }
 
 export const empty = (): State => {
-  const audition = localStorage.getItem("sc:audition/v1");
   const flow = create_flow();
   return {
     app: {
-      audition: audition === null ? true : JSON.parse(audition),
+      audition: getStorage("sc:audition/v1") || true,
     },
     playback: {
       metronome: false,
@@ -69,6 +81,12 @@ export const empty = (): State => {
         keyboard: {},
         tool: Tool.Select,
         zoom: 1,
+      },
+    },
+    developer: {
+      debug: getStorage("sc:debug/v1") || false,
+      terminal: {
+        show: getStorage("sc:terminal/v1") || false,
       },
     },
   };

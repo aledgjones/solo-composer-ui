@@ -1,5 +1,3 @@
-import { Player } from "../store/score-player/defs";
-import { Instrument } from "../store/score-instrument/defs";
 import { Flow } from "../store/score-flow/defs";
 import { NotationTracks } from "./notation-track";
 import { BarlineDrawType } from "../store/entries/barline/defs";
@@ -56,7 +54,7 @@ export function measureTick(
 
   if (tick === 0) {
     // systemic barline spacing on first tick
-    measurements[WidthOf.PreSpacing] = 1;
+    measurements[WidthOf.PaddingStart] = 1;
   }
 
   // Time signature / Key Signature

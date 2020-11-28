@@ -42,6 +42,7 @@ export { Tabs } from "./components/tabs";
 export { Textarea } from "./components/textarea";
 export { Toast } from "./components/toast";
 export { Transition } from "./components/transition";
+export { Window } from "./components/window";
 
 export { useAlpha } from "./hooks/use-alpha";
 export { useDelayBoolean } from "./hooks/use-delay-boolean";

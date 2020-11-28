@@ -12,17 +12,21 @@ import {
 import { CurveInstruction, getControlPoints } from "../../render/curve";
 import { Text } from "../text";
 import { useStore } from "../../store/use-store";
+import { BoxInstruction } from "../../render/box";
 
 import "./styles.css";
-import { BoxInstruction } from "../../render/box";
 
 interface Props {
   className?: string;
 }
 
 export const Renderer: FC<Props> = memo(({ className }) => {
-  const [score, flow_key] = useStore((s) => [s.score, s.ui.flow_key]);
-  const instructions = useParseWorker(score, flow_key);
+  const [score, flow_key, debug] = useStore((s) => [
+    s.score,
+    s.ui.flow_key,
+    s.developer.debug,
+  ]);
+  const instructions = useParseWorker(score, flow_key, debug);
 
   if (!instructions) {
     return null;

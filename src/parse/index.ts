@@ -28,7 +28,8 @@ import { drawClefs } from "./draw-clefs";
 export function parse(
   score: Score,
   flow_key: string,
-  px_per_mm: number
+  px_per_mm: number,
+  debug: boolean
 ): RenderInstructions {
   const drawInstructions: Instruction<any>[] = [];
 
@@ -131,7 +132,7 @@ export function parse(
     ...drawClefs(x, y, staves, flow, verticalSpacing, horizontalSpacing)
   );
 
-  if (process.env.NODE_ENV === "development") {
+  if (debug) {
     drawInstructions.push(
       ...debugTick(x, y, flow, horizontalSpacing, verticalSpacing.height)
     );

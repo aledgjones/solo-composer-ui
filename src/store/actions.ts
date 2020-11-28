@@ -13,6 +13,7 @@ import { uiActions } from "./ui/actions";
 import { barlineActions } from "./entries/barline/actions";
 import { keySignatureActions } from "./entries/key-signature/actions";
 import { clefActions } from "./entries/clef/actions";
+import { developerActions } from "./developer/actions";
 
 // and it's really easy to swap between js and wasm funcs if needed.
 export const actions = {
@@ -35,6 +36,7 @@ export const actions = {
     },
   },
   ui: uiActions,
+  developer: developerActions,
 };
 
 // debuggable

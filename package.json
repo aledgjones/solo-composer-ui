@@ -1,6 +1,6 @@
 {
     "name": "solo-composer-ui",
-    "version": "0.8.9",
+    "version": "0.8.10",
     "description": "Music Notation Everywhere",
     "main": "./bootstrap.ts",
     "scripts": {
@@ -35,6 +35,7 @@
     },
     "dependencies": {
         "@mdi/js": "5.8.55",
+        "@webscopeio/react-console": "^1.2.0",
         "app-reset": "1.0.2",
         "big.js": "6.0.2",
         "color": "3.1.3",

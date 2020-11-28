@@ -1,12 +1,13 @@
-import React, { FC, useEffect, Suspense } from "react";
+import React, { FC, Suspense } from "react";
 import { mdiUndo, mdiRedo } from "@mdi/js";
-import { Tabs, useTheme, merge, Tab, Icon } from "../../ui";
+import { Tabs, Tab, Icon } from "../../ui";
 import { TransportComponent } from "./transport";
 import { Loading } from "../components/loading";
 import { useStore } from "../store/use-store";
 import { actions } from "../store/actions";
 import { View } from "../store/ui/defs";
 import { File } from "./file";
+import { Console } from "../components/console";
 
 import "./styles.css";
 
@@ -54,6 +55,8 @@ export const Root: FC = () => {
           </Suspense>
         </div>
       </div>
+
+      <Console />
 
       {/* <Log /> */}
     </>

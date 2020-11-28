@@ -1,5 +1,5 @@
 export enum WidthOf {
-  PreSpacing,
+  PaddingStart,
   EndRepeat,
   Clef,
   Barline,
@@ -10,7 +10,7 @@ export enum WidthOf {
   PreNoteSlot,
   NoteSlot,
   NoteSpacing,
-  Padding,
+  PaddingEnd,
 }
 
 export function sumWidthUpTo(widths: number[], upTo: WidthOf) {

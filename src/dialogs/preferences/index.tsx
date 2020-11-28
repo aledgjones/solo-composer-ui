@@ -20,6 +20,7 @@ import "./styles.css";
 enum Page {
   General,
   NoteInput,
+  DeveloperTools,
 }
 
 interface Props {
@@ -27,8 +28,11 @@ interface Props {
 }
 
 export const Preferences = Dialog<Props>(({ onClose }) => {
-  const [audition] = useStore((s) => [s.app.audition]);
-
+  const [audition, terminal, debug] = useStore((s) => [
+    s.app.audition,
+    s.developer.terminal.show,
+    s.developer.debug,
+  ]);
   const [page, setPage] = useState<Page>(Page.General);
 
   return (
@@ -46,6 +50,12 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
             onClick={() => setPage(Page.NoteInput)}
           >
             Note Input &amp; Editing
+          </MenuItem>
+          <MenuItem
+            selected={page === Page.DeveloperTools}
+            onClick={() => setPage(Page.DeveloperTools)}
+          >
+            Developer Tools
           </MenuItem>
         </div>
 
@@ -77,6 +87,33 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
                   <p>Play notes during note input and selection</p>
                 </Label>
                 <Switch value={audition} />
+              </ListItem>
+            </>
+          )}
+
+          {page === Page.DeveloperTools && (
+            <>
+              <div
+                className="generic-settings__section"
+                style={{ paddingBottom: 0 }}
+              >
+                <Subheader>Console</Subheader>
+              </div>
+              <ListItem onClick={() => actions.developer.debug.toggle()}>
+                <Label>
+                  <p>Enable debug highlights</p>
+                  <p>
+                    Highlight elements on the score with a coloured bounding box
+                  </p>
+                </Label>
+                <Switch value={debug} />
+              </ListItem>
+              <ListItem onClick={() => actions.developer.terminal.toggle()}>
+                <Label>
+                  <p>Enable console</p>
+                  <p>Command based input to aid development</p>
+                </Label>
+                <Switch value={terminal} />
               </ListItem>
             </>
           )}
