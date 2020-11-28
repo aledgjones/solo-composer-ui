@@ -3,14 +3,22 @@ import { Instrument } from "../store/score-instrument/defs";
 import { Flow } from "../store/score-flow/defs";
 import { NotationTracks } from "./notation-track";
 import { BarlineDrawType } from "../store/entries/barline/defs";
-import { measureTimeSignatureBounds } from "../store/entries/time-signature/utils";
+import {
+  get_entries_at_tick,
+  measureTimeSignatureBounds,
+} from "../store/entries/time-signature/utils";
 import { WidthOf } from "./sum-width-up-to";
 import { measureKeySignatureBounds } from "../store/entries/key-signature/utils";
 import { measureBarlineBounds } from "../store/entries/barline/utils";
 import { getextrasAtTick } from "./get-extras-at-tick";
 import { getBarlineDrawTypeAtTick } from "./get-barline-draw-type-at-tick";
+import { Stave } from "../store/score-stave/defs";
+import { EntryType } from "../store/entries";
+import { measureClefBounds } from "../store/entries/clef/utils";
+import { Clef } from "../store/entries/clef/defs";
 
 export type HorizontalSpacing = [
+  number, // pre padding (system start)
   number, // End Repeat
   number, // Clef
   number, // Barline
@@ -26,13 +34,13 @@ export type HorizontalSpacing = [
 
 export function measureTick(
   tick: number,
-  players: { order: string[]; by_key: { [key: string]: Player } },
-  instruments: { [key: string]: Instrument },
+  staves: Stave[],
   flow: Flow,
   isFirstBeat: boolean,
   notationTracks: NotationTracks
 ) {
   const measurements: HorizontalSpacing = [
+    0.0,
     0.0,
     0.0,
     0.0,
@@ -48,7 +56,7 @@ export function measureTick(
 
   if (tick === 0) {
     // systemic barline spacing on first tick
-    measurements[WidthOf.Barline] = 1;
+    measurements[WidthOf.PreSpacing] = 1;
   }
 
   // Time signature / Key Signature
@@ -90,6 +98,17 @@ export function measureTick(
       BarlineDrawType.StartRepeat
     ).width;
   }
+
+  staves.forEach((stave) => {
+    const clef = get_entries_at_tick(
+      tick,
+      stave.master,
+      EntryType.Clef
+    )[0] as Clef;
+    if (clef) {
+      measurements[WidthOf.Clef] = measureClefBounds(clef).width;
+    }
+  });
 
   return measurements;
 }

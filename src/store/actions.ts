@@ -11,6 +11,8 @@ import { absoluteTempoActions } from "./entries/absolute-tempo/actions";
 import { toneActions } from "./entries/tone/actions";
 import { uiActions } from "./ui/actions";
 import { barlineActions } from "./entries/barline/actions";
+import { keySignatureActions } from "./entries/key-signature/actions";
+import { clefActions } from "./entries/clef/actions";
 
 // and it's really easy to swap between js and wasm funcs if needed.
 export const actions = {
@@ -25,7 +27,9 @@ export const actions = {
     instrument: instrumentActions,
     entries: {
       barline: barlineActions,
+      clef: clefActions,
       time_signature: timeSignatureActions,
+      key_signature: keySignatureActions,
       absolute_tempo: absoluteTempoActions,
       tone: toneActions,
     },

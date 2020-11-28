@@ -1,10 +1,10 @@
 import { StaveDef } from "../score-instrument/defs";
 import { Stave } from "./defs";
-import { create_clef } from "../entries/clef";
 import { create_track, insert_entry } from "../score-track/utils";
+import { createClef } from "../entries/clef/utils";
 
 export function create_stave(key: string, staveDef: StaveDef): Stave {
-  const clef = create_clef(
+  const clef = createClef(
     0,
     staveDef.clef.pitch,
     staveDef.clef.offset,

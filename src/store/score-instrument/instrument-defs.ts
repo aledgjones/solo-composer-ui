@@ -1,4 +1,4 @@
-import { ClefDrawType } from "../entries/clef";
+import { ClefDrawType } from "../entries/clef/defs";
 import { PlayerType } from "../score-player/defs";
 import { InstrumentDef, InstrumentType, Expression } from "./defs";
 

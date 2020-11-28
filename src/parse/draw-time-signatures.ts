@@ -1,15 +1,10 @@
 import { Instruction } from "../render/instructions";
-import { buildPath } from "../render/path";
-import { BarlineDrawType } from "../store/entries/barline/defs";
-import { drawBarline } from "../store/entries/barline/utils";
 import { drawTimeSignature } from "../store/entries/time-signature/utils";
 import { Flow } from "../store/score-flow/defs";
 import { Stave } from "../store/score-stave/defs";
-import { getBarlineDrawTypeAtTick } from "./get-barline-draw-type-at-tick";
 import { getextrasAtTick } from "./get-extras-at-tick";
 import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
-import { VerticalSpans } from "./measure-vertical-spans";
 import { measureWidthUpto } from "./measure-width-upto";
 import { WidthOf } from "./sum-width-up-to";
 

@@ -3,6 +3,7 @@ import { Instruction } from "../render/instructions";
 import { Flow } from "../store/score-flow/defs";
 import { HorizontalSpacing } from "./measure-tick";
 import { measureWidthUpto } from "./measure-width-upto";
+import { WidthOf } from "./sum-width-up-to";
 
 export function debugTick(
   x: number,
@@ -13,22 +14,23 @@ export function debugTick(
 ) {
   const instructions: Instruction<any>[] = [];
   const colors = [
-    "rgba(255,0,255,.2)", //
-    "rgba(0,255,255,.2)", //
-    "rgba(255,0,255,.2)", //
-    "rgba(255,0,0,.2)", //
+    "rgba(0,0,0,0)",
+    "rgba(255,0,255,.2)",
+    "rgba(0,255,255,.2)",
+    "rgba(255,0,255,.2)",
+    "rgba(255,0,0,.2)",
     "rgba(0,255,0,.2)",
-    "rgba(255,0,255,.2)", //
+    "rgba(255,0,255,.2)",
     "rgba(255,0,0,.2)",
     "rgba(0,255,0,.2)",
     "rgba(0,0,255,.2)",
-    "rgba(255,0,0,.2)",
+    "rgba(0,0,0,0)",
     "rgba(0,255,0,.2)",
   ];
   let left = x;
   for (let tick = 0; tick < flow.length; tick++) {
     horizontal_spacing[tick].forEach((width, i) => {
-      if (i !== 9 && width > 0) {
+      if (i !== WidthOf.PreSpacing && i !== WidthOf.NoteSpacing && width > 0) {
         instructions.push(
           buildBox(
             `${tick}-${i}-DEBUG`,

@@ -1,4 +1,5 @@
 export enum WidthOf {
+  PreSpacing,
   EndRepeat,
   Clef,
   Barline,

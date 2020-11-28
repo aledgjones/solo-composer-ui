@@ -1,12 +1,10 @@
 import { Flow } from "../store/score-flow/defs";
-import { Instrument } from "../store/score-instrument/defs";
-import { Player } from "../store/score-player/defs";
+import { Stave } from "../store/score-stave/defs";
 import { HorizontalSpacing, measureTick } from "./measure-tick";
 import { NotationTracks } from "./notation-track";
 
 export function measureHorizontalSpacing(
-  players: { order: string[]; by_key: { [key: string]: Player } },
-  instruments: { [key: string]: Instrument },
+  staves: Stave[],
   flow: Flow,
   barlines: Set<number>,
   notation: NotationTracks
@@ -17,8 +15,7 @@ export function measureHorizontalSpacing(
   for (let tick = 0; tick < flow.length; tick++) {
     spacing[tick] = measureTick(
       tick,
-      players,
-      instruments,
+      staves,
       flow,
       barlines.has(tick),
       notation

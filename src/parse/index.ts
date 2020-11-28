@@ -22,6 +22,8 @@ import { measureHorizontalSpacing } from "./measure-horizonal-spacing";
 import { getStavesAsArray } from "./get-staves-as-array";
 import { drawTimeSignatures } from "./draw-time-signatures";
 import { debugTick } from "./debug-tick";
+import { drawKeySignatures } from "./draw-key-signatures";
+import { drawClefs } from "./draw-clefs";
 
 export function parse(
   score: Score,
@@ -70,8 +72,7 @@ export function parse(
   const notation = getWrittenDurations(staves, flow, barlines);
 
   const { horizontalSpacing, width } = measureHorizontalSpacing(
-    score.players,
-    score.instruments,
+    staves,
     flow,
     barlines,
     notation
@@ -118,7 +119,16 @@ export function parse(
       flow,
       verticalSpacing,
       horizontalSpacing
-    )
+    ),
+    ...drawKeySignatures(
+      x,
+      y,
+      staves,
+      flow,
+      verticalSpacing,
+      horizontalSpacing
+    ),
+    ...drawClefs(x, y, staves, flow, verticalSpacing, horizontalSpacing)
   );
 
   if (process.env.NODE_ENV === "development") {

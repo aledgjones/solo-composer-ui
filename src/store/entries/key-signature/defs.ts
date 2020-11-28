@@ -1,5 +1,5 @@
 import { Entry, Accidental, EntryType } from "..";
-import { ClefDrawType } from "../clef";
+import { ClefDrawType } from "../clef/defs";
 
 export enum KeySignatureMode {
   Major = 1,
@@ -23,28 +23,28 @@ interface Patterns {
 export const key_signature_patterns: Patterns = {
   [ClefDrawType.C]: {
     2: {
-      [Accidental.Flat]: [3, 0, 4, 1, 5, 2, 6],
+      [Accidental.Flat]: [1, 4, 0, 3, -1, 2, -2],
       [Accidental.Natural]: [],
-      [Accidental.Sharp]: [6, 2, 5, 1, 4, 0, 3],
+      [Accidental.Sharp]: [-2, 2, -1, 3, 0, 4, 1],
     },
-    4: {
-      [Accidental.Flat]: [5, 2, 6, 3, 7, 4, 8],
+    0: {
+      [Accidental.Flat]: [-1, 2, -2, 1, -3, 0, -4],
       [Accidental.Natural]: [],
-      [Accidental.Sharp]: [1, 4, 0, 3, 6, 2, 5],
+      [Accidental.Sharp]: [3, 0, 4, 1, -2, 2, -1],
     },
   },
   [ClefDrawType.F]: {
     2: {
-      [Accidental.Flat]: [6, 3, 7, 4, 8, 5, 9],
+      [Accidental.Flat]: [-2, 1, -3, 0, -4, -1, -5],
       [Accidental.Natural]: [],
-      [Accidental.Sharp]: [2, 5, 1, 4, 7, 3, 6],
+      [Accidental.Sharp]: [2, -1, 3, 0, -3, 1, -2],
     },
   },
   [ClefDrawType.G]: {
-    6: {
-      [Accidental.Flat]: [4, 1, 5, 2, 6, 3, 7],
+    [-2]: {
+      [Accidental.Flat]: [0, 3, -1, 2, -2, 1, -3],
       [Accidental.Natural]: [],
-      [Accidental.Sharp]: [0, 3, -1, 2, 5, 1, 4],
+      [Accidental.Sharp]: [4, 1, 5, 2, -1, 3, 0],
     },
   },
 };
