@@ -9,9 +9,9 @@ import { PlayerTypePicker } from "../dialogs/player-type-picker";
 import { InstrumentPicker } from "../dialogs/instrument-picker";
 import { Renderer } from "../components/renderer";
 import { actions } from "../store/actions";
+import { PlayerType } from "../store/score-player/defs";
 
 import "./styles.css";
-import { PlayerType } from "../store/score-player/defs";
 
 const Setup: FC = () => {
   useTitle("Solo Composer | Setup");

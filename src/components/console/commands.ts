@@ -1,5 +1,9 @@
 import { actions } from "../../store/actions";
 import { State } from "../../store/defs";
+import {
+  modeFromKey,
+  offsetFromKey,
+} from "../../store/entries/key-signature/defs";
 
 export const commands = (state: State) => {
   const flowKey = state.ui.flow_key || state.score.flows.order[0];
@@ -37,20 +41,26 @@ export const commands = (state: State) => {
     },
     key: {
       description: "Set the key",
-      fn: async (tick: string, mode: string, offset: string) => {
-        if (tick && mode && offset) {
-          try {
-            actions.score.entries.key_signature.create(
-              flowKey,
-              parseInt(tick),
-              parseInt(mode),
-              parseInt(offset)
-            );
-          } catch (e) {
-            return "Invalid args. Expect:\n\nkey {tick: int} {mode: int} {offset: int}";
+      fn: async (tick: string, key: string) => {
+        const error =
+          "Invalid args.\n\nExpected: key {tick: int} {key: int}\nExample usage: key 0 Ab";
+        if (tick && parseInt(tick) >= 0 && key) {
+          const offset = offsetFromKey(key);
+          const mode = modeFromKey(key);
+          if (offset !== null) {
+            try {
+              actions.score.entries.key_signature.create(
+                flowKey,
+                parseInt(tick),
+                mode,
+                offset
+              );
+            } catch (e) {
+              return error;
+            }
           }
         } else {
-          return "Invalid args. Expect:\n\nkey {tick: int} {mode: int} {offset: int}";
+          return error;
         }
       },
     },

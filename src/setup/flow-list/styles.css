@@ -2,6 +2,10 @@
   width: 100%;
 }
 
+.flow-list .panel__content {
+  width: 0;
+}
+
 .flow-list__label {
   flex-grow: 1;
 }

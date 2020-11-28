@@ -6,7 +6,6 @@
 .panel__content {
   flex-grow: 1;
   width: 350px;
-  min-width: 350px;
 }
 
 .panel__collapse {
