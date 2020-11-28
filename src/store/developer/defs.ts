@@ -1,5 +1,5 @@
 export interface DeveloperDefs {
-  highlight: boolean;
+  debug: boolean;
   terminal: {
     show: boolean;
   };

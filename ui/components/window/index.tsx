@@ -27,6 +27,9 @@ export const Window: FC<Props> = ({ children, styles }) => {
       style.textContent = styles;
       view.document.body.append(style);
       setRoot(element);
+      return () => {
+        view.close();
+      };
     }
   }, []);
 
