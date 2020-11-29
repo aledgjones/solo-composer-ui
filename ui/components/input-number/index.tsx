@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState, useEffect } from "react";
+import { FC, useCallback, useState, useEffect } from "react";
 import { mdiChevronUp, mdiChevronDown } from "@mdi/js";
 import Big from "big.js";
 

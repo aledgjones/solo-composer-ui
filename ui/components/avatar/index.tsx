@@ -1,4 +1,5 @@
-import React, { FC, useState, useEffect } from "react";
+import { FC, useState, useEffect } from "react";
+import * as React from "react";
 
 import { colors } from "./colors";
 import { merge } from "../../utils/merge";

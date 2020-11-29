@@ -1,4 +1,4 @@
-import React, { useState, useEffect, FC } from "react";
+import { useState, useEffect, FC } from "react";
 import { createPortal } from "react-dom";
 import { ObjectInspector } from "react-inspector";
 import { useStore } from "../../../src/store/use-store";

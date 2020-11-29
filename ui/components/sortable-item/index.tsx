@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useContext, MutableRefObject, useLayoutEffect } from "react";
+import { useRef, useEffect, useContext, MutableRefObject, useLayoutEffect } from "react";
 import shortid from "shortid";
 
 import { SortableContext, Items } from "../sortable-container/context";

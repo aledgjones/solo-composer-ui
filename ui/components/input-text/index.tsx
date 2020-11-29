@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import { FC, useCallback } from "react";
 
 import { error } from "../../utils/error";
 import { InputBase } from "../input-base";

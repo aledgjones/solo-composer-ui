@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from "react";
+import { FC, Fragment } from "react";
 import shortid from "shortid";
 
 import { ToastInstance, ToastConfig } from "./defs";

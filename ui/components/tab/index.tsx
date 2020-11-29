@@ -1,4 +1,4 @@
-import React, { FC, useRef, useCallback, useEffect } from "react";
+import { FC, useRef, useCallback, useEffect } from "react";
 
 import { merge } from "../../utils/merge";
 

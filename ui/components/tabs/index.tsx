@@ -1,4 +1,4 @@
-import React, { FC, Children, useState, CSSProperties } from "react";
+import { FC, Children, useState, CSSProperties } from "react";
 
 import { merge } from "../../utils/merge";
 import { TabExtended } from "../tab";

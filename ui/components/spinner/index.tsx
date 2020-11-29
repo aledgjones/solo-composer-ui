@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, useMemo } from "react";
+import { CSSProperties, FC, useMemo } from "react";
 import Big from "big.js";
 
 import { merge } from "../../utils/merge";

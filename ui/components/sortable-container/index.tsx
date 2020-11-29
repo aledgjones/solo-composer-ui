@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { SortableContext, Items } from "./context";
 import { merge } from "../../utils/merge";

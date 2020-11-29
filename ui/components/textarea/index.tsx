@@ -1,10 +1,4 @@
-import React, {
-  CSSProperties,
-  FC,
-  useState,
-  useMemo,
-  useCallback,
-} from "react";
+import { CSSProperties, FC, useState, useMemo, useCallback } from "react";
 
 import { merge } from "../../utils/merge";
 

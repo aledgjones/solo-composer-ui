@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties } from "react";
+import { FC, CSSProperties } from "react";
 import { merge } from "../../utils/merge";
 
 import "./styles.css";

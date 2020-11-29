@@ -1,4 +1,4 @@
-import React, { FC, useCallback, CSSProperties } from "react";
+import { FC, useCallback, CSSProperties } from "react";
 import { mdiCheck } from "@mdi/js";
 
 import { merge } from "../../utils/merge";

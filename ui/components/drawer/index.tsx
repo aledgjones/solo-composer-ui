@@ -1,4 +1,4 @@
-import React, { CSSProperties, FC, ReactNode } from "react";
+import { CSSProperties, FC, ReactNode } from "react";
 
 import { merge } from "../../utils/merge";
 import { useDelayBoolean } from "../../hooks/use-delay-boolean";

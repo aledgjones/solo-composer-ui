@@ -1,4 +1,4 @@
-import React, { CSSProperties, MouseEvent, FC } from "react";
+import { CSSProperties, MouseEvent, FC } from "react";
 
 import { useForeground } from "../../hooks/use-foreground";
 import { merge } from "../../utils/merge";

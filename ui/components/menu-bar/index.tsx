@@ -1,11 +1,4 @@
-import React, {
-  FC,
-  CSSProperties,
-  Children,
-  useState,
-  useRef,
-  useEffect,
-} from "react";
+import { FC, CSSProperties, Children, useState, useRef, useEffect } from "react";
 import { merge } from "../../utils/merge";
 import { Card } from "../../components/card";
 

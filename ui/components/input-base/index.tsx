@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback, ChangeEvent } from "react";
+import { FC, useState, useCallback, ChangeEvent } from "react";
 
 import { merge } from "../../utils/merge";
 import { InternalInputBaseProps } from "./defs";

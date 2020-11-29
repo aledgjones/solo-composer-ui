@@ -1,12 +1,4 @@
-import React, {
-  useState,
-  useMemo,
-  CSSProperties,
-  FC,
-  useRef,
-  useEffect,
-  Children,
-} from "react";
+import { useState, useMemo, CSSProperties, FC, useRef, useEffect, Children } from "react";
 import { mdiChevronDown } from "@mdi/js";
 
 import { merge } from "../../utils/merge";

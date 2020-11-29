@@ -1,4 +1,4 @@
-import React, { MouseEvent, CSSProperties, FC } from "react";
+import { MouseEvent, CSSProperties, FC } from "react";
 
 import { merge } from "../../utils/merge";
 import { Spinner } from "../spinner";

@@ -1,4 +1,4 @@
-import React, { useCallback, ChangeEvent, FC } from "react";
+import { useCallback, ChangeEvent, FC } from "react";
 import { mdiMagnify } from "@mdi/js";
 
 import { SearchInputProps } from "../input-base/defs";

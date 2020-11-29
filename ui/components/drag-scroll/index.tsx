@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties, useState, useCallback } from "react";
+import { FC, CSSProperties, useState, useCallback } from "react";
 
 import { merge } from "../../utils/merge";
 import { useDragHandler } from "../../hooks/use-drag-handler";

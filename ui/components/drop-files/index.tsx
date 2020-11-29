@@ -1,10 +1,5 @@
-import React, {
-  useCallback,
-  useState,
-  useEffect,
-  CSSProperties,
-  FC,
-} from "react";
+import { useCallback, useState, useEffect, CSSProperties, FC } from "react";
+import * as React from "react";
 import { mdiFileUploadOutline } from "@mdi/js";
 
 import { fileAccepted } from "../../utils/file-accepted";
