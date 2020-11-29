@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { merge } from "../../../ui";
 
 import "./styles.css";

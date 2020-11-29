@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Dialog, Content, Subheader, Progress } from "../../../ui";
 import { actions } from "../../store/actions";
 

@@ -1,4 +1,4 @@
-import React, { FC, useRef, useMemo } from "react";
+import { FC, useRef, useMemo } from "react";
 import Color from "color";
 import { useStore } from "../../store/use-store";
 import { TickList } from "../../store/score-flow/defs";

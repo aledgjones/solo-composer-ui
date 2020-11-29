@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { mdiPlus } from "@mdi/js";
 import { Icon } from "../../../ui";
 import { CollpaseDirection, Panel } from "../../components/panel";

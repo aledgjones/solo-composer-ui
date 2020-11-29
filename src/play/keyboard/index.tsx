@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { useDragHandler } from "../../../ui";
 import { Slots } from "./slots";
 import { SLOT_HEIGHT } from "../const";

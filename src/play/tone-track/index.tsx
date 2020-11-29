@@ -1,4 +1,4 @@
-import React, { FC, PointerEvent, useRef, useCallback } from "react";
+import { FC, PointerEvent, useRef, useCallback } from "react";
 import { dragHandler } from "../../../ui";
 import { ToneTrackEntry } from "../tone-track-entry";
 import { SLOT_HEIGHT } from "../const";

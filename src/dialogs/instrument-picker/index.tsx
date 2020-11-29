@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { mdiChevronRight } from "@mdi/js";
 import { Dialog, Icon, Button } from "../../../ui";
 import { MenuItem } from "../../components/menu-item";

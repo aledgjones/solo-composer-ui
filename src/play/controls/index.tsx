@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from "react";
+import { FC, useCallback } from "react";
 import { mdiChevronDown, mdiCogOutline, mdiSizeS, mdiSizeM } from "@mdi/js";
 import { Icon, noop, Label } from "../../../ui";
 import { Text } from "../../components/text";

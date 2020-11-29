@@ -1,4 +1,3 @@
-import React from "react";
 import { Dialog, Button, Subheader, Input, Textarea } from "../../../ui";
 import { TagCopier } from "../../components/tag-copier";
 import { useStore } from "../../store/use-store";

@@ -1,4 +1,4 @@
-import React, { FC, useMemo, PointerEvent, useCallback } from "react";
+import { FC, useMemo, PointerEvent, useCallback } from "react";
 import { merge } from "../../../ui";
 import { SLOT_HEIGHT } from "../const";
 import { useStore } from "../../store/use-store";

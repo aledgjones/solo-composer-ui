@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties } from "react";
+import { FC, CSSProperties } from "react";
 import { mdiEyeOffOutline } from "@mdi/js";
 import { Icon, Label } from "../../../ui";
 

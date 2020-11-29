@@ -1,4 +1,4 @@
-import React, { FC, Fragment } from "react";
+import { FC, Fragment } from "react";
 import { useStore } from "../../store/use-store";
 import { State } from "../../store/defs";
 

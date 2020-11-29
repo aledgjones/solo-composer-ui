@@ -1,4 +1,4 @@
-import React, { FC, memo } from "react";
+import { FC, memo } from "react";
 import { merge } from "../../../ui";
 import { useParseWorker } from "./use-parse-worker";
 import { Instruction, InstructionType } from "../../render/instructions";

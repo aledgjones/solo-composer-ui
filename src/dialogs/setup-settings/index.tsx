@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Dialog, Subheader, Select, Option, Label, Button } from "../../../ui";
 import { MenuItem } from "../../components/menu-item";
 import { useStore } from "../../store/use-store";

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import ReactConsole from "@webscopeio/react-console";
 import pkg from "../../../package.json";
 import { Window } from "../../../ui";

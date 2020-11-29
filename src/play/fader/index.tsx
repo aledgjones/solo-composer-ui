@@ -1,4 +1,4 @@
-import React, { FC, useCallback, KeyboardEvent, useRef } from "react";
+import { FC, useCallback, KeyboardEvent, useRef } from "react";
 import { merge, useDragHandler } from "../../../ui";
 import { useWaveform } from "../../store/playback";
 

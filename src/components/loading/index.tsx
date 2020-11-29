@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties } from "react";
+import { FC, CSSProperties } from "react";
 import { Spinner } from "../../../ui";
 
 import "./styles.css";

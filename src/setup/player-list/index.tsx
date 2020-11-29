@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { mdiPlus, mdiCogOutline } from "@mdi/js";
 import { Icon, SortableContainer } from "../../../ui";
 import { Selection } from "../selection";

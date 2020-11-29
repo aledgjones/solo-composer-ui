@@ -1,4 +1,4 @@
-import React, { useCallback, MouseEvent, FC, useRef } from "react";
+import { useCallback, MouseEvent, FC, useRef } from "react";
 import {
   mdiChevronDown,
   mdiPlus,

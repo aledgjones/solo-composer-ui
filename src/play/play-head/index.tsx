@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { TickList } from "../../store/score-flow/defs";
 import { useTick } from "../../store/playback";
 

@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import { FC, useState } from "react";
 import { PanelHeader } from "../../../components/panel-header";
 import { Text } from "../../../components/text";
 

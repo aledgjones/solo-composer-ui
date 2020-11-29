@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { mdiAccount, mdiAccountGroup } from "@mdi/js";
 import { Dialog, merge, Icon, Content, Label, Button } from "../../../ui";
 import { PlayerType } from "../../store/score-player/defs";

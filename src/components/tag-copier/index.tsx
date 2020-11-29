@@ -1,4 +1,4 @@
-import React, { FC, useState, useCallback } from "react";
+import { FC, useState, useCallback } from "react";
 import { mdiTagOutline, mdiCheck } from "@mdi/js";
 import { Icon, copy, merge } from "../../../ui";
 

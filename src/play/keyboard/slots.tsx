@@ -1,4 +1,4 @@
-import React, { FC, CSSProperties } from "react";
+import { FC, CSSProperties } from "react";
 import { SLOT_HEIGHT } from "../const";
 import { modulo, merge } from "../../../ui";
 

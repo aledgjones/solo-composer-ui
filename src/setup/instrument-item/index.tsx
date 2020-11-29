@@ -1,4 +1,4 @@
-import React, { FC, useRef } from "react";
+import { FC, useRef } from "react";
 import { mdiDeleteOutline, mdiDrag } from "@mdi/js";
 import { SortableItem, Icon, merge } from "../../../ui";
 import { Text } from "../../components/text";

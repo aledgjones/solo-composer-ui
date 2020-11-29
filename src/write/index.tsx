@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 
 import { useTitle } from "../../ui";
 // import { CollpaseDirection, Panel } from "../components/panel";

@@ -1,4 +1,3 @@
-import React from "react";
 import { mdiClose } from "@mdi/js";
 import {
   Dialog,

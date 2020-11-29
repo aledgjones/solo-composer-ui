@@ -1,4 +1,4 @@
-import React, { Fragment, FC } from "react";
+import { Fragment, FC } from "react";
 import { merge } from "../../../ui";
 import { TickList, Tick } from "../../store/score-flow/defs";
 

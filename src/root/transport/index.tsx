@@ -1,4 +1,4 @@
-import React, { FC, useEffect } from "react";
+import { FC, useEffect } from "react";
 import { mdiPlay, mdiMetronome, mdiSkipPrevious, mdiPause } from "@mdi/js";
 import { Transport, Player } from "solo-composer-scheduler";
 import { Icon } from "../../../ui";

@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from "react";
+import { FC, useMemo } from "react";
 import { merge } from "../../../ui";
 import { SLOT_COUNT, SLOT_HEIGHT } from "../const";
 import { Ticks } from "../ticks";

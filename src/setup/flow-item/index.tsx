@@ -1,11 +1,4 @@
-import React, {
-  useCallback,
-  MouseEvent,
-  FC,
-  useRef,
-  CSSProperties,
-  useState,
-} from "react";
+import { useCallback, MouseEvent, FC, useRef, CSSProperties, useState } from "react";
 import {
   mdiDeleteOutline,
   mdiFileDocumentOutline,

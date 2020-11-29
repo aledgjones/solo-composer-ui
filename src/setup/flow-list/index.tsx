@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import { mdiPlus } from "@mdi/js";
 import { Icon, SortableContainer } from "../../../ui";
 import { FlowItem } from "../flow-item";
