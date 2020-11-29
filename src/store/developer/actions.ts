@@ -10,12 +10,4 @@ export const developerActions = {
       });
     },
   },
-  terminal: {
-    toggle: () => {
-      store.update((s) => {
-        setStorage("sc:terminal/v1", !s.developer.terminal.show);
-        s.developer.terminal.show = !s.developer.terminal.show;
-      });
-    },
-  },
 };

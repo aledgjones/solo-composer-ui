@@ -19,7 +19,7 @@ interface Props {
 }
 
 export const Preferences = Dialog<Props>(({ onClose }) => {
-  const [audition, terminal, debug] = useStore((s) => [s.app.audition, s.developer.terminal.show, s.developer.debug]);
+  const [audition, debug] = useStore((s) => [s.app.audition, s.developer.debug]);
   const [page, setPage] = useState<Page>(Page.General);
 
   return (
@@ -77,13 +77,6 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
                   <p>Highlight elements on the score with a coloured bounding box</p>
                 </Label>
                 <Switch value={debug} />
-              </ListItem>
-              <ListItem onClick={() => actions.developer.terminal.toggle()}>
-                <Label>
-                  <p>Enable console</p>
-                  <p>Command based input to aid development</p>
-                </Label>
-                <Switch value={terminal} />
               </ListItem>
             </>
           )}

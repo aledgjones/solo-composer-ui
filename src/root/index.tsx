@@ -7,7 +7,6 @@ import { useStore } from "../store/use-store";
 import { actions } from "../store/actions";
 import { View } from "../store/ui/defs";
 import { File } from "./file";
-import { Console } from "../components/console";
 
 import "./styles.css";
 
@@ -49,8 +48,6 @@ export const Root: FC = () => {
           </Suspense>
         </div>
       </div>
-
-      <Console />
 
       {/* <Log /> */}
     </>

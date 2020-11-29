@@ -85,9 +85,6 @@ export const empty = (): State => {
     },
     developer: {
       debug: getStorage("sc:debug/v1") || false,
-      terminal: {
-        show: getStorage("sc:terminal/v1") || false,
-      },
     },
   };
 };
