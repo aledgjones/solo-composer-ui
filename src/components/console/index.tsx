@@ -44,13 +44,14 @@ export const Console: FC = () => {
           background: transparent !important; /* we want to make this transparent whatever happens in the app*/
           padding: 0;
           color: white;
+          white-space: pre-wrap;
         }
 
         .styles_prompt__1nRph {
           display: flex;
           align-items: center;
           line-height: 12px;
-          margin-top: -2px;
+          margin-top: -1px;
         }
 
         .styles_input__15JGo {
@@ -62,7 +63,7 @@ export const Console: FC = () => {
           font-family: monospace;
           font-size: 12px;
           padding: 0;
-          margin-top: -2px;
+          margin-top: -1px;
         }
       `;
 

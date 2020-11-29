@@ -90,9 +90,9 @@ const minorKeys: KeyOffsetMap = {
 };
 
 export function offsetFromKey(key: string) {
-  if (majorKeys[key]) {
+  if (majorKeys[key] !== undefined) {
     return majorKeys[key];
-  } else if (minorKeys[key]) {
+  } else if (minorKeys[key] !== undefined) {
     return minorKeys[key];
   } else {
     return null;
