@@ -15,13 +15,7 @@ interface Props {
   zoom: number;
 }
 
-export const OverviewTrack: FC<Props> = ({
-  flowKey,
-  instrumentKey,
-  color,
-  ticks,
-  zoom,
-}) => {
+export const OverviewTrack: FC<Props> = ({ flowKey, instrumentKey, color, ticks, zoom }) => {
   const track = useRef<HTMLDivElement>(null);
 
   const [tones] = useStore(
@@ -73,11 +67,7 @@ export const OverviewTrack: FC<Props> = ({
   }, [tones]);
 
   return (
-    <div
-      ref={track}
-      className="overview-track"
-      style={{ width: ticks.width * zoom }}
-    >
+    <div ref={track} className="overview-track" style={{ width: ticks.width * zoom }}>
       {blocks.map(([start, stop], i) => {
         return (
           <div

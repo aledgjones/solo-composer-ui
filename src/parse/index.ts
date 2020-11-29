@@ -25,12 +25,7 @@ import { debugTick } from "./debug-tick";
 import { drawKeySignatures } from "./draw-key-signatures";
 import { drawClefs } from "./draw-clefs";
 
-export function parse(
-  score: Score,
-  flow_key: string,
-  px_per_mm: number,
-  debug: boolean
-): RenderInstructions {
+export function parse(score: Score, flow_key: string, px_per_mm: number, debug: boolean): RenderInstructions {
   const drawInstructions: Instruction<any>[] = [];
 
   const flow = score.flows.by_key[flow_key];
@@ -39,28 +34,12 @@ export function parse(
   const staves = getStavesAsArray(score.players, score.instruments, flow);
 
   const counts = getCounts(score.players, score.instruments);
-  const names = getInstrumentNamesList(
-    score.players,
-    score.instruments,
-    counts,
-    score.config.auto_count,
-    flow
-  );
+  const names = getInstrumentNamesList(score.players, score.instruments, counts, score.config.auto_count, flow);
   const names_width = measureNames(Object.values(names), config, spaces, px);
 
-  const verticalSpacing = measureVerticalSpacing(
-    score.players,
-    score.instruments,
-    config,
-    flow
-  );
+  const verticalSpacing = measureVerticalSpacing(score.players, score.instruments, config, flow);
 
-  const verticalSpans = measureVerticalSpans(
-    score.players,
-    score.instruments,
-    config,
-    flow
-  );
+  const verticalSpans = measureVerticalSpans(score.players, score.instruments, config, flow);
 
   const x =
     mm.toSpaces(config.framePadding.left) +
@@ -72,12 +51,7 @@ export function parse(
   const barlines = getFirstBeats(flow);
   const notation = getWrittenDurations(staves, flow, barlines);
 
-  const { horizontalSpacing, width } = measureHorizontalSpacing(
-    staves,
-    flow,
-    barlines,
-    notation
-  );
+  const { horizontalSpacing, width } = measureHorizontalSpacing(staves, flow, barlines, notation);
 
   drawInstructions.push(
     ...drawNames(
@@ -90,13 +64,7 @@ export function parse(
       verticalSpacing,
       config
     ),
-    ...drawStaves(
-      x,
-      y,
-      width + measureBarlineBox(config.finalBarlineType).width,
-      staves,
-      verticalSpacing
-    ),
+    ...drawStaves(x, y, width + measureBarlineBox(config.finalBarlineType).width, staves, verticalSpacing),
     ...drawBraces(x, y, verticalSpacing, verticalSpans),
     ...drawBrackets(x, y, verticalSpacing, verticalSpans, config),
     ...drawSubBrackets(x, y, verticalSpacing, verticalSpans),
@@ -113,42 +81,19 @@ export function parse(
       config.systemicBarlineSingleInstrumentSystem,
       config.finalBarlineType
     ),
-    ...drawTimeSignatures(
-      x,
-      y,
-      staves,
-      flow,
-      verticalSpacing,
-      horizontalSpacing
-    ),
-    ...drawKeySignatures(
-      x,
-      y,
-      staves,
-      flow,
-      verticalSpacing,
-      horizontalSpacing
-    ),
+    ...drawTimeSignatures(x, y, staves, flow, verticalSpacing, horizontalSpacing),
+    ...drawKeySignatures(x, y, staves, flow, verticalSpacing, horizontalSpacing),
     ...drawClefs(x, y, staves, flow, verticalSpacing, horizontalSpacing)
   );
 
   if (debug) {
-    drawInstructions.push(
-      ...debugTick(x, y, flow, horizontalSpacing, verticalSpacing.height)
-    );
+    drawInstructions.push(...debugTick(x, y, flow, horizontalSpacing, verticalSpacing.height));
   }
 
   return {
     space: spaces.toPX(1),
-    width:
-      x +
-      width +
-      measureBarlineBox(config.finalBarlineType).width +
-      mm.toSpaces(config.framePadding.right),
-    height:
-      mm.toSpaces(config.framePadding.top) +
-      verticalSpacing.height +
-      mm.toSpaces(config.framePadding.bottom),
+    width: x + width + measureBarlineBox(config.finalBarlineType).width + mm.toSpaces(config.framePadding.right),
+    height: mm.toSpaces(config.framePadding.top) + verticalSpacing.height + mm.toSpaces(config.framePadding.bottom),
     entries: drawInstructions,
   };
 }

@@ -5,10 +5,7 @@ import { NotationTrack, getNearestNotationToTick } from "./notation-track";
  *
  * NB. You can safely pass in a split point at the begining of a note -- it will be ignored
  */
-export function splitNotationTrack(
-  track: NotationTrack,
-  split: number
-): NotationTrack {
+export function splitNotationTrack(track: NotationTrack, split: number): NotationTrack {
   const event = getNearestNotationToTick(split, track);
 
   // check for undefined event and only split if split index it's not already the start of an event.

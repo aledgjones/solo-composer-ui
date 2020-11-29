@@ -23,15 +23,7 @@ interface Props {
 /**
  * App drawer component.
  */
-export const Drawer: FC<Props> = ({
-  id,
-  className,
-  style,
-  children,
-  open,
-  width,
-  onClose,
-}) => {
+export const Drawer: FC<Props> = ({ id, className, style, children, open, width, onClose }) => {
   const render = useDelayBoolean(open, 500);
 
   return (

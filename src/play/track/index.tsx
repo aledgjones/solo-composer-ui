@@ -19,43 +19,20 @@ interface Props {
   zoom: number;
 }
 
-export const Track: FC<Props> = ({
-  flowKey,
-  instrumentKey,
-  color,
-  ticks,
-  zoom,
-}) => {
+export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks, zoom }) => {
   const [expanded, tool, base, playing] = useStore(
     (s) => {
       const keyboard = s.ui.play.keyboard[instrumentKey];
-      return [
-        s.ui.play.expanded[instrumentKey],
-        s.ui.play.tool,
-        keyboard || 76,
-        s.playback.transport.playing,
-      ];
+      return [s.ui.play.expanded[instrumentKey], s.ui.play.tool, keyboard || 76, s.playback.transport.playing];
     },
     [instrumentKey]
   );
 
   return (
     <div className="track">
-      <Ticks
-        isTrack={true}
-        ticks={ticks}
-        height={48}
-        className="track__header"
-        zoom={zoom}
-      />
+      <Ticks isTrack={true} ticks={ticks} height={48} className="track__header" zoom={zoom} />
       {!expanded && (
-        <OverviewTrack
-          color={color}
-          flowKey={flowKey}
-          instrumentKey={instrumentKey}
-          ticks={ticks}
-          zoom={zoom}
-        />
+        <OverviewTrack color={color} flowKey={flowKey} instrumentKey={instrumentKey} ticks={ticks} zoom={zoom} />
       )}
       {expanded && (
         <>

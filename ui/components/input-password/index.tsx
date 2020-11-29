@@ -4,11 +4,7 @@ import { error } from "../../utils/error";
 import { InputBase } from "../input-base";
 import { PasswordInputProps } from "../input-base/defs";
 
-export const InputPassword: FC<PasswordInputProps> = ({
-  value,
-  required,
-  ...props
-}) => {
+export const InputPassword: FC<PasswordInputProps> = ({ value, required, ...props }) => {
   const validate = useCallback(
     (value: string) => {
       if (required && value === "") {
@@ -20,13 +16,5 @@ export const InputPassword: FC<PasswordInputProps> = ({
     [required]
   );
 
-  return (
-    <InputBase
-      display={value}
-      required={required}
-      spellcheck={false}
-      validate={validate}
-      {...props}
-    />
-  );
+  return <InputBase display={value} required={required} spellcheck={false} validate={validate} {...props} />;
 };

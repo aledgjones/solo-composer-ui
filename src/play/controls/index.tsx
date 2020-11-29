@@ -20,12 +20,7 @@ interface Props {
   instrumentKey: string;
 }
 
-export const Controls: FC<Props> = ({
-  color,
-  playerType,
-  count,
-  instrumentKey,
-}) => {
+export const Controls: FC<Props> = ({ color, playerType, count, instrumentKey }) => {
   const [instrument, expanded, volume, mute, solo] = useStore(
     (s) => {
       const keyboard = s.ui.play.keyboard[instrumentKey];
@@ -101,18 +96,11 @@ export const Controls: FC<Props> = ({
                   instrumentKey={instrumentKey}
                   volume={volume}
                   color={color}
-                  onChange={(volume: number) =>
-                    actions.score.instrument.volume(instrument.key, volume)
-                  }
+                  onChange={(volume: number) => actions.score.instrument.volume(instrument.key, volume)}
                 />
               </div>
               <div className="controls__sampler-config">
-                <Icon
-                  style={{ marginRight: 20 }}
-                  path={mdiCogOutline}
-                  size={24}
-                  onClick={noop}
-                />
+                <Icon style={{ marginRight: 20 }} path={mdiCogOutline} size={24} onClick={noop} />
                 <Label className="controls__sampler-meta">
                   <p>Solo Sampler</p>
                   <p>{instrument.id}</p>

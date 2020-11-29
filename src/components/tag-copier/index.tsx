@@ -22,11 +22,7 @@ export const TagCopier: FC<Props> = ({ content }) => {
       data-tooltip={content}
       data-tooltip-direction="down"
     >
-      <Icon
-        size={16}
-        path={working ? mdiCheck : mdiTagOutline}
-        onClick={trigger}
-      />
+      <Icon size={16} path={working ? mdiCheck : mdiTagOutline} onClick={trigger} />
     </span>
   );
 };

@@ -6,13 +6,7 @@ import { ClefDrawType } from "./defs";
 import { createClef } from "./utils";
 
 export const clefActions = {
-  create: (
-    flow_key: string,
-    tick: number,
-    pitch: number,
-    offset: number,
-    drawAs: ClefDrawType
-  ): string => {
+  create: (flow_key: string, tick: number, pitch: number, offset: number, drawAs: ClefDrawType): string => {
     const clef = createClef(tick, pitch, offset, drawAs);
 
     store.update((draft) => {

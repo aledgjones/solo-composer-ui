@@ -25,10 +25,7 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
     <div className="setup-settings">
       <div className="generic-settings__content">
         <div className="generic-settings__left-panel">
-          <MenuItem
-            selected={page === Page.AutoNumbering}
-            onClick={() => setPage(Page.AutoNumbering)}
-          >
+          <MenuItem selected={page === Page.AutoNumbering} onClick={() => setPage(Page.AutoNumbering)}>
             Auto Numbering
           </MenuItem>
         </div>
@@ -42,9 +39,7 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
                 <Select
                   margin
                   value={config.auto_count[PlayerType.Solo]}
-                  onChange={(val: AutoCountStyle) =>
-                    actions.score.config.auto_count.solo(val)
-                  }
+                  onChange={(val: AutoCountStyle) => actions.score.config.auto_count.solo(val)}
                 >
                   <Option value={AutoCountStyle.Arabic} displayAs="Arabic">
                     <Label>
@@ -62,9 +57,7 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
                 <Subheader subtle>Section Player</Subheader>
                 <Select
                   value={config.auto_count[PlayerType.Section]}
-                  onChange={(val: AutoCountStyle) =>
-                    actions.score.config.auto_count.section(val)
-                  }
+                  onChange={(val: AutoCountStyle) => actions.score.config.auto_count.section(val)}
                 >
                   <Option value={AutoCountStyle.Arabic} displayAs="Arabic">
                     <Label>

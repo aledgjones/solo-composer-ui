@@ -4,11 +4,7 @@ import { createBarline } from "./utils";
 import { BarlineDrawType } from "./defs";
 
 export const barlineActions = {
-  create: (
-    flow_key: string,
-    tick: number,
-    barlineDrawType: BarlineDrawType
-  ): string => {
+  create: (flow_key: string, tick: number, barlineDrawType: BarlineDrawType): string => {
     const barline = createBarline(tick, barlineDrawType);
 
     store.update((draft, state) => {

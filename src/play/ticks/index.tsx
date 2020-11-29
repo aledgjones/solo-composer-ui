@@ -2,12 +2,7 @@ import { Fragment, FC } from "react";
 import { merge } from "../../../ui";
 import { TickList, Tick } from "../../store/score-flow/defs";
 
-function tickHeight(
-  tick: Tick,
-  isTrack: boolean,
-  height: number,
-  zoom: number
-) {
+function tickHeight(tick: Tick, isTrack: boolean, height: number, zoom: number) {
   if (tick.is_first_beat) {
     return height;
   } else if (tick.is_grouping_boundry) {
@@ -49,13 +44,7 @@ interface Props {
   zoom: number;
 }
 
-export const Ticks: FC<Props> = ({
-  className,
-  ticks,
-  height,
-  isTrack,
-  zoom,
-}) => {
+export const Ticks: FC<Props> = ({ className, ticks, height, isTrack, zoom }) => {
   let bar = 0;
   return (
     <svg
@@ -72,22 +61,9 @@ export const Ticks: FC<Props> = ({
           }
           return (
             <Fragment key={i}>
-              <line
-                x1={tick.x * zoom}
-                y1="0"
-                x2={tick.x * zoom}
-                y2={tick_height}
-                strokeWidth="1"
-                stroke={tick_color}
-              />
+              <line x1={tick.x * zoom} y1="0" x2={tick.x * zoom} y2={tick_height} strokeWidth="1" stroke={tick_color} />
               {!isTrack && tick.is_first_beat && (
-                <text
-                  x={tick.x * zoom + 5}
-                  y={12}
-                  fill="var(--background-1000)"
-                  fontSize="10"
-                  fontFamily="Roboto"
-                >
+                <text x={tick.x * zoom + 5} y={12} fill="var(--background-1000)" fontSize="10" fontFamily="Roboto">
                   {bar}
                 </text>
               )}

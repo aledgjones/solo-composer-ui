@@ -1,10 +1,6 @@
 import shortid from "shortid";
 import { NoteDuration, EntryType, Entry, Box } from "..";
-import {
-  TimeSignatureDrawType,
-  TimeSignature,
-  TimeSignatureType,
-} from "./defs";
+import { TimeSignatureDrawType, TimeSignature, TimeSignatureType } from "./defs";
 import { Track } from "../../score-track/defs";
 import { Align, buildText, Justify, TextStyles } from "../../../render/text";
 import { NotationBaseDuration } from "../../../parse/notation-track";
@@ -128,10 +124,7 @@ function default_groupings(beats: number): number[] {
   }
 }
 
-export function duration_to_ticks(
-  duration: NoteDuration,
-  subdivisions: number
-) {
+export function duration_to_ticks(duration: NoteDuration, subdivisions: number) {
   switch (duration) {
     case NoteDuration.Whole:
       return subdivisions * 4;
@@ -150,17 +143,11 @@ export function duration_to_ticks(
   }
 }
 
-export function distance_from_barline(
-  tick: number,
-  subdivisions: number,
-  time_signature: TimeSignature
-) {
+export function distance_from_barline(tick: number, subdivisions: number, time_signature: TimeSignature) {
   if (kind_from_beats(time_signature.beats) === TimeSignatureType.Open) {
     return tick - time_signature.tick;
   } else {
-    const ticks_per_bar =
-      duration_to_ticks(time_signature.beat_type, subdivisions) *
-      time_signature.beats;
+    const ticks_per_bar = duration_to_ticks(time_signature.beat_type, subdivisions) * time_signature.beats;
     return (tick - time_signature.tick) % ticks_per_bar;
   }
 }
@@ -179,18 +166,11 @@ export function is_on_beat_type(
   }
 }
 
-export function is_on_grouping_boundry(
-  tick: number,
-  subdivisions: number,
-  time_signature: TimeSignature
-) {
+export function is_on_grouping_boundry(tick: number, subdivisions: number, time_signature: TimeSignature) {
   if (kind_from_beats(time_signature.beats) === TimeSignatureType.Open) {
     return tick === time_signature.tick;
   } else {
-    let ticks_per_beat = duration_to_ticks(
-      time_signature.beat_type,
-      subdivisions
-    );
+    let ticks_per_beat = duration_to_ticks(time_signature.beat_type, subdivisions);
     let bar_length = ticks_per_beat * time_signature.beats;
     let distance_from_first_beat = (tick - time_signature.tick) % bar_length;
 
@@ -210,22 +190,12 @@ export function is_on_grouping_boundry(
   }
 }
 
-export function get_entries_at_tick(
-  tick: number,
-  track: Track,
-  type: EntryType
-) {
+export function get_entries_at_tick(tick: number, track: Track, type: EntryType) {
   const entries = track.entries.by_tick[tick] || [];
-  return entries
-    .map((key) => track.entries.by_key[key])
-    .filter((entry) => entry.type === type);
+  return entries.map((key) => track.entries.by_key[key]).filter((entry) => entry.type === type);
 }
 
-export function get_entry_after_tick(
-  tick: number,
-  track: Track,
-  type: EntryType
-) {
+export function get_entry_after_tick(tick: number, track: Track, type: EntryType) {
   let found: Entry = null;
   const entries = Object.values(track.entries.by_key);
   for (let i = 0; i < entries.length; i++) {
@@ -240,12 +210,7 @@ export function get_entry_after_tick(
   return found;
 }
 
-export function drawTimeSignature(
-  x: number,
-  y: number,
-  time: TimeSignature,
-  staveKey: string
-) {
+export function drawTimeSignature(x: number, y: number, time: TimeSignature, staveKey: string) {
   const instructions = [];
   const styles: TextStyles = {
     color: "#000000",
@@ -271,12 +236,8 @@ export function drawTimeSignature(
     default:
       const countGlyph = glyph_from_number(time.beats);
       const beatGlyph = glyph_from_type(time.beat_type);
-      instructions.push(
-        buildText(`${time.key}-${staveKey}-count`, styles, x, y - 1, countGlyph)
-      );
-      instructions.push(
-        buildText(`${time.key}-${staveKey}-beat`, styles, x, y + 1, beatGlyph)
-      );
+      instructions.push(buildText(`${time.key}-${staveKey}-count`, styles, x, y - 1, countGlyph));
+      instructions.push(buildText(`${time.key}-${staveKey}-beat`, styles, x, y + 1, beatGlyph));
       break;
   }
 

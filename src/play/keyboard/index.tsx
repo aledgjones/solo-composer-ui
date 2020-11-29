@@ -43,11 +43,7 @@ export const Keyboard: FC<Props> = ({ instrumentKey, height }) => {
   );
 
   return (
-    <div
-      className="keyboard"
-      onPointerDown={onDrag}
-      style={{ height: height * SLOT_HEIGHT }}
-    >
+    <div className="keyboard" onPointerDown={onDrag} style={{ height: height * SLOT_HEIGHT }}>
       <Slots base={base} count={height} isKeyboard={true} />
     </div>
   );

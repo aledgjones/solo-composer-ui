@@ -22,21 +22,9 @@ export function drawTimeSignatures(
   for (let tick = 0; tick < flow.length; tick++) {
     const { time } = getextrasAtTick(tick, flow);
     if (time) {
-      const left = measureWidthUpto(
-        flow,
-        horizontalSpacing,
-        tick,
-        WidthOf.TimeSignature
-      );
+      const left = measureWidthUpto(flow, horizontalSpacing, tick, WidthOf.TimeSignature);
       staves.forEach((stave) => {
-        instructions.push(
-          ...drawTimeSignature(
-            x + left,
-            y + vertical_spacing.staves[stave.key].y,
-            time,
-            stave.key
-          )
-        );
+        instructions.push(...drawTimeSignature(x + left, y + vertical_spacing.staves[stave.key].y, time, stave.key));
       });
     }
   }

@@ -11,12 +11,7 @@ export function measureClefBounds(entry: Clef): Box {
   return { width: 3.8, height: 4 };
 }
 
-export function createClef(
-  tick: number,
-  pitch: number,
-  offset: number,
-  draw_as: ClefDrawType
-): Clef {
+export function createClef(tick: number, pitch: number, offset: number, draw_as: ClefDrawType): Clef {
   return {
     type: EntryType.Clef,
     key: shortid(),

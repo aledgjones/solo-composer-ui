@@ -4,11 +4,7 @@ import { useParseWorker } from "./use-parse-worker";
 import { Instruction, InstructionType } from "../../render/instructions";
 import { PathInstruction } from "../../render/path";
 import { CircleInstruction } from "../../render/circle";
-import {
-  TextInstruction,
-  alignToStyle,
-  justifyToStyle,
-} from "../../render/text";
+import { TextInstruction, alignToStyle, justifyToStyle } from "../../render/text";
 import { CurveInstruction, getControlPoints } from "../../render/curve";
 import { Text } from "../text";
 import { useStore } from "../../store/use-store";
@@ -21,11 +17,7 @@ interface Props {
 }
 
 export const Renderer: FC<Props> = memo(({ className }) => {
-  const [score, flow_key, debug] = useStore((s) => [
-    s.score,
-    s.ui.flow_key,
-    s.developer.debug,
-  ]);
+  const [score, flow_key, debug] = useStore((s) => [s.score, s.ui.flow_key, s.developer.debug]);
   const instructions = useParseWorker(score, flow_key, debug);
 
   if (!instructions) {
@@ -36,22 +28,15 @@ export const Renderer: FC<Props> = memo(({ className }) => {
 
   return (
     <div className={merge("renderer", className)}>
-      <div
-        className="renderer__container"
-        style={{ width: width * space, height: height * space }}
-      >
-        <p className="renderer__flow-name">
-          {score.flows.by_key[flow_key].title || "Untitled Flow"}
-        </p>
+      <div className="renderer__container" style={{ width: width * space, height: height * space }}>
+        <p className="renderer__flow-name">{score.flows.by_key[flow_key].title || "Untitled Flow"}</p>
         <svg className="renderer__svg-layer">
           {entries.map((instruction: Instruction<any>) => {
             switch (instruction.type) {
               case InstructionType.path: {
                 const path = instruction as PathInstruction;
                 const def = path.points.map((point, i) => {
-                  return `${i === 0 ? "M" : "L"} ${point[0] * space} ${
-                    point[1] * space
-                  }`;
+                  return `${i === 0 ? "M" : "L"} ${point[0] * space} ${point[1] * space}`;
                 });
                 return (
                   <path
@@ -109,33 +94,15 @@ export const Renderer: FC<Props> = memo(({ className }) => {
                 const curve = instruction as CurveInstruction;
                 const def: string[] = [];
 
-                const points = getControlPoints(
-                  curve.points[0],
-                  curve.points[1],
-                  curve.points[2]
-                );
+                const points = getControlPoints(curve.points[0], curve.points[1], curve.points[2]);
                 const [P0, P1, P2, P3, P4, P5] = points;
 
                 def.push(`M ${P0.x * space} ${P0.y * space}`);
-                def.push(
-                  `Q ${P1.x * space} ${P1.y * space}, ${P2.x * space} ${
-                    P2.y * space
-                  }`
-                );
+                def.push(`Q ${P1.x * space} ${P1.y * space}, ${P2.x * space} ${P2.y * space}`);
                 def.push(`L ${P3.x * space} ${P3.y * space}`);
-                def.push(
-                  `Q ${P4.x * space} ${P4.y * space}, ${P5.x * space} ${
-                    P5.y * space
-                  }`
-                );
+                def.push(`Q ${P4.x * space} ${P4.y * space}, ${P5.x * space} ${P5.y * space}`);
 
-                return (
-                  <path
-                    key={curve.key}
-                    fill={curve.styles.color}
-                    d={def.join(" ")}
-                  />
-                );
+                return <path key={curve.key} fill={curve.styles.color} d={def.join(" ")} />;
 
                 // DEBUG
                 // return <>
@@ -158,14 +125,8 @@ export const Renderer: FC<Props> = memo(({ className }) => {
                     width={box.width * space}
                     height={box.height * space}
                     fill={box.styles.color}
-                    stroke={
-                      box.styles.outline ? box.styles.outline.color : undefined
-                    }
-                    strokeWidth={
-                      box.styles.outline
-                        ? box.styles.outline.thickness * space
-                        : undefined
-                    }
+                    stroke={box.styles.outline ? box.styles.outline.color : undefined}
+                    strokeWidth={box.styles.outline ? box.styles.outline.thickness * space : undefined}
                   />
                 );
               }

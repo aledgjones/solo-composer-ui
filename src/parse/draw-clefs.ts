@@ -24,21 +24,10 @@ export function drawClefs(
 
   staves.forEach((stave) => {
     for (let tick = 0; tick < flow.length; tick++) {
-      const clef = get_entries_at_tick(
-        tick,
-        stave.master,
-        EntryType.Clef
-      )[0] as Clef;
+      const clef = get_entries_at_tick(tick, stave.master, EntryType.Clef)[0] as Clef;
       if (clef) {
-        const left = measureWidthUpto(
-          flow,
-          horizontalSpacing,
-          tick,
-          WidthOf.Clef
-        );
-        instructions.push(
-          drawClef(x + left, y + vertical_spacing.staves[stave.key].y, clef)
-        );
+        const left = measureWidthUpto(flow, horizontalSpacing, tick, WidthOf.Clef);
+        instructions.push(drawClef(x + left, y + vertical_spacing.staves[stave.key].y, clef));
       }
     }
   });

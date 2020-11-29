@@ -31,18 +31,8 @@ export function drawNames(
     if (flow.players[player_key]) {
       players.by_key[player_key].instruments.forEach((instrument_key) => {
         const top =
-          y +
-          verticalLayout.instruments[instrument_key].y +
-          verticalLayout.instruments[instrument_key].height / 2;
-        instructions.push(
-          buildText(
-            `${instrument_key}-name`,
-            styles,
-            left,
-            top,
-            names[instrument_key]
-          )
-        );
+          y + verticalLayout.instruments[instrument_key].y + verticalLayout.instruments[instrument_key].height / 2;
+        instructions.push(buildText(`${instrument_key}-name`, styles, left, top, names[instrument_key]));
       });
     }
   });

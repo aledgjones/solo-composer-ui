@@ -11,10 +11,7 @@ import { instrumentDefs } from "./instrument-defs";
  * eg violin ${counts['violin'].length + 1} = Violin *1*
  */
 export function useCounts() {
-  const [players, instruments] = useStore((s) => [
-    s.score.players,
-    s.score.instruments,
-  ]);
+  const [players, instruments] = useStore((s) => [s.score.players, s.score.instruments]);
 
   return useMemo(() => {
     return getCounts(players, instruments);

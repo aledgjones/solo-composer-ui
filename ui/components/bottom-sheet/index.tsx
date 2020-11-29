@@ -22,15 +22,7 @@ interface Props {
 /**
  * Bottom Sheet component for displaying contexual actions.
  */
-export const BottomSheet: FC<Props> = ({
-  id,
-  className,
-  style,
-  width,
-  open,
-  onClose,
-  children,
-}) => {
+export const BottomSheet: FC<Props> = ({ id, className, style, width, open, onClose, children }) => {
   const render = useDelayBoolean(open, 500);
 
   return (

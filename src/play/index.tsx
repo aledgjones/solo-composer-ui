@@ -1,20 +1,6 @@
 import { FC, useCallback, useEffect } from "react";
-import {
-  mdiCursorDefault,
-  mdiEraser,
-  mdiPen,
-  mdiBoxCutter,
-  mdiPlus,
-  mdiMinus,
-} from "@mdi/js";
-import {
-  useTitle,
-  useRainbow,
-  Icon,
-  DragScroll,
-  Select,
-  Option,
-} from "../../ui";
+import { mdiCursorDefault, mdiEraser, mdiPen, mdiBoxCutter, mdiPlus, mdiMinus } from "@mdi/js";
+import { useTitle, useRainbow, Icon, DragScroll, Select, Option } from "../../ui";
 import { Controls } from "./controls";
 import { Track } from "./track";
 import { PlayHead } from "./play-head";
@@ -168,13 +154,7 @@ const Play: FC = () => {
           <div className="play__right-panel-content">
             <PlayHead ticks={ticks} zoom={zoom} />
             <div className="play__ticks">
-              <Ticks
-                isTrack={false}
-                ticks={ticks}
-                height={48}
-                className="play__tick-track"
-                zoom={zoom}
-              />
+              <Ticks isTrack={false} ticks={ticks} height={48} className="play__tick-track" zoom={zoom} />
             </div>
             {players.map((player, i) => {
               return player.instruments.map((instrument_key) => {
@@ -215,12 +195,7 @@ const Play: FC = () => {
         </div>
         <div />
         <div className="play__bottom-panel-section">
-          <Icon
-            className="play__bottom-panel-icon"
-            path={mdiMinus}
-            size={22}
-            onClick={desc}
-          />
+          <Icon className="play__bottom-panel-icon" path={mdiMinus} size={22} onClick={desc} />
           <Select
             className="play__bottom-panel-select play__zoom-select"
             direction="up"
@@ -229,10 +204,7 @@ const Play: FC = () => {
           >
             {/* This is a bit weired but we need a fake option to hld the current,
                             possibly abartrary, zoom level. It is hidden with CSS */}
-            <Option
-              value={Math.round(zoom * 100)}
-              displayAs={`${Math.round(zoom * 100)}%`}
-            />
+            <Option value={Math.round(zoom * 100)} displayAs={`${Math.round(zoom * 100)}%`} />
             <Option value={0.25} displayAs="25%">
               25%
             </Option>
@@ -261,12 +233,7 @@ const Play: FC = () => {
               500%
             </Option>
           </Select>
-          <Icon
-            className="play__bottom-panel-icon"
-            path={mdiPlus}
-            size={22}
-            onClick={inc}
-          />
+          <Icon className="play__bottom-panel-icon" path={mdiPlus} size={22} onClick={inc} />
         </div>
       </div>
     </>

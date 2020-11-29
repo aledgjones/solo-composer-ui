@@ -20,14 +20,7 @@ interface Props {
 /**
  * A dropzone component for dropping files into the UI
  */
-export const DropFiles: FC<Props> = ({
-  id,
-  className,
-  style,
-  children,
-  accept,
-  onDrop,
-}) => {
+export const DropFiles: FC<Props> = ({ id, className, style, children, accept, onDrop }) => {
   const [over, setOver] = useState(false);
 
   const handleDrop = useCallback(
@@ -80,12 +73,7 @@ export const DropFiles: FC<Props> = ({
   }, []);
 
   return (
-    <div
-      id={id}
-      className={merge("ui-dropzone", className)}
-      onDrop={handleDrop}
-      style={style}
-    >
+    <div id={id} className={merge("ui-dropzone", className)} onDrop={handleDrop} style={style}>
       {children}
       {over && (
         <div className="ui-dropzone__hover-container">

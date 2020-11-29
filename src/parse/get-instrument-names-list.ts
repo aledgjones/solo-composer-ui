@@ -1,7 +1,4 @@
-import {
-  instrumentName,
-  InstrumentCounts,
-} from "../store/score-instrument/utils";
+import { instrumentName, InstrumentCounts } from "../store/score-instrument/utils";
 import { Instrument } from "../store/score-instrument/defs";
 import { Player, PlayerType } from "../store/score-player/defs";
 import { Flow } from "../store/score-flow/defs";
@@ -19,11 +16,7 @@ export function getInstrumentNamesList(
       const player = players.by_key[player_key];
       player.instruments.forEach((instrument_key) => {
         const instrument = instruments[instrument_key];
-        out[instrument_key] = instrumentName(
-          instrument,
-          count_styles[player.type],
-          counts[instrument_key]
-        );
+        out[instrument_key] = instrumentName(instrument, count_styles[player.type], counts[instrument_key]);
       });
     }
 

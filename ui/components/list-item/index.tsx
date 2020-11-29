@@ -17,14 +17,7 @@ interface Props {
 /**
  * List Item with default hover styles if onClick present.
  */
-export const ListItem: FC<Props> = ({
-  id,
-  className,
-  style,
-  disabled,
-  onClick,
-  children,
-}) => {
+export const ListItem: FC<Props> = ({ id, className, style, disabled, onClick, children }) => {
   return (
     <div
       id={id}

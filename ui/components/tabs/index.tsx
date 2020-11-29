@@ -16,14 +16,7 @@ interface Props {
 /**
  * Tabs component used with the Tab component.
  */
-export const Tabs: FC<Props> = ({
-  id,
-  style,
-  className,
-  value,
-  onChange,
-  children,
-}) => {
+export const Tabs: FC<Props> = ({ id, style, className, value, onChange, children }) => {
   const [bar, setBar] = useState({ left: 0, width: 73 });
 
   return (
@@ -31,12 +24,7 @@ export const Tabs: FC<Props> = ({
       {Children.map(children, (child: any) => {
         if (child) {
           return (
-            <TabExtended
-              {...child.props}
-              selected={value === child.props.value}
-              onChange={onChange}
-              setBar={setBar}
-            />
+            <TabExtended {...child.props} selected={value === child.props.value} onChange={onChange} setBar={setBar} />
           );
         } else {
           return null;

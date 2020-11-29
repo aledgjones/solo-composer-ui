@@ -49,11 +49,7 @@ export const scoreActions = {
           return Promise.all(
             player.instruments.map(async (instrument_key) => {
               const instrument = score.instruments[instrument_key];
-              await playbackActions.sampler.load(
-                instrument.id,
-                instrument.key,
-                player.type
-              );
+              await playbackActions.sampler.load(instrument.id, instrument.key, player.type);
               Player.volume(instrument_key, instrument.volume / 100);
               if (instrument.mute) {
                 Player.mute(instrument_key);

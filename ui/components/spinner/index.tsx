@@ -18,14 +18,7 @@ interface Props {
 /**
  * A spinner which can be indeterminate or determinate to denote working states or progress.
  */
-export const Spinner: FC<Props> = ({
-  id,
-  className,
-  style,
-  size,
-  color,
-  percent,
-}) => {
+export const Spinner: FC<Props> = ({ id, className, style, size, color, percent }) => {
   const [dashoffset, dasharray] = useMemo(() => {
     if (percent !== undefined) {
       const r = 20;
@@ -42,11 +35,7 @@ export const Spinner: FC<Props> = ({
   return (
     <svg
       id={id}
-      className={merge(
-        "ui-spinner",
-        { "ui-spinner--animate": animate },
-        className
-      )}
+      className={merge("ui-spinner", { "ui-spinner--animate": animate }, className)}
       style={{
         height: size,
         width: size,
@@ -54,15 +43,7 @@ export const Spinner: FC<Props> = ({
       }}
       viewBox="25 25 50 50"
     >
-      {!animate && (
-        <circle
-          className="ui-spinner__circle"
-          cx="50"
-          cy="50"
-          r="20"
-          stroke="rgb(175, 175, 175)"
-        />
-      )}
+      {!animate && <circle className="ui-spinner__circle" cx="50" cy="50" r="20" stroke="rgb(175, 175, 175)" />}
       <circle
         className="ui-spinner__circle"
         cx="50"

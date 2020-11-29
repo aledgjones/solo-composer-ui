@@ -1,11 +1,7 @@
 import { error } from "../../utils/error";
 import { pack } from "jsonpack";
 
-export async function download(
-  raw: any,
-  name: string,
-  mime: string = "text/plain"
-): Promise<void> {
+export async function download(raw: any, name: string, mime: string = "text/plain"): Promise<void> {
   const content = pack(raw);
   const blob = new Blob([content], { type: mime });
   const localUrl = URL.createObjectURL(blob);

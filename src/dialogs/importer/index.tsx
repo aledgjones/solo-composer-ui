@@ -28,9 +28,7 @@ export const Importer = Dialog<Props>(({ onClose }) => {
       <Content>
         <Subheader>Importing...</Subheader>
         <Progress color="#cccccc" percent={(progress / total) * 100} />
-        <p className="importer__text">
-          {((progress / total) * 100).toFixed(0)}%
-        </p>
+        <p className="importer__text">{((progress / total) * 100).toFixed(0)}%</p>
       </Content>
     </div>
   );

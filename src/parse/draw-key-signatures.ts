@@ -24,29 +24,12 @@ export function drawKeySignatures(
   staves.forEach((stave) => {
     let clef;
     for (let tick = 0; tick < flow.length; tick++) {
-      clef =
-        (get_entries_at_tick(tick, stave.master, EntryType.Clef)[0] as Clef) ||
-        clef;
-      const key = get_entries_at_tick(
-        tick,
-        flow.master,
-        EntryType.KeySignature
-      )[0] as KeySignature;
+      clef = (get_entries_at_tick(tick, stave.master, EntryType.Clef)[0] as Clef) || clef;
+      const key = get_entries_at_tick(tick, flow.master, EntryType.KeySignature)[0] as KeySignature;
       if (key && clef) {
-        const left = measureWidthUpto(
-          flow,
-          horizontalSpacing,
-          tick,
-          WidthOf.KeySignature
-        );
+        const left = measureWidthUpto(flow, horizontalSpacing, tick, WidthOf.KeySignature);
         instructions.push(
-          ...drawKeySignature(
-            x + left,
-            y + vertical_spacing.staves[stave.key].y,
-            clef,
-            key,
-            stave.key
-          )
+          ...drawKeySignature(x + left, y + vertical_spacing.staves[stave.key].y, clef, key, stave.key)
         );
       }
     }

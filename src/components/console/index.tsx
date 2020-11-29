@@ -8,9 +8,7 @@ import { getStorage, setStorage } from "../../store/utils";
 
 export const Console: FC = () => {
   const state = useStore((s) => s);
-  const [history, setHistory] = useState<string[]>(
-    () => getStorage("@sc:terminal-history/v1") || []
-  );
+  const [history, setHistory] = useState<string[]>(() => getStorage("@sc:terminal-history/v1") || []);
 
   if (!state.developer.terminal.show) {
     return null;

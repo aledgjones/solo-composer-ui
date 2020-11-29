@@ -11,18 +11,18 @@ import { actions } from "../../store/actions";
 interface Props {}
 
 export const LayoutList: FC<Props> = () => {
-    const open = useStore((s) => s.ui.setup.panels.layouts);
-    return (
-        <Panel
-            className="layout-list"
-            collapse={CollpaseDirection.Left}
-            collapsed={!open}
-            onToggle={actions.ui.setup.panels.toggle.layouts}
-        >
-            <PanelHeader>
-                <span className="layout-list__label">Layouts</span>
-                <Icon disabled size={24} path={mdiPlus} onClick={() => {}} />
-            </PanelHeader>
-        </Panel>
-    );
+  const open = useStore((s) => s.ui.setup.panels.layouts);
+  return (
+    <Panel
+      className="layout-list"
+      collapse={CollpaseDirection.Left}
+      collapsed={!open}
+      onToggle={actions.ui.setup.panels.toggle.layouts}
+    >
+      <PanelHeader>
+        <span className="layout-list__label">Layouts</span>
+        <Icon disabled size={24} path={mdiPlus} onClick={() => {}} />
+      </PanelHeader>
+    </Panel>
+  );
 };

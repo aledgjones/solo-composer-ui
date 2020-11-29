@@ -15,11 +15,9 @@ interface Props {
 }
 
 export const InstrumentPicker = Dialog<Props>(({ onSelect, onCancel }) => {
-  const [selection, setSelection] = useState<{ path: string[]; id: string }>(
-    () => {
-      return get_full_path_from_partial([]);
-    }
-  );
+  const [selection, setSelection] = useState<{ path: string[]; id: string }>(() => {
+    return get_full_path_from_partial([]);
+  });
   const lists = useDefsList(selection.path);
 
   return (
@@ -30,11 +28,7 @@ export const InstrumentPicker = Dialog<Props>(({ onSelect, onCancel }) => {
             <div key={i} className="instrument-picker__section">
               {list.map((item) => {
                 const selected = item === selection.path[i];
-                const final = !(
-                  selected &&
-                  lists[i + 1] &&
-                  lists[i + 1].length > 0
-                );
+                const final = !(selected && lists[i + 1] && lists[i + 1].length > 0);
 
                 return (
                   <MenuItem

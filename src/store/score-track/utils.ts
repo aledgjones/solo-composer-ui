@@ -10,11 +10,7 @@ export function create_track(key: string = shortid()): Track {
 }
 
 /** Insert an entry into the track */
-export function insert_entry(
-  track: Track,
-  entry: Entry,
-  only_one_allowed?: boolean
-) {
+export function insert_entry(track: Track, entry: Entry, only_one_allowed?: boolean) {
   // if only one of this type of entry is allowed, we delete any others of the same type
   if (only_one_allowed) {
     const entriesAtTick = track.entries.by_tick[entry.tick] || [];
@@ -41,9 +37,7 @@ export function move_entry(track: Track, entry_key: string, tick: number) {
   if (tick !== entry.tick) {
     // remove from previous tick entry and cleanup
     const entriesAtTick = track.entries.by_tick[entry.tick] || [];
-    track.entries.by_tick[entry.tick] = entriesAtTick.filter(
-      (k) => k !== entry_key
-    );
+    track.entries.by_tick[entry.tick] = entriesAtTick.filter((k) => k !== entry_key);
 
     if (track.entries.by_tick[entry.tick].length === 0) {
       delete track.entries.by_tick[entry.tick];
@@ -64,9 +58,7 @@ export function move_entry(track: Track, entry_key: string, tick: number) {
 export function remove_entry(track: Track, entry_key: string) {
   const entry = track.entries.by_key[entry_key];
   const entriesAtTick = track.entries.by_tick[entry.tick] || [];
-  track.entries.by_tick[entry.tick] = entriesAtTick.filter(
-    (k) => k !== entry_key
-  );
+  track.entries.by_tick[entry.tick] = entriesAtTick.filter((k) => k !== entry_key);
   if (track.entries.by_tick[entry.tick].length === 0) {
     delete track.entries.by_tick[entry.tick];
   }

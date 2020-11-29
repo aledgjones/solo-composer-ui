@@ -2,10 +2,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Transport, Tick, Player } from "solo-composer-scheduler";
 import { TimeSignature } from "../entries/time-signature/defs";
 import { Entry, EntryType, NoteDuration } from "../entries";
-import {
-  duration_to_ticks,
-  distance_from_barline,
-} from "../entries/time-signature/utils";
+import { duration_to_ticks, distance_from_barline } from "../entries/time-signature/utils";
 import { useStore } from "../use-store";
 
 export function useTick() {
@@ -72,14 +69,8 @@ export function useTimestamp(current: number) {
         time_signature = result[0] as TimeSignature;
       }
 
-      let ticks_per_quarter = duration_to_ticks(
-        NoteDuration.Quarter,
-        subdivisions
-      );
-      let ticks_per_sixteenth = duration_to_ticks(
-        NoteDuration.Sixteenth,
-        subdivisions
-      );
+      let ticks_per_quarter = duration_to_ticks(NoteDuration.Quarter, subdivisions);
+      let ticks_per_sixteenth = duration_to_ticks(NoteDuration.Sixteenth, subdivisions);
 
       let distance = distance_from_barline(tick, subdivisions, time_signature);
 

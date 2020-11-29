@@ -10,11 +10,7 @@ export interface DragHandlerConfig<T> {
 /**
  * Boilerplate for adding pointer move events after an initial pointer down event
  */
-export function dragHandler<T>({
-  onDown,
-  onMove,
-  onEnd,
-}: DragHandlerConfig<T>) {
+export function dragHandler<T>({ onDown, onMove, onEnd }: DragHandlerConfig<T>) {
   let pointer: number | undefined = undefined;
 
   return (e: React.PointerEvent<HTMLElement>) => {

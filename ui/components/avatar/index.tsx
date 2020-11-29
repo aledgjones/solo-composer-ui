@@ -20,14 +20,7 @@ interface Props {
 /**
  * Avatar component. Displays image else falls back to GMail style colored circle and letter.
  */
-export const Avatar: FC<Props> = ({
-  id,
-  className,
-  style,
-  src,
-  name,
-  size,
-}) => {
+export const Avatar: FC<Props> = ({ id, className, style, src, name, size }) => {
   const letter = name.slice(0, 1).toUpperCase();
   const background = colors[letter] || "rgb(200,200,200)";
   const foreground = useForeground(background);

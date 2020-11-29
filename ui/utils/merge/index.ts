@@ -7,9 +7,7 @@ import isObject from "lodash.isobject";
  * merge('foo', 'bar') => 'foo bar';
  * merge('foo', {'bar': false}) => 'foo';
  */
-export function merge(
-  ...args: Array<string | { [prop: string]: boolean | undefined } | undefined>
-) {
+export function merge(...args: Array<string | { [prop: string]: boolean | undefined } | undefined>) {
   const out = args.reduce((arr: string[], arg = "") => {
     // multiple classes
     if (isString(arg)) {

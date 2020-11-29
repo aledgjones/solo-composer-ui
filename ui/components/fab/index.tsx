@@ -23,17 +23,7 @@ interface Props {
 /**
  * Floating action button (FAB)
  */
-export const Fab: FC<Props> = ({
-  id,
-  className,
-  style,
-  path,
-  color,
-  onClick,
-  compact,
-  hidden,
-  text,
-}) => {
+export const Fab: FC<Props> = ({ id, className, style, path, color, onClick, compact, hidden, text }) => {
   const fg = useForeground(color);
 
   return (
@@ -44,11 +34,7 @@ export const Fab: FC<Props> = ({
       onClick={onClick}
     >
       <Icon size={24} path={path} />
-      <div
-        className={merge("ui-fab__text", { "ui-fab__text--hidden": compact })}
-      >
-        {text}
-      </div>
+      <div className={merge("ui-fab__text", { "ui-fab__text--hidden": compact })}>{text}</div>
     </div>
   );
 };

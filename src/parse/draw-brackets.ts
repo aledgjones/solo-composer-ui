@@ -40,28 +40,13 @@ export function drawBrackets(
 
     // vertical thick line shard with all styles
     out.push(
-      buildPath(
-        `${bracket.start}-vertical-bar`,
-        thick,
-        [left, top - tweekForStave],
-        [left, bottom + tweekForStave]
-      )
+      buildPath(`${bracket.start}-vertical-bar`, thick, [left, top - tweekForStave], [left, bottom + tweekForStave])
     );
 
     if (isLine) {
       out.push(
-        buildPath(
-          `${bracket.start}-cap--top`,
-          thin,
-          [left - 0.25, top],
-          [x, top]
-        ),
-        buildPath(
-          `${bracket.start}-cap--bottom`,
-          thin,
-          [left - 0.25, bottom],
-          [x, bottom]
-        )
+        buildPath(`${bracket.start}-cap--top`, thin, [left - 0.25, top], [x, top]),
+        buildPath(`${bracket.start}-cap--bottom`, thin, [left - 0.25, bottom], [x, bottom])
       );
     }
 
@@ -78,13 +63,7 @@ export function drawBrackets(
       };
       out.push(
         buildText(`${bracket.start}-wing--top`, styles, capLeft, top, glyphTop),
-        buildText(
-          `${bracket.start}-wing--bottom`,
-          styles,
-          capLeft,
-          bottom,
-          glyphBottom
-        )
+        buildText(`${bracket.start}-wing--bottom`, styles, capLeft, bottom, glyphBottom)
       );
     }
 

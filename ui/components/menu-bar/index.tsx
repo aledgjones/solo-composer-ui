@@ -39,20 +39,12 @@ export const MenuBar: FC<Props> = ({ id, className, style, children }) => {
             return (
               <div
                 id={id}
-                className={merge(
-                  "ui-menu-bar-item",
-                  { "ui-menu-bar-item--selected": selected },
-                  className
-                )}
+                className={merge("ui-menu-bar-item", { "ui-menu-bar-item--selected": selected }, className)}
                 style={style}
                 onPointerEnter={() => setSelection(child.props.label)}
               >
                 {child.props.label}
-                {selected && (
-                  <Card className="ui-menu-bar-item__card">
-                    {child.props.children}
-                  </Card>
-                )}
+                {selected && <Card className="ui-menu-bar-item__card">{child.props.children}</Card>}
               </div>
             );
           } else {

@@ -41,10 +41,7 @@ export const ToastEntry: FC<Props> = ({ color, toast, onDestroy }) => {
   }, [toast, selfCombustTimeout, onDestroy]);
 
   return (
-    <div
-      key={toast.key}
-      className={merge("ui-toast", { "ui-toast--hide": hidden })}
-    >
+    <div key={toast.key} className={merge("ui-toast", { "ui-toast--hide": hidden })}>
       <span className="ui-toast__text">{toast.text}</span>
       {toast.onClick && (
         <Button className="ui-toast__button" compact outline onClick={onClick}>

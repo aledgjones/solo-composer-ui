@@ -24,13 +24,7 @@ interface PropsExtended extends Props {
 /**
  * Tab component to be used inside the Tabs component;
  */
-export const TabExtended: FC<PropsExtended> = ({
-  children,
-  value,
-  selected,
-  onChange,
-  setBar,
-}) => {
+export const TabExtended: FC<PropsExtended> = ({ children, value, selected, onChange, setBar }) => {
   const $element = useRef<HTMLButtonElement>(null);
 
   const onClick = useCallback(() => {
@@ -49,11 +43,7 @@ export const TabExtended: FC<PropsExtended> = ({
   }, [selected, setBar, $element]);
 
   return (
-    <button
-      ref={$element}
-      className={merge("ui-tab", { "ui-tab--selected": selected })}
-      onClick={onClick}
-    >
+    <button ref={$element} className={merge("ui-tab", { "ui-tab--selected": selected })} onClick={onClick}>
       {children}
     </button>
   );

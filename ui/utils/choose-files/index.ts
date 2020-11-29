@@ -21,34 +21,32 @@ export function chooseFiles(accept?: string[], multiple?: boolean) {
 
   document.body.appendChild(input);
 
-  return new Promise<{ files: File[]; discarded: number }>(
-    (resolve, _reject) => {
-      let timeout: any;
+  return new Promise<{ files: File[]; discarded: number }>((resolve, _reject) => {
+    let timeout: any;
 
-      const focus = () => {
-        timeout = setTimeout(change, 500);
-      };
+    const focus = () => {
+      timeout = setTimeout(change, 500);
+    };
 
-      const change = () => {
-        clearTimeout(timeout);
-        window.removeEventListener("focus", focus);
-        input.removeEventListener("change", change);
-        const files = input.files ? Array.from(input.files) : [];
-        const filtered = files.filter((file) => fileAccepted(file, accept));
-        resolve({
-          files: filtered,
-          discarded: files.length - filtered.length,
-        });
-        input.remove();
-      };
+    const change = () => {
+      clearTimeout(timeout);
+      window.removeEventListener("focus", focus);
+      input.removeEventListener("change", change);
+      const files = input.files ? Array.from(input.files) : [];
+      const filtered = files.filter((file) => fileAccepted(file, accept));
+      resolve({
+        files: filtered,
+        discarded: files.length - filtered.length,
+      });
+      input.remove();
+    };
 
-      // slightly shit, the change event always fires slightly after the focus event
-      // input.files not updated until change fired so we have to wait after focus event
-      // to see if it's a file select or actual just a cancel
-      window.addEventListener("focus", focus);
-      input.addEventListener("change", change);
+    // slightly shit, the change event always fires slightly after the focus event
+    // input.files not updated until change fired so we have to wait after focus event
+    // to see if it's a file select or actual just a cancel
+    window.addEventListener("focus", focus);
+    input.addEventListener("change", change);
 
-      input.click();
-    }
-  );
+    input.click();
+  });
 }

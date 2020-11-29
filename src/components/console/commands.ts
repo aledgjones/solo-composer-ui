@@ -1,9 +1,6 @@
 import { actions } from "../../store/actions";
 import { State } from "../../store/defs";
-import {
-  modeFromKey,
-  offsetFromKey,
-} from "../../store/entries/key-signature/defs";
+import { modeFromKey, offsetFromKey } from "../../store/entries/key-signature/defs";
 
 type Commands = (
   state: any
@@ -92,12 +89,7 @@ key {tick: number} {key: string}
           const mode = modeFromKey(key);
           if (offset !== null) {
             try {
-              actions.score.entries.key_signature.create(
-                flowKey,
-                parseInt(tick),
-                mode,
-                offset
-              );
+              actions.score.entries.key_signature.create(flowKey, parseInt(tick), mode, offset);
             } catch (e) {
               return error;
             }

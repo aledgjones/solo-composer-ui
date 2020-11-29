@@ -46,10 +46,7 @@ export function measureBarlineBounds(type: BarlineDrawType): Box {
   }
 }
 
-export function createBarline(
-  tick: number,
-  barline_type: BarlineDrawType
-): Barline {
+export function createBarline(tick: number, barline_type: BarlineDrawType): Barline {
   return {
     type: EntryType.Barline,
     key: shortid(),
@@ -59,35 +56,13 @@ export function createBarline(
   };
 }
 
-function drawRepeatDots(
-  x: number,
-  y: number,
-  staves: Stave[],
-  vertical_spacing: VerticalSpacing,
-  key: string
-) {
+function drawRepeatDots(x: number, y: number, staves: Stave[], vertical_spacing: VerticalSpacing, key: string) {
   const instructions: Instruction<any> = [];
   const radius = 0.25;
   staves.forEach((stave) => {
     const top = vertical_spacing.staves[stave.key].y;
-    instructions.push(
-      buildCircle(
-        `${key}-${stave.key}-dot--top`,
-        { color: "#000000" },
-        x,
-        y + top - 0.5,
-        radius
-      )
-    );
-    instructions.push(
-      buildCircle(
-        `${key}-${stave.key}-dot--bottom`,
-        { color: "#000000" },
-        x,
-        y + top + 0.5,
-        radius
-      )
-    );
+    instructions.push(buildCircle(`${key}-${stave.key}-dot--top`, { color: "#000000" }, x, y + top - 0.5, radius));
+    instructions.push(buildCircle(`${key}-${stave.key}-dot--bottom`, { color: "#000000" }, x, y + top + 0.5, radius));
   });
   return instructions;
 }
@@ -114,12 +89,7 @@ export function drawBarline(
     switch (barline) {
       case BarlineDrawType.Double:
         instructions.push(
-          buildPath(
-            `${key}-${entry.start}-barline--1`,
-            { color: "#000000", thickness: 0.125 },
-            [x, top],
-            [x, bottom]
-          )
+          buildPath(`${key}-${entry.start}-barline--1`, { color: "#000000", thickness: 0.125 }, [x, top], [x, bottom])
         );
         instructions.push(
           buildPath(
@@ -218,12 +188,7 @@ export function drawBarline(
       case BarlineDrawType.Normal:
       default:
         instructions.push(
-          buildPath(
-            `${key}-${entry.start}-barline`,
-            { color: "#000000", thickness: 0.125 },
-            [x, top],
-            [x, bottom]
-          )
+          buildPath(`${key}-${entry.start}-barline`, { color: "#000000", thickness: 0.125 }, [x, top], [x, bottom])
         );
         break;
     }
@@ -235,48 +200,16 @@ export function drawBarline(
     ) {
       switch (barline) {
         case BarlineDrawType.StartRepeat:
-          instructions.push(
-            ...drawRepeatDots(
-              x + 1.75,
-              y,
-              staves,
-              vertical_spacing,
-              `${key}-${entry.start}-start`
-            )
-          );
+          instructions.push(...drawRepeatDots(x + 1.75, y, staves, vertical_spacing, `${key}-${entry.start}-start`));
           break;
 
         case BarlineDrawType.EndRepeat:
-          instructions.push(
-            ...drawRepeatDots(
-              x + 0.25,
-              y,
-              staves,
-              vertical_spacing,
-              `${key}-${entry.start}-end`
-            )
-          );
+          instructions.push(...drawRepeatDots(x + 0.25, y, staves, vertical_spacing, `${key}-${entry.start}-end`));
           break;
 
         case BarlineDrawType.EndStartRepeat:
-          instructions.push(
-            ...drawRepeatDots(
-              x + 0.25,
-              y,
-              staves,
-              vertical_spacing,
-              `${key}-${entry.start}-end`
-            )
-          );
-          instructions.push(
-            ...drawRepeatDots(
-              x + 3.25,
-              y,
-              staves,
-              vertical_spacing,
-              `${key}-${entry.start}-start`
-            )
-          );
+          instructions.push(...drawRepeatDots(x + 0.25, y, staves, vertical_spacing, `${key}-${entry.start}-end`));
+          instructions.push(...drawRepeatDots(x + 3.25, y, staves, vertical_spacing, `${key}-${entry.start}-start`));
           break;
 
         default:

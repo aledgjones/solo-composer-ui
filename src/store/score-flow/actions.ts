@@ -56,9 +56,7 @@ export const flowActions = {
     }),
   remove: (flow_key: string) =>
     store.update((draft, state) => {
-      draft.score.flows.order = state.score.flows.order.filter(
-        (k) => k !== flow_key
-      );
+      draft.score.flows.order = state.score.flows.order.filter((k) => k !== flow_key);
       delete draft.score.flows.by_key[flow_key];
     }),
 };

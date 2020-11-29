@@ -81,21 +81,15 @@ export const TransportComponent: FC = () => {
                 Object.values(track.entries.by_key).forEach((entry) => {
                   if (entry.type === EntryType.Tone) {
                     const tone = entry as Tone;
-                    Transport.scheduleEvent(
-                      tone.tick,
-                      tone.duration,
-                      (when, duration) => {
-                        Player.play(
-                          instrumentKey,
-                          tone.articulation === Articulation.Staccato
-                            ? Expression.Staccato
-                            : Expression.Natural,
-                          tone.pitch.int,
-                          when,
-                          duration
-                        );
-                      }
-                    );
+                    Transport.scheduleEvent(tone.tick, tone.duration, (when, duration) => {
+                      Player.play(
+                        instrumentKey,
+                        tone.articulation === Articulation.Staccato ? Expression.Staccato : Expression.Natural,
+                        tone.pitch.int,
+                        when,
+                        duration
+                      );
+                    });
                   }
                 });
               });
@@ -121,23 +115,14 @@ export const TransportComponent: FC = () => {
           size={24}
           path={playing ? mdiPause : mdiPlay}
           toggled={playing}
-          onClick={
-            playing
-              ? actions.playback.transport.stop
-              : actions.playback.transport.play
-          }
+          onClick={playing ? actions.playback.transport.stop : actions.playback.transport.play}
         />
       </div>
       <div className="transport__timestamp">
         <span>{timestamp}</span>
       </div>
       <div className="transport__metronome">
-        <Icon
-          toggled={metronome}
-          onClick={() => actions.playback.metronome.toggle()}
-          size={24}
-          path={mdiMetronome}
-        />
+        <Icon toggled={metronome} onClick={() => actions.playback.metronome.toggle()} size={24} path={mdiMetronome} />
       </div>
     </div>
   );

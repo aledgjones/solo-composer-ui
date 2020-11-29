@@ -1,23 +1,20 @@
-import { FC, CSSProperties } from 'react';
+import { FC, CSSProperties } from "react";
 
-import { merge } from '../../utils/merge';
+import { merge } from "../../utils/merge";
 
 interface Props {
-    id?: string;
-    className?: string;
-    style?: CSSProperties;
+  id?: string;
+  className?: string;
+  style?: CSSProperties;
 }
 
 /**
  * Form element with onSubmit prevented by default.
  */
 export const Form: FC<Props> = ({ id, className, style, children }) => {
-    return <form
-        id={id}
-        className={merge('ui-form', className)}
-        style={style}
-        onSubmit={e => e.preventDefault()}
-    >
-        {children}
-    </form>;
-}
+  return (
+    <form id={id} className={merge("ui-form", className)} style={style} onSubmit={(e) => e.preventDefault()}>
+      {children}
+    </form>
+  );
+};

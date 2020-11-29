@@ -11,12 +11,7 @@ interface Props {
   onChange: (value: number) => void;
 }
 
-export const Fader: FC<Props> = ({
-  instrumentKey,
-  volume,
-  color,
-  onChange,
-}) => {
+export const Fader: FC<Props> = ({ instrumentKey, volume, color, onChange }) => {
   const ref = useRef<HTMLDivElement>(null);
   const amplitude = useWaveform(instrumentKey);
 

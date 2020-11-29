@@ -21,12 +21,7 @@ interface Props {
   onCreatePlayer: () => void;
 }
 
-export const PlayerList: FC<Props> = ({
-  selection,
-  onSelect,
-  onAddInstrument,
-  onCreatePlayer,
-}) => {
+export const PlayerList: FC<Props> = ({ selection, onSelect, onAddInstrument, onCreatePlayer }) => {
   const [open, players, instruments, expanded] = useStore((s) => {
     return [
       s.ui.setup.panels.players,
@@ -48,19 +43,10 @@ export const PlayerList: FC<Props> = ({
       >
         <PanelHeader>
           <span className="player-list__label">Players</span>
-          <Icon
-            style={{ marginRight: 12 }}
-            size={24}
-            path={mdiCogOutline}
-            onClick={() => setSettings(true)}
-          />
+          <Icon style={{ marginRight: 12 }} size={24} path={mdiCogOutline} onClick={() => setSettings(true)} />
           <Icon size={24} path={mdiPlus} onClick={onCreatePlayer} />
         </PanelHeader>
-        <SortableContainer
-          direction="y"
-          className="player-list__content"
-          onEnd={actions.score.player.reorder}
-        >
+        <SortableContainer direction="y" className="player-list__content" onEnd={actions.score.player.reorder}>
           {players.map((player, i) => {
             return (
               <PlayerItem
@@ -79,11 +65,7 @@ export const PlayerList: FC<Props> = ({
         </SortableContainer>
       </Panel>
 
-      <SetupSettings
-        width={900}
-        open={settings}
-        onClose={() => setSettings(false)}
-      />
+      <SetupSettings width={900} open={settings} onClose={() => setSettings(false)} />
     </>
   );
 };

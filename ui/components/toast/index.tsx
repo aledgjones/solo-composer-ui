@@ -14,26 +14,13 @@ export const Toast: FC<Props> = ({ color, toasts, onDestroy }) => {
   return (
     <Fragment>
       {toasts.map((toast) => {
-        return (
-          <ToastEntry
-            key={toast.key}
-            color={color}
-            toast={toast}
-            onDestroy={onDestroy}
-          />
-        );
+        return <ToastEntry key={toast.key} color={color} toast={toast} onDestroy={onDestroy} />;
       })}
     </Fragment>
   );
 };
 
-export function createToastInstance({
-  text,
-  button,
-  duration = 4000,
-  onClick,
-  onTimeout,
-}: ToastConfig): ToastInstance {
+export function createToastInstance({ text, button, duration = 4000, onClick, onTimeout }: ToastConfig): ToastInstance {
   return {
     key: shortid(),
     text,

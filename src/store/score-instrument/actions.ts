@@ -16,11 +16,7 @@ export const instrumentActions = {
   /** reorder player instruments */
   reorder: (player_key: string, old_index: number, new_index: number) =>
     store.update((draft) => {
-      move(
-        draft.score.players.by_key[player_key].instruments,
-        old_index,
-        new_index
-      );
+      move(draft.score.players.by_key[player_key].instruments, old_index, new_index);
     }),
 
   /** remove an instrument */
@@ -30,18 +26,14 @@ export const instrumentActions = {
       state.score.flows.order.forEach((flow_key) => {
         const flow = state.score.flows.by_key[flow_key];
         if (flow.players[player_key]) {
-          state.score.instruments[instrument_key].staves.forEach(
-            (stave_key) => {
-              delete draft.score.flows.by_key[flow_key].staves[stave_key];
-            }
-          );
+          state.score.instruments[instrument_key].staves.forEach((stave_key) => {
+            delete draft.score.flows.by_key[flow_key].staves[stave_key];
+          });
         }
       });
 
       // delete the instrument from the player
-      draft.score.players.by_key[
-        player_key
-      ].instruments = state.score.players.by_key[player_key].instruments.filter(
+      draft.score.players.by_key[player_key].instruments = state.score.players.by_key[player_key].instruments.filter(
         (k) => k !== instrument_key
       );
 

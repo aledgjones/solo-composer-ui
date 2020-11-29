@@ -34,13 +34,7 @@ export const Root: FC = () => {
           <TransportComponent />
           <div className="root__spacer" />
           <div className="root__history">
-            <Icon
-              disabled
-              onClick={() => false}
-              className="root__history-icon"
-              size={24}
-              path={mdiUndo}
-            />
+            <Icon disabled onClick={() => false} className="root__history-icon" size={24} path={mdiUndo} />
             <Icon disabled onClick={() => false} size={24} path={mdiRedo} />
           </div>
         </div>

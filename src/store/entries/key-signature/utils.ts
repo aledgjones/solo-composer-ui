@@ -15,11 +15,7 @@ export function measureKeySignatureBounds(entry: KeySignature): Box {
   return { width: width + padding, height: 4 };
 }
 
-export function createKeySignature(
-  tick: number,
-  mode: KeySignatureMode,
-  offset: number
-): KeySignature {
+export function createKeySignature(tick: number, mode: KeySignatureMode, offset: number): KeySignature {
   return {
     type: EntryType.KeySignature,
     key: shortid(),
@@ -46,13 +42,7 @@ function glyphFromType(type: Accidental) {
   }
 }
 
-export function drawKeySignature(
-  x: number,
-  y: number,
-  clef: Clef,
-  key: KeySignature,
-  staveKey: string
-) {
+export function drawKeySignature(x: number, y: number, clef: Clef, key: KeySignature, staveKey: string) {
   const instructions = [];
 
   const styles: TextStyles = {
@@ -67,35 +57,19 @@ export function drawKeySignature(
 
   if (key.offset < 0) {
     const glyph = glyphFromType(Accidental.Flat);
-    const pattern =
-      key_signature_patterns[clef.draw_as][clef.offset][Accidental.Flat];
+    const pattern = key_signature_patterns[clef.draw_as][clef.offset][Accidental.Flat];
     for (let i = 0; i > key.offset; i--) {
       instructions.push(
-        buildText(
-          `${key.key}-${staveKey}-${i}`,
-          styles,
-          x + i * -1,
-          y + 0.5 * (pattern[i * -1] * -1),
-          glyph
-        )
+        buildText(`${key.key}-${staveKey}-${i}`, styles, x + i * -1, y + 0.5 * (pattern[i * -1] * -1), glyph)
       );
     }
   }
 
   if (key.offset > 0) {
     const glyph = glyphFromType(Accidental.Sharp);
-    const pattern =
-      key_signature_patterns[clef.draw_as][clef.offset][Accidental.Sharp];
+    const pattern = key_signature_patterns[clef.draw_as][clef.offset][Accidental.Sharp];
     for (let i = 0; i < key.offset; i++) {
-      instructions.push(
-        buildText(
-          `${key.key}-${staveKey}-${i}`,
-          styles,
-          x + i,
-          y + 0.5 * (pattern[i] * -1),
-          glyph
-        )
-      );
+      instructions.push(buildText(`${key.key}-${staveKey}-${i}`, styles, x + i, y + 0.5 * (pattern[i] * -1), glyph));
     }
   }
 

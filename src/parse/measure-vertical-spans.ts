@@ -51,16 +51,11 @@ export function measureVerticalSpans(
           if (
             config.subBracket &&
             previous_instrument &&
-            (is_span === BracketSpan.Start ||
-              is_span === BracketSpan.Continue) &&
+            (is_span === BracketSpan.Start || is_span === BracketSpan.Continue) &&
             instrument.id === previous_instrument.id
           ) {
-            const subBracketEntry =
-              output.subBrackets[output.subBrackets.length - 1];
-            if (
-              subBracketEntry &&
-              subBracketEntry.stop === previous_instrument.key
-            ) {
+            const subBracketEntry = output.subBrackets[output.subBrackets.length - 1];
+            if (subBracketEntry && subBracketEntry.stop === previous_instrument.key) {
               subBracketEntry.stop = instrument.key;
             } else {
               output.subBrackets.push({

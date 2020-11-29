@@ -19,38 +19,27 @@ const Setup: FC = () => {
   // local selection is good -- we don't need to keep on nav.
   const [selection, setSelection] = useState<Selection>(null);
 
-  const [typePicker, setTypePicker] = useState<
-    (player_type: PlayerType) => void
-  >(null);
-  const [instrumentPicker, setInstrumentPicker] = useState<
-    (id: string) => void
-  >(null);
+  const [typePicker, setTypePicker] = useState<(player_type: PlayerType) => void>(null);
+  const [instrumentPicker, setInstrumentPicker] = useState<(id: string) => void>(null);
 
   /**
    * Async conductor for selecting and assigning an instrument to player
    */
-  const onAddInstrument = useCallback(
-    (playerKey: string, player_type: PlayerType) => {
-      const run = async () => {
-        const instrument_id = await new Promise<string>((resolve) => {
-          setInstrumentPicker(() => {
-            return resolve;
-          });
+  const onAddInstrument = useCallback((playerKey: string, player_type: PlayerType) => {
+    const run = async () => {
+      const instrument_id = await new Promise<string>((resolve) => {
+        setInstrumentPicker(() => {
+          return resolve;
         });
-        setInstrumentPicker(null);
-        const instrumentKey = actions.score.instrument.create(instrument_id);
-        actions.score.player.assign_instrument(playerKey, instrumentKey);
-        actions.playback.sampler.load(
-          instrument_id,
-          instrumentKey,
-          player_type
-        );
-        setInstrumentPicker(null);
-      };
-      run();
-    },
-    []
-  );
+      });
+      setInstrumentPicker(null);
+      const instrumentKey = actions.score.instrument.create(instrument_id);
+      actions.score.player.assign_instrument(playerKey, instrumentKey);
+      actions.playback.sampler.load(instrument_id, instrumentKey, player_type);
+      setInstrumentPicker(null);
+    };
+    run();
+  }, []);
 
   /**
    * Async conductor for selecting player type
@@ -89,12 +78,7 @@ const Setup: FC = () => {
         <LayoutList />
       </div>
 
-      <PlayerTypePicker
-        width={400}
-        open={!!typePicker}
-        onSelect={typePicker}
-        onCancel={() => setTypePicker(null)}
-      />
+      <PlayerTypePicker width={400} open={!!typePicker} onSelect={typePicker} onCancel={() => setTypePicker(null)} />
       <InstrumentPicker
         width={900}
         open={!!instrumentPicker}

@@ -19,9 +19,7 @@ export const SortableContainer: SuperFC<HTMLDivElement, Props> = ({
   const [items, setItems] = useState<Items>({});
 
   return (
-    <SortableContext.Provider
-      value={{ config: { direction, onEnd }, items, setItems }}
-    >
+    <SortableContext.Provider value={{ config: { direction, onEnd }, items, setItems }}>
       <div className={merge("ui-sortable-container", className)} {...props}>
         {children}
       </div>

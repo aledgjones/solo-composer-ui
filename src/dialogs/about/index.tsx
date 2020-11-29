@@ -1,13 +1,5 @@
 import { mdiClose } from "@mdi/js";
-import {
-  Dialog,
-  Icon,
-  Label,
-  Content,
-  Subheader,
-  Divider,
-  Link,
-} from "../../../ui";
+import { Dialog, Icon, Label, Content, Subheader, Divider, Link } from "../../../ui";
 
 import pkg from "../../../package.json";
 import audiopkg from "solo-composer-scheduler/package.json";
@@ -35,8 +27,8 @@ export const About = Dialog<Props>(({ onClose }) => {
       <Divider compact />
       <Content className="about__content">
         <p className="about__warning">
-          This project is very much an experimental work in progress. Things{" "}
-          <b>will</b> break, not exist, make no sense and crash!
+          This project is very much an experimental work in progress. Things <b>will</b> break, not exist, make no sense
+          and crash!
         </p>
       </Content>
       <Content className="about__versions">

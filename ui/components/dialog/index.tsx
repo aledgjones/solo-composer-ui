@@ -28,11 +28,7 @@ export function Dialog<T>(Content: FC<T>): FC<T & Props> {
         <Portal>
           <Backdrop className="ui-dialog__backdrop" open={open} />
           <div className={merge("ui-dialog", { "ui-dialog--hidden": !open })}>
-            <Card
-              id={id}
-              className={merge("ui-dialog__card", className)}
-              style={{ maxWidth: width, ...style }}
-            >
+            <Card id={id} className={merge("ui-dialog__card", className)} style={{ maxWidth: width, ...style }}>
               <Content {...(props as T)} />
             </Card>
           </div>

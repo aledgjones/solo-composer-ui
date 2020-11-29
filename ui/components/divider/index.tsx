@@ -14,23 +14,9 @@ interface Props {
 /**
  * Simple devider component.
  */
-export const Divider: FC<Props> = ({
-  id,
-  className,
-  style,
-  children,
-  compact,
-}) => {
+export const Divider: FC<Props> = ({ id, className, style, children, compact }) => {
   return (
-    <div
-      id={id}
-      className={merge(
-        "ui-divider",
-        { "ui-divider--compact": compact },
-        className
-      )}
-      style={style}
-    >
+    <div id={id} className={merge("ui-divider", { "ui-divider--compact": compact }, className)} style={style}>
       {children}
     </div>
   );

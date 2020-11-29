@@ -30,9 +30,7 @@ ctx.addEventListener("message", (e) => {
     const duration = entries[entries.length - 1].duration;
     console.log(
       `duration: %c${duration}`,
-      (duration < 1000 / 60 && "color: green") ||
-        (duration < 1000 / 30 && "color: orange") ||
-        "color: red"
+      (duration < 1000 / 60 && "color: green") || (duration < 1000 / 30 && "color: orange") || "color: red"
     );
   }
 

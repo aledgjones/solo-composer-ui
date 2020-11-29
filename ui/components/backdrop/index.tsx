@@ -18,13 +18,7 @@ interface Props {
 /**
  * Backdrop component used for overlays (dialogs, sheets etc.)
  */
-export const Backdrop: React.FC<Props> = ({
-  id,
-  className,
-  open,
-  transparent,
-  onClick,
-}) => {
+export const Backdrop: React.FC<Props> = ({ id, className, open, transparent, onClick }) => {
   return (
     <div
       id={id}

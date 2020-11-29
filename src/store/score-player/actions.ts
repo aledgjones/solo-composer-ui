@@ -43,28 +43,24 @@ export const playerActions = {
   remove: (player_key: string) => {
     store.update((draft, state) => {
       // for each instrument...
-      state.score.players.by_key[player_key].instruments.forEach(
-        (instrument_key) => {
-          // destroy instrument staves in each flow
-          state.score.flows.order.forEach((flow_key) => {
-            const flow = state.score.flows.by_key[flow_key];
-            if (flow.players[player_key]) {
-              state.score.instruments[instrument_key].staves.forEach(
-                (stave_key) => {
-                  delete draft.score.flows.by_key[flow_key].staves[stave_key];
-                }
-              );
-            }
-          });
+      state.score.players.by_key[player_key].instruments.forEach((instrument_key) => {
+        // destroy instrument staves in each flow
+        state.score.flows.order.forEach((flow_key) => {
+          const flow = state.score.flows.by_key[flow_key];
+          if (flow.players[player_key]) {
+            state.score.instruments[instrument_key].staves.forEach((stave_key) => {
+              delete draft.score.flows.by_key[flow_key].staves[stave_key];
+            });
+          }
+        });
 
-          // delete the actual instrument
-          delete draft.score.instruments[instrument_key];
+        // delete the actual instrument
+        delete draft.score.instruments[instrument_key];
 
-          // destroy the playback
-          delete draft.playback.instruments[instrument_key];
-          Player.disconnect(instrument_key);
-        }
-      );
+        // destroy the playback
+        delete draft.playback.instruments[instrument_key];
+        Player.disconnect(instrument_key);
+      });
 
       // remove the player from each flow
       state.score.flows.order.forEach((flow_key) => {
@@ -73,9 +69,7 @@ export const playerActions = {
 
       // remove the player itself
       delete draft.score.players.by_key[player_key];
-      draft.score.players.order = state.score.players.order.filter(
-        (k) => k !== player_key
-      );
+      draft.score.players.order = state.score.players.order.filter((k) => k !== player_key);
     });
   },
 };

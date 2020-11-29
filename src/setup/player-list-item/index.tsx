@@ -1,10 +1,5 @@
 import { useCallback, MouseEvent, FC, useRef } from "react";
-import {
-  mdiChevronDown,
-  mdiPlus,
-  mdiDeleteOutline,
-  mdiChevronUp,
-} from "@mdi/js";
+import { mdiChevronDown, mdiPlus, mdiDeleteOutline, mdiChevronUp } from "@mdi/js";
 import { Selection, SelectionType } from "../selection";
 import { SortableItem, merge, Icon, SortableContainer } from "../../../ui";
 import { Text } from "../../components/text";
@@ -95,14 +90,8 @@ export const PlayerItem: FC<Props> = ({
 
         {selected && (
           <>
-            <Icon
-              style={{ marginLeft: 12 }}
-              size={24}
-              path={mdiDeleteOutline}
-              onClick={onRemove}
-            />
-            {(player.instruments.length === 0 ||
-              player.type === PlayerType.Solo) && (
+            <Icon style={{ marginLeft: 12 }} size={24} path={mdiDeleteOutline} onClick={onRemove} />
+            {(player.instruments.length === 0 || player.type === PlayerType.Solo) && (
               <Icon
                 style={{ marginLeft: 12 }}
                 path={mdiPlus}
@@ -112,12 +101,7 @@ export const PlayerItem: FC<Props> = ({
             )}
           </>
         )}
-        <Icon
-          style={{ marginLeft: 12 }}
-          path={expanded ? mdiChevronUp : mdiChevronDown}
-          size={24}
-          onClick={onExpand}
-        />
+        <Icon style={{ marginLeft: 12 }} path={expanded ? mdiChevronUp : mdiChevronDown} size={24} onClick={onExpand} />
       </div>
       {expanded && (
         <SortableContainer

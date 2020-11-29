@@ -1,10 +1,7 @@
 import { Flow } from "../store/score-flow/defs";
 import { NotationTracks } from "./notation-track";
 import { BarlineDrawType } from "../store/entries/barline/defs";
-import {
-  get_entries_at_tick,
-  measureTimeSignatureBounds,
-} from "../store/entries/time-signature/utils";
+import { get_entries_at_tick, measureTimeSignatureBounds } from "../store/entries/time-signature/utils";
 import { WidthOf } from "./sum-width-up-to";
 import { measureKeySignatureBounds } from "../store/entries/key-signature/utils";
 import { measureBarlineBounds } from "../store/entries/barline/utils";
@@ -61,9 +58,7 @@ export function measureTick(
   const { time, key, barline } = getextrasAtTick(tick, flow);
 
   if (time) {
-    measurements[WidthOf.TimeSignature] = measureTimeSignatureBounds(
-      time
-    ).width;
+    measurements[WidthOf.TimeSignature] = measureTimeSignatureBounds(time).width;
   }
 
   if (key) {
@@ -71,38 +66,22 @@ export function measureTick(
   }
 
   // Barlines
-  const drawTypeAtTick = getBarlineDrawTypeAtTick(
-    tick,
-    key,
-    time,
-    barline,
-    isFirstBeat
-  );
+  const drawTypeAtTick = getBarlineDrawTypeAtTick(tick, key, time, barline, isFirstBeat);
 
   if (drawTypeAtTick.endRepeat) {
-    measurements[WidthOf.EndRepeat] = measureBarlineBounds(
-      BarlineDrawType.EndRepeat
-    ).width;
+    measurements[WidthOf.EndRepeat] = measureBarlineBounds(BarlineDrawType.EndRepeat).width;
   }
 
   if (drawTypeAtTick.draw_type) {
-    measurements[WidthOf.Barline] = measureBarlineBounds(
-      drawTypeAtTick.draw_type
-    ).width;
+    measurements[WidthOf.Barline] = measureBarlineBounds(drawTypeAtTick.draw_type).width;
   }
 
   if (drawTypeAtTick.startRepeat) {
-    measurements[WidthOf.StartRepeat] = measureBarlineBounds(
-      BarlineDrawType.StartRepeat
-    ).width;
+    measurements[WidthOf.StartRepeat] = measureBarlineBounds(BarlineDrawType.StartRepeat).width;
   }
 
   staves.forEach((stave) => {
-    const clef = get_entries_at_tick(
-      tick,
-      stave.master,
-      EntryType.Clef
-    )[0] as Clef;
+    const clef = get_entries_at_tick(tick, stave.master, EntryType.Clef)[0] as Clef;
     if (clef) {
       measurements[WidthOf.Clef] = measureClefBounds(clef).width;
     }

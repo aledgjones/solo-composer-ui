@@ -10,13 +10,7 @@ interface Props {
   isKeyboard: boolean;
 }
 
-export const Slots: FC<Props> = ({
-  className,
-  style,
-  base,
-  count,
-  isKeyboard,
-}) => {
+export const Slots: FC<Props> = ({ className, style, base, count, isKeyboard }) => {
   const base_pattern = [0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0];
   const base_pattern_offset = 76; // E5
   const offset = base_pattern_offset - base;
@@ -49,10 +43,7 @@ export const Slots: FC<Props> = ({
               key={i}
               fill={isKeyboard ? "#ffffff" : "var(--background-800)"}
               x={isKeyboard ? -3 : 0}
-              y={
-                i * white_key_space -
-                modulo(offset * SLOT_HEIGHT, white_key_space)
-              }
+              y={i * white_key_space - modulo(offset * SLOT_HEIGHT, white_key_space)}
               width={isKeyboard ? 67 : 64}
               height={white_key_space - 1}
               rx={isKeyboard ? 3 : 0}

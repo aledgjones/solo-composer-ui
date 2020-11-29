@@ -20,16 +20,7 @@ interface Props {
 /**
  * Icon which takes an svg path and renders.
  */
-export const Icon: FC<Props> = ({
-  id,
-  className,
-  style,
-  path,
-  size,
-  disabled,
-  toggled,
-  onClick,
-}) => {
+export const Icon: FC<Props> = ({ id, className, style, path, size, disabled, toggled, onClick }) => {
   if (onClick) {
     return (
       <button
@@ -53,11 +44,7 @@ export const Icon: FC<Props> = ({
         }}
         onClick={onClick}
       >
-        <svg
-          className="ui-icon__svg"
-          viewBox="0 0 24 24"
-          style={{ width: size, height: size }}
-        >
+        <svg className="ui-icon__svg" viewBox="0 0 24 24" style={{ width: size, height: size }}>
           <path className="ui-icon__svg-path" d={path} />
         </svg>
       </button>
@@ -75,11 +62,7 @@ export const Icon: FC<Props> = ({
           ...style,
         }}
       >
-        <svg
-          className="ui-icon__svg"
-          viewBox="0 0 24 24"
-          style={{ width: size, height: size }}
-        >
+        <svg className="ui-icon__svg" viewBox="0 0 24 24" style={{ width: size, height: size }}>
           <path className="ui-icon__svg-path" d={path} />
         </svg>
       </div>

@@ -1,15 +1,6 @@
 import { useState } from "react";
 
-import {
-  Dialog,
-  Button,
-  Subheader,
-  Select,
-  Option,
-  ListItem,
-  Label,
-  Switch,
-} from "../../../ui";
+import { Dialog, Button, Subheader, Select, Option, ListItem, Label, Switch } from "../../../ui";
 import { MenuItem } from "../../components/menu-item";
 import { useStore } from "../../store/use-store";
 import { actions } from "../../store/actions";
@@ -28,33 +19,20 @@ interface Props {
 }
 
 export const Preferences = Dialog<Props>(({ onClose }) => {
-  const [audition, terminal, debug] = useStore((s) => [
-    s.app.audition,
-    s.developer.terminal.show,
-    s.developer.debug,
-  ]);
+  const [audition, terminal, debug] = useStore((s) => [s.app.audition, s.developer.terminal.show, s.developer.debug]);
   const [page, setPage] = useState<Page>(Page.General);
 
   return (
     <div className="preferences">
       <div className="generic-settings__content">
         <div className="generic-settings__left-panel">
-          <MenuItem
-            selected={page === Page.General}
-            onClick={() => setPage(Page.General)}
-          >
+          <MenuItem selected={page === Page.General} onClick={() => setPage(Page.General)}>
             General
           </MenuItem>
-          <MenuItem
-            selected={page === Page.NoteInput}
-            onClick={() => setPage(Page.NoteInput)}
-          >
+          <MenuItem selected={page === Page.NoteInput} onClick={() => setPage(Page.NoteInput)}>
             Note Input &amp; Editing
           </MenuItem>
-          <MenuItem
-            selected={page === Page.DeveloperTools}
-            onClick={() => setPage(Page.DeveloperTools)}
-          >
+          <MenuItem selected={page === Page.DeveloperTools} onClick={() => setPage(Page.DeveloperTools)}>
             Developer Tools
           </MenuItem>
         </div>
@@ -75,10 +53,7 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
 
           {page === Page.NoteInput && (
             <>
-              <div
-                className="generic-settings__section"
-                style={{ paddingBottom: 0 }}
-              >
+              <div className="generic-settings__section" style={{ paddingBottom: 0 }}>
                 <Subheader>Auditioning</Subheader>
               </div>
               <ListItem onClick={() => actions.app.audition.toggle()}>
@@ -93,18 +68,13 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
 
           {page === Page.DeveloperTools && (
             <>
-              <div
-                className="generic-settings__section"
-                style={{ paddingBottom: 0 }}
-              >
+              <div className="generic-settings__section" style={{ paddingBottom: 0 }}>
                 <Subheader>Console</Subheader>
               </div>
               <ListItem onClick={() => actions.developer.debug.toggle()}>
                 <Label>
                   <p>Enable debug highlights</p>
-                  <p>
-                    Highlight elements on the score with a coloured bounding box
-                  </p>
+                  <p>Highlight elements on the score with a coloured bounding box</p>
                 </Label>
                 <Switch value={debug} />
               </ListItem>

@@ -9,20 +9,12 @@ import {
   is_on_grouping_boundry,
 } from "../entries/time-signature/utils";
 import { NoteDuration, Entry, EntryType } from "../entries";
-import {
-  TimeSignatureDrawType,
-  TimeSignature,
-} from "../entries/time-signature/defs";
+import { TimeSignatureDrawType, TimeSignature } from "../entries/time-signature/defs";
 import { useStore } from "../use-store";
 import { useMemo } from "react";
 
 export function create_flow(): Flow {
-  const time_signature = create_time_signature(
-    0,
-    4,
-    NoteDuration.Quarter,
-    TimeSignatureDrawType.Regular
-  );
+  const time_signature = create_time_signature(0, 4, NoteDuration.Quarter, TimeSignatureDrawType.Regular);
   const master = create_track();
   insert_entry(master, time_signature);
   return {
@@ -66,10 +58,7 @@ export function useTicks(): TickList {
         time_signature = result[0] as TimeSignature;
       }
 
-      let ticks_per_quarter = duration_to_ticks(
-        NoteDuration.Quarter,
-        subdivisions
-      );
+      let ticks_per_quarter = duration_to_ticks(NoteDuration.Quarter, subdivisions);
       let distance = distance_from_barline(tick, subdivisions, time_signature);
 
       const tick_width = quarter_width / ticks_per_quarter;
@@ -78,24 +67,10 @@ export function useTicks(): TickList {
         tick,
         x: ticks.width,
         width: tick_width,
-        is_beat: is_on_beat_type(
-          tick,
-          subdivisions,
-          time_signature,
-          time_signature.beat_type
-        ),
+        is_beat: is_on_beat_type(tick, subdivisions, time_signature, time_signature.beat_type),
         is_first_beat: distance === 0,
-        is_quaver_beat: is_on_beat_type(
-          tick,
-          subdivisions,
-          time_signature,
-          NoteDuration.Eighth
-        ),
-        is_grouping_boundry: is_on_grouping_boundry(
-          tick,
-          subdivisions,
-          time_signature
-        ),
+        is_quaver_beat: is_on_beat_type(tick, subdivisions, time_signature, NoteDuration.Eighth),
+        is_grouping_boundry: is_on_grouping_boundry(tick, subdivisions, time_signature),
       });
 
       ticks.width = ticks.width + tick_width;

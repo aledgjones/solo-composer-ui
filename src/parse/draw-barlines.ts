@@ -44,19 +44,12 @@ export function drawBarlines(
   // barlines
   for (let tick = 0; tick < flow.length; tick++) {
     const { time, key, barline } = getextrasAtTick(tick, flow);
-    const drawTypeAtTick = getBarlineDrawTypeAtTick(
-      tick,
-      key,
-      time,
-      barline,
-      barlines.has(tick)
-    );
+    const drawTypeAtTick = getBarlineDrawTypeAtTick(tick, key, time, barline, barlines.has(tick));
 
     if (drawTypeAtTick.endRepeat) {
       instructions.push(
         ...drawBarline(
-          x +
-            measureWidthUpto(flow, horizontalSpacing, tick, WidthOf.EndRepeat),
+          x + measureWidthUpto(flow, horizontalSpacing, tick, WidthOf.EndRepeat),
           y,
           staves,
           vertical_spacing,
@@ -84,13 +77,7 @@ export function drawBarlines(
     if (drawTypeAtTick.startRepeat) {
       instructions.push(
         ...drawBarline(
-          x +
-            measureWidthUpto(
-              flow,
-              horizontalSpacing,
-              tick,
-              WidthOf.StartRepeat
-            ),
+          x + measureWidthUpto(flow, horizontalSpacing, tick, WidthOf.StartRepeat),
           y,
           staves,
           vertical_spacing,
@@ -104,15 +91,7 @@ export function drawBarlines(
 
   // render final barline
   instructions.push(
-    ...drawBarline(
-      x + staveWidth,
-      y,
-      staves,
-      vertical_spacing,
-      vertical_spans,
-      finalBarlineType,
-      "final"
-    )
+    ...drawBarline(x + staveWidth, y, staves, vertical_spacing, vertical_spans, finalBarlineType, "final")
   );
   return instructions;
 }

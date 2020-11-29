@@ -20,20 +20,8 @@ export type HorizontalSpacing = [
 ];
 
 export function getextrasAtTick(tick: number, flow: Flow) {
-  const time = get_entries_at_tick(
-    tick,
-    flow.master,
-    EntryType.TimeSignature
-  )[0] as TimeSignature;
-  const key = get_entries_at_tick(
-    tick,
-    flow.master,
-    EntryType.KeySignature
-  )[0] as KeySignature;
-  const barline = get_entries_at_tick(
-    tick,
-    flow.master,
-    EntryType.Barline
-  )[0] as Barline;
+  const time = get_entries_at_tick(tick, flow.master, EntryType.TimeSignature)[0] as TimeSignature;
+  const key = get_entries_at_tick(tick, flow.master, EntryType.KeySignature)[0] as KeySignature;
+  const barline = get_entries_at_tick(tick, flow.master, EntryType.Barline)[0] as Barline;
   return { time, key, barline };
 }

@@ -21,17 +21,7 @@ interface Props {
 /**
  * Button component with optional outline-only styling.
  */
-export const Button: FC<Props> = ({
-  id,
-  className,
-  style,
-  children,
-  compact,
-  outline,
-  disabled,
-  working,
-  onClick,
-}) => {
+export const Button: FC<Props> = ({ id, className, style, children, compact, outline, disabled, working, onClick }) => {
   return (
     <button
       id={id}
@@ -47,13 +37,7 @@ export const Button: FC<Props> = ({
       style={style}
       onClick={onClick}
     >
-      {working && (
-        <Spinner
-          className="ui-spinner--button"
-          size={16}
-          color="rgb(84,84,84)"
-        />
-      )}
+      {working && <Spinner className="ui-spinner--button" size={16} color="rgb(84,84,84)" />}
       {children}
     </button>
   );

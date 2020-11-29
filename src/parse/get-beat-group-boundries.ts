@@ -1,11 +1,7 @@
 /**
  * returns the tick index of beat boundries
  */
-export function getBeatGroupingBoundries(
-  start: number,
-  ticksPerBeat: number,
-  groupings: number[]
-) {
+export function getBeatGroupingBoundries(start: number, ticksPerBeat: number, groupings: number[]) {
   const out = [start];
   const len = groupings.length;
   let progress = start;

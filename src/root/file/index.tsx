@@ -1,17 +1,6 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { mdiMenu, mdiPencilOutline, mdiOpenInNew } from "@mdi/js";
-import {
-  Icon,
-  Card,
-  Content,
-  Subheader,
-  Label,
-  List,
-  ListItem,
-  Divider,
-  Button,
-  Link,
-} from "../../../ui";
+import { Icon, Card, Content, Subheader, Label, List, ListItem, Divider, Button, Link } from "../../../ui";
 import { About } from "../../dialogs/about";
 import { Preferences } from "../../dialogs/preferences";
 import { Meta } from "../../dialogs/meta";
@@ -50,15 +39,8 @@ export const File: FC = () => {
   return (
     <>
       <div className="file-menu__container" ref={element}>
-        {!open && update && (
-          <div className="file-menu__dot file-menu__dot--badge" />
-        )}
-        <Icon
-          className="file-menu__icon"
-          path={mdiMenu}
-          size={24}
-          onClick={() => setOpen((o) => !o)}
-        />
+        {!open && update && <div className="file-menu__dot file-menu__dot--badge" />}
+        <Icon className="file-menu__icon" path={mdiMenu} size={24} onClick={() => setOpen((o) => !o)} />
         {open && (
           <Card className="file-menu">
             <Content>
@@ -98,9 +80,7 @@ export const File: FC = () => {
             </List>
             <Divider compact />
             <List onClick={() => setOpen(false)}>
-              <ListItem onClick={() => setPreferences(true)}>
-                Preferences
-              </ListItem>
+              <ListItem onClick={() => setPreferences(true)}>Preferences</ListItem>
               <Divider />
               {update && (
                 <>
@@ -114,10 +94,7 @@ export const File: FC = () => {
                   <Divider />
                 </>
               )}
-              <Link
-                href="https://aledjones-viola.gitbook.io/solo-composer/"
-                target="_blank"
-              >
+              <Link href="https://aledjones-viola.gitbook.io/solo-composer/" target="_blank">
                 <ListItem className="ui-list-item--hover">
                   <Label>
                     <p>Help &amp; Feedback</p>
@@ -133,16 +110,8 @@ export const File: FC = () => {
 
       <Meta width={900} open={meta} onClose={() => setMeta(false)} />
       <About width={400} open={about} onClose={() => setAbout(false)} />
-      <Preferences
-        open={preferences}
-        width={900}
-        onClose={() => setPreferences(false)}
-      />
-      <Importer
-        width={300}
-        open={importer}
-        onClose={() => setImporter(false)}
-      />
+      <Preferences open={preferences} width={900} onClose={() => setPreferences(false)} />
+      <Importer width={300} open={importer} onClose={() => setImporter(false)} />
     </>
   );
 };
