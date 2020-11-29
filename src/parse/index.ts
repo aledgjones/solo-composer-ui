@@ -36,9 +36,7 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
   const counts = getCounts(score.players, score.instruments);
   const names = getInstrumentNamesList(score.players, score.instruments, counts, score.config.auto_count, flow);
   const names_width = measureNames(Object.values(names), config, spaces, px);
-
   const verticalSpacing = measureVerticalSpacing(score.players, score.instruments, config, flow);
-
   const verticalSpans = measureVerticalSpans(score.players, score.instruments, config, flow);
 
   const x =
