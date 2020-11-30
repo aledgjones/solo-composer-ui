@@ -2,7 +2,7 @@ import { store } from "../use-store";
 import { View, Tool } from "./defs";
 import { NoteDuration } from "../entries";
 import { Transport } from "solo-composer-scheduler";
-import { PopoverType } from "../../components/popover/defs";
+import { HotKey } from "../../root/hotkeys";
 
 export const uiActions = {
   view: (view: View) => {
@@ -58,7 +58,7 @@ export const uiActions = {
       },
     },
     popover: {
-      show: (type: PopoverType) => {
+      show: (type: HotKey) => {
         store.update((s) => {
           s.ui.write.popover = type;
         });

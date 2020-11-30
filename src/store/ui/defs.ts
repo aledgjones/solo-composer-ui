@@ -1,4 +1,4 @@
-import { PopoverType } from "../../components/popover/defs";
+import { HotKey } from "../../root/hotkeys";
 import { NoteDuration } from "../entries";
 
 export enum Tool {
@@ -31,7 +31,7 @@ export interface UiDefs {
     panels: {
       elements: boolean;
     };
-    popover: PopoverType | null;
+    popover: HotKey | null;
   };
   play: {
     selected: { [key: string]: boolean };
