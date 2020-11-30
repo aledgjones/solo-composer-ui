@@ -7,6 +7,8 @@ import { useStore } from "../store/use-store";
 import { actions } from "../store/actions";
 import { View } from "../store/ui/defs";
 import { File } from "./file";
+import { GlobalHotKeys } from "react-hotkeys";
+import { hotKeys, hotKeyHandlers } from "./hotkeys";
 
 import "./styles.css";
 
@@ -19,7 +21,7 @@ export const Root: FC = () => {
   const [view] = useStore((s) => [s.ui.view]);
 
   return (
-    <>
+    <GlobalHotKeys keyMap={hotKeys} handlers={hotKeyHandlers}>
       <div className="root">
         <div className="root__title-bar">
           <File />
@@ -50,6 +52,6 @@ export const Root: FC = () => {
       </div>
 
       {/* <Log /> */}
-    </>
+    </GlobalHotKeys>
   );
 };

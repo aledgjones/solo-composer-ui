@@ -1,0 +1,26 @@
+.popover {
+  position: absolute;
+  top: 100px;
+  left: 250px;
+  display: flex;
+  background-color: #ffffff;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  width: 200px;
+  height: 34px;
+  z-index: 100;
+}
+
+.popover__icon {
+  color: var(--primary-fg);
+  background-color: var(--primary-bg);
+  padding: 3px 12px;
+  font-family: Bravura;
+  font-size: 28px;
+  line-height: 1em;
+}
+
+.popover__input {
+  padding: 0 8px;
+}

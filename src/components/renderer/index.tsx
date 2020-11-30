@@ -9,6 +9,7 @@ import { CurveInstruction, getControlPoints } from "../../render/curve";
 import { Text } from "../text";
 import { useStore } from "../../store/use-store";
 import { BoxInstruction } from "../../render/box";
+import { Popover } from "../popover";
 
 import "./styles.css";
 
@@ -135,6 +136,7 @@ export const Renderer: FC<Props> = memo(({ className }) => {
             }
           })}
         </svg>
+        <Popover />
       </div>
     </div>
   );

@@ -74,6 +74,7 @@ export const empty = (): State => {
         panels: {
           elements: true,
         },
+        popover: null,
       },
       play: {
         selected: {},

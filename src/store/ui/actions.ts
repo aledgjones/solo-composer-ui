@@ -2,6 +2,7 @@ import { store } from "../use-store";
 import { View, Tool } from "./defs";
 import { NoteDuration } from "../entries";
 import { Transport } from "solo-composer-scheduler";
+import { PopoverType } from "../../components/popover/defs";
 
 export const uiActions = {
   view: (view: View) => {
@@ -54,6 +55,18 @@ export const uiActions = {
             s.ui.write.panels.elements = !s.ui.write.panels.elements;
           });
         },
+      },
+    },
+    popover: {
+      show: (type: PopoverType) => {
+        store.update((s) => {
+          s.ui.write.popover = type;
+        });
+      },
+      hide: () => {
+        store.update((s) => {
+          s.ui.write.popover = null;
+        });
       },
     },
   },

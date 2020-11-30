@@ -9,7 +9,7 @@ interface Props {
 
 export const RenderRegion: FC<Props> = ({ children, className }) => {
   return (
-    <DragScroll x y className={merge("render-region", className)}>
+    <DragScroll ignore="no-scroll" x y className={merge("render-region", className)}>
       {children}
     </DragScroll>
   );

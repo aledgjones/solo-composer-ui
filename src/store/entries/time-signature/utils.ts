@@ -3,9 +3,6 @@ import { NoteDuration, EntryType, Entry, Box } from "..";
 import { TimeSignatureDrawType, TimeSignature, TimeSignatureType } from "./defs";
 import { Track } from "../../score-track/defs";
 import { Align, buildText, Justify, TextStyles } from "../../../render/text";
-import { NotationBaseDuration } from "../../../parse/notation-track";
-import { Instruction } from "../../../render/instructions";
-import { buildBox } from "../../../render/box";
 
 export function measureTimeSignatureBox(entry: TimeSignature): Box {
   const isHidden = entry.draw_type === TimeSignatureDrawType.Hidden;
