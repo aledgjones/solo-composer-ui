@@ -1,38 +1,47 @@
-import { FC, useState } from "react";
-import { useStore } from "../../store/use-store";
-import { popoverAction } from "./commands";
+import { FC, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 import "./styles.css";
 
-export const Popover: FC = () => {
-  const [type, flowKey] = useStore((s) => {
-    const flowKey = s.ui.flow_key || s.score.flows.order[0];
-    return [s.ui.write.popover, flowKey];
-  });
+interface Props {
+  icon: string;
+  onCommand: (value: string) => void;
+  onHide: () => void;
+}
+
+export const Popover: FC<Props> = ({ icon, onCommand, onHide }) => {
+  const input = useRef<HTMLInputElement>();
   const [value, setValue] = useState("");
 
-  const onKeyPress = (e: any) => {
+  useLayoutEffect(() => {
+    setTimeout(() => {
+      if (input.current) {
+        setValue("");
+        input.current.focus();
+      }
+    }, 0);
+  }, [input]);
+
+  const onKeyDown = (e: any) => {
     if (e.key === "Enter") {
-      popoverAction(type, flowKey, 0, e.target.value);
-      setValue("");
+      onCommand(e.target.value);
+      onHide();
+    }
+    if (e.key === "Escape") {
+      onHide();
     }
   };
 
-  const icon = "\u{E262}";
-
-  if (type === null) {
-    return null;
-  } else {
-    return (
-      <div className="popover no-scroll">
-        <p className="popover__icon">{icon}</p>
-        <input
-          value={value}
-          onKeyPress={onKeyPress}
-          onChange={(e) => setValue(e.target.value)}
-          className="popover__input"
-        />
-      </div>
-    );
-  }
+  return (
+    <div className="popover no-scroll">
+      <p className="popover__icon">{icon}</p>
+      <input
+        ref={input}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onKeyDown={onKeyDown}
+        onBlur={onHide}
+        className="popover__input"
+      />
+    </div>
+  );
 };

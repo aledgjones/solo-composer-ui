@@ -4,12 +4,11 @@ import { useParseWorker } from "./use-parse-worker";
 import { Instruction, InstructionType } from "../../render/instructions";
 import { PathInstruction } from "../../render/path";
 import { CircleInstruction } from "../../render/circle";
-import { TextInstruction, alignToStyle, justifyToStyle } from "../../render/text";
+import { TextInstruction, textStyle } from "../../render/text";
 import { CurveInstruction, getControlPoints } from "../../render/curve";
 import { Text } from "../text";
 import { useStore } from "../../store/use-store";
 import { BoxInstruction } from "../../render/box";
-import { Popover } from "../popover";
 
 import "./styles.css";
 
@@ -17,7 +16,7 @@ interface Props {
   className?: string;
 }
 
-export const Renderer: FC<Props> = memo(({ className }) => {
+export const Renderer: FC<Props> = memo(({ className, children }) => {
   const [score, flow_key, debug] = useStore((s) => [s.score, s.ui.flow_key, s.developer.debug]);
   const instructions = useParseWorker(score, flow_key, debug);
 
@@ -82,8 +81,7 @@ export const Renderer: FC<Props> = memo(({ className }) => {
                         fontSize: text.styles.size * space,
                         lineHeight: "1em",
                         whiteSpace: "pre",
-                        ...alignToStyle(text.styles.align),
-                        ...justifyToStyle(text.styles.justify),
+                        ...textStyle(text.styles.align, text.styles.justify),
                       }}
                     >
                       <Text content={text.value} />
@@ -136,7 +134,7 @@ export const Renderer: FC<Props> = memo(({ className }) => {
             }
           })}
         </svg>
-        <Popover />
+        {children}
       </div>
     </div>
   );

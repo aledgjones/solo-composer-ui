@@ -1,4 +1,3 @@
-import { HotKey } from "../../root/hotkeys";
 import { NoteDuration } from "../entries";
 
 export enum Tool {
@@ -16,6 +15,12 @@ export enum View {
   Print,
 }
 
+export enum PopoverType {
+  KeySignature,
+  TimeSignature,
+  Bar,
+}
+
 export interface UiDefs {
   view: View;
   snap: NoteDuration;
@@ -31,7 +36,7 @@ export interface UiDefs {
     panels: {
       elements: boolean;
     };
-    popover: HotKey | null;
+    popover: PopoverType | null;
   };
   play: {
     selected: { [key: string]: boolean };

@@ -6,52 +6,20 @@ export enum Justify {
   End,
 }
 
-export function justifyToStyle(justify: Justify) {
-  switch (justify) {
-    case Justify.Start:
-      return {
-        left: 0,
-      };
-    case Justify.Middle:
-      return {
-        left: 0,
-        transform: "translateX(-50%)",
-      };
-    case Justify.End:
-      return {
-        right: 0,
-      };
-
-    default:
-      return {};
-  }
-}
-
 export enum Align {
   Top,
   Middle,
   Bottom,
 }
 
-export function alignToStyle(align: Align) {
-  switch (align) {
-    case Align.Top:
-      return {
-        top: 0,
-      };
-    case Align.Middle:
-      return {
-        top: 0,
-        transform: "translateY(-50%)",
-      };
-    case Align.Bottom:
-      return {
-        bottom: 0,
-      };
-
-    default:
-      return {};
-  }
+export function textStyle(align: Align, justify: Justify) {
+  return {
+    left: justify === Justify.End ? undefined : 0,
+    right: justify === Justify.End ? 0 : undefined,
+    top: align === Align.Bottom ? undefined : 0,
+    bottom: align === Align.Bottom ? 0 : undefined,
+    transform: `translate(${justify === Justify.Middle ? "-50%" : 0}, ${align === Align.Middle ? "-50%" : 0})`,
+  };
 }
 
 export interface TextStyles {

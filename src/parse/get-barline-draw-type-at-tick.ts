@@ -21,13 +21,8 @@ export function getBarlineDrawTypeAtTick(
     draw_type: undefined,
   };
 
-  // don't draw first barline
-  if (tick === 0) {
-    return barlines;
-  }
-
   // non-explicit barlines (vetoed by explicit barlies)
-  if (!barline) {
+  if (tick > 0 && !barline) {
     if (key || time) {
       barlines.draw_type = BarlineDrawType.Double;
     } else if (isFirstBeat) {

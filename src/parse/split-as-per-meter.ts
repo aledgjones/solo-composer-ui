@@ -23,7 +23,7 @@ function getNextGroupingAndBeat(grouping: number, beatType: NoteDuration) {
       return {
         groupings: [1, 1, 1, 1],
         beats: 4,
-        beatType: beatType + 1,
+        beatType: beatType * 2,
       };
   }
 }

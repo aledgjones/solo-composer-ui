@@ -5,13 +5,15 @@ import { Track } from "../../score-track/defs";
 import { Align, buildText, Justify, TextStyles } from "../../../render/text";
 
 export function measureTimeSignatureBox(entry: TimeSignature): Box {
+  const isWide = entry.beats > 9 || entry.beat_type > 9;
   const isHidden = entry.draw_type === TimeSignatureDrawType.Hidden;
-  return { width: isHidden ? 0 : 1.75, height: 4 };
+  return { width: isHidden ? 0 : isWide ? 3 : 1.7, height: 4 };
 }
 
 export function measureTimeSignatureBounds(entry: TimeSignature): Box {
+  const isWide = entry.beats > 9 || entry.beat_type > 9;
   const isHidden = entry.draw_type === TimeSignatureDrawType.Hidden;
-  return { width: isHidden ? 0 : 1.75 + 1.5, height: 4 };
+  return { width: isHidden ? 0 : (isWide ? 3 : 1.7) + 1.5, height: 4 };
 }
 
 /** Create a time signature with optional beat groupings */
@@ -66,7 +68,7 @@ function glyph_from_digit(val: string) {
     case "8":
       return "\u{E088}";
     case "9":
-      return "\u{E059}";
+      return "\u{E089}";
     default:
       return "\u{E08A}";
   }
@@ -213,28 +215,31 @@ export function drawTimeSignature(x: number, y: number, time: TimeSignature, sta
     color: "#000000",
     font: "Bravura",
     size: 4,
-    justify: Justify.Start,
+    justify: Justify.Middle,
     align: Align.Middle,
   };
+
+  const box = measureTimeSignatureBox(time);
+  const left = x + box.width / 2;
 
   switch (time.draw_type) {
     case TimeSignatureDrawType.Hidden:
       break;
     case TimeSignatureDrawType.CommonTime:
-      instructions.push(buildText(time.key, styles, x, y, "\u{E08A}"));
+      instructions.push(buildText(`${time.key}-${staveKey}`, styles, left, y, "\u{E08A}"));
       break;
-    case TimeSignatureDrawType.SplitCommonTime:
-      instructions.push(buildText(time.key, styles, x, y, "\u{E08B}"));
+    case TimeSignatureDrawType.CutCommonTime:
+      instructions.push(buildText(`${time.key}-${staveKey}`, styles, left, y, "\u{E08B}"));
       break;
     case TimeSignatureDrawType.Open:
-      instructions.push(buildText(time.key, styles, x, y, "\u{E09C}"));
+      instructions.push(buildText(`${time.key}-${staveKey}`, styles, left, y, "\u{E09C}"));
       break;
     case TimeSignatureDrawType.Regular:
     default:
       const countGlyph = glyph_from_number(time.beats);
       const beatGlyph = glyph_from_type(time.beat_type);
-      instructions.push(buildText(`${time.key}-${staveKey}-count`, styles, x, y - 1, countGlyph));
-      instructions.push(buildText(`${time.key}-${staveKey}-beat`, styles, x, y + 1, beatGlyph));
+      instructions.push(buildText(`${time.key}-${staveKey}-count`, styles, left, y - 1, countGlyph));
+      instructions.push(buildText(`${time.key}-${staveKey}-beat`, styles, left, y + 1, beatGlyph));
       break;
   }
 

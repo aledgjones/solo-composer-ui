@@ -11,7 +11,7 @@ export enum TimeSignatureDrawType {
   Hidden,
   Regular,
   CommonTime,
-  SplitCommonTime,
+  CutCommonTime,
   Open,
 }
 

@@ -7,8 +7,6 @@ import { useStore } from "../store/use-store";
 import { actions } from "../store/actions";
 import { View } from "../store/ui/defs";
 import { File } from "./file";
-import { GlobalHotKeys } from "react-hotkeys";
-import { hotKeys, hotKeyHandlers } from "./hotkeys";
 
 import "./styles.css";
 
@@ -21,37 +19,33 @@ export const Root: FC = () => {
   const [view] = useStore((s) => [s.ui.view]);
 
   return (
-    <GlobalHotKeys keyMap={hotKeys} handlers={hotKeyHandlers}>
-      <div className="root">
-        <div className="root__title-bar">
-          <File />
-          <Tabs className="root__tabs" value={view} onChange={actions.ui.view}>
-            <Tab value={View.Setup}>Setup</Tab>
-            <Tab value={View.Write}>Write</Tab>
-            <Tab value={View.Engrave}>Engrave</Tab>
-            <Tab value={View.Play}>Sequence</Tab>
-            <Tab value={View.Print}>Publish</Tab>
-          </Tabs>
-          <TransportComponent />
-          <div className="root__spacer" />
-          <div className="root__history">
-            <Icon disabled onClick={() => false} className="root__history-icon" size={24} path={mdiUndo} />
-            <Icon disabled onClick={() => false} size={24} path={mdiRedo} />
-          </div>
-        </div>
-
-        <div className="root__content">
-          <Suspense fallback={<Loading />}>
-            {view === View.Setup && <Setup />}
-            {view === View.Write && <Write />}
-            {/* {tab === TabState.engrave && <Engrave />} */}
-            {view === View.Play && <Play />}
-            {/* {tab === TabState.print && <Fallback color={theme.background[500].fg} type="empty" />} */}
-          </Suspense>
+    <div className="root">
+      <div className="root__title-bar">
+        <File />
+        <Tabs className="root__tabs" value={view} onChange={actions.ui.view}>
+          <Tab value={View.Setup}>Setup</Tab>
+          <Tab value={View.Write}>Write</Tab>
+          <Tab value={View.Engrave}>Engrave</Tab>
+          <Tab value={View.Play}>Sequence</Tab>
+          <Tab value={View.Print}>Publish</Tab>
+        </Tabs>
+        <TransportComponent />
+        <div className="root__spacer" />
+        <div className="root__history">
+          <Icon disabled onClick={() => false} className="root__history-icon" size={24} path={mdiUndo} />
+          <Icon disabled onClick={() => false} size={24} path={mdiRedo} />
         </div>
       </div>
 
-      {/* <Log /> */}
-    </GlobalHotKeys>
+      <div className="root__content">
+        <Suspense fallback={<Loading />}>
+          {view === View.Setup && <Setup />}
+          {view === View.Write && <Write />}
+          {/* {tab === TabState.engrave && <Engrave />} */}
+          {view === View.Play && <Play />}
+          {/* {tab === TabState.print && <Fallback color={theme.background[500].fg} type="empty" />} */}
+        </Suspense>
+      </div>
+    </div>
   );
 };

@@ -1,3 +1,14 @@
+@keyframes popover-in {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .popover {
   position: absolute;
   top: 100px;
@@ -10,6 +21,7 @@
   width: 200px;
   height: 34px;
   z-index: 100;
+  animation: popover-in 0.2s;
 }
 
 .popover__icon {
