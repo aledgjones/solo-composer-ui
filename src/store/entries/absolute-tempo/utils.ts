@@ -1,6 +1,8 @@
 import { AbsoluteTempo } from "./defs";
 import { NoteDuration, DottedValue, EntryType } from "..";
 import shortid from "shortid";
+import { EngravingConfig } from "../../score-engraving/defs";
+import { Align, buildText, TextStyles } from "../../../render/text";
 
 export function create_absolute_tempo(
   tick: number,
@@ -64,4 +66,86 @@ export function normalize_bpm(time_signature: AbsoluteTempo): number {
   }
   const duration = base + calculate_dot(base, time_signature.dotted);
   return time_signature.bpm * duration;
+}
+
+export function durationFromString(str: string) {
+  switch (str) {
+    case "w":
+      return NoteDuration.Whole;
+    case "h":
+      return NoteDuration.Half;
+    case "q":
+      return NoteDuration.Quarter;
+    case "e":
+      return NoteDuration.Eighth;
+    case "s":
+      return NoteDuration.Sixteenth;
+    case "t":
+      return NoteDuration.ThirtySecond;
+    default:
+      break;
+  }
+}
+
+function glyphFromDuration(duration?: NoteDuration) {
+  switch (duration) {
+    case NoteDuration.Whole:
+      return "${whole}";
+    case NoteDuration.Half:
+      return "${half}";
+    case NoteDuration.Quarter:
+      return "${quarter}";
+    case NoteDuration.Eighth:
+      return "${eighth}";
+    case NoteDuration.Sixteenth:
+      return "${sixteenth}";
+    case NoteDuration.ThirtySecond:
+      return "${thirtysecond}";
+    default:
+      return "";
+  }
+}
+
+export function drawAbsoluteTempo(x: number, y: number, tempo: AbsoluteTempo, config: EngravingConfig) {
+  const styles: TextStyles = {
+    color: "#000000",
+    font: config.tempo.font,
+    size: config.tempo.size,
+    justify: config.tempo.align,
+    align: Align.Bottom,
+  };
+
+  let left = x;
+  let top = y - config.tempo.distanceFromStave - config.tempo.size;
+  let output = [];
+
+  if (tempo.text_visible && tempo.text) {
+    output.push(`${tempo.text} `);
+  }
+
+  if (tempo.bpm_visible) {
+    // open parens
+    if (tempo.parenthesis_visible) {
+      output.push("(");
+    }
+
+    output.push(glyphFromDuration(tempo.beat_type));
+
+    // dotted
+    if (tempo.dotted > 0) {
+      for (let i = 0; i < tempo.dotted; i++) {
+        output.push(" ${dot}");
+      }
+    }
+
+    // equation
+    output.push(` = ${tempo.bpm}`);
+
+    // close parens
+    if (tempo.parenthesis_visible) {
+      output.push(")");
+    }
+  }
+
+  return buildText(tempo.key, styles, left, top, output.join(""));
 }

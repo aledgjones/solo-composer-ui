@@ -2,8 +2,6 @@ import { Instruction } from "../render/instructions";
 import { EntryType } from "../store/entries";
 import { Clef } from "../store/entries/clef/defs";
 import { drawClef } from "../store/entries/clef/utils";
-import { KeySignature } from "../store/entries/key-signature/defs";
-import { drawKeySignature } from "../store/entries/key-signature/utils";
 import { get_entries_at_tick } from "../store/entries/time-signature/utils";
 import { Flow } from "../store/score-flow/defs";
 import { Stave } from "../store/score-stave/defs";

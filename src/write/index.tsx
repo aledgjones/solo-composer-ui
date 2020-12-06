@@ -8,7 +8,7 @@ import { Renderer } from "../components/renderer";
 import { actions } from "../store/actions";
 import { PopoverType } from "../store/ui/defs";
 import { useStore } from "../store/use-store";
-import { barCommands, keySignatureCommands, timeSignatureCommands } from "./hotkeys";
+import { barCommands, keySignatureCommands, tempoCommands, timeSignatureCommands } from "./hotkeys";
 import { TimeSignaturePanel } from "./panels/time-signature";
 // import { EngraveSettings } from "../../dialogs/engrave-settings";
 
@@ -23,10 +23,10 @@ const Write: FC = () => {
     s.ui.write.popover,
   ]);
 
-  useHotkeys("esc", actions.ui.write.popover.hide);
   useHotkeys("shift+k", () => actions.ui.write.popover.show(PopoverType.KeySignature));
   useHotkeys("shift+m", () => actions.ui.write.popover.show(PopoverType.TimeSignature));
   useHotkeys("shift+b", () => actions.ui.write.popover.show(PopoverType.Bar));
+  useHotkeys("shift+t", () => actions.ui.write.popover.show(PopoverType.Tempo));
 
   return (
     <>
@@ -49,8 +49,15 @@ const Write: FC = () => {
             )}
             {popover === PopoverType.Bar && (
               <Popover
-                icon={"\u{E01A}"}
+                icon={"\u{E4EE}"}
                 onCommand={(value) => barCommands(flowKey, 0, value)}
+                onHide={actions.ui.write.popover.hide}
+              />
+            )}
+            {popover === PopoverType.Tempo && (
+              <Popover
+                icon={"\u{E1D0}"}
+                onCommand={(value) => tempoCommands(flowKey, 0, value)}
                 onHide={actions.ui.write.popover.hide}
               />
             )}

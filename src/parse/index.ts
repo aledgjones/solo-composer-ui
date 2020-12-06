@@ -24,8 +24,14 @@ import { drawTimeSignatures } from "./draw-time-signatures";
 import { debugTick } from "./debug-tick";
 import { drawKeySignatures } from "./draw-key-signatures";
 import { drawClefs } from "./draw-clefs";
+import { drawTempi } from "./draw-tempi";
 
-export function parse(score: Score, flow_key: string, px_per_mm: number, debug: boolean): RenderInstructions {
+export async function parse(
+  score: Score,
+  flow_key: string,
+  px_per_mm: number,
+  debug: boolean
+): Promise<RenderInstructions> {
   const drawInstructions: Instruction<any>[] = [];
 
   const flow = score.flows.by_key[flow_key];
@@ -48,6 +54,10 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
 
   const barlines = getFirstBeats(flow);
   const notation = getWrittenDurations(staves, flow, barlines);
+
+  // stem directions
+  // note shunts
+  // beams/tails
 
   const { horizontalSpacing, width } = measureHorizontalSpacing(staves, flow, barlines, notation);
 
@@ -79,9 +89,10 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
       config.systemicBarlineSingleInstrumentSystem,
       config.finalBarlineType
     ),
+    ...drawClefs(x, y, staves, flow, verticalSpacing, horizontalSpacing),
     ...drawTimeSignatures(x, y, staves, flow, verticalSpacing, horizontalSpacing),
     ...drawKeySignatures(x, y, staves, flow, verticalSpacing, horizontalSpacing),
-    ...drawClefs(x, y, staves, flow, verticalSpacing, horizontalSpacing)
+    ...drawTempi(x, y, flow, horizontalSpacing, config)
   );
 
   if (debug) {

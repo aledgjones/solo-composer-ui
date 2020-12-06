@@ -1,7 +1,7 @@
 import { MMs, Spaces } from "../defs";
 import { Justify } from "../../render/text";
 import { BracketingType, BracketEndStyle } from "../entries/brackets";
-import { BarlineType } from "../entries/defs";
+import { BarlineDrawType } from "../entries/barline/defs";
 
 export enum LayoutType {
   Score, // used for default score
@@ -38,5 +38,5 @@ export interface EngravingConfig {
 
   minNoteSpacing: Spaces;
 
-  finalBarlineType: BarlineType;
+  finalBarlineType: BarlineDrawType;
 }

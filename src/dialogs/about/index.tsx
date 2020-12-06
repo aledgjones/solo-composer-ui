@@ -24,7 +24,6 @@ export const About = Dialog<Props>(({ onClose }) => {
           <p>Music notation everywhere</p>
         </Label>
       </div>
-      <Divider compact />
       <Content className="about__content">
         <p className="about__warning">
           This project is very much an experimental work in progress. Things <b>will</b> break, not exist, make no sense

@@ -1,11 +1,8 @@
 import { Flow } from "../store/score-flow/defs";
 import { NotationTracks } from "./notation-track";
-import { Player } from "../store/score-player/defs";
-import { Instrument } from "../store/score-instrument/defs";
 import { splitAtToneEvents } from "./split-at-tone-events";
 import { splitAsPerMeter } from "./split-as-per-meter";
 import { Stave } from "../store/score-stave/defs";
-import { Track } from "../store/score-track/defs";
 
 /**
  * Convert tones into written notation values

@@ -9,7 +9,6 @@
   align-items: center;
   justify-content: flex-end;
   padding: 0 20px;
-  background-color: var(--background-800);
 }
 
 .about__logo {
@@ -17,8 +16,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 0 20px 40px 20px;
-  background-color: var(--background-800);
+  padding: 0 20px 20px 20px;
 }
 
 .about__logo-img {
@@ -31,25 +29,15 @@
   font-size: 24px;
   line-height: 0.9em;
   text-align: center;
-  font-weight: bold;
-  font-family: "Josefin Sans", sans-serif;
   text-transform: uppercase;
-}
-
-.about__logo-text p:nth-child(1) {
-  position: relative;
-  left: 2px;
-  letter-spacing: 4px;
-  font-weight: 600;
 }
 
 .about__logo-text p:nth-child(2) {
   font-size: 16px;
-  font-weight: 600;
 }
 
 .about__content {
-  padding-bottom: 0;
+  padding: 0 20px;
 }
 
 .about__version {

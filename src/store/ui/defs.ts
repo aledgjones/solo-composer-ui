@@ -19,6 +19,7 @@ export enum PopoverType {
   KeySignature,
   TimeSignature,
   Bar,
+  Tempo,
 }
 
 export interface UiDefs {

@@ -34,13 +34,14 @@ const symDict: { [key: string]: { content: string; sym: boolean } } = {
   "${copy}": { content: "\u{00A9}", sym: false },
 
   // musical
-  "${double}": { content: "\u{1D15C}", sym: true },
-  "${whole}": { content: "\u{1D15D}", sym: true },
-  "${half}": { content: "\u{1D15E}", sym: true },
-  "${quarter}": { content: "\u{1D15F}", sym: true },
-  "${eighth}": { content: "\u{1D160}", sym: true },
-  "${sixteenth}": { content: "\u{1D161}", sym: true },
-  "${thirtysecond}": { content: "\u{1D162}", sym: true },
+  "${whole}": { content: "\u{E1D2}", sym: true },
+  "${half}": { content: "\u{E1D3}", sym: true },
+  "${quarter}": { content: "\u{E1D5}", sym: true },
+  "${eighth}": { content: "\u{E1D7}", sym: true },
+  "${sixteenth}": { content: "\u{E1D9}", sym: true },
+  "${thirtysecond}": { content: "\u{E1DB}", sym: true },
+
+  "${dot}": { content: "\u{E1E7}", sym: true },
 
   "${sharp}": { content: "\u{E262}", sym: true },
   "${natural}": { content: "\u{E261}", sym: true },

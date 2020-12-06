@@ -1,5 +1,6 @@
 import { Tone } from "../store/entries/tone/defs";
 
+// TODO: remove this and use NoteDuration
 export enum NotationBaseDuration {
   ThirtySecond = 0.125,
   Sixteenth = 0.25,

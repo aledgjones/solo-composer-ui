@@ -14,7 +14,7 @@ export const absoluteTempoActions = {
     parenthesis_visible: boolean,
     text_visible: boolean,
     bpm_visible: boolean
-  ): string => {
+  ) => {
     const tempo = create_absolute_tempo(
       tick,
       text,

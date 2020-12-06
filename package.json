@@ -13,6 +13,7 @@
     "devDependencies": {
         "@types/big.js": "6.0.0",
         "@types/color": "3.0.1",
+        "@types/css-font-loading-module": "0.0.4",
         "@types/humanize-duration": "3.18.1",
         "@types/jest": "26.0.15",
         "@types/jsonpack": "1.1.0",
