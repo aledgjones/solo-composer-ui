@@ -24,7 +24,6 @@ export function useParseWorker(score: Score, flow_key: string, debug: boolean) {
     worker.addEventListener("message", cb);
     return () => {
       worker.removeEventListener("message", cb);
-      // worker.terminate();
     };
   }, []);
 
