@@ -49,7 +49,7 @@ export function drawBarlines(
     if (drawTypeAtTick.endRepeat) {
       instructions.push(
         ...drawBarline(
-          x + measureWidthUpto(flow, horizontalSpacing, tick, WidthOf.EndRepeat),
+          x + measureWidthUpto(horizontalSpacing, tick, WidthOf.EndRepeat),
           y,
           staves,
           vertical_spacing,
@@ -63,7 +63,7 @@ export function drawBarlines(
     if (drawTypeAtTick.draw_type) {
       instructions.push(
         ...drawBarline(
-          x + measureWidthUpto(flow, horizontalSpacing, tick, WidthOf.Barline),
+          x + measureWidthUpto(horizontalSpacing, tick, WidthOf.Barline),
           y,
           staves,
           vertical_spacing,
@@ -77,7 +77,7 @@ export function drawBarlines(
     if (drawTypeAtTick.startRepeat) {
       instructions.push(
         ...drawBarline(
-          x + measureWidthUpto(flow, horizontalSpacing, tick, WidthOf.StartRepeat),
+          x + measureWidthUpto(horizontalSpacing, tick, WidthOf.StartRepeat),
           y,
           staves,
           vertical_spacing,

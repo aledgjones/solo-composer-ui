@@ -2,7 +2,7 @@ import { State } from "./defs";
 import { create_flow } from "./score-flow/utils";
 import { PlayerType } from "./score-player/defs";
 import { View, Tool } from "./ui/defs";
-import { NoteDuration } from "./entries";
+import { NoteDuration } from "./entries/defs";
 import { AutoCountStyle } from "./score-config/defs";
 import { engravingEmptyState } from "./score-engraving/utils";
 

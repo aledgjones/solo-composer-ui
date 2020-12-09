@@ -1,4 +1,4 @@
-import { Entry, EntryType } from "..";
+import { Entry, EntryType } from "../defs";
 
 export enum BarlineDrawType {
   None,

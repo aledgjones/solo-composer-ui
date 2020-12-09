@@ -1,5 +1,5 @@
 import shortid from "shortid";
-import { Accidental, EntryType } from "..";
+import { Accidental, EntryType } from "../defs";
 import { insert_entry } from "../../score-track/utils";
 import { store } from "../../use-store";
 import { ClefDrawType } from "./defs";

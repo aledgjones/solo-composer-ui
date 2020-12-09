@@ -3,7 +3,7 @@ import { Flow } from "../store/score-flow/defs";
 import { getIsRest } from "./get-is-rest";
 import { splitNotationTrack } from "./split-notation-track";
 import { duration_to_ticks, get_entries_at_tick } from "../store/entries/time-signature/utils";
-import { EntryType, NoteDuration } from "../store/entries";
+import { EntryType, NoteDuration } from "../store/entries/defs";
 import { TimeSignature } from "../store/entries/time-signature/defs";
 import { getIsEmpty } from "./get-is-empty";
 import { getIsWritable } from "./get-is-writable";

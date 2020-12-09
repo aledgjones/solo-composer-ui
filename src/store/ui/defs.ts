@@ -1,4 +1,4 @@
-import { NoteDuration } from "../entries";
+import { NoteDuration } from "../entries/defs";
 
 export enum Tool {
   Select,

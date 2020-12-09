@@ -1,4 +1,4 @@
-import { NoteDuration } from "..";
+import { NoteDuration } from "../defs";
 import { create_absolute_tempo } from "./utils";
 import { insert_entry } from "../../score-track/utils";
 import { store } from "../../use-store";

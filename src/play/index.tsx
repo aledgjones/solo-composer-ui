@@ -10,7 +10,7 @@ import { useCounts } from "../store/score-instrument/hooks";
 import { useTicks } from "../store/score-flow/utils";
 import { actions } from "../store/actions";
 import { Tool } from "../store/ui/defs";
-import { NoteDuration } from "../store/entries";
+import { NoteDuration } from "../store/entries/defs";
 
 import "./styles.css";
 

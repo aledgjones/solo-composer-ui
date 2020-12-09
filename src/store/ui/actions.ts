@@ -1,6 +1,6 @@
 import { store } from "../use-store";
 import { View, Tool, PopoverType } from "./defs";
-import { NoteDuration } from "../entries";
+import { NoteDuration } from "../entries/defs";
 import { Transport } from "solo-composer-scheduler";
 
 export const uiActions = {

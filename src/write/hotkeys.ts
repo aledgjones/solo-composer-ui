@@ -1,5 +1,5 @@
 import { actions } from "../store/actions";
-import { NoteDuration } from "../store/entries";
+import { NoteDuration } from "../store/entries/defs";
 import { durationFromString } from "../store/entries/absolute-tempo/utils";
 import { BarlineDrawType } from "../store/entries/barline/defs";
 import { modeFromKey, offsetFromKey } from "../store/entries/key-signature/defs";
@@ -26,6 +26,7 @@ export const timeSignatureCommands = (flowKey: string, tick: number, input: stri
         TimeSignatureDrawType.CommonTime
       );
     case "cutc":
+    case "cut-c":
       return actions.score.entries.time_signature.create(
         flowKey,
         tick,

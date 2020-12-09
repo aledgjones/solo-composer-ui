@@ -1,5 +1,5 @@
 import { BarlineDrawType, Barline } from "./defs";
-import { Box, EntryType } from "..";
+import { Box, EntryType } from "../defs";
 import shortid from "shortid";
 import { Instruction } from "../../../render/instructions";
 import { VerticalSpacing } from "../../../parse/measure-verical-spacing";

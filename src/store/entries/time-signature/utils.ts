@@ -1,8 +1,9 @@
 import shortid from "shortid";
-import { NoteDuration, EntryType, Entry, Box } from "..";
+import { NoteDuration, EntryType, Entry, Box } from "../defs";
 import { TimeSignatureDrawType, TimeSignature, TimeSignatureType } from "./defs";
 import { Track } from "../../score-track/defs";
 import { Align, buildText, Justify, TextStyles } from "../../../render/text";
+import { Flow } from "../../score-flow/defs";
 
 export function measureTimeSignatureBox(entry: TimeSignature): Box {
   const isWide = entry.beats > 9 || entry.beat_type > 9;
@@ -194,19 +195,30 @@ export function get_entries_at_tick(tick: number, track: Track, type: EntryType)
   return entries.map((key) => track.entries.by_key[key]).filter((entry) => entry.type === type);
 }
 
-export function get_entry_after_tick(tick: number, track: Track, type: EntryType) {
-  let found: Entry = null;
-  const entries = Object.values(track.entries.by_key);
-  for (let i = 0; i < entries.length; i++) {
-    const entry = entries[i];
-    if (entry.type === type && entry.tick > tick) {
-      if (!found || found.tick > entry.tick) {
-        found = entry;
-      }
+export function get_entry_before_tick(_tick: number, track: Track, type: EntryType, inclusive: boolean) {
+  // it is not possible to have entries before tick 0
+  if (_tick === 0 && !inclusive) {
+    return null;
+  }
+  for (let tick = _tick - (inclusive ? 0 : 1); tick >= 0; tick--) {
+    const entries = track.entries.by_tick[tick] || [];
+    const filtered = entries.map((key) => track.entries.by_key[key]).filter((entry) => entry.type === type);
+    if (filtered.length > 0) {
+      return filtered[0];
     }
   }
+  return null;
+}
 
-  return found;
+export function get_entry_after_tick(_tick: number, flow: Flow, track: Track, type: EntryType, inclusive: boolean) {
+  for (let tick = _tick + (inclusive ? 0 : 1); tick < flow.length; tick++) {
+    const entries = track.entries.by_tick[tick] || [];
+    const filtered = entries.map((key) => track.entries.by_key[key]).filter((entry) => entry.type === type);
+    if (filtered.length > 0) {
+      return filtered[0];
+    }
+  }
+  return null;
 }
 
 export function drawTimeSignature(x: number, y: number, time: TimeSignature, staveKey: string) {

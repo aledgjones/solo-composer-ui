@@ -5,7 +5,7 @@ import { TickList } from "../../store/score-flow/defs";
 
 import "./styles.css";
 import { Tone } from "../../store/entries/tone/defs";
-import { EntryType } from "../../store/entries";
+import { EntryType } from "../../store/entries/defs";
 
 interface Props {
   flowKey: string;

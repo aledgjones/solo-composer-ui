@@ -1,6 +1,6 @@
 import { Flow } from "../store/score-flow/defs";
 import { get_entries_at_tick, distance_from_barline } from "../store/entries/time-signature/utils";
-import { EntryType } from "../store/entries";
+import { EntryType } from "../store/entries/defs";
 import { TimeSignature } from "../store/entries/time-signature/defs";
 
 /**

@@ -1,5 +1,5 @@
 import { KeySignature, KeySignatureMode, key_signature_patterns } from "./defs";
-import { Box, EntryType, Accidental } from "..";
+import { Box, EntryType, Accidental } from "../defs";
 import shortid from "shortid";
 import { Clef } from "../clef/defs";
 import { TextStyles, Justify, Align, buildText } from "../../../render/text";

@@ -1,4 +1,4 @@
-import { Entry, Accidental, EntryType } from "..";
+import { Entry, Accidental, EntryType } from "../defs";
 import { ClefDrawType } from "../clef/defs";
 
 export enum KeySignatureMode {

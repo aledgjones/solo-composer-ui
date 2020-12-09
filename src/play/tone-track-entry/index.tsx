@@ -2,7 +2,7 @@ import { FC, useMemo, PointerEvent, useCallback } from "react";
 import { merge } from "../../../ui";
 import { SLOT_HEIGHT } from "../const";
 import { useStore } from "../../store/use-store";
-import { Articulation } from "../../store/entries";
+import { Articulation } from "../../store/entries/defs";
 import { Tone } from "../../store/entries/tone/defs";
 import { TickList } from "../../store/score-flow/defs";
 import { Tool } from "../../store/ui/defs";

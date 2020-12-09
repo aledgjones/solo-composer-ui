@@ -1,4 +1,4 @@
-import { NoteDuration, EntryType } from "..";
+import { NoteDuration, EntryType } from "../defs";
 import { TimeSignatureDrawType, TimeSignature } from "./defs";
 import { store } from "../../use-store";
 import { create_time_signature, get_entry_after_tick, get_entries_at_tick, duration_to_ticks } from "./utils";
@@ -18,7 +18,7 @@ export const timeSignatureActions = {
       const flow = state.score.flows.by_key[flow_key];
       insert_entry(draft.score.flows.by_key[flow_key].master, time_signature, true);
       const ticks_per_bar = duration_to_ticks(time_signature.beat_type, flow.subdivisions) * time_signature.beats;
-      const next = get_entry_after_tick(tick, flow.master, EntryType.TimeSignature) as TimeSignature;
+      const next = get_entry_after_tick(tick, flow, flow.master, EntryType.TimeSignature, false) as TimeSignature;
       const overflow = next ? (next.tick - tick) % ticks_per_bar : (flow.length - tick) % ticks_per_bar;
 
       if (overflow > 0) {

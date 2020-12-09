@@ -1,4 +1,4 @@
-import { Entry, EntryType, Pitch, Articulation } from "..";
+import { Entry, EntryType, Pitch, Articulation } from "../defs";
 
 export interface Tone extends Entry {
   type: EntryType.Tone;

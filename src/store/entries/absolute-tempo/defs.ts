@@ -1,4 +1,4 @@
-import { Entry, EntryType, NoteDuration, DottedValue } from "..";
+import { Entry, EntryType, NoteDuration, DottedValue } from "../defs";
 
 export interface AbsoluteTempo extends Entry {
   type: EntryType.AbsoluteTempo;

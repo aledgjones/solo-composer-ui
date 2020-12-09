@@ -1,5 +1,5 @@
 import { Instruction } from "../render/instructions";
-import { EntryType } from "../store/entries";
+import { EntryType } from "../store/entries/defs";
 import { Clef } from "../store/entries/clef/defs";
 import { KeySignature } from "../store/entries/key-signature/defs";
 import { drawKeySignature } from "../store/entries/key-signature/utils";
@@ -27,7 +27,7 @@ export function drawKeySignatures(
       clef = (get_entries_at_tick(tick, stave.master, EntryType.Clef)[0] as Clef) || clef;
       const key = get_entries_at_tick(tick, flow.master, EntryType.KeySignature)[0] as KeySignature;
       if (key && clef) {
-        const left = measureWidthUpto(flow, horizontalSpacing, tick, WidthOf.KeySignature);
+        const left = measureWidthUpto(horizontalSpacing, tick, WidthOf.KeySignature);
         instructions.push(
           ...drawKeySignature(x + left, y + vertical_spacing.staves[stave.key].y, clef, key, stave.key)
         );

@@ -1,5 +1,5 @@
 import { create_absolute_tempo, normalize_bpm } from "./utils";
-import { NoteDuration, DottedValue } from "..";
+import { NoteDuration, DottedValue } from "../defs";
 
 it("calculates q = 120 as 120", () => {
   const ts = create_absolute_tempo(0, "Allegro", NoteDuration.Quarter, DottedValue.None, 120, false, false, false);

@@ -8,10 +8,11 @@ import { TickList } from "../../store/score-flow/defs";
 import { Tool } from "../../store/ui/defs";
 import { duration_to_ticks } from "../../store/entries/time-signature/utils";
 import { Tone } from "../../store/entries/tone/defs";
-import { EntryType, pitch_from_number, Articulation } from "../../store/entries";
+import { EntryType, Articulation } from "../../store/entries/defs";
 import { actions } from "../../store/actions";
 
 import "./styles.css";
+import { pitchFromNumber } from "../../store/entries/utils";
 
 interface Props {
   flowKey: string;
@@ -84,7 +85,7 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool
           trackKey,
           start,
           duration,
-          pitch_from_number(pitch),
+          pitchFromNumber(pitch),
           100,
           Articulation.None
         );
@@ -141,7 +142,7 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool
             toneKey,
             s,
             d,
-            pitch_from_number(p),
+            pitchFromNumber(p),
             articulation
           );
         },

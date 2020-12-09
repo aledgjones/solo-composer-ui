@@ -1,4 +1,4 @@
-import { Entry, EntryType, NoteDuration } from "..";
+import { Entry, EntryType, NoteDuration } from "../defs";
 
 export enum TimeSignatureType {
   Simple,

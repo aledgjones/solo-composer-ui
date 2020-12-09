@@ -1,7 +1,7 @@
 import { Flow } from "../store/score-flow/defs";
 import { Barline } from "../store/entries/barline/defs";
 import { get_entries_at_tick } from "../store/entries/time-signature/utils";
-import { EntryType } from "../store/entries";
+import { EntryType } from "../store/entries/defs";
 import { TimeSignature } from "../store/entries/time-signature/defs";
 import { KeySignature } from "../store/entries/key-signature/defs";
 

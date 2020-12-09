@@ -1,5 +1,5 @@
 import shortid from "shortid";
-import { Accidental, Box, EntryType } from "..";
+import { Accidental, Box, EntryType } from "../defs";
 import { Align, buildText, Justify, TextStyles } from "../../../render/text";
 import { Clef, ClefDrawType } from "./defs";
 

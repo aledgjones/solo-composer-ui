@@ -1,6 +1,6 @@
 import { Instruction } from "../render/instructions";
 import { EngravingConfig } from "../store/defs";
-import { EntryType } from "../store/entries";
+import { EntryType } from "../store/entries/defs";
 import { AbsoluteTempo } from "../store/entries/absolute-tempo/defs";
 import { drawAbsoluteTempo } from "../store/entries/absolute-tempo/utils";
 import { TimeSignature } from "../store/entries/time-signature/defs";
@@ -25,7 +25,7 @@ export function drawTempi(
     if (tempo) {
       // Behind Bars p183
       const upto = time ? WidthOf.TimeSignature : WidthOf.StartRepeat;
-      const left = x + measureWidthUpto(flow, horizontalSpacing, tick, upto);
+      const left = x + measureWidthUpto(horizontalSpacing, tick, upto);
       instructions.push(drawAbsoluteTempo(left, y, tempo, config));
     }
   }

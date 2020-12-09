@@ -1,6 +1,7 @@
+import { Switch } from "../../ui";
+import { NoteDuration } from "../store/entries/defs";
 import { Tone } from "../store/entries/tone/defs";
 
-// TODO: remove this and use NoteDuration
 export enum NotationBaseDuration {
   ThirtySecond = 0.125,
   Sixteenth = 0.25,
@@ -39,17 +40,25 @@ export function getNearestNotationToTick(
   }
 }
 
-export function getNotationBaseDuration(duration: number, subdivisions: number): NotationBaseDuration | undefined {
+export function getNotationBaseDuration(duration: number, subdivisions: number): NoteDuration {
   const length = duration / subdivisions;
-  if (NotationBaseDuration[length]) {
-    return length;
-  } else {
-    const baseLength = (length / 3) * 2;
-    if (NotationBaseDuration[baseLength]) {
-      return baseLength;
-    } else {
-      return undefined;
-    }
+  switch (length) {
+    case 0.125:
+      return NoteDuration.ThirtySecond;
+    case 0.25:
+      return NoteDuration.Sixteenth;
+    case 0.5:
+      NoteDuration.Eighth;
+    case 1:
+      return NoteDuration.Quarter;
+    case 2:
+      return NoteDuration.Half;
+    case 4:
+      return NoteDuration.Whole;
+
+    default:
+      const baseLength = (duration / 3) * 2;
+      return getNotationBaseDuration(baseLength, subdivisions);
   }
 }
 

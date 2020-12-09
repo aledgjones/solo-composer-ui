@@ -1,6 +1,6 @@
 import { Track } from "../store/score-track/defs";
 import { NotationTrack } from "./notation-track";
-import { EntryType } from "../store/entries";
+import { EntryType } from "../store/entries/defs";
 import { splitNotationTrack } from "./split-notation-track";
 import { Tone } from "../store/entries/tone/defs";
 

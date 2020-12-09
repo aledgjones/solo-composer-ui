@@ -1,4 +1,4 @@
-import { Entry } from "../entries";
+import { Entry } from "../entries/defs";
 
 export interface Entries {
   by_tick: { [tick: number]: string[] };

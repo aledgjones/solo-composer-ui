@@ -1,4 +1,4 @@
-import { Entry, EntryType, Pitch } from "..";
+import { Entry, EntryType, Pitch } from "../defs";
 
 export enum ClefDrawType {
   Hidden,

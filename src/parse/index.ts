@@ -25,6 +25,8 @@ import { debugTick } from "./debug-tick";
 import { drawKeySignatures } from "./draw-key-signatures";
 import { drawClefs } from "./draw-clefs";
 import { drawTempi } from "./draw-tempi";
+import { getToneVerticalOffsets } from "./get-tone-vertical-offsets";
+import { drawNoteheads } from "./draw-noteheads";
 
 export async function parse(
   score: Score,
@@ -55,6 +57,8 @@ export async function parse(
   const barlines = getFirstBeats(flow);
   const notation = getWrittenDurations(staves, flow, barlines);
 
+  // note vertical offsets
+  const toneVerticalOffsets = getToneVerticalOffsets(staves);
   // stem directions
   // note shunts
   // beams/tails
@@ -92,7 +96,8 @@ export async function parse(
     ...drawClefs(x, y, staves, flow, verticalSpacing, horizontalSpacing),
     ...drawTimeSignatures(x, y, staves, flow, verticalSpacing, horizontalSpacing),
     ...drawKeySignatures(x, y, staves, flow, verticalSpacing, horizontalSpacing),
-    ...drawTempi(x, y, flow, horizontalSpacing, config)
+    ...drawTempi(x, y, flow, horizontalSpacing, config),
+    ...drawNoteheads(x, y, staves, notation, horizontalSpacing, verticalSpacing, toneVerticalOffsets, flow.subdivisions)
   );
 
   if (debug) {

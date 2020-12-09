@@ -2,7 +2,7 @@ import { remove_entry, insert_entry, move_entry } from "../../score-track/utils"
 import { store } from "../../use-store";
 import { create_tone } from "./utils";
 import { Tone } from "./defs";
-import { Pitch, Articulation } from "..";
+import { Pitch, Articulation } from "../defs";
 
 export const toneActions = {
   /**

@@ -8,7 +8,7 @@ import { measureBarlineBounds } from "../store/entries/barline/utils";
 import { getextrasAtTick } from "./get-extras-at-tick";
 import { getBarlineDrawTypeAtTick } from "./get-barline-draw-type-at-tick";
 import { Stave } from "../store/score-stave/defs";
-import { EntryType } from "../store/entries";
+import { EntryType } from "../store/entries/defs";
 import { measureClefBounds } from "../store/entries/clef/utils";
 import { Clef } from "../store/entries/clef/defs";
 
@@ -45,7 +45,7 @@ export function measureTick(
     0.0,
     0.0,
     0.0,
-    0.3, // TODO: remove static spacing
+    0.4, // TODO: remove static spacing
     0.0,
   ];
 

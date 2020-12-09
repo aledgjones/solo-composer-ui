@@ -1,5 +1,5 @@
 import { AbsoluteTempo } from "./defs";
-import { NoteDuration, DottedValue, EntryType } from "..";
+import { NoteDuration, DottedValue, EntryType } from "../defs";
 import shortid from "shortid";
 import { EngravingConfig } from "../../score-engraving/defs";
 import { Align, buildText, TextStyles } from "../../../render/text";

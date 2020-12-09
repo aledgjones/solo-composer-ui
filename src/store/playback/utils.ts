@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from "react";
 import { Transport, Tick, Player } from "solo-composer-scheduler";
 import { TimeSignature } from "../entries/time-signature/defs";
-import { Entry, EntryType, NoteDuration } from "../entries";
+import { Entry, EntryType, NoteDuration } from "../entries/defs";
 import { duration_to_ticks, distance_from_barline } from "../entries/time-signature/utils";
 import { useStore } from "../use-store";
 

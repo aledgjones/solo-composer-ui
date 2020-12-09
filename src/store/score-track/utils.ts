@@ -1,5 +1,5 @@
 import { Track } from "./defs";
-import { Entry } from "../entries";
+import { Entry } from "../entries/defs";
 import shortid from "shortid";
 
 export function create_track(key: string = shortid()): Track {
