@@ -7,7 +7,6 @@ import { AutoCountStyle } from "../../store/score-config/defs";
 import { actions } from "../../store/actions";
 
 import "../generic-settings.css";
-import "./styles.css";
 
 enum Page {
   AutoNumbering,
@@ -22,7 +21,7 @@ export const SetupSettings = Dialog<Props>(({ onClose }) => {
   const config = useStore((s) => s.score.config);
 
   return (
-    <div className="setup-settings">
+    <div className="setup-settings generic-settings">
       <div className="generic-settings__content">
         <div className="generic-settings__left-panel">
           <MenuItem selected={page === Page.AutoNumbering} onClick={() => setPage(Page.AutoNumbering)}>

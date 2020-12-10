@@ -29,28 +29,30 @@ export function drawBrackets(
 
     const start = spacing.instruments[bracket.start];
     const stop = spacing.instruments[bracket.stop];
-
-    const isWing = config.bracketEndStyle === BracketEndStyle.Wing;
-    const isLine = config.bracketEndStyle === BracketEndStyle.Line;
-    const tweekForWing = isWing ? 0.3125 : 0; // .25 + .0625;
+    const tweekForWing = 0.3125; // .25 + .0625;
     const tweekForStave = 0.0625;
 
-    const top = y + start.y - tweekForStave - tweekForWing;
-    const bottom = y + stop.y + stop.height + tweekForStave + tweekForWing;
+    const top = y + start.y;
+    const bottom = y + stop.y + stop.height;
 
-    // vertical thick line shard with all styles
-    out.push(
-      buildPath(`${bracket.start}-vertical-bar`, thick, [left, top - tweekForStave], [left, bottom + tweekForStave])
-    );
-
-    if (isLine) {
+    if (config.bracketEndStyle === BracketEndStyle.None) {
       out.push(
+        // thick line
+        buildPath(`${bracket.start}-vertical-bar`, thick, [left, top - tweekForStave], [left, bottom + tweekForStave])
+      );
+    }
+
+    if (config.bracketEndStyle === BracketEndStyle.Line) {
+      out.push(
+        // thick line
+        buildPath(`${bracket.start}-vertical-bar`, thick, [left, top - tweekForStave], [left, bottom + tweekForStave]),
+        // thin lines
         buildPath(`${bracket.start}-cap--top`, thin, [left - 0.25, top], [x, top]),
         buildPath(`${bracket.start}-cap--bottom`, thin, [left - 0.25, bottom], [x, bottom])
       );
     }
 
-    if (isWing) {
+    if (config.bracketEndStyle === BracketEndStyle.Wing) {
       const capLeft = x - 1.0;
       const glyphTop = "\u{E003}";
       const glyphBottom = "\u{E004}";
@@ -62,8 +64,11 @@ export function drawBrackets(
         size: 4,
       };
       out.push(
-        buildText(`${bracket.start}-wing--top`, styles, capLeft, top, glyphTop),
-        buildText(`${bracket.start}-wing--bottom`, styles, capLeft, bottom, glyphBottom)
+        // thick line
+        buildPath(`${bracket.start}-vertical-bar`, thick, [left, top - tweekForWing], [left, bottom + tweekForWing]),
+        // wings
+        buildText(`${bracket.start}-wing--top`, styles, capLeft, top - tweekForWing, glyphTop),
+        buildText(`${bracket.start}-wing--bottom`, styles, capLeft, bottom + tweekForWing, glyphBottom)
       );
     }
 

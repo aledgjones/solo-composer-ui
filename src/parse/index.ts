@@ -37,7 +37,8 @@ export async function parse(
   const drawInstructions: Instruction<any>[] = [];
 
   const flow = score.flows.by_key[flow_key];
-  const config = defaultEngravingConfig(LayoutType.Score);
+  // TODO: make this specific to the part type
+  const config = Object.values(score.engraving).find((c) => c.type === LayoutType.Score);
   const { px, mm, spaces } = getConverter(px_per_mm, config.space, 2);
   const staves = getStavesAsArray(score.players, score.instruments, flow);
 

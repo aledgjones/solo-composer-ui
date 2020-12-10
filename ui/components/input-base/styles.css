@@ -32,7 +32,7 @@
   border: 1px solid var(--primary-bg);
 }
 
-.ui-input--error .ui-input__display {
+.ui-input--error .ui-input__container {
   border: 1px dashed var(--error);
 }
 
