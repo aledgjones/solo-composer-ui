@@ -1,4 +1,4 @@
-import { CSSProperties } from "react";
+import { CSSProperties, KeyboardEvent } from "react";
 import { Error } from "../../utils/error";
 
 interface InputBaseProps {
@@ -12,6 +12,7 @@ interface InputBaseProps {
   onChange: (value: any) => void;
   onBlur?: () => void;
   onFocus?: () => void;
+  onKeyDown?: (e: KeyboardEvent<HTMLInputElement>) => void;
 }
 
 export interface InternalInputBaseProps extends InputBaseProps {

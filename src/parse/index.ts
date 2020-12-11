@@ -1,6 +1,5 @@
 import { RenderInstructions, Instruction } from "../render/instructions";
 import { LayoutType } from "../store/defs";
-import { defaultEngravingConfig } from "../store/score-engraving/utils";
 import { getConverter } from "./converter";
 import { Score } from "../store/score/defs";
 import { getCounts } from "../store/score-instrument/utils";
@@ -28,12 +27,7 @@ import { drawTempi } from "./draw-tempi";
 import { getToneVerticalOffsets } from "./get-tone-vertical-offsets";
 import { drawNoteheads } from "./draw-noteheads";
 
-export async function parse(
-  score: Score,
-  flow_key: string,
-  px_per_mm: number,
-  debug: boolean
-): Promise<RenderInstructions> {
+export function parse(score: Score, flow_key: string, px_per_mm: number, debug: boolean): RenderInstructions {
   const drawInstructions: Instruction<any>[] = [];
 
   const flow = score.flows.by_key[flow_key];
@@ -64,7 +58,12 @@ export async function parse(
   // note shunts
   // beams/tails
 
-  const { horizontalSpacing, width } = measureHorizontalSpacing(staves, flow, barlines, notation);
+  const horizontalSpacing = measureHorizontalSpacing(staves, flow, barlines, notation, config);
+
+  let width = 0;
+  for (let tick = 0; tick < flow.length; tick++) {
+    width += horizontalSpacing[tick].reduceRight((out, val) => out + val, 0);
+  }
 
   drawInstructions.push(
     ...drawNames(

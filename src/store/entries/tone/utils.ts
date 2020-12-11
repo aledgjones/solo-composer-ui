@@ -2,8 +2,7 @@ import { Pitch, Articulation, EntryType, NoteDuration } from "../defs";
 import shortid from "shortid";
 import { Tone } from "./defs";
 import { Align, buildText, Justify, TextStyles } from "../../../render/text";
-import { Instruction } from "../../../render/instructions";
-import { getNotationBaseDuration } from "../../../parse/notation-track";
+import { getBaseDuration } from "../../../parse/notation-track";
 
 export function create_tone(
   tick: number,
@@ -55,7 +54,7 @@ export function drawNotehead(
     size: 4,
     font: `Bravura`,
   };
-  const baseDuration = getNotationBaseDuration(duration, subdivisions);
+  const baseDuration = getBaseDuration(duration, subdivisions);
   const glyph = glyphFromDuration(baseDuration);
   return buildText(`${key}-head`, styles, x, y + offset / 2, glyph);
 }

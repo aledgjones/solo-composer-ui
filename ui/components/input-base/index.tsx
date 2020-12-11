@@ -18,6 +18,7 @@ export const InputBase: FC<InternalInputBaseProps> = ({
   onChange,
   onBlur,
   onFocus,
+  onKeyDown,
   children,
 }) => {
   const [focus, setFocus] = useState<boolean>(false);
@@ -65,6 +66,7 @@ export const InputBase: FC<InternalInputBaseProps> = ({
           onChange={_onChange}
           onFocus={_onFocus}
           onBlur={_onBlur}
+          onKeyDown={onKeyDown}
         />
         {children}
       </div>

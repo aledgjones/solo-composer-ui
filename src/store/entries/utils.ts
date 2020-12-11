@@ -38,7 +38,7 @@ export function pitchToParts(pitch: Pitch): [string, Accidental, number] {
   return [letter, pitch.accidental, octave];
 }
 
-/** returns the visual distance between to tones */
+/** returns the visual distance between two tones */
 export function getStepsBetweenPitches(pitchA: Pitch, pitchB: Pitch) {
   const LETTERS = ["C", "D", "E", "F", "G", "A", "B"];
   const [pitchANote, _accidentalA, pitchAOctave] = pitchToParts(pitchA);

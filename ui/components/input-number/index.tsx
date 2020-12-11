@@ -1,4 +1,4 @@
-import { FC, useCallback, useState, useEffect } from "react";
+import { FC, useCallback, useState, useEffect, KeyboardEvent } from "react";
 import { mdiChevronUp, mdiChevronDown } from "@mdi/js";
 import Big from "big.js";
 
@@ -94,6 +94,24 @@ export const InputNumber: FC<NumberInputProps> = ({
     }
   }, [step, value, display, error, precision, onChange]);
 
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLInputElement>) => {
+      switch (e.key) {
+        case "ArrowUp":
+          e.preventDefault();
+          onIncrease();
+          break;
+        case "ArrowDown":
+          e.preventDefault();
+          onDecrease();
+          break;
+        default:
+          break;
+      }
+    },
+    [onIncrease, onDecrease]
+  );
+
   return (
     <InputBase
       display={display}
@@ -102,6 +120,7 @@ export const InputNumber: FC<NumberInputProps> = ({
       validate={validate}
       onBlur={_onBlur}
       onChange={setDisplay}
+      onKeyDown={onKeyDown}
       {...props}
     >
       {units && <p className="ui-input-number__units">{units}</p>}

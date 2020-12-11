@@ -36,7 +36,9 @@ export interface EngravingConfig {
   bracketSingleStaves: boolean;
   subBracket: boolean;
 
-  minNoteSpacing: Spaces;
+  baseNoteSpace: Spaces;
+  minNoteSpace: Spaces;
+  noteSpaceRatio: number;
 
   finalBarlineType: BarlineDrawType;
 }

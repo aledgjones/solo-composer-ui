@@ -27,27 +27,8 @@ export type HorizontalSpacing = [
   number // Padding
 ];
 
-export function measureTick(
-  tick: number,
-  staves: Stave[],
-  flow: Flow,
-  isFirstBeat: boolean,
-  notationTracks: NotationTracks
-) {
-  const measurements: HorizontalSpacing = [
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.0,
-    0.4, // TODO: remove static spacing
-    0.0,
-  ];
+export function measureTick(tick: number, staves: Stave[], flow: Flow, isFirstBeat: boolean, notation: NotationTracks) {
+  const measurements: HorizontalSpacing = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 
   if (tick === 0) {
     // systemic barline spacing on first tick

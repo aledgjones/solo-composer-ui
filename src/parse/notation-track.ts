@@ -1,4 +1,3 @@
-import { Switch } from "../../ui";
 import { NoteDuration } from "../store/entries/defs";
 import { Tone } from "../store/entries/tone/defs";
 
@@ -40,7 +39,7 @@ export function getNearestNotationToTick(
   }
 }
 
-export function getNotationBaseDuration(duration: number, subdivisions: number): NoteDuration {
+export function getBaseDuration(duration: number, subdivisions: number): NoteDuration {
   const length = duration / subdivisions;
   switch (length) {
     case 0.125:
@@ -48,7 +47,7 @@ export function getNotationBaseDuration(duration: number, subdivisions: number):
     case 0.25:
       return NoteDuration.Sixteenth;
     case 0.5:
-      NoteDuration.Eighth;
+      return NoteDuration.Eighth;
     case 1:
       return NoteDuration.Quarter;
     case 2:
@@ -58,7 +57,7 @@ export function getNotationBaseDuration(duration: number, subdivisions: number):
 
     default:
       const baseLength = (duration / 3) * 2;
-      return getNotationBaseDuration(baseLength, subdivisions);
+      return getBaseDuration(baseLength, subdivisions);
   }
 }
 

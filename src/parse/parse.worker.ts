@@ -22,7 +22,7 @@ interface Data {
   debug: boolean;
 }
 
-ctx.addEventListener("message", async (e) => {
+ctx.addEventListener("message", (e) => {
   const { mm, score, flow_key, debug } = e.data as Data;
   const taskID = shortid();
   latestTaskID = taskID;
@@ -31,7 +31,7 @@ ctx.addEventListener("message", async (e) => {
     performance.mark("start");
   }
 
-  const instructions = await parse(score, flow_key, mm, debug);
+  const instructions = parse(score, flow_key, mm, debug);
 
   if (debug) {
     performance.measure("parse", "start");
