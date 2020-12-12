@@ -30,7 +30,6 @@ export function measureHorizontalSpacing(
         engraving.minNoteSpace,
         engraving.noteSpaceRatio
       );
-      console.log(noteSpacing);
       const noteSpacingPerTick = noteSpacing / entry.duration;
       for (let i = tick; i < tick + entry.duration; i++) {
         if (noteSpacingPerTick > spacing[i][WidthOf.NoteSpacing]) {

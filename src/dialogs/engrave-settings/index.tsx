@@ -158,7 +158,7 @@ export const EngraveSettings = Dialog<Props>(({ onClose }) => {
                   value={engraving.baseNoteSpace}
                   precision={2}
                   step={0.01}
-                  units="mm"
+                  units="spaces"
                   onChange={(val: number) => actions.score.engraving.update(engraving.key, { baseNoteSpace: val })}
                 />
                 <Subheader subtle>Minium space for short notes</Subheader>
@@ -168,7 +168,7 @@ export const EngraveSettings = Dialog<Props>(({ onClose }) => {
                   value={engraving.minNoteSpace}
                   precision={2}
                   step={0.01}
-                  units="mm"
+                  units="spaces"
                   onChange={(val: number) => actions.score.engraving.update(engraving.key, { minNoteSpace: val })}
                 />
                 <Subheader subtle>Note space ratio</Subheader>
@@ -178,7 +178,6 @@ export const EngraveSettings = Dialog<Props>(({ onClose }) => {
                   value={engraving.noteSpaceRatio}
                   precision={2}
                   step={0.01}
-                  units="mm"
                   onChange={(val: number) => actions.score.engraving.update(engraving.key, { noteSpaceRatio: val })}
                 />
               </div>

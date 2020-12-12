@@ -4,19 +4,19 @@ import { getBaseDuration, getIsDotted } from "./notation-track";
 function getNoteSpaceScalingFromNoteDuration(base: NoteDuration, spacingRatio: number) {
   switch (base) {
     case NoteDuration.ThirtySecond:
-      return spacingRatio / 8;
+      return 1 / (spacingRatio * 4);
     case NoteDuration.Sixteenth:
-      return spacingRatio / 4;
+      return 1 / (spacingRatio * 2);
     case NoteDuration.Eighth:
-      return spacingRatio / 2;
+      return 1 / spacingRatio;
     case NoteDuration.Quarter:
       return 1;
-    case 2:
+    case NoteDuration.Half:
       return spacingRatio;
-    case 4:
+    case NoteDuration.Whole:
       return spacingRatio * 2;
     default:
-      1;
+      return 1;
   }
 }
 

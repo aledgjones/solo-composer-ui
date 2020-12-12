@@ -26,6 +26,7 @@ import { drawClefs } from "./draw-clefs";
 import { drawTempi } from "./draw-tempi";
 import { getToneVerticalOffsets } from "./get-tone-vertical-offsets";
 import { drawNoteheads } from "./draw-noteheads";
+import { getNoteSpacing } from "./get-note-spacing";
 
 export function parse(score: Score, flow_key: string, px_per_mm: number, debug: boolean): RenderInstructions {
   const drawInstructions: Instruction<any>[] = [];
@@ -64,6 +65,27 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
   for (let tick = 0; tick < flow.length; tick++) {
     width += horizontalSpacing[tick].reduceRight((out, val) => out + val, 0);
   }
+
+  console.log("");
+  console.log("base:", config.baseNoteSpace);
+  console.log("ratio", config.noteSpaceRatio);
+  console.log("--");
+  console.log(
+    "half:",
+    getNoteSpacing(32, flow.subdivisions, config.baseNoteSpace, config.minNoteSpace, config.noteSpaceRatio)
+  );
+  console.log(
+    "quarter:",
+    getNoteSpacing(16, flow.subdivisions, config.baseNoteSpace, config.minNoteSpace, config.noteSpaceRatio)
+  );
+  console.log(
+    "eighth:",
+    getNoteSpacing(8, flow.subdivisions, config.baseNoteSpace, config.minNoteSpace, config.noteSpaceRatio)
+  );
+  console.log(
+    "sixteenth:",
+    getNoteSpacing(4, flow.subdivisions, config.baseNoteSpace, config.minNoteSpace, config.noteSpaceRatio)
+  );
 
   drawInstructions.push(
     ...drawNames(

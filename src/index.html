@@ -6,18 +6,6 @@
     <meta name="description" content="Solo composer - Music notation everywhere" />
 
     <title>Solo Composer</title>
-
-    <link rel="preload" href="./fonts/roboto.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="./fonts/roboto-ext.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="./fonts/libre-baskerville.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link
-      rel="preload"
-      href="./fonts/libre-baskerville-ext.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin="anonymous"
-    />
-    <link rel="preload" href="./fonts/bravura.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link href="./fonts/styles.css" rel="stylesheet" />
 
     <link rel="manifest" href="./site.webmanifest" />
@@ -33,6 +21,11 @@
   </head>
   <body>
     <noscript>Please enable javascript to use this app.</noscript>
+    <div class="shit-font-preload" style="visibility: hidden">
+      <span style="font-family: Roboto"></span>
+      <span style="font-family: 'Libre Baskerville'"></span>
+      <span style="font-family: Bravura"></span>
+    </div>
     <div id="root"></div>
     <script defer src="./index.tsx"></script>
 
