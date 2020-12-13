@@ -8,8 +8,7 @@ import { Flow } from "../store/score-flow/defs";
 import { Stave } from "../store/score-stave/defs";
 import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
-import { measureWidthUpto } from "./measure-width-upto";
-import { WidthOf } from "./sum-width-up-to";
+import { measureWidthUpto, WidthOf } from "./measure-width-upto";
 
 export function drawKeySignatures(
   x: number,
@@ -27,7 +26,7 @@ export function drawKeySignatures(
       clef = (get_entries_at_tick(tick, stave.master, EntryType.Clef)[0] as Clef) || clef;
       const key = get_entries_at_tick(tick, flow.master, EntryType.KeySignature)[0] as KeySignature;
       if (key && clef) {
-        const left = measureWidthUpto(horizontalSpacing, tick, WidthOf.KeySignature);
+        const left = measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.KeySignature);
         instructions.push(
           ...drawKeySignature(x + left, y + vertical_spacing.staves[stave.key].y, clef, key, stave.key)
         );

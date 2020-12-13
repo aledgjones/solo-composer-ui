@@ -26,7 +26,7 @@ import { drawClefs } from "./draw-clefs";
 import { drawTempi } from "./draw-tempi";
 import { getToneVerticalOffsets } from "./get-tone-vertical-offsets";
 import { drawNoteheads } from "./draw-noteheads";
-import { getNoteSpacing } from "./get-note-spacing";
+import { drawRests } from "./draw-rests";
 
 export function parse(score: Score, flow_key: string, px_per_mm: number, debug: boolean): RenderInstructions {
   const drawInstructions: Instruction<any>[] = [];
@@ -55,9 +55,9 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
 
   // note vertical offsets
   const toneVerticalOffsets = getToneVerticalOffsets(staves);
+  // beams/tails
   // stem directions
   // note shunts
-  // beams/tails
 
   const horizontalSpacing = measureHorizontalSpacing(staves, flow, barlines, notation, config);
 
@@ -98,6 +98,7 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
     ...drawTimeSignatures(x, y, staves, flow, verticalSpacing, horizontalSpacing),
     ...drawKeySignatures(x, y, staves, flow, verticalSpacing, horizontalSpacing),
     ...drawTempi(x, y, flow, horizontalSpacing, config),
+    ...drawRests(x, y, staves, notation, horizontalSpacing, verticalSpacing, barlines, flow, config),
     ...drawNoteheads(x, y, staves, notation, horizontalSpacing, verticalSpacing, toneVerticalOffsets, flow.subdivisions)
   );
 

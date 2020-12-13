@@ -5,8 +5,7 @@ import { Stave } from "../store/score-stave/defs";
 import { getextrasAtTick } from "./get-extras-at-tick";
 import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
-import { measureWidthUpto } from "./measure-width-upto";
-import { WidthOf } from "./sum-width-up-to";
+import { measureWidthUpto, WidthOf } from "./measure-width-upto";
 
 export function drawTimeSignatures(
   x: number,
@@ -22,7 +21,7 @@ export function drawTimeSignatures(
   for (let tick = 0; tick < flow.length; tick++) {
     const { time } = getextrasAtTick(tick, flow);
     if (time) {
-      const left = measureWidthUpto(horizontalSpacing, tick, WidthOf.TimeSignature);
+      const left = measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.TimeSignature);
       staves.forEach((stave) => {
         instructions.push(...drawTimeSignature(x + left, y + vertical_spacing.staves[stave.key].y, time, stave.key));
       });

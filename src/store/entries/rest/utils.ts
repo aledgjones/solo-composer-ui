@@ -1,0 +1,56 @@
+import { NoteDuration } from "../defs";
+import { Align, buildText, Justify, TextStyles } from "../../../render/text";
+import { getBaseDuration } from "../../../parse/notation-track";
+import { getNoteSpacing } from "../../../parse/get-note-spacing";
+import { EngravingConfig } from "../../score-engraving/defs";
+
+export function glyphFromDuration(baseLength?: NoteDuration) {
+  switch (baseLength) {
+    case NoteDuration.ThirtySecond:
+      return "\u{E4E8}";
+    case NoteDuration.Sixteenth:
+      return "\u{E4E7}";
+    case NoteDuration.Eighth:
+      return "\u{E4E6}";
+    case NoteDuration.Quarter:
+      return "\u{E4E5}";
+    case NoteDuration.Half:
+      return "\u{E4E4}";
+    case NoteDuration.Whole:
+      return "\u{E4E3}";
+    default:
+      return undefined;
+  }
+}
+
+export function drawRest(
+  x: number,
+  y: number,
+  duration: number,
+  subdivisions: number,
+  isFullBar: boolean,
+  engraving: EngravingConfig,
+  key: string
+) {
+  const styles: TextStyles = {
+    color: "#000000",
+    justify: Justify.Start,
+    align: Align.Middle,
+    size: 4,
+    font: `Bravura`,
+  };
+  if (isFullBar) {
+    const barWidth = getNoteSpacing(
+      duration,
+      subdivisions,
+      engraving.baseNoteSpace,
+      engraving.minNoteSpace,
+      engraving.noteSpaceRatio
+    );
+    return buildText(key, styles, x + barWidth / 2 - 0.5, y - 1, "\u{E4E3}");
+  } else {
+    const baseDuration = getBaseDuration(duration, subdivisions);
+    const glyph = glyphFromDuration(baseDuration);
+    return buildText(key, styles, x, y, glyph);
+  }
+}

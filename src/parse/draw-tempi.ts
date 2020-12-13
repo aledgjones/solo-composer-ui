@@ -7,8 +7,7 @@ import { TimeSignature } from "../store/entries/time-signature/defs";
 import { get_entries_at_tick } from "../store/entries/time-signature/utils";
 import { Flow } from "../store/score-flow/defs";
 import { HorizontalSpacing } from "./measure-tick";
-import { measureWidthUpto } from "./measure-width-upto";
-import { WidthOf } from "./sum-width-up-to";
+import { measureWidthUpto, WidthOf } from "./measure-width-upto";
 
 export function drawTempi(
   x: number,
@@ -25,7 +24,7 @@ export function drawTempi(
     if (tempo) {
       // Behind Bars p183
       const upto = time ? WidthOf.TimeSignature : WidthOf.StartRepeat;
-      const left = x + measureWidthUpto(horizontalSpacing, tick, upto);
+      const left = x + measureWidthUpto(horizontalSpacing, 0, tick, upto);
       instructions.push(drawAbsoluteTempo(left, y, tempo, config));
     }
   }

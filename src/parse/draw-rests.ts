@@ -1,21 +1,23 @@
 import { Instruction } from "../render/instructions";
-import { drawNotehead } from "../store/entries/tone/utils";
+import { EngravingConfig } from "../store/defs";
+import { drawRest } from "../store/entries/rest/utils";
+import { Flow } from "../store/score-flow/defs";
 import { Stave } from "../store/score-stave/defs";
-import { ToneVerticalOffsets } from "./get-tone-vertical-offsets";
 import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
 import { measureWidthUpto, WidthOf } from "./measure-width-upto";
 import { NotationTracks } from "./notation-track";
 
-export function drawNoteheads(
+export function drawRests(
   x: number,
   y: number,
   staves: Stave[],
   notation: NotationTracks,
   horizontalSpacing: { [tick: number]: HorizontalSpacing },
   verticalSpacing: VerticalSpacing,
-  toneVerticalOffsets: ToneVerticalOffsets,
-  subdivisions: number
+  barlines: Set<number>,
+  flow: Flow,
+  engraving: EngravingConfig
 ) {
   const instructions: Instruction<any>[] = [];
 
@@ -26,12 +28,15 @@ export function drawNoteheads(
       const ticks = Object.keys(track).map((t) => parseInt(t));
       ticks.forEach((tick) => {
         const entry = track[tick];
-        const left = x + measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.NoteSlot);
-        entry.tones.forEach((tone) => {
+
+        if (entry.tones.length === 0) {
+          const isFullBar =
+            (barlines.has(tick) && barlines.has(tick + entry.duration)) || tick + entry.duration === flow.length;
+          const left = x + measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.NoteSlot);
           instructions.push(
-            drawNotehead(left, top, entry.duration, toneVerticalOffsets[tone.key], subdivisions, tone.key + tick)
+            drawRest(left, top, entry.duration, flow.subdivisions, isFullBar, engraving, `rest-${trackKey}-${tick}`)
           );
-        });
+        }
       });
     });
   });

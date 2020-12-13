@@ -64,7 +64,7 @@ export const Renderer: FC<Props> = memo(({ className, children }) => {
                 const text = instruction as TextInstruction;
                 return (
                   <foreignObject
-                    className="renderer__entry--text"
+                    className="renderer__entry--text no-scroll"
                     key={text.key}
                     x={text.x * space}
                     y={text.y * space}

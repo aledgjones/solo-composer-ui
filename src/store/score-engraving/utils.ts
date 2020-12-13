@@ -33,9 +33,9 @@ export function defaultEngravingConfig(type: LayoutType): EngravingConfig {
     bracketSingleStaves: false,
     subBracket: true,
 
-    baseNoteSpace: 4,
-    minNoteSpace: 1.6,
-    noteSpaceRatio: 1.41,
+    baseNoteSpace: 3.5,
+    minNoteSpace: 0.6,
+    noteSpaceRatio: 1.62,
 
     finalBarlineType: BarlineDrawType.Final,
   };

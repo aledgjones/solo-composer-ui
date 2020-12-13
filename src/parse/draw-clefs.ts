@@ -7,8 +7,7 @@ import { Flow } from "../store/score-flow/defs";
 import { Stave } from "../store/score-stave/defs";
 import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
-import { measureWidthUpto } from "./measure-width-upto";
-import { WidthOf } from "./sum-width-up-to";
+import { measureWidthUpto, WidthOf } from "./measure-width-upto";
 
 export function drawClefs(
   x: number,
@@ -24,7 +23,7 @@ export function drawClefs(
     for (let tick = 0; tick < flow.length; tick++) {
       const clef = get_entries_at_tick(tick, stave.master, EntryType.Clef)[0] as Clef;
       if (clef) {
-        const left = measureWidthUpto(horizontalSpacing, tick, WidthOf.Clef);
+        const left = measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.Clef);
         instructions.push(drawClef(x + left, y + vertical_spacing.staves[stave.key].y, clef));
       }
     }

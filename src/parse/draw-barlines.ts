@@ -9,8 +9,7 @@ import { getextrasAtTick } from "./get-extras-at-tick";
 import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
 import { VerticalSpans } from "./measure-vertical-spans";
-import { measureWidthUpto } from "./measure-width-upto";
-import { WidthOf } from "./sum-width-up-to";
+import { measureWidthUpto, WidthOf } from "./measure-width-upto";
 
 export function drawBarlines(
   x: number,
@@ -49,7 +48,7 @@ export function drawBarlines(
     if (drawTypeAtTick.endRepeat) {
       instructions.push(
         ...drawBarline(
-          x + measureWidthUpto(horizontalSpacing, tick, WidthOf.EndRepeat),
+          x + measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.EndRepeat),
           y,
           staves,
           vertical_spacing,
@@ -63,7 +62,7 @@ export function drawBarlines(
     if (drawTypeAtTick.draw_type) {
       instructions.push(
         ...drawBarline(
-          x + measureWidthUpto(horizontalSpacing, tick, WidthOf.Barline),
+          x + measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.Barline),
           y,
           staves,
           vertical_spacing,
@@ -77,7 +76,7 @@ export function drawBarlines(
     if (drawTypeAtTick.startRepeat) {
       instructions.push(
         ...drawBarline(
-          x + measureWidthUpto(horizontalSpacing, tick, WidthOf.StartRepeat),
+          x + measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.StartRepeat),
           y,
           staves,
           vertical_spacing,
