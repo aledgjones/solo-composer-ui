@@ -1,8 +1,6 @@
 import { NoteDuration } from "../defs";
 import { Align, buildText, Justify, TextStyles } from "../../../render/text";
 import { getBaseDuration } from "../../../parse/notation-track";
-import { getNoteSpacing } from "../../../parse/get-note-spacing";
-import { EngravingConfig } from "../../score-engraving/defs";
 
 export function glyphFromDuration(baseLength?: NoteDuration) {
   switch (baseLength) {
@@ -29,7 +27,6 @@ export function drawRest(
   duration: number,
   subdivisions: number,
   isFullBar: boolean,
-  engraving: EngravingConfig,
   key: string
 ) {
   const styles: TextStyles = {
@@ -40,14 +37,7 @@ export function drawRest(
     font: `Bravura`,
   };
   if (isFullBar) {
-    const barWidth = getNoteSpacing(
-      duration,
-      subdivisions,
-      engraving.baseNoteSpace,
-      engraving.minNoteSpace,
-      engraving.noteSpaceRatio
-    );
-    return buildText(key, styles, x + barWidth / 2 - 0.5, y - 1, "\u{E4E3}");
+    return buildText(key, styles, x, y - 1, "\u{E4E3}");
   } else {
     const baseDuration = getBaseDuration(duration, subdivisions);
     const glyph = glyphFromDuration(baseDuration);

@@ -1,3 +1,4 @@
+import { buildBox } from "../render/box";
 import { Instruction } from "../render/instructions";
 import { EngravingConfig } from "../store/defs";
 import { drawRest } from "../store/entries/rest/utils";
@@ -16,8 +17,7 @@ export function drawRests(
   horizontalSpacing: { [tick: number]: HorizontalSpacing },
   verticalSpacing: VerticalSpacing,
   barlines: Set<number>,
-  flow: Flow,
-  engraving: EngravingConfig
+  flow: Flow
 ) {
   const instructions: Instruction<any>[] = [];
 
@@ -28,14 +28,20 @@ export function drawRests(
       const ticks = Object.keys(track).map((t) => parseInt(t));
       ticks.forEach((tick) => {
         const entry = track[tick];
-
         if (entry.tones.length === 0) {
           const isFullBar =
             (barlines.has(tick) && barlines.has(tick + entry.duration)) || tick + entry.duration === flow.length;
-          const left = x + measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.NoteSlot);
-          instructions.push(
-            drawRest(left, top, entry.duration, flow.subdivisions, isFullBar, engraving, `rest-${trackKey}-${tick}`)
-          );
+          if (isFullBar) {
+            const end = measureWidthUpto(horizontalSpacing, 0, tick + entry.duration - 1, WidthOf.PaddingEnd);
+            const start = measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.NoteSlot);
+            const left = x + start + (end - start) / 2 - 1;
+            instructions.push(drawRest(left, top, entry.duration, flow.subdivisions, true, `rest-${trackKey}-${tick}`));
+          } else {
+            const left = x + measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.NoteSlot);
+            instructions.push(
+              drawRest(left, top, entry.duration, flow.subdivisions, false, `rest-${trackKey}-${tick}`)
+            );
+          }
         }
       });
     });

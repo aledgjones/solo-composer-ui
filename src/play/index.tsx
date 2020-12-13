@@ -7,7 +7,7 @@ import { PlayHead } from "./play-head";
 import { Ticks } from "./ticks";
 import { useStore } from "../store/use-store";
 import { useCounts } from "../store/score-instrument/hooks";
-import { useTicks } from "../store/score-flow/utils";
+import { useTicks } from "../store/score-flow/hooks";
 import { actions } from "../store/actions";
 import { Tool } from "../store/ui/defs";
 import { NoteDuration } from "../store/entries/defs";

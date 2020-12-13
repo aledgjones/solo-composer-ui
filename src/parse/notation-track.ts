@@ -39,7 +39,12 @@ export function getNearestNotationToTick(
   }
 }
 
-export function getBaseDuration(duration: number, subdivisions: number): NoteDuration {
+export function getBaseDuration(duration: number, subdivisions: number, itr: number = 1): NoteDuration {
+  if (itr > 3) {
+    console.log("fail");
+    debugger;
+    return NoteDuration.Whole;
+  }
   const length = duration / subdivisions;
   switch (length) {
     case 0.125:
@@ -57,7 +62,7 @@ export function getBaseDuration(duration: number, subdivisions: number): NoteDur
 
     default:
       const baseLength = (duration / 3) * 2;
-      return getBaseDuration(baseLength, subdivisions);
+      return getBaseDuration(baseLength, subdivisions, itr + 1);
   }
 }
 
