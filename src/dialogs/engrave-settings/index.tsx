@@ -189,13 +189,7 @@ export const EngraveSettings = Dialog<Props>(({ onClose }) => {
               <div className="generic-settings__section">
                 <Subheader>Space Size</Subheader>
                 <div className="generic-settings__input-with-img">
-                  <img
-                    alt="Stave spacing"
-                    src={staveSpace}
-                    className="generic-settings__example"
-                    height="84"
-                    width="95"
-                  />
+                  <img alt="Stave spacing" src={staveSpace} className="generic-settings__example" width="95" />
                   <Input
                     required
                     type="number"

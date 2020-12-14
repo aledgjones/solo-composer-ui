@@ -488,185 +488,115 @@ it("renders correctly - 4/4 [m.c]", () => {
   expect(log).toBe("o----------------------------------------------¬o--------------¬");
 });
 
-// i++;
+it("renders correctly - 4/4 [sq._c_m]", () => {
+  const sq = 4;
+  const len = sq * 16;
+  const log = parse(len, create_time_signature(0, 4, NoteDuration.Quarter, TimeSignatureDrawType.Regular), [
+    create_tone(0, sq, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(sq, sq * 15, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+  ]);
 
-// it(i + ". " + "renders correctly - 4/4 [sq._c_m]", () => {
-//   const sq = 3;
-//   const len = sq * 16;
+  expect(log).toBe("o--¬o___________o_______________o------------------------------¬");
+});
 
-//   const flow = createTrack([createTimeSignature({ beats: 4, beatType: 4, groupings: getDefaultGroupings(4) }, 0)]);
+it("renders correctly - 4/4 [qc._qcq]", () => {
+  const q = 8;
+  const len = q * 8;
+  const log = parse(len, create_time_signature(0, 4, NoteDuration.Quarter, TimeSignatureDrawType.Regular), [
+    create_tone(0, q, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(q, q * 4, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(q * 5, q * 2, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(q * 7, q, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+  ]);
 
-//   const track = createTrack([
-//     createTone({ pitch: "C4", duration: sq * 1 }, 0),
-//     createTone({ pitch: "C4", duration: sq * 15 }, sq * 1),
-//   ]);
+  expect(log).toBe("o------¬o_______________________o------¬o--------------¬o------¬");
+});
 
-//   const log = parse(len, flow, track);
+it("renders correctly - 4/4 [qqqq_c.q]", () => {
+  const q = 8;
+  const len = q * 8;
+  const log = parse(len, create_time_signature(0, 4, NoteDuration.Quarter, TimeSignatureDrawType.Regular), [
+    create_tone(0, q, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(q, q, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(q * 2, q, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(q * 3, q * 4, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(q * 7, q, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+  ]);
 
-//   expect(log).toBe("o-¬o________o___________o----------------------¬");
-// });
+  expect(log).toBe("o------¬o------¬o------¬o_______o----------------------¬o------¬");
+});
 
-// i++;
+it("renders correctly - 4/4 [m_c_q-]", () => {
+  const q = 8;
+  const len = q * 8;
+  const log = parse(len, create_time_signature(0, 4, NoteDuration.Quarter, TimeSignatureDrawType.Regular), [
+    create_tone(0, q * 7, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+  ]);
 
-// it(i + ". " + "renders correctly - 4/4 [qc._qcq]", () => {
-//   const q = 6;
-//   const len = q * 8;
+  expect(log).toBe("o_______________________________o_______________o------¬r------¬");
+});
 
-//   const flow = createTrack([createTimeSignature({ beats: 4, beatType: 4, groupings: getDefaultGroupings(4) }, 0)]);
+it("renders correctly - 4/4 [m.-]", () => {
+  const q = 8;
+  const len = q * 8;
+  const log = parse(len, create_time_signature(0, 4, NoteDuration.Quarter, TimeSignatureDrawType.Regular), [
+    create_tone(0, q * 6, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+  ]);
 
-//   const track = createTrack([
-//     createTone({ pitch: "C4", duration: q * 1 }, 0),
-//     createTone({ pitch: "C4", duration: q * 4 }, q * 1),
-//     createTone({ pitch: "C4", duration: q * 2 }, q * 5),
-//     createTone({ pitch: "C4", duration: q * 1 }, q * 7),
-//   ]);
+  expect(log).toBe("o----------------------------------------------¬r--------------¬");
+});
 
-//   const log = parse(len, flow, track);
+it("renders correctly - 4/4 [m_c.s-]", () => {
+  const sq = 4;
+  const len = sq * 16;
+  const log = parse(len, create_time_signature(0, 4, NoteDuration.Quarter, TimeSignatureDrawType.Regular), [
+    create_tone(0, sq * 14, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(sq * 14, sq, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+  ]);
 
-//   expect(log).toBe("o----¬o_________________o----¬o----------¬o----¬");
-// });
+  expect(log).toBe("o_______________________________o----------------------¬o--¬r--¬");
+});
 
-// i++;
+it("renders correctly - 4/4 [m_c.-s]", () => {
+  const sq = 4;
+  const len = sq * 16;
+  const log = parse(len, create_time_signature(0, 4, NoteDuration.Quarter, TimeSignatureDrawType.Regular), [
+    create_tone(0, sq * 14, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(sq * 15, sq, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+  ]);
 
-// it(i + ". " + "renders correctly - 4/4 [qqqq_c.q]", () => {
-//   const q = 6;
-//   const len = q * 8;
+  expect(log).toBe("o_______________________________o_______________o------¬r--¬o--¬");
+});
 
-//   const flow = createTrack([createTimeSignature({ beats: 4, beatType: 4, groupings: getDefaultGroupings(4) }, 0)]);
+it("renders correctly - 4/4 [-m.]", () => {
+  const q = 8;
+  const len = q * 8;
+  const log = parse(len, create_time_signature(0, 4, NoteDuration.Quarter, TimeSignatureDrawType.Regular), [
+    create_tone(q * 2, q * 6, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+  ]);
 
-//   const track = createTrack([
-//     createTone({ pitch: "C4", duration: q * 1 }, 0),
-//     createTone({ pitch: "C4", duration: q * 1 }, q * 1),
-//     createTone({ pitch: "C4", duration: q * 1 }, q * 2),
-//     createTone({ pitch: "C4", duration: q * 4 }, q * 3),
-//     createTone({ pitch: "C4", duration: q * 1 }, q * 7),
-//   ]);
+  expect(log).toBe("r--------------¬o----------------------------------------------¬");
+});
 
-//   const log = parse(len, flow, track);
+it("renders correctly - 4/4 [q.sc_c-]", () => {
+  const sq = 4;
+  const len = sq * 16;
+  const log = parse(len, create_time_signature(0, 4, NoteDuration.Quarter, TimeSignatureDrawType.Regular), [
+    create_tone(0, sq * 3, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(sq * 3, sq, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(sq * 4, sq * 8, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+  ]);
 
-//   expect(log).toBe("o----¬o----¬o----¬o_____o----------------¬o----¬");
-// });
+  expect(log).toBe("o----------¬o--¬o_______________o--------------¬r--------------¬");
+});
 
-// i++;
+it("renders correctly - 2/4 [sq._q.s]", () => {
+  const sq = 4;
+  const len = sq * 16;
+  const log = parse(len, create_time_signature(0, 2, NoteDuration.Quarter, TimeSignatureDrawType.Regular), [
+    create_tone(0, sq, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(sq, sq * 6, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+  ]);
 
-// it(i + ". " + "renders correctly - 4/4 [m_c_q-]", () => {
-//   const q = 6;
-//   const len = q * 8;
-
-//   const flow = createTrack([createTimeSignature({ beats: 4, beatType: 4, groupings: getDefaultGroupings(4) }, 0)]);
-
-//   const track = createTrack([createTone({ pitch: "C4", duration: q * 7 }, 0)]);
-
-//   const log = parse(len, flow, track);
-
-//   expect(log).toBe("o_______________________o___________o----¬r----¬");
-// });
-
-// i++;
-
-// it(i + ". " + "renders correctly - 4/4 [m.-]", () => {
-//   const q = 6;
-//   const len = q * 8;
-
-//   const flow = createTrack([createTimeSignature({ beats: 4, beatType: 4, groupings: getDefaultGroupings(4) }, 0)]);
-
-//   const track = createTrack([createTone({ pitch: "C4", duration: q * 6 }, 0)]);
-
-//   const log = parse(len, flow, track);
-
-//   expect(log).toBe("o----------------------------------¬r----------¬");
-// });
-
-// i++;
-
-// it(i + ". " + "renders correctly - 4/4 [m_c.s-]", () => {
-//   const q = 6;
-//   const sq = 3;
-//   const len = q * 8;
-
-//   const flow = createTrack([createTimeSignature({ beats: 4, beatType: 4, groupings: getDefaultGroupings(4) }, 0)]);
-
-//   const track = createTrack([
-//     createTone({ pitch: "C4", duration: q * 7 }, 0),
-//     createTone({ pitch: "C4", duration: sq }, q * 7),
-//   ]);
-
-//   const log = parse(len, flow, track);
-
-//   expect(log).toBe("o_______________________o----------------¬o-¬r-¬");
-// });
-
-// i++;
-
-// it(i + ". " + "renders correctly - 4/4 [m_c.-s]", () => {
-//   const q = 6;
-//   const sq = 3;
-//   const len = q * 8;
-
-//   const flow = createTrack([createTimeSignature({ beats: 4, beatType: 4, groupings: getDefaultGroupings(4) }, 0)]);
-
-//   const track = createTrack([
-//     createTone({ pitch: "C4", duration: q * 7 }, 0),
-//     createTone({ pitch: "C4", duration: sq }, q * 7 + sq),
-//   ]);
-
-//   const log = parse(len, flow, track);
-
-//   expect(log).toBe("o_______________________o___________o----¬r-¬o-¬");
-// });
-
-// i++;
-
-// it(i + ". " + "renders correctly - 4/4 [-m.]", () => {
-//   const q = 6;
-//   const len = q * 8;
-
-//   const flow = createTrack([createTimeSignature({ beats: 4, beatType: 4, groupings: getDefaultGroupings(4) }, 0)]);
-
-//   const track = createTrack([createTone({ pitch: "C4", duration: q * 6 }, q * 2)]);
-
-//   const log = parse(len, flow, track);
-
-//   expect(log).toBe("r----------¬o----------------------------------¬");
-// });
-
-// i++;
-
-// it(i + ". " + "renders correctly - 4/4 [q.sc_c-]", () => {
-//   const sq = 3;
-//   const q = 6;
-//   const len = q * 8;
-
-//   const flow = createTrack([createTimeSignature({ beats: 4, beatType: 4, groupings: getDefaultGroupings(4) }, 0)]);
-
-//   const track = createTrack([
-//     createTone({ pitch: "C4", duration: sq * 3 }, 0),
-//     createTone({ pitch: "C4", duration: sq * 1 }, sq * 3),
-//     createTone({ pitch: "C4", duration: q * 4 }, q * 2),
-//   ]);
-
-//   const log = parse(len, flow, track);
-
-//   expect(log).toBe("o-------¬o-¬o___________o----------¬r----------¬");
-// });
-
-// i++;
-
-// it(i + ". " + "renders correctly - 2/4 [sq._q.s]", () => {
-//   const sq = 3;
-//   const q = 6;
-//   const len = q * 8;
-
-//   const flow = createTrack([createTimeSignature({ beats: 4, beatType: 4, groupings: getDefaultGroupings(4) }, 0)]);
-
-//   const track = createTrack([
-//     createTone({ pitch: "C4", duration: sq }, 0),
-//     createTone({ pitch: "C4", duration: sq * 6 }, sq),
-//   ]);
-
-//   const log = parse(len, flow, track);
-
-//   expect(log).toBe("o-¬o________o-------¬r-¬r----------------------¬");
-// });
-
-// i++;
+  expect(log).toBe("o--¬o___________o----------¬r--¬r------------------------------¬");
+});
