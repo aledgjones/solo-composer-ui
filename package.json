@@ -1,10 +1,11 @@
 {
     "name": "solo-composer-ui",
-    "version": "0.8.29",
+    "version": "0.8.30",
     "description": "Music Notation Everywhere",
     "main": "./bootstrap.ts",
     "scripts": {
         "build": "json-bump package.json --patch && json-bump package-lock.json --patch && parcel build ./src/index.html",
+        "deploy": "npm run build && firebase deploy",
         "dev": "parcel ./src/index.html --port 3000",
         "test": "jest",
         "test:watch": "jest --watch"
