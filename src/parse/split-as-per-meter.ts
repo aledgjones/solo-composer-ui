@@ -80,6 +80,7 @@ export function splitUnit(
           // 2/4 [qc.] dont't split middle
         } else if (
           track[firstBeat] &&
+          !getIsRest(track[firstBeat]) &&
           getIsEmpty(firstBeat, fourthBeat, track) &&
           track[fourthBeat] &&
           // dotted crotchets bassically have their own rules.

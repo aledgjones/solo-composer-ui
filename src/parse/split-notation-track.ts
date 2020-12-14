@@ -8,8 +8,10 @@ import { NotationTrack, getNearestNotationToTick } from "./notation-track";
 export function splitNotationTrack(track: NotationTrack, split: number): NotationTrack {
   const event = getNearestNotationToTick(split, track);
 
-  // check for undefined event and only split if split index it's not already the start of an event.
-  if (event && event.at !== split) {
+  // check for undefined event and only split if:
+  // 1. split index not already the start of an event.
+  // 2. split index is not the end of an event (ie; end of flow);
+  if (event && event.at !== split && split !== event.at + event.entry.duration) {
     track[event.at] = {
       duration: split - event.at,
       tones: [...event.entry.tones],

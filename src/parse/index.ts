@@ -27,7 +27,6 @@ import { drawTempi } from "./draw-tempi";
 import { getToneVerticalOffsets } from "./get-tone-vertical-offsets";
 import { drawNoteheads } from "./draw-noteheads";
 import { drawRests } from "./draw-rests";
-import { debugNotationTrack } from "../debug/debug-notation-track";
 
 export function parse(score: Score, flow_key: string, px_per_mm: number, debug: boolean): RenderInstructions {
   const drawInstructions: Instruction<any>[] = [];
@@ -53,11 +52,6 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
 
   const barlines = getFirstBeats(flow);
   const notation = getWrittenDurations(staves, flow, barlines);
-
-  Object.keys(notation).forEach((key) => {
-    const debug = debugNotationTrack(flow.length, notation[key]);
-    console.log(debug);
-  });
 
   // note vertical offsets
   const toneVerticalOffsets = getToneVerticalOffsets(staves);

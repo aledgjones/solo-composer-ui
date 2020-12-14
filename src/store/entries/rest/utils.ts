@@ -41,6 +41,6 @@ export function drawRest(
   } else {
     const baseDuration = getBaseDuration(duration, subdivisions);
     const glyph = glyphFromDuration(baseDuration);
-    return buildText(key, styles, x, y, glyph);
+    return buildText(key, styles, x, y - (baseDuration === NoteDuration.Whole ? 1 : 0), glyph);
   }
 }

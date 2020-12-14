@@ -19,18 +19,17 @@ export function splitAtToneEvents(length: number, track: Track): NotationTrack {
     },
   };
 
-  // walk through all the tones splitting the rest filled track at tone start & stop
-  for (let tick = 0; tick <= length; tick++) {
-    const entries = track.entries.by_tick[tick] || [];
-    entries.forEach((entry_key) => {
-      const entry = track.entries.by_key[entry_key];
+  const ticks = Object.keys(track.entries.by_tick).map((t) => parseInt(t));
+  ticks.forEach((tick) => {
+    track.entries.by_tick[tick].forEach((entryKey) => {
+      const entry = track.entries.by_key[entryKey];
       if (entry.type === EntryType.Tone) {
         const tone = entry as Tone;
         splitNotationTrack(output, tick);
         splitNotationTrack(output, tick + tone.duration);
       }
     });
-  }
+  });
 
   // fill the split track with the tone entries
   for (let tick = 0; tick <= length; tick++) {

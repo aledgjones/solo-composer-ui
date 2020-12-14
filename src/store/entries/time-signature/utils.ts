@@ -99,7 +99,7 @@ function glyph_from_type(val: NoteDuration) {
   }
 }
 
-function default_groupings(beats: number): number[] {
+export function default_groupings(beats: number): number[] {
   if (beats > 0 && beats <= 3) {
     return Array(beats).fill(1);
   } else {
@@ -119,7 +119,7 @@ function default_groupings(beats: number): number[] {
         return out;
       }
       case TimeSignatureType.Open:
-        return [];
+        return [2, 2];
     }
   }
 }
