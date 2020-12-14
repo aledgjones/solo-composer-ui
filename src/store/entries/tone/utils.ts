@@ -2,7 +2,9 @@ import { Pitch, Articulation, EntryType, NoteDuration } from "../defs";
 import shortid from "shortid";
 import { Tone } from "./defs";
 import { Align, buildText, Justify, TextStyles } from "../../../render/text";
-import { getBaseDuration } from "../../../parse/notation-track";
+import { getBaseDuration, getIsDotted } from "../../../parse/notation-track";
+import { Instruction } from "../../../render/instructions";
+import { buildCircle } from "../../../render/circle";
 
 export function create_tone(
   tick: number,
@@ -47,6 +49,7 @@ export function drawNotehead(
   subdivisions: number,
   key: string
 ) {
+  const instructions: Instruction<any>[] = [];
   const styles: TextStyles = {
     color: "#000000",
     justify: Justify.Start,
@@ -55,6 +58,16 @@ export function drawNotehead(
     font: `Bravura`,
   };
   const baseDuration = getBaseDuration(duration, subdivisions);
+  const isDotted = getIsDotted(duration, subdivisions);
   const glyph = glyphFromDuration(baseDuration);
-  return buildText(`${key}-head`, styles, x, y + offset / 2, glyph);
+  const top = y + offset / 2;
+
+  instructions.push(buildText(`${key}-head`, styles, x, top, glyph));
+  if (isDotted) {
+    instructions.push(
+      buildCircle(`${key}-dot`, { color: "#000000" }, x + 1.75, top + (Math.abs(offset) % 2 > 0 ? 0 : -0.5), 0.25)
+    );
+  }
+
+  return instructions;
 }

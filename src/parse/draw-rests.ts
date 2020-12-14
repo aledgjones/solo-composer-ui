@@ -39,7 +39,7 @@ export function drawRests(
           } else {
             const left = x + measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.NoteSlot);
             instructions.push(
-              drawRest(left, top, entry.duration, flow.subdivisions, false, `rest-${trackKey}-${tick}`)
+              ...drawRest(left, top, entry.duration, flow.subdivisions, false, `rest-${trackKey}-${tick}`)
             );
           }
         }

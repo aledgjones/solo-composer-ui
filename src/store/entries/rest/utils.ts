@@ -1,6 +1,8 @@
 import { NoteDuration } from "../defs";
 import { Align, buildText, Justify, TextStyles } from "../../../render/text";
-import { getBaseDuration } from "../../../parse/notation-track";
+import { getBaseDuration, getIsDotted } from "../../../parse/notation-track";
+import { Instruction } from "../../../render/instructions";
+import { buildCircle } from "../../../render/circle";
 
 export function glyphFromDuration(baseLength?: NoteDuration) {
   switch (baseLength) {
@@ -36,11 +38,28 @@ export function drawRest(
     size: 4,
     font: `Bravura`,
   };
+  const instructions: Instruction<any> = [];
+
   if (isFullBar) {
     return buildText(key, styles, x, y - 1, "\u{E4E3}");
   } else {
     const baseDuration = getBaseDuration(duration, subdivisions);
+    const isDotted = getIsDotted(duration, subdivisions);
+
     const glyph = glyphFromDuration(baseDuration);
-    return buildText(key, styles, x, y - (baseDuration === NoteDuration.Whole ? 1 : 0), glyph);
+    instructions.push(buildText(key, styles, x, y - (baseDuration === NoteDuration.Whole ? 1 : 0), glyph));
+    if (isDotted) {
+      instructions.push(
+        buildCircle(
+          `${key}-dot`,
+          { color: "#000000" },
+          x + 1.75,
+          y - (baseDuration === NoteDuration.Whole ? 1.5 : 0.5),
+          0.25
+        )
+      );
+    }
   }
+
+  return instructions;
 }

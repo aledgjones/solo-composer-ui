@@ -29,7 +29,7 @@ export function drawNoteheads(
         const left = x + measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.NoteSlot);
         entry.tones.forEach((tone) => {
           instructions.push(
-            drawNotehead(left, top, entry.duration, toneVerticalOffsets[tone.key], subdivisions, tone.key + tick)
+            ...drawNotehead(left, top, entry.duration, toneVerticalOffsets[tone.key], subdivisions, tone.key + tick)
           );
         });
       });
