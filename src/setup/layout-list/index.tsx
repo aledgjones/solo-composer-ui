@@ -29,7 +29,7 @@ export const LayoutList: FC<Props> = () => {
         </PanelHeader>
       </Panel>
 
-      <EngraveSettings width={900} open={settings} onClose={() => setSettings(false)} />
+      <EngraveSettings width={1200} open={settings} onClose={() => setSettings(false)} />
     </>
   );
 };

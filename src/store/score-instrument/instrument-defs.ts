@@ -179,9 +179,9 @@ export const instrumentDefs: InstrumentDef[] = [
       {
         lines: [1, 1, 1, 1, 1],
         clef: {
-          pitch: 53,
-          offset: 2,
-          draw_as: ClefDrawType.F,
+          pitch: 67,
+          offset: -2,
+          draw_as: ClefDrawType.G,
         },
       },
     ],
@@ -270,6 +270,31 @@ export const instrumentDefs: InstrumentDef[] = [
     },
   },
   {
+    id: "metal.bells.sleigh-bells",
+    type: InstrumentType.Percussive,
+    path: ["Unpitched Percussion", "Sleigh Bells"],
+    long_name: "Sleigh Bells",
+    short_name: "Sle. Be.",
+    staves: [
+      {
+        lines: [0, 1, 0],
+        clef: {
+          pitch: 60,
+          offset: 0,
+          draw_as: ClefDrawType.Percussion,
+        },
+      },
+    ],
+    patches: {
+      [PlayerType.Solo]: {
+        [Expression.Natural]: "/patches/percussion/misc.json",
+      },
+      [PlayerType.Section]: {
+        [Expression.Natural]: "/patches/percussion/misc.json",
+      },
+    },
+  },
+  {
     id: "unpitched-percussion.hi-hat",
     type: InstrumentType.Percussive,
     path: ["Unpitched Percussion", "Hi-Hat"],
@@ -341,6 +366,31 @@ export const instrumentDefs: InstrumentDef[] = [
       },
       [PlayerType.Section]: {
         [Expression.Natural]: "/patches/snare/natural.json",
+      },
+    },
+  },
+  {
+    id: "unpitched-percussion.tam-tam",
+    type: InstrumentType.Percussive,
+    path: ["Unpitched Percussion", "Tam-Tam"],
+    long_name: "Tam-Tam",
+    short_name: "Tam",
+    staves: [
+      {
+        lines: [0, 1, 0],
+        clef: {
+          pitch: 60,
+          offset: 0,
+          draw_as: ClefDrawType.Percussion,
+        },
+      },
+    ],
+    patches: {
+      [PlayerType.Solo]: {
+        [Expression.Natural]: "/patches/gong/natural.json",
+      },
+      [PlayerType.Section]: {
+        [Expression.Natural]: "/patches/gong/natural.json",
       },
     },
   },

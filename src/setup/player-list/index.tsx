@@ -3,7 +3,7 @@ import { mdiPlus, mdiCogOutline } from "@mdi/js";
 import { Icon, SortableContainer } from "../../../ui";
 import { Selection } from "../selection";
 import { PlayerItem } from "../player-list-item";
-import { SetupSettings } from "../../dialogs/setup-settings";
+import { PlayerSettings } from "../../dialogs/player-settings";
 import { useStore } from "../../store/use-store";
 import { PlayerType } from "../../store/score-player/defs";
 import { actions } from "../../store/actions";
@@ -65,7 +65,7 @@ export const PlayerList: FC<Props> = ({ selection, onSelect, onAddInstrument, on
         </SortableContainer>
       </Panel>
 
-      <SetupSettings width={900} open={settings} onClose={() => setSettings(false)} />
+      <PlayerSettings width={1200} open={settings} onClose={() => setSettings(false)} />
     </>
   );
 };

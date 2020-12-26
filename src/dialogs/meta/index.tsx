@@ -4,7 +4,6 @@ import { useStore } from "../../store/use-store";
 import { actions } from "../../store/actions";
 
 import "../generic-settings.css";
-import "./styles.css";
 
 interface Props {
   onClose: () => void;

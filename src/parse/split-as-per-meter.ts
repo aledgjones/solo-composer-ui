@@ -151,35 +151,33 @@ export function splitUnit(
 }
 
 export function splitAsPerMeter(flow: Flow, track: NotationTrack, barlines: Set<number>) {
-  let time: TimeSignature;
+  // split the notes at barlines
+  barlines.forEach((tick) => {
+    track = splitNotationTrack(track, tick);
+  });
 
-  for (let tick = 0; tick < flow.length; tick++) {
+  // split notation within bars
+  let time: TimeSignature;
+  barlines.forEach((tick) => {
     const result = get_entries_at_tick(tick, flow.master, EntryType.TimeSignature);
     if (result[0]) {
       time = result[0] as TimeSignature;
     }
+    const start = tick;
+    const stop = tick + duration_to_ticks(time.beat_type, flow.subdivisions) * time.beats;
 
-    if (barlines.has(tick)) {
-      // split the notes at barlines
-      track = splitNotationTrack(track, tick);
-
-      // split notes as per time signature groupings
-      const start = tick;
-      const stop = tick + duration_to_ticks(time.beat_type, flow.subdivisions) * time.beats;
-
-      splitUnit(
-        start,
-        stop,
-        flow.subdivisions,
-        time.beats,
-        time.beat_type,
-        duration_to_ticks(time.beat_type, flow.subdivisions),
-        time.groupings,
-        track,
-        true
-      );
-    }
-  }
+    splitUnit(
+      start,
+      stop,
+      flow.subdivisions,
+      time.beats,
+      time.beat_type,
+      duration_to_ticks(time.beat_type, flow.subdivisions),
+      time.groupings,
+      track,
+      true
+    );
+  });
 
   return track;
 }

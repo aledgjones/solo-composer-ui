@@ -9,6 +9,7 @@ import { Text } from "../../components/text";
 import { Importer } from "../../dialogs/importer";
 import { useStore } from "../../store/use-store";
 import { actions } from "../../store/actions";
+import { Library } from "../../dialogs/Library";
 
 import "./styles.css";
 
@@ -22,6 +23,7 @@ export const File: FC = () => {
   const [about, setAbout] = useState(process.env.NODE_ENV === "production");
   const [preferences, setPreferences] = useState(false);
   const [importer, setImporter] = useState(false);
+  const [library, setLibrary] = useState(false);
 
   const [update, setUpdate] = useState<() => void>();
 
@@ -70,7 +72,15 @@ export const File: FC = () => {
             </ListItem>
             <Content>
               <div className="file-menu__buttons">
-                <Button outline>My Library</Button>
+                <Button
+                  onClick={() => {
+                    setLibrary(true);
+                    setOpen(false);
+                  }}
+                  outline
+                >
+                  My Library
+                </Button>
               </div>
             </Content>
             <Divider compact />
@@ -108,10 +118,11 @@ export const File: FC = () => {
         )}
       </div>
 
-      <Meta width={900} open={meta} onClose={() => setMeta(false)} />
+      <Meta width={1200} open={meta} onClose={() => setMeta(false)} />
       <About width={400} open={about} onClose={() => setAbout(false)} />
-      <Preferences open={preferences} width={900} onClose={() => setPreferences(false)} />
+      <Preferences open={preferences} width={1200} onClose={() => setPreferences(false)} />
       <Importer width={300} open={importer} onClose={() => setImporter(false)} />
+      <Library width={1200} open={library} onCancel={() => setLibrary(false)} />
     </>
   );
 };

@@ -28,6 +28,8 @@ export function createClef(tick: number, pitch: number, offset: number, draw_as:
 
 function glyphFromType(type: ClefDrawType) {
   switch (type) {
+    case ClefDrawType.Percussion:
+      return "\u{E069}";
     case ClefDrawType.C:
       return "\u{E05C}";
     case ClefDrawType.F:

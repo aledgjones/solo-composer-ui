@@ -1,9 +1,19 @@
 import { error } from "../../utils/error";
+import JSZip from "jszip";
 import { pack } from "jsonpack";
 
-export async function download(raw: any, name: string, mime: string = "text/plain"): Promise<void> {
+export async function download(raw: any, name: string): Promise<void> {
   const content = pack(raw);
-  const blob = new Blob([content], { type: mime });
+  const blob = await JSZip()
+    .file("main.txt", content)
+    .generateAsync({
+      type: "blob",
+      compression: "DEFLATE",
+      compressionOptions: {
+        level: 9,
+      },
+      mimeType: "application/scf",
+    });
   const localUrl = URL.createObjectURL(blob);
 
   // yes we need to append else it doesn't work

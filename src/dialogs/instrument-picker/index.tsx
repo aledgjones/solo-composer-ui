@@ -21,7 +21,7 @@ export const InstrumentPicker = Dialog<Props>(({ onSelect, onCancel }) => {
   const lists = useDefsList(selection.path);
 
   return (
-    <div className="instrument-picker">
+    <div className="instrument-picker generic-settings">
       <div className="instrument-picker__sections">
         {lists.map((list, i) => {
           return (

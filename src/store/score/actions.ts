@@ -1,10 +1,10 @@
-import { unpack } from "jsonpack";
 import { Progress, Player } from "solo-composer-scheduler";
 import { store } from "../use-store";
 import { download, chooseFiles, wait } from "../../../ui";
-import { Score, Meta } from "./defs";
+import { Meta } from "./defs";
 import { playbackActions } from "../playback";
 import { View } from "../ui/defs";
+import { importFile } from "./utils";
 
 export const scoreActions = {
   /**
@@ -38,8 +38,7 @@ export const scoreActions = {
       progress(2, 5);
 
       // import the json file
-      const content = await file.text();
-      const score: Score = unpack(content);
+      const score = await importFile(file);
       progress(3, 5);
 
       //  playback

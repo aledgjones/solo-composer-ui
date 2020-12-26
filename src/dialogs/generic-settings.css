@@ -1,6 +1,6 @@
 .generic-settings {
   height: calc(100vh - 80px);
-  max-height: 500px;
+  max-height: 600px;
 }
 
 .generic-settings__content {
@@ -33,7 +33,7 @@
   display: flex;
   align-items: center;
   border-top: 1px solid var(--background-200);
-  padding: 0 20px;
+  padding: 0 8px;
 }
 
 .generic-settings__spacer {
@@ -77,7 +77,4 @@
 
 .generic-settings__example {
   margin-right: 20px;
-  /* border: 1px solid var(--background-200);
-  background-color: var(--background-800);
-  border-radius: var(--border-radius); */
 }

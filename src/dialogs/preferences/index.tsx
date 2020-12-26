@@ -6,7 +6,6 @@ import { useStore } from "../../store/use-store";
 import { actions } from "../../store/actions";
 
 import "../generic-settings.css";
-import "./styles.css";
 
 enum Page {
   General,
@@ -23,7 +22,7 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
   const [page, setPage] = useState<Page>(Page.General);
 
   return (
-    <div className="preferences">
+    <div className="preferences generic-settings">
       <div className="generic-settings__content">
         <div className="generic-settings__left-panel">
           <MenuItem selected={page === Page.General} onClick={() => setPage(Page.General)}>

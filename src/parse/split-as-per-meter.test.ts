@@ -600,3 +600,13 @@ it("renders correctly - 2/4 [sq._q.s]", () => {
 
   expect(log).toBe("o--¬o___________o----------¬r--¬r------------------------------¬");
 });
+
+it("renders correctly - 3/8 [q._|q-]", () => {
+  const q = 8;
+  const len = q * 6;
+  const log = parse(len, create_time_signature(0, 3, NoteDuration.Eighth, TimeSignatureDrawType.Regular), [
+    create_tone(0, q * 5, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+  ]);
+
+  expect(log).toBe("o_______________________o--------------¬r------¬");
+});
