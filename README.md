@@ -46,4 +46,4 @@ This will start up the parcel dev server on port 3000.
 
 ## License
 
-MIT license ([LICENSE-MIT](LICENSE-MIT) or http://opensource.org/licenses/MIT)
+[GNU General Public License v3.0](https://opensource.org/licenses/GPL-3.0)
