@@ -2,12 +2,13 @@ import { NotationTrack, getNearestNotationToTick } from "./notation-track";
 import { Flow } from "../store/score-flow/defs";
 import { getIsRest } from "./get-is-rest";
 import { splitNotationTrack } from "./split-notation-track";
-import { duration_to_ticks, get_entries_at_tick } from "../store/entries/time-signature/utils";
-import { EntryType, NoteDuration } from "../store/entries/defs";
+import { duration_to_ticks } from "../store/entries/time-signature/utils";
+import { NoteDuration } from "../store/entries/defs";
 import { TimeSignature } from "../store/entries/time-signature/defs";
 import { getIsEmpty } from "./get-is-empty";
 import { getIsWritable } from "./get-is-writable";
 import { getBeatGroupingBoundries } from "./get-beat-group-boundries";
+import { Barlines } from "./get-barlines";
 
 function getNextGroupingAndBeat(grouping: number, beatType: NoteDuration) {
   switch (grouping) {
@@ -17,7 +18,6 @@ function getNextGroupingAndBeat(grouping: number, beatType: NoteDuration) {
       return { groupings: [1, 1, 1], beats: 3, beatType };
     case 4:
       return { groupings: [1, 1, 1, 1], beats: 4, beatType };
-
     case 1:
     default:
       return {
@@ -150,19 +150,13 @@ export function splitUnit(
   return track;
 }
 
-export function splitAsPerMeter(flow: Flow, track: NotationTrack, barlines: Set<number>) {
+export function splitAsPerMeter(flow: Flow, track: NotationTrack, barlines: Barlines) {
   // split the notes at barlines
-  barlines.forEach((tick) => {
+  barlines.forEach((_time, tick) => {
     track = splitNotationTrack(track, tick);
   });
 
-  // split notation within bars
-  let time: TimeSignature;
-  barlines.forEach((tick) => {
-    const result = get_entries_at_tick(tick, flow.master, EntryType.TimeSignature);
-    if (result[0]) {
-      time = result[0] as TimeSignature;
-    }
+  barlines.forEach((time, tick) => {
     const start = tick;
     const stop = tick + duration_to_ticks(time.beat_type, flow.subdivisions) * time.beats;
 

@@ -5,6 +5,7 @@ import { drawBarline } from "../store/entries/barline/utils";
 import { Flow } from "../store/score-flow/defs";
 import { Stave } from "../store/score-stave/defs";
 import { getBarlineDrawTypeAtTick } from "./get-barline-draw-type-at-tick";
+import { Barlines } from "./get-barlines";
 import { getextrasAtTick } from "./get-extras-at-tick";
 import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
@@ -20,7 +21,7 @@ export function drawBarlines(
   vertical_spans: VerticalSpans,
   horizontalSpacing: { [tick: number]: HorizontalSpacing },
   staveWidth: number,
-  barlines: Set<number>,
+  barlines: Barlines,
   drawSystemicBarlineSingleStave: boolean,
   finalBarlineType: BarlineDrawType
 ): Instruction<any>[] {

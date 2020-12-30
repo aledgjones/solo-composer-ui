@@ -13,7 +13,7 @@ import { drawBraces } from "./draw-braces";
 import { drawBrackets } from "./draw-brackets";
 import { drawSubBrackets } from "./draw-sub-brackets";
 import { measureBracketAndBraces } from "./measure-brackets-and-braces";
-import { getFirstBeats } from "./get-first-beats";
+import { getBarlines } from "./get-barlines";
 import { getWrittenDurations } from "./get-written-durations";
 import { measureBarlineBox } from "../store/entries/barline/utils";
 import { drawBarlines } from "./draw-barlines";
@@ -27,6 +27,7 @@ import { drawTempi } from "./draw-tempi";
 import { getToneVerticalOffsets } from "./get-tone-vertical-offsets";
 import { drawNoteheads } from "./draw-noteheads";
 import { drawRests } from "./draw-rests";
+import { getBeams } from "./get-beams";
 
 export function parse(score: Score, flow_key: string, px_per_mm: number, debug: boolean): RenderInstructions {
   const drawInstructions: Instruction<any>[] = [];
@@ -50,12 +51,14 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
     measureBracketAndBraces(verticalSpacing, verticalSpans, config);
   const y = mm.toSpaces(config.framePadding.top);
 
-  const barlines = getFirstBeats(flow);
+  const barlines = getBarlines(flow);
   const notation = getWrittenDurations(staves, flow, barlines);
 
   // note vertical offsets
   const toneVerticalOffsets = getToneVerticalOffsets(staves);
   // beams/tails
+  const beams = getBeams(flow, notation, barlines);
+  console.log(beams);
   // stem directions
   // note shunts
 

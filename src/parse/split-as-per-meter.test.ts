@@ -8,14 +8,14 @@ import { create_tone } from "../store/entries/tone/utils";
 import { create_flow } from "../store/score-flow/utils";
 import { create_stave } from "../store/score-stave/utils";
 import { insert_entry } from "../store/score-track/utils";
-import { getFirstBeats } from "./get-first-beats";
+import { getBarlines } from "./get-barlines";
 import { getWrittenDurations } from "./get-written-durations";
 
 function parse(length: number, time: TimeSignature, tones: Tone[]) {
   const flow = create_flow();
   flow.length = length;
   insert_entry(flow.master, time, true);
-  const barlines = getFirstBeats(flow);
+  const barlines = getBarlines(flow);
   const stave = create_stave("stave", { lines: [1], clef: { draw_as: ClefDrawType.C, pitch: 60, offset: 0 } });
   const track = stave.tracks.by_key[stave.tracks.order[0]];
   tones.forEach((tone) => {
@@ -127,6 +127,38 @@ it("renders a full bar note as such - 6/8", () => {
   ]);
 
   expect(log).toBe("o----------------------------------------------¬");
+});
+
+it("pattern in 6/8", () => {
+  const e = 8;
+  const result = parse(e * 12, create_time_signature(0, 6, NoteDuration.Eighth, TimeSignatureDrawType.Regular), [
+    create_tone(0, e * 3, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(e * 3, e, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(e * 4, e, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(e * 5, e, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(e * 6, e * 2, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(e * 8, e, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(e * 9, e * 3, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+  ]);
+  expect(result).toBe(
+    "o----------------------¬o------¬o------¬o------¬o--------------¬o------¬o----------------------¬"
+  );
+});
+
+it("pattern in 3/4", () => {
+  const e = 8;
+  const result = parse(e * 12, create_time_signature(0, 3, NoteDuration.Quarter, TimeSignatureDrawType.Regular), [
+    create_tone(0, e * 3, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(e * 3, e, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(e * 4, e, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(e * 5, e, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(e * 6, e * 2, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(e * 8, e, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(e * 9, e * 3, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+  ]);
+  expect(result).toBe(
+    "o----------------------¬o------¬o------¬o------¬o--------------¬o------¬o_______o--------------¬"
+  );
 });
 
 it("renders a full bar note as such - 3/4", () => {

@@ -3,13 +3,15 @@ import { get_entries_at_tick, distance_from_barline } from "../store/entries/tim
 import { EntryType } from "../store/entries/defs";
 import { TimeSignature } from "../store/entries/time-signature/defs";
 
+export type Barlines = Map<number, TimeSignature>;
+
 /**
  * Gets the first beats as number[] where number is tick index
  *
  * returns number[] as this is most useful for splitting into bars
  */
-export function getFirstBeats(flow: Flow) {
-  const ticks: Set<number> = new Set();
+export function getBarlines(flow: Flow) {
+  const ticks: Barlines = new Map();
   let time_signature: TimeSignature;
 
   for (let tick = 0; tick < flow.length; tick++) {
@@ -19,7 +21,7 @@ export function getFirstBeats(flow: Flow) {
     }
 
     if (distance_from_barline(tick, flow.subdivisions, time_signature) === 0) {
-      ticks.add(tick);
+      ticks.set(tick, time_signature);
     }
   }
 

@@ -1,6 +1,7 @@
 import { EngravingConfig } from "../store/defs";
 import { Flow } from "../store/score-flow/defs";
 import { Stave } from "../store/score-stave/defs";
+import { Barlines } from "./get-barlines";
 import { getNoteSpacing } from "./get-note-spacing";
 import { HorizontalSpacing, measureTick } from "./measure-tick";
 import { WidthOf } from "./measure-width-upto";
@@ -9,7 +10,7 @@ import { NotationTracks } from "./notation-track";
 export function measureHorizontalSpacing(
   staves: Stave[],
   flow: Flow,
-  barlines: Set<number>,
+  barlines: Barlines,
   notation: NotationTracks,
   engraving: EngravingConfig
 ) {

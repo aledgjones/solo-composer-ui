@@ -1,9 +1,8 @@
-import { buildBox } from "../render/box";
 import { Instruction } from "../render/instructions";
-import { EngravingConfig } from "../store/defs";
 import { drawRest } from "../store/entries/rest/utils";
 import { Flow } from "../store/score-flow/defs";
 import { Stave } from "../store/score-stave/defs";
+import { Barlines } from "./get-barlines";
 import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
 import { measureWidthUpto, WidthOf } from "./measure-width-upto";
@@ -16,7 +15,7 @@ export function drawRests(
   notation: NotationTracks,
   horizontalSpacing: { [tick: number]: HorizontalSpacing },
   verticalSpacing: VerticalSpacing,
-  barlines: Set<number>,
+  barlines: Barlines,
   flow: Flow
 ) {
   const instructions: Instruction<any>[] = [];
