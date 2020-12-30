@@ -1,5 +1,5 @@
 import shortid from "shortid";
-import { NoteDuration, EntryType, Entry, Box } from "../defs";
+import { NoteDuration, EntryType, Box } from "../defs";
 import { TimeSignatureDrawType, TimeSignature, TimeSignatureType } from "./defs";
 import { Track } from "../../score-track/defs";
 import { Align, buildText, Justify, TextStyles } from "../../../render/text";
