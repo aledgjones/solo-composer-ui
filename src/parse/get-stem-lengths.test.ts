@@ -16,6 +16,36 @@ describe("getStemLength", () => {
     );
     expect(result).toStrictEqual({ length: 3.25, offset: 0.25 });
   });
+  it("is at least 3.5 (up, chord)", () => {
+    const result = getStemLength(
+      {
+        duration: 16,
+        tones: [
+          create_tone(0, 16, { int: 60, accidental: Accidental.Natural }, 90, Articulation.None, "a"),
+          create_tone(0, 16, { int: 60, accidental: Accidental.Natural }, 90, Articulation.None, "b"),
+        ],
+        ties: [],
+      },
+      { a: 3, b: -2 },
+      StemDirectionType.Up
+    );
+    expect(result).toStrictEqual({ length: 5.75, offset: 1.25 });
+  });
+  it("is at least 3.5 (down, chord)", () => {
+    const result = getStemLength(
+      {
+        duration: 16,
+        tones: [
+          create_tone(0, 16, { int: 60, accidental: Accidental.Natural }, 90, Articulation.None, "a"),
+          create_tone(0, 16, { int: 60, accidental: Accidental.Natural }, 90, Articulation.None, "b"),
+        ],
+        ties: [],
+      },
+      { a: -3, b: 2 },
+      StemDirectionType.Down
+    );
+    expect(result).toStrictEqual({ length: 5.75, offset: -1.25 });
+  });
   it("is at least 3.5 (up)", () => {
     const result = getStemLength(
       {
