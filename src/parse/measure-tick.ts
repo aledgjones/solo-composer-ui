@@ -11,6 +11,7 @@ import { EntryType } from "../store/entries/defs";
 import { measureClefBounds } from "../store/entries/clef/utils";
 import { Clef } from "../store/entries/clef/defs";
 import { WidthOf } from "./measure-width-upto";
+import { widthFromDuration } from "../store/entries/tone/utils";
 
 export type HorizontalSpacing = [
   number, // pre padding (system start)
@@ -70,7 +71,7 @@ export function measureTick(tick: number, staves: Stave[], flow: Flow, isFirstBe
     stave.tracks.order.forEach((trackKey) => {
       const track = notation[trackKey];
       if (track[tick]) {
-        measurements[WidthOf.NoteSlot] = 1.0;
+        measurements[WidthOf.NoteSlot] = widthFromDuration(track[tick].duration, flow.subdivisions);
       }
     });
   });

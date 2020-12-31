@@ -1,7 +1,7 @@
-export function debugBeams(length: number, beams: Map<number, number[]>) {
+export function debugBeams(length: number, beams: Set<number[]>) {
   let output = new Array(length).fill(".");
-  beams.forEach((beam, tick) => {
-    for (let i = tick; i <= beam[beam.length - 1]; i++) {
+  beams.forEach((beam) => {
+    for (let i = beam[0]; i <= beam[beam.length - 1]; i++) {
       if (beam.includes(i)) {
         output[i] = "+";
       } else {

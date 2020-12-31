@@ -1,4 +1,3 @@
-import { TimeSignature } from "../store/entries/time-signature/defs";
 import { duration_to_ticks } from "../store/entries/time-signature/utils";
 import { Flow } from "../store/score-flow/defs";
 import { NotationTrack, NotationTracks } from "./notation-track";
@@ -7,7 +6,7 @@ import { getIsBeamable } from "./get-is-beamable";
 import { Barlines } from "./get-barlines";
 
 export interface Beams {
-  [trackKey: string]: Map<number, number[]>;
+  [trackKey: string]: Set<number[]>;
 }
 
 export function getBeamsInTrack(flow: Flow, track: NotationTrack, barlines: Barlines) {
@@ -35,10 +34,10 @@ export function getBeamsInTrack(flow: Flow, track: NotationTrack, barlines: Barl
     }
   }
 
-  const beams: Map<number, number[]> = new Map();
+  const beams = new Set<number[]>();
   spans.forEach((span) => {
     if (span.length > 1) {
-      beams.set(span[0], span);
+      beams.add(span);
     }
   });
   return beams;

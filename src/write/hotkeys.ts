@@ -71,7 +71,7 @@ export const timeSignatureCommands = (flowKey: string, tick: number, input: stri
 export const barCommands = (flowKey: string, tick: number, input: string) => {
   switch (input) {
     case "clear":
-      // TODO: remove barline at given tick
+      // TODO: remove created barline at given tick
       break;
     case "single":
     case "normal":

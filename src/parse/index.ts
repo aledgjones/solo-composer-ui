@@ -28,6 +28,9 @@ import { getToneVerticalOffsets } from "./get-tone-vertical-offsets";
 import { drawNoteheads } from "./draw-noteheads";
 import { drawRests } from "./draw-rests";
 import { getBeams } from "./get-beams";
+import { getStemDirections } from "./get-stem-directions";
+import { drawBeams } from "./draw-beams";
+import { drawStems } from "./draw-stems";
 
 export function parse(score: Score, flow_key: string, px_per_mm: number, debug: boolean): RenderInstructions {
   const drawInstructions: Instruction<any>[] = [];
@@ -56,11 +59,14 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
 
   // note vertical offsets
   const toneVerticalOffsets = getToneVerticalOffsets(staves);
-  // beams/tails
+  // beams
   const beams = getBeams(flow, notation, barlines);
-  console.log(beams);
   // stem directions
-  // note shunts
+  const stemDirections = getStemDirections(notation, toneVerticalOffsets, beams);
+  // TODO: stem lengths
+  // TODO: note shunts
+  // TODO: draw ledger lines
+  // TODO: draw noteheads in offfset position
 
   const horizontalSpacing = measureHorizontalSpacing(staves, flow, barlines, notation, config);
 
@@ -102,7 +108,18 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
     ...drawKeySignatures(x, y, staves, flow, verticalSpacing, horizontalSpacing),
     ...drawTempi(x, y, flow, horizontalSpacing, config),
     ...drawRests(x, y, staves, notation, horizontalSpacing, verticalSpacing, barlines, flow),
-    ...drawNoteheads(x, y, staves, notation, horizontalSpacing, verticalSpacing, toneVerticalOffsets, flow.subdivisions)
+    ...drawNoteheads(
+      x,
+      y,
+      staves,
+      notation,
+      horizontalSpacing,
+      verticalSpacing,
+      toneVerticalOffsets,
+      flow.subdivisions
+    ),
+    ...drawStems(x, y, flow, staves, notation, toneVerticalOffsets, stemDirections, horizontalSpacing, verticalSpacing),
+    ...drawBeams(x, y, beams, staves, horizontalSpacing, verticalSpacing, debug)
   );
 
   if (debug) {

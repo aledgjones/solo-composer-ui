@@ -42,7 +42,6 @@ export function getNearestNotationToTick(
 export function getBaseDuration(duration: number, subdivisions: number, itr: number = 1): NoteDuration {
   if (itr > 3) {
     console.log("fail");
-    debugger;
     return NoteDuration.Whole;
   }
   const length = duration / subdivisions;

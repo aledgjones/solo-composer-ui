@@ -25,6 +25,23 @@ export function create_tone(
   };
 }
 
+export function widthFromDuration(duration: number, subdevisions: number) {
+  const baseLength = getBaseDuration(duration, subdevisions);
+  switch (baseLength) {
+    case NoteDuration.ThirtySecond:
+    case NoteDuration.Sixteenth:
+    case NoteDuration.Eighth:
+    case NoteDuration.Quarter:
+      return 1.175;
+    case NoteDuration.Half:
+      return 1.18;
+    case NoteDuration.Whole:
+      return 1.695;
+    default:
+      return undefined;
+  }
+}
+
 export function glyphFromDuration(baseLength?: NoteDuration) {
   switch (baseLength) {
     case NoteDuration.ThirtySecond:
