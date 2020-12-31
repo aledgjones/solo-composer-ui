@@ -31,6 +31,7 @@ import { getBeams } from "./get-beams";
 import { getStemDirections } from "./get-stem-directions";
 import { drawBeams } from "./draw-beams";
 import { drawStems } from "./draw-stems";
+import { getStemLengths } from "./get-stem-lengths";
 
 export function parse(score: Score, flow_key: string, px_per_mm: number, debug: boolean): RenderInstructions {
   const drawInstructions: Instruction<any>[] = [];
@@ -63,7 +64,7 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
   const beams = getBeams(flow, notation, barlines);
   // stem directions
   const stemDirections = getStemDirections(notation, toneVerticalOffsets, beams);
-  // TODO: stem lengths
+  const stemLenghts = getStemLengths(flow, staves, notation, toneVerticalOffsets, stemDirections);
   // TODO: note shunts
   // TODO: draw ledger lines
   // TODO: draw noteheads in offfset position
@@ -118,7 +119,7 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
       toneVerticalOffsets,
       flow.subdivisions
     ),
-    ...drawStems(x, y, flow, staves, notation, toneVerticalOffsets, stemDirections, horizontalSpacing, verticalSpacing),
+    ...drawStems(x, y, staves, stemDirections, stemLenghts, horizontalSpacing, verticalSpacing),
     ...drawBeams(x, y, beams, staves, horizontalSpacing, verticalSpacing, debug)
   );
 
