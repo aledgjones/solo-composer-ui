@@ -16,7 +16,11 @@ export function getStemLength(entry: Notation, toneVerticalOffsets: ToneVertical
   const min = Math.min(...offsets);
 
   const offset = (direction === StemDirectionType.Up ? max - 0.5 : min + 0.5) / 2;
-  const length = Math.max(3.25, Math.abs((direction === StemDirectionType.Up ? max - 0.5 : min + 0.5) / 2));
+  const chordHeight = max - min;
+  const length = Math.max(
+    chordHeight / 2 + 3.25,
+    Math.abs((direction === StemDirectionType.Up ? max - 0.5 : min + 0.5) / 2)
+  );
 
   return { offset, length };
 }
