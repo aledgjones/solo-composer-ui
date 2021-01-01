@@ -12,7 +12,7 @@ export interface StemLengthsByTrack {
 }
 
 export function getStemLength(entry: Notation, toneVerticalOffsets: ToneVerticalOffsets, direction: StemDirectionType) {
-  const offsets = entry.tones.map((tone) => toneVerticalOffsets[tone.key]);
+  const offsets = entry.tones.map((tone) => toneVerticalOffsets.get(tone.key));
   const max = Math.max(...offsets);
   const min = Math.min(...offsets);
 

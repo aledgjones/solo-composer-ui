@@ -14,7 +14,7 @@ export interface StemDirectionsByTrack {
 }
 
 export function getStemDirection(entry: Notation, toneVerticalOffsets: ToneVerticalOffsets) {
-  const offsets = entry.tones.map((tone) => toneVerticalOffsets[tone.key]);
+  const offsets = entry.tones.map((tone) => toneVerticalOffsets.get(tone.key));
   const min = Math.min(...offsets);
   const max = Math.max(...offsets);
 
@@ -79,7 +79,7 @@ export function getStemDirectionsInTrack(
       let farthest = 0;
       group.forEach((tick) => {
         track[tick].tones.forEach((tone) => {
-          const offset = toneVerticalOffsets[tone.key];
+          const offset = toneVerticalOffsets.get(tone.key);
           if (Math.abs(offset) > Math.abs(farthest)) {
             farthest = offset;
           } else if (Math.abs(offset) === Math.abs(farthest) && offset < 0) {

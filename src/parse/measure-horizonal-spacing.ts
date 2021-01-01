@@ -3,6 +3,7 @@ import { Flow } from "../store/score-flow/defs";
 import { Stave } from "../store/score-stave/defs";
 import { Barlines } from "./get-barlines";
 import { getNoteSpacing } from "./get-note-spacing";
+import { Shunts } from "./get-notehead-shunts";
 import { HorizontalSpacing, measureTick } from "./measure-tick";
 import { WidthOf } from "./measure-width-upto";
 import { NotationTracks } from "./notation-track";
@@ -12,11 +13,12 @@ export function measureHorizontalSpacing(
   flow: Flow,
   barlines: Barlines,
   notation: NotationTracks,
+  shunts: Shunts,
   engraving: EngravingConfig
 ) {
   const spacing: { [tick: number]: HorizontalSpacing } = {};
   for (let tick = 0; tick < flow.length; tick++) {
-    spacing[tick] = measureTick(tick, staves, flow, barlines.has(tick), notation);
+    spacing[tick] = measureTick(tick, staves, flow, barlines.has(tick), notation, shunts);
   }
   const trackKeys = Object.keys(notation);
   trackKeys.forEach((trackKey) => {

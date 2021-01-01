@@ -12,6 +12,7 @@ import { measureClefBounds } from "../store/entries/clef/utils";
 import { Clef } from "../store/entries/clef/defs";
 import { WidthOf } from "./measure-width-upto";
 import { widthFromDuration } from "../store/entries/tone/utils";
+import { Shunts } from "./get-notehead-shunts";
 
 export type HorizontalSpacing = [
   number, // pre padding (system start)
@@ -29,7 +30,14 @@ export type HorizontalSpacing = [
   number // Padding
 ];
 
-export function measureTick(tick: number, staves: Stave[], flow: Flow, isFirstBeat: boolean, notation: NotationTracks) {
+export function measureTick(
+  tick: number,
+  staves: Stave[],
+  flow: Flow,
+  isFirstBeat: boolean,
+  notation: NotationTracks,
+  shunts: Shunts
+) {
   const measurements: HorizontalSpacing = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
 
   if (tick === 0) {
@@ -71,7 +79,10 @@ export function measureTick(tick: number, staves: Stave[], flow: Flow, isFirstBe
     stave.tracks.order.forEach((trackKey) => {
       const track = notation[trackKey];
       if (track[tick]) {
-        measurements[WidthOf.NoteSlot] = widthFromDuration(track[tick].duration, flow.subdivisions);
+        track[tick].tones.forEach((tone) => {
+          const position = shunts.get(tone.key);
+          measurements[position] = widthFromDuration(track[tick].duration, flow.subdivisions);
+        });
       }
     });
   });

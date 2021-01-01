@@ -1,6 +1,7 @@
 import { Instruction } from "../render/instructions";
 import { drawNotehead } from "../store/entries/tone/utils";
 import { Stave } from "../store/score-stave/defs";
+import { Shunts } from "./get-notehead-shunts";
 import { ToneVerticalOffsets } from "./get-tone-vertical-offsets";
 import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
@@ -15,6 +16,7 @@ export function drawNoteheads(
   horizontalSpacing: { [tick: number]: HorizontalSpacing },
   verticalSpacing: VerticalSpacing,
   toneVerticalOffsets: ToneVerticalOffsets,
+  shunts: Shunts,
   subdivisions: number
 ) {
   const instructions: Instruction<any>[] = [];
@@ -26,10 +28,19 @@ export function drawNoteheads(
       const ticks = Object.keys(track).map((t) => parseInt(t));
       ticks.forEach((tick) => {
         const entry = track[tick];
-        const left = x + measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.NoteSlot);
         entry.tones.forEach((tone) => {
           instructions.push(
-            ...drawNotehead(left, top, entry.duration, toneVerticalOffsets[tone.key], subdivisions, tone.key + tick)
+            ...drawNotehead(
+              tick,
+              x,
+              top,
+              entry.duration,
+              toneVerticalOffsets.get(tone.key),
+              shunts.get(tone.key),
+              subdivisions,
+              horizontalSpacing,
+              tone.key + tick
+            )
           );
         });
       });

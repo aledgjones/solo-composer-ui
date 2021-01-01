@@ -21,7 +21,7 @@ describe("getStemDirection", () => {
         tones: [create_tone(0, 16, { int: 60, accidental: Accidental.Natural }, 90, Articulation.None, "a")],
         ties: [],
       },
-      { a: 0 }
+      new Map([["a", 0]])
     );
     expect(result).toBe(StemDirectionType.Down);
   });
@@ -32,7 +32,7 @@ describe("getStemDirection", () => {
         tones: [create_tone(0, 16, { int: 60, accidental: Accidental.Natural }, 90, Articulation.None, "a")],
         ties: [],
       },
-      { a: 2 }
+      new Map([["a", 2]])
     );
     expect(result).toBe(StemDirectionType.Up);
   });
@@ -43,7 +43,7 @@ describe("getStemDirection", () => {
         tones: [create_tone(0, 16, { int: 60, accidental: Accidental.Natural }, 90, Articulation.None, "a")],
         ties: [],
       },
-      { a: -2 }
+      new Map([["a", -2]])
     );
     expect(result).toBe(StemDirectionType.Down);
   });
@@ -57,7 +57,10 @@ describe("getStemDirection", () => {
         ],
         ties: [],
       },
-      { a: -2, b: 2 }
+      new Map([
+        ["a", -2],
+        ["b", 2],
+      ])
     );
     expect(result).toBe(StemDirectionType.Down);
   });
@@ -71,7 +74,10 @@ describe("getStemDirection", () => {
         ],
         ties: [],
       },
-      { a: -2, b: 3 }
+      new Map([
+        ["a", -2],
+        ["b", 3],
+      ])
     );
     expect(result).toBe(StemDirectionType.Up);
   });
@@ -87,7 +93,11 @@ describe("getStemDirection", () => {
         ],
         ties: [],
       },
-      { a: -2, b: 3, c: 2, d: -7 }
+      new Map([
+        ["a", -2],
+        ["b", 3],
+        ["c", -7],
+      ])
     );
     expect(result).toBe(StemDirectionType.Down);
   });

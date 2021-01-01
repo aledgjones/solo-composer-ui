@@ -5,12 +5,10 @@ import { Tone } from "../store/entries/tone/defs";
 import { getStepsBetweenPitches } from "../store/entries/utils";
 import { Stave } from "../store/score-stave/defs";
 
-export interface ToneVerticalOffsets {
-  [key: string]: number;
-}
+export type ToneVerticalOffsets = Map<string, number>;
 
 export function getToneVerticalOffsets(staves: Stave[]) {
-  const offsets: ToneVerticalOffsets = {};
+  const offsets: ToneVerticalOffsets = new Map();
 
   staves.forEach((stave) => {
     stave.tracks.order.forEach((trackKey) => {
@@ -20,7 +18,7 @@ export function getToneVerticalOffsets(staves: Stave[]) {
         const clef = get_entry_before_tick(tick, stave.master, EntryType.Clef, true) as Clef;
         const tones = get_entries_at_tick(tick, track, EntryType.Tone) as Tone[];
         tones.forEach((tone) => {
-          offsets[tone.key] = clef.offset * -1 - getStepsBetweenPitches(clef.pitch, tone.pitch);
+          offsets.set(tone.key, clef.offset * -1 - getStepsBetweenPitches(clef.pitch, tone.pitch));
         });
       });
     });

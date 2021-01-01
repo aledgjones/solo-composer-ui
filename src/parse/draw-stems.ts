@@ -34,7 +34,7 @@ export function drawStems(
             horizontalSpacing,
             0,
             tick,
-            direction === StemDirectionType.Up ? WidthOf.NoteSpacing : WidthOf.NoteSlot
+            direction === StemDirectionType.Up ? WidthOf.PostNoteSlot : WidthOf.NoteSlot
           ) +
           (width / 2) * (direction === StemDirectionType.Up ? -1 : 1);
 
