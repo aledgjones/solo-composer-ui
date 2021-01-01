@@ -1,6 +1,6 @@
 import { Instruction } from "../render/instructions";
 import { buildPath } from "../render/path";
-import { Beams } from "./get-beams";
+import { BeamsByTrack } from "./get-beams";
 import { VerticalSpacing } from "./measure-verical-spacing";
 import { measureWidthUpto, WidthOf } from "./measure-width-upto";
 import { HorizontalSpacing } from "./measure-tick";
@@ -9,7 +9,7 @@ import { Stave } from "../store/score-stave/defs";
 export function drawBeams(
   x: number,
   y: number,
-  beams: Beams,
+  beams: BeamsByTrack,
   staves: Stave[],
   horizontalSpacing: { [tick: number]: HorizontalSpacing },
   verticalSpacing: VerticalSpacing,

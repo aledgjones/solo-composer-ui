@@ -5,8 +5,9 @@ import { getBeatGroupingBoundries } from "./get-beat-group-boundries";
 import { getIsBeamable } from "./get-is-beamable";
 import { Barlines } from "./get-barlines";
 
-export interface Beams {
-  [trackKey: string]: Set<number[]>;
+export type Beams = Set<number[]>;
+export interface BeamsByTrack {
+  [trackKey: string]: Beams;
 }
 
 export function getBeamsInTrack(flow: Flow, track: NotationTrack, barlines: Barlines) {
@@ -44,7 +45,7 @@ export function getBeamsInTrack(flow: Flow, track: NotationTrack, barlines: Barl
 }
 
 export function getBeams(flow: Flow, notation: NotationTracks, barlines: Barlines) {
-  let beams: Beams = {};
+  let beams: BeamsByTrack = {};
   const keys = Object.keys(notation);
   keys.forEach((trackKey) => {
     const track = notation[trackKey];

@@ -38,8 +38,8 @@ export function drawStems(
           ) +
           (width / 2) * (direction === StemDirectionType.Up ? -1 : 1);
 
-        const start = y + verticalSpacing.staves[stave.key].y + entry.offset;
-        const stop = start + (direction === StemDirectionType.Up ? -entry.length : entry.length);
+        const start = y + verticalSpacing.staves[stave.key].y + entry.head;
+        const stop = y + verticalSpacing.staves[stave.key].y + entry.tail;
 
         instructions.push(
           buildPath(`stem-${trackKey}-${tick}`, { color: "#000000", thickness: width }, [left, start], [left, stop])

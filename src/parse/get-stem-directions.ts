@@ -1,4 +1,4 @@
-import { Beams } from "./get-beams";
+import { BeamsByTrack } from "./get-beams";
 import { ToneVerticalOffsets } from "./get-tone-vertical-offsets";
 import { Notation, NotationTrack, NotationTracks } from "./notation-track";
 
@@ -106,7 +106,11 @@ export function getStemDirectionsInTrack(
   return stemDirections;
 }
 
-export function getStemDirections(notation: NotationTracks, toneVerticalOffsets: ToneVerticalOffsets, beams: Beams) {
+export function getStemDirections(
+  notation: NotationTracks,
+  toneVerticalOffsets: ToneVerticalOffsets,
+  beams: BeamsByTrack
+) {
   let directions: StemDirectionsByTrack = {};
   const keys = Object.keys(notation);
   keys.forEach((trackKey) => {

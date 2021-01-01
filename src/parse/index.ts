@@ -64,7 +64,7 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
   const beams = getBeams(flow, notation, barlines);
   // stem directions
   const stemDirections = getStemDirections(notation, toneVerticalOffsets, beams);
-  const stemLenghts = getStemLengths(flow, staves, notation, toneVerticalOffsets, stemDirections);
+  const stemLenghts = getStemLengths(flow, staves, notation, toneVerticalOffsets, stemDirections, beams);
   // TODO: note shunts
   // TODO: draw ledger lines
   // TODO: draw noteheads in offfset position
