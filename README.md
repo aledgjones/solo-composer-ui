@@ -3,6 +3,7 @@
 <p>Music notation software built with web technologies</p>
 
 ![CodeQL](https://github.com/aledgjones/solo-composer-ui/workflows/CodeQL/badge.svg)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=aledgjones_solo-composer-ui&metric=alert_status)](https://sonarcloud.io/dashboard?id=aledgjones_solo-composer-ui)
 
 [Website](https://solo-composer.web.app)
 
