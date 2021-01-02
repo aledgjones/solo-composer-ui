@@ -1,7 +1,5 @@
 import { Button, Dialog } from "../../../ui";
 
-import "./styles.css";
-
 interface Props {
   onCancel: () => void;
 }
