@@ -36,6 +36,7 @@ import { getNoteheadShunts } from "./get-notehead-shunts";
 import { sortTones } from "./sort-tones";
 import { getDotSlots } from "./get-dot-slots";
 import { drawDots } from "./draw-dots";
+import { drawLedgerLines } from "./draw-ledger-lines";
 
 export function parse(score: Score, flow_key: string, px_per_mm: number, debug: boolean): RenderInstructions {
   const drawInstructions: Instruction<any>[] = [];
@@ -72,7 +73,9 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
   const shunts = getNoteheadShunts(staves, notation, toneVerticalOffsets, stemDirections);
   const dots = getDotSlots(flow, staves, notation, toneVerticalOffsets);
   // TODO: draw ledger lines
-  // TODO: draw noteheads in offfset position
+  // TODO: calc stem lengths inside beams
+  // TODO: draw beams
+  // TODO: accidentals
 
   const horizontalSpacing = measureHorizontalSpacing(staves, flow, barlines, notation, shunts, config);
 
@@ -114,6 +117,17 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
     ...drawKeySignatures(x, y, staves, flow, verticalSpacing, horizontalSpacing),
     ...drawTempi(x, y, flow, horizontalSpacing, config),
     ...drawRests(x, y, staves, notation, horizontalSpacing, verticalSpacing, barlines, flow),
+    ...drawLedgerLines(
+      x,
+      y,
+      staves,
+      notation,
+      horizontalSpacing,
+      verticalSpacing,
+      toneVerticalOffsets,
+      shunts,
+      stemDirections
+    ),
     ...drawNoteheads(
       x,
       y,

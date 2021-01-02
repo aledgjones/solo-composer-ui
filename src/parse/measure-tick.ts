@@ -80,7 +80,7 @@ export function measureTick(
       const track = notation[trackKey];
       if (track[tick]) {
         track[tick].tones.forEach((tone) => {
-          const position = shunts.get(tone.key);
+          const position = shunts.get(`${tick}-${tone.key}`);
           measurements[position] = widthFromDuration(track[tick].duration, flow.subdivisions);
         });
       }

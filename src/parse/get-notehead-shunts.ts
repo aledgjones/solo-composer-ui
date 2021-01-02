@@ -7,6 +7,7 @@ import { NotationTracks, Notation } from "./notation-track";
 export type Shunts = Map<string, WidthOf>;
 
 export function getNoteheadShuntsInChord(
+  tick: number,
   entry: Notation,
   offsets: ToneVerticalOffsets,
   stemDirection: StemDirectionType
@@ -26,9 +27,12 @@ export function getNoteheadShuntsInChord(
         const firstNoteheadIsShunted = stemDirection === StemDirectionType.Up || isOddLength;
         const shunted = firstNoteheadIsShunted ? ii % 2 !== 0 : ii % 2 === 0;
         if (shunted) {
-          shunts.set(tone.key, stemDirection === StemDirectionType.Up ? WidthOf.PostNoteSlot : WidthOf.PreNoteSlot);
+          shunts.set(
+            `${tick}-${tone.key}`,
+            stemDirection === StemDirectionType.Up ? WidthOf.PostNoteSlot : WidthOf.PreNoteSlot
+          );
         } else {
-          shunts.set(tone.key, WidthOf.NoteSlot);
+          shunts.set(`${tick}-${tone.key}`, WidthOf.NoteSlot);
         }
       });
       cluster = [];
@@ -54,7 +58,7 @@ export function getNoteheadShunts(
       ticks.forEach((tick) => {
         const entry = track[tick];
         const direction = directions.get(tick);
-        const result = getNoteheadShuntsInChord(entry, offsets, direction);
+        const result = getNoteheadShuntsInChord(tick, entry, offsets, direction);
         result.forEach((widthOf, key) => {
           shunts.set(key, widthOf);
         });

@@ -1,11 +1,28 @@
+import { buildCircle } from "../render/circle";
 import { Instruction } from "../render/instructions";
-import { drawDot } from "../store/entries/tone/utils";
 import { Stave } from "../store/score-stave/defs";
 import { DotsByTrack } from "./get-dot-slots";
 import { Shunts } from "./get-notehead-shunts";
 import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
-import { NotationTracks } from "./notation-track";
+import { measureWidthUpto } from "./measure-width-upto";
+import { Notation, NotationTracks } from "./notation-track";
+
+export function drawDot(
+  tick: number,
+  x: number,
+  y: number,
+  offset: number,
+  shunts: Shunts,
+  entry: Notation,
+  horizontalSpacing: { [tick: number]: HorizontalSpacing },
+  key: string
+) {
+  const maxWidthOf = Math.max(...entry.tones.map((tone) => shunts.get(`${tick}-${tone.key}`)));
+  const left = x + measureWidthUpto(horizontalSpacing, 0, tick, maxWidthOf + 1);
+  const top = y + offset / 2;
+  return buildCircle(key, { color: "#000000" }, left + 0.75, top, 0.2);
+}
 
 export function drawDots(
   x: number,
