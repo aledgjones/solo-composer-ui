@@ -5,9 +5,6 @@
 .ui-label p {
   margin: 0;
   color: inherit;
-}
-
-.ui-label p {
   font-size: 0.85em;
   opacity: 0.6;
 }
