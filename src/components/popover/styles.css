@@ -28,7 +28,7 @@
   color: var(--primary-fg);
   background-color: var(--primary-bg);
   padding: 3px 12px;
-  font-family: Bravura;
+  font-family: Bravura, sans-serif;
   font-size: 28px;
   line-height: 1em;
 }

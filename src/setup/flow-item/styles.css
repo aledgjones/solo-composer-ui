@@ -27,7 +27,6 @@
 .flow-item__header {
   display: flex;
   height: 48px;
-  display: flex;
   align-items: center;
   padding: 0 16px;
 }

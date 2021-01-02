@@ -21,6 +21,6 @@
 }
 
 .ui-card--animate {
-  animation-fill-mode: both;
   animation: ui-card__in 0.4s;
+  animation-fill-mode: both;
 }

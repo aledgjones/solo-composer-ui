@@ -1,5 +1,4 @@
 .ui-button {
-  display: inline-block;
   transition: box-shadow 0.1s;
   cursor: pointer;
   min-width: 72px;
