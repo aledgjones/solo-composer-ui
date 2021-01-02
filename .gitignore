@@ -1,6 +1,7 @@
 .cache
 .firebase
 .firebaserc
+firebase-debug.log
 .cache
 .DS_Store
 node_modules
