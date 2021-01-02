@@ -1,5 +1,4 @@
-import { render } from "react-dom";
+import { unstable_createRoot } from "react-dom";
 import { Root } from "./root";
 
-const root = document.getElementById("root") as HTMLElement;
-render(<Root />, root);
+unstable_createRoot(document.getElementById("root")).render(<Root />);

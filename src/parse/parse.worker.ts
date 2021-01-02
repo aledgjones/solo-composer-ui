@@ -28,13 +28,13 @@ ctx.addEventListener("message", (e) => {
   const taskID = shortid();
   latestTaskID = taskID;
 
-  if (debug) {
+  if (process.env.NODE_ENV === "development" || debug) {
     performance.mark("start");
   }
 
   const instructions = parse(score, flow_key, mm, debug);
 
-  if (debug) {
+  if (process.env.NODE_ENV === "development" || debug) {
     performance.measure("parse", "start");
 
     const entries = performance.getEntriesByType("measure");
