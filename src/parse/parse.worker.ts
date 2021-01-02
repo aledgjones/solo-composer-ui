@@ -1,11 +1,12 @@
 import shortid from "shortid";
 import { parse } from "./index";
-
+import bravuraUrl from "../fonts/bravura.woff2";
+import libreBaskervilleUrl from "../fonts/bravura.woff2";
 const ctx = (self as unknown) as Worker; // eslint-disable-line
 
 (() => {
-  var bravura = new FontFace("Bravura", "url('/fonts/bravura.woff2')");
-  var libreBaskerville = new FontFace("Libre Baskerville", "url('/fonts/libre-baskerville.woff2')");
+  var bravura = new FontFace("Bravura", `url(${bravuraUrl})`);
+  var libreBaskerville = new FontFace("Libre Baskerville", `url(${libreBaskervilleUrl})`);
   Promise.all([bravura.load(), libreBaskerville.load()]).then((faces) => {
     faces.map((font) => {
       (self as any).fonts.add(font);
