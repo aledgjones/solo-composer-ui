@@ -80,7 +80,7 @@ const Setup: FC = () => {
 
       <PlayerTypePicker width={400} open={!!typePicker} onSelect={typePicker} onCancel={() => setTypePicker(null)} />
       <InstrumentPicker
-        width={1200}
+        width={900}
         open={!!instrumentPicker}
         onSelect={instrumentPicker}
         onCancel={() => setInstrumentPicker(null)}

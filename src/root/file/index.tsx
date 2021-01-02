@@ -118,11 +118,11 @@ export const File: FC = () => {
         )}
       </div>
 
-      <Meta width={1200} open={meta} onClose={() => setMeta(false)} />
+      <Meta width={900} open={meta} onClose={() => setMeta(false)} />
       <About width={400} open={about} onClose={() => setAbout(false)} />
-      <Preferences open={preferences} width={1200} onClose={() => setPreferences(false)} />
+      <Preferences open={preferences} width={900} onClose={() => setPreferences(false)} />
       <Importer width={300} open={importer} onClose={() => setImporter(false)} />
-      <Library width={1200} open={library} onCancel={() => setLibrary(false)} />
+      <Library width={900} open={library} onCancel={() => setLibrary(false)} />
     </>
   );
 };

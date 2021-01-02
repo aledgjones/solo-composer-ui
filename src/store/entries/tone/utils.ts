@@ -2,11 +2,12 @@ import { Pitch, Articulation, EntryType, NoteDuration } from "../defs";
 import shortid from "shortid";
 import { Tone } from "./defs";
 import { Align, buildText, Justify, TextStyles } from "../../../render/text";
-import { getBaseDuration, getIsDotted } from "../../../parse/notation-track";
+import { getBaseDuration, getIsDotted, Notation } from "../../../parse/notation-track";
 import { Instruction } from "../../../render/instructions";
 import { buildCircle } from "../../../render/circle";
 import { measureWidthUpto, WidthOf } from "../../../parse/measure-width-upto";
 import { HorizontalSpacing } from "../../../parse/measure-tick";
+import { Shunts } from "../../../parse/get-notehead-shunts";
 
 export function create_tone(
   tick: number,
@@ -82,18 +83,26 @@ export function drawNotehead(
 
   const left = x + measureWidthUpto(horizontalSpacing, 0, tick, shunt);
   const baseDuration = getBaseDuration(duration, subdivisions);
-  const isDotted = getIsDotted(duration, subdivisions);
   const glyph = glyphFromDuration(baseDuration);
   const top = y + offset / 2;
 
   instructions.push(buildText(`${key}-head`, styles, left, top, glyph));
 
-  // TODO: remove this in preference to calculated dot positions
-  if (isDotted) {
-    instructions.push(
-      buildCircle(`${key}-dot`, { color: "#000000" }, left + 1.75, top + (Math.abs(offset) % 2 > 0 ? 0 : -0.5), 0.25)
-    );
-  }
-
   return instructions;
+}
+
+export function drawDot(
+  tick: number,
+  x: number,
+  y: number,
+  offset: number,
+  shunts: Shunts,
+  entry: Notation,
+  horizontalSpacing: { [tick: number]: HorizontalSpacing },
+  key: string
+) {
+  const maxWidthOf = Math.max(...entry.tones.map((tone) => shunts.get(tone.key)));
+  const left = x + measureWidthUpto(horizontalSpacing, 0, tick, maxWidthOf + 1);
+  const top = y + offset / 2;
+  return buildCircle(`${key}-dot`, { color: "#000000" }, left + 0.75, top, 0.25);
 }

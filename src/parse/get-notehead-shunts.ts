@@ -13,8 +13,6 @@ export function getNoteheadShuntsInChord(
 ) {
   const shunts = new Map();
 
-  entry.tones.sort((a, b) => offsets.get(b.key) - offsets.get(a.key));
-
   let cluster = [];
   for (let i = 0; i < entry.tones.length; i++) {
     const curr = entry.tones[i];

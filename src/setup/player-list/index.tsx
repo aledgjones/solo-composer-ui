@@ -65,7 +65,7 @@ export const PlayerList: FC<Props> = ({ selection, onSelect, onAddInstrument, on
         </SortableContainer>
       </Panel>
 
-      <PlayerSettings width={1200} open={settings} onClose={() => setSettings(false)} />
+      <PlayerSettings width={900} open={settings} onClose={() => setSettings(false)} />
     </>
   );
 };
