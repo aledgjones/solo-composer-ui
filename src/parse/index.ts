@@ -43,7 +43,7 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
   const flow = score.flows.by_key[flow_key];
   // TODO: make this specific to the part type
   const config = Object.values(score.engraving).find((c) => c.type === LayoutType.Score);
-  const { px, mm, spaces } = getConverter(px_per_mm, config.space, 2);
+  const { px, mm, spaces } = getConverter(px_per_mm, config.space, 0);
   const staves = getStavesAsArray(score.players, score.instruments, flow);
 
   const counts = getCounts(score.players, score.instruments);

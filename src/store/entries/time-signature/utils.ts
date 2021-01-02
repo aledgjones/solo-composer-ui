@@ -14,7 +14,7 @@ export function measureTimeSignatureBox(entry: TimeSignature): Box {
 export function measureTimeSignatureBounds(entry: TimeSignature): Box {
   const isWide = entry.beats > 9 || entry.beat_type > 9;
   const isHidden = entry.draw_type === TimeSignatureDrawType.Hidden;
-  return { width: isHidden ? 0 : (isWide ? 3 : 1.7) + 1.5, height: 4 };
+  return { width: isHidden ? 0 : (isWide ? 3 : 1.7) + 2, height: 4 };
 }
 
 /** Create a time signature with optional beat groupings */

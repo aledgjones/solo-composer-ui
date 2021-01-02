@@ -104,5 +104,5 @@ export function drawDot(
   const maxWidthOf = Math.max(...entry.tones.map((tone) => shunts.get(tone.key)));
   const left = x + measureWidthUpto(horizontalSpacing, 0, tick, maxWidthOf + 1);
   const top = y + offset / 2;
-  return buildCircle(`${key}-dot`, { color: "#000000" }, left + 0.75, top, 0.25);
+  return buildCircle(`${key}-dot`, { color: "#000000" }, left + 0.75, top, 0.2);
 }
