@@ -29,13 +29,13 @@ export function widthFromDuration(duration: number, subdevisions: number) {
     case NoteDuration.Sixteenth:
     case NoteDuration.Eighth:
     case NoteDuration.Quarter:
-      return 1.175;
+    // return 1.175;
     case NoteDuration.Half:
-      return 1.18;
+    // return 1.18;
     case NoteDuration.Whole:
-      return 1.695;
+    // return 1.695;
     default:
-      return undefined;
+      return 1.175;
   }
 }
 
