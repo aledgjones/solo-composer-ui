@@ -15,8 +15,8 @@ import "./styles.css";
 
 interface Props {
   className?: string;
-  selection: { [key: string]: boolean };
-  onSelect?: (data: Entry, addative: boolean) => void;
+  selection?: { [key: string]: boolean };
+  onSelect?: (data: Entry) => void;
 }
 
 export const Renderer: FC<Props> = memo(({ selection, className, children, onSelect }) => {
@@ -76,13 +76,13 @@ export const Renderer: FC<Props> = memo(({ selection, className, children, onSel
                     }}
                   >
                     <div
-                      onClick={(e) => {
+                      onClick={() => {
                         if (onSelect && text.entry) {
-                          onSelect(text.entry, e.ctrlKey);
+                          onSelect(text.entry);
                         }
                       }}
                       className={merge("renderer__entry-container--text", {
-                        "entry--selected": text.entry && selection[text.entry.key],
+                        "entry--selected": text.entry && selection && selection[text.entry.key],
                       })}
                       style={{
                         position: "absolute",

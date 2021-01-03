@@ -37,11 +37,9 @@ const Write: FC = () => {
         <RenderRegion className="write__renderer">
           <Renderer
             selection={selection}
-            onSelect={(entry, addative) => {
+            onSelect={(entry) => {
               actions.ui.write.tick.set(entry.tick);
-              if (!addative) {
-                actions.ui.selection.clear();
-              }
+              actions.ui.selection.clear();
               actions.ui.selection.select(entry.key);
             }}
           >
