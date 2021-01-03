@@ -13,6 +13,7 @@ import { Tool } from "../store/ui/defs";
 import { NoteDuration } from "../store/entries/defs";
 
 import "./styles.css";
+import { useHotkeys } from "react-hotkeys-hook";
 
 const Play: FC = () => {
   useTitle("Solo Composer | Sequence");
@@ -46,32 +47,10 @@ const Play: FC = () => {
   const ticks = useTicks();
   const colors = useRainbow(players.length);
 
-  // keyboard shortcuts
-  useEffect(() => {
-    const listener = (e: KeyboardEvent) => {
-      switch (e.code) {
-        case "Digit1":
-          actions.ui.play.tool(Tool.Select);
-          break;
-        case "Digit2":
-          actions.ui.play.tool(Tool.Draw);
-          break;
-        case "Digit3":
-          actions.ui.play.tool(Tool.Slice);
-          break;
-        case "Digit4":
-          actions.ui.play.tool(Tool.Erase);
-          break;
-        default:
-          break;
-      }
-    };
-
-    document.addEventListener("keydown", listener);
-    return () => {
-      document.removeEventListener("keydown", listener);
-    };
-  }, []);
+  useHotkeys("1", () => actions.ui.play.tool(Tool.Select));
+  useHotkeys("2", () => actions.ui.play.tool(Tool.Draw));
+  useHotkeys("3", () => actions.ui.play.tool(Tool.Slice));
+  useHotkeys("4", () => actions.ui.play.tool(Tool.Erase));
 
   const inc = useCallback(() => {
     if (zoom + 0.05 <= 5) {

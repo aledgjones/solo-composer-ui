@@ -34,6 +34,7 @@ alto-saxophone, natural, /output/alto-saxophone/natural.json
 violin, spiccato, /output/violin/spiccato.json
 kit-hihat, natural, /output/kit-hihat/natural.json
 distortion-guitar, natural, /output/distortion-guitar/natural.json
+harp, natural, /output/harp/natural.json
 celesta, natural, /output/celesta/natural.json
 kit-snare, natural, /output/kit-snare/natural.json
 flute, natural, /output/flute/natural.json
