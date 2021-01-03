@@ -30,9 +30,6 @@ const Write: FC = () => {
   useHotkeys("esc", () => {
     setSelection(null);
   });
-  useHotkeys("del", () => {
-    // if(selection)
-  });
   useHotkeys("shift+k", () => actions.ui.write.popover.show(PopoverType.KeySignature));
   useHotkeys("shift+m", () => actions.ui.write.popover.show(PopoverType.TimeSignature));
   useHotkeys("shift+b", () => actions.ui.write.popover.show(PopoverType.Bar));

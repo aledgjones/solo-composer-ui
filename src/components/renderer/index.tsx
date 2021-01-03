@@ -77,11 +77,12 @@ export const Renderer: FC<Props> = memo(({ selection, className, children, onSel
                   >
                     <div
                       onClick={() => onSelect && text.entry && onSelect(text.entry)}
-                      className="renderer__entry-container--text"
+                      className={merge("renderer__entry-container--text", {
+                        "entry--selected": selection && text.entry && selection.key === text.entry.key,
+                      })}
                       style={{
                         position: "absolute",
-                        color:
-                          selection && text.entry && selection.key === text.entry.key ? "#ff00ff" : text.styles.color,
+                        color: text.styles.color,
                         fontFamily: text.styles.font,
                         fontSize: text.styles.size * space,
                         lineHeight: text.styles.lineHeight,
