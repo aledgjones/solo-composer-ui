@@ -229,6 +229,7 @@ export function drawTimeSignature(x: number, y: number, time: TimeSignature, sta
     size: 4,
     justify: Justify.Middle,
     align: Align.Middle,
+    lineHeight: 0.5,
   };
 
   const box = measureTimeSignatureBox(time);

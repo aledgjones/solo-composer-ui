@@ -62,6 +62,7 @@ export function drawBrackets(
         align: Align.Middle,
         font: "Bravura",
         size: 4,
+        lineHeight: 1,
       };
       out.push(
         // thick line

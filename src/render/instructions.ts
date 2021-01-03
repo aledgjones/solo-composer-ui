@@ -1,3 +1,5 @@
+import { Entry, EntryType } from "../store/entries/defs";
+
 export enum InstructionType {
   path = 1,
   text,
@@ -9,6 +11,7 @@ export enum InstructionType {
 export interface InstructionBase {
   key: string;
   type: InstructionType;
+  entry?: Entry;
 }
 export type Instruction<T> = InstructionBase & T;
 

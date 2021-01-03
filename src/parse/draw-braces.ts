@@ -9,6 +9,7 @@ export function drawBraces(x: number, y: number, spacing: VerticalSpacing, spans
     size: 0.0,
     justify: Justify.End,
     align: Align.Middle,
+    lineHeight: 1,
   };
 
   return spans.braces.map((brace) => {

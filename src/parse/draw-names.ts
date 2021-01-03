@@ -23,6 +23,7 @@ export function drawNames(
     size: config.instrumentName.size,
     justify: config.instrumentName.align,
     align: Align.Middle,
+    lineHeight: 1,
   };
 
   const left = config.instrumentName.align === Justify.Start ? x : x + width;

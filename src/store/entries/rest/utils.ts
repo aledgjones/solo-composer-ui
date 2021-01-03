@@ -37,6 +37,7 @@ export function drawRest(
     align: Align.Middle,
     size: 4,
     font: `Bravura`,
+    lineHeight: 0.5,
   };
   const instructions: Instruction<any> = [];
 

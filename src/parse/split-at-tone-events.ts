@@ -32,7 +32,7 @@ export function splitAtToneEvents(length: number, track: Track): NotationTrack {
   });
 
   // fill the split track with the tone entries
-  for (let tick = 0; tick <= length; tick++) {
+  for (let tick = 0; tick < length; tick++) {
     const entries = track.entries.by_tick[tick] || [];
     entries.forEach((entry_key) => {
       const entry = track.entries.by_key[entry_key];

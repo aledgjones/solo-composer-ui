@@ -113,6 +113,7 @@ export function drawAbsoluteTempo(x: number, y: number, tempo: AbsoluteTempo, co
     size: config.tempo.size,
     justify: config.tempo.align,
     align: Align.Bottom,
+    lineHeight: 1,
   };
 
   let left = x;

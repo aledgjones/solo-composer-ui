@@ -10,6 +10,7 @@ export function measureNames(names: string[], config: EngravingConfig, spaces: C
     size: config.instrumentName.size,
     justify: Justify.Start,
     align: Align.Top,
+    lineHeight: 1,
   };
   const boxes = names.map((name) => measureText(styles, name, spaces, px));
   return Math.max(...boxes, 0); // add a zero incase we dont actually have any widths

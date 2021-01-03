@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useTitle } from "../../ui";
 import { CollpaseDirection, Panel } from "../components/panel";
@@ -6,6 +6,7 @@ import { Popover } from "../components/popover";
 import { RenderRegion } from "../components/render-region";
 import { Renderer } from "../components/renderer";
 import { actions } from "../store/actions";
+import { Entry } from "../store/entries/defs";
 import { PopoverType } from "../store/ui/defs";
 import { useStore } from "../store/use-store";
 import { barCommands, keySignatureCommands, tempoCommands, timeSignatureCommands } from "./hotkeys";
@@ -23,6 +24,15 @@ const Write: FC = () => {
     s.ui.write.popover,
   ]);
 
+  const [selection, setSelection] = useState<Entry>(null);
+  const tick = selection?.tick || 0;
+
+  useHotkeys("esc", () => {
+    setSelection(null);
+  });
+  useHotkeys("del", () => {
+    // if(selection)
+  });
   useHotkeys("shift+k", () => actions.ui.write.popover.show(PopoverType.KeySignature));
   useHotkeys("shift+m", () => actions.ui.write.popover.show(PopoverType.TimeSignature));
   useHotkeys("shift+b", () => actions.ui.write.popover.show(PopoverType.Bar));
@@ -32,32 +42,37 @@ const Write: FC = () => {
     <>
       <div className="write">
         <RenderRegion className="write__renderer">
-          <Renderer>
+          <Renderer
+            selection={selection}
+            onSelect={(entry) => {
+              setSelection(entry);
+            }}
+          >
             {popover === PopoverType.KeySignature && (
               <Popover
                 icon={"\u{E262}"}
-                onCommand={(value) => keySignatureCommands(flowKey, 0, value)}
+                onCommand={(value) => keySignatureCommands(flowKey, tick, value)}
                 onHide={actions.ui.write.popover.hide}
               />
             )}
             {popover === PopoverType.TimeSignature && (
               <Popover
                 icon={"\u{E08B}"}
-                onCommand={(value) => timeSignatureCommands(flowKey, 0, value)}
+                onCommand={(value) => timeSignatureCommands(flowKey, tick, value)}
                 onHide={actions.ui.write.popover.hide}
               />
             )}
             {popover === PopoverType.Bar && (
               <Popover
                 icon={"\u{E4EE}"}
-                onCommand={(value) => barCommands(flowKey, 0, value)}
+                onCommand={(value) => barCommands(flowKey, tick, value)}
                 onHide={actions.ui.write.popover.hide}
               />
             )}
             {popover === PopoverType.Tempo && (
               <Popover
                 icon={"\u{E1D0}"}
-                onCommand={(value) => tempoCommands(flowKey, 0, value)}
+                onCommand={(value) => tempoCommands(flowKey, tick, value)}
                 onHide={actions.ui.write.popover.hide}
               />
             )}

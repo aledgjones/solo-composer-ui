@@ -29,7 +29,7 @@ export function drawRests(
         const entry = track[tick];
         if (entry.tones.length === 0) {
           const isFullBar =
-            (barlines.has(tick) && barlines.has(tick + entry.duration)) || tick + entry.duration === flow.length;
+            barlines.has(tick) && (barlines.has(tick + entry.duration) || tick + entry.duration === flow.length);
           if (isFullBar) {
             const end = measureWidthUpto(horizontalSpacing, 0, tick + entry.duration - 1, WidthOf.PaddingEnd);
             const start = measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.NoteSlot);

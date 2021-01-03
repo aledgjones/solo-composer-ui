@@ -1,13 +1,17 @@
 import { Flow } from "../store/score-flow/defs";
-import { NotationTracks } from "./notation-track";
+import { getBaseDuration, NotationTracks } from "./notation-track";
 import { BarlineDrawType } from "../store/entries/barline/defs";
-import { get_entries_at_tick, measureTimeSignatureBounds } from "../store/entries/time-signature/utils";
+import {
+  duration_to_ticks,
+  get_entries_at_tick,
+  measureTimeSignatureBounds,
+} from "../store/entries/time-signature/utils";
 import { measureKeySignatureBounds } from "../store/entries/key-signature/utils";
 import { measureBarlineBounds } from "../store/entries/barline/utils";
 import { getextrasAtTick } from "./get-extras-at-tick";
 import { getBarlineDrawTypeAtTick } from "./get-barline-draw-type-at-tick";
 import { Stave } from "../store/score-stave/defs";
-import { EntryType } from "../store/entries/defs";
+import { EntryType, NoteDuration } from "../store/entries/defs";
 import { measureClefBounds } from "../store/entries/clef/utils";
 import { Clef } from "../store/entries/clef/defs";
 import { WidthOf } from "./measure-width-upto";
@@ -77,12 +81,16 @@ export function measureTick(
       measurements[WidthOf.Clef] = measureClefBounds(clef).width;
     }
     stave.tracks.order.forEach((trackKey) => {
-      const track = notation[trackKey];
-      if (track[tick]) {
-        track[tick].tones.forEach((tone) => {
-          const position = shunts.get(`${tick}-${tone.key}`);
-          measurements[position] = widthFromDuration(track[tick].duration, flow.subdivisions);
-        });
+      const entry = notation[trackKey][tick];
+      if (entry) {
+        if (entry.tones.length > 0) {
+          entry.tones.forEach((tone) => {
+            const position = shunts.get(`${tick}-${tone.key}`);
+            measurements[position] = widthFromDuration(entry.duration, flow.subdivisions);
+          });
+        } else {
+          measurements[WidthOf.NoteSlot] = widthFromDuration(entry.duration, flow.subdivisions);
+        }
       }
     });
   });

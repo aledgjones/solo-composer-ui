@@ -4,7 +4,6 @@ import { getIsRest } from "./get-is-rest";
 import { splitNotationTrack } from "./split-notation-track";
 import { duration_to_ticks } from "../store/entries/time-signature/utils";
 import { NoteDuration } from "../store/entries/defs";
-import { TimeSignature } from "../store/entries/time-signature/defs";
 import { getIsEmpty } from "./get-is-empty";
 import { getIsWritable } from "./get-is-writable";
 import { getBeatGroupingBoundries } from "./get-beat-group-boundries";

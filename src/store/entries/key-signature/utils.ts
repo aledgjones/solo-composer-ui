@@ -51,6 +51,7 @@ export function drawKeySignature(x: number, y: number, clef: Clef, key: KeySigna
     size: 4,
     justify: Justify.Start,
     align: Align.Middle,
+    lineHeight: 0.5,
   };
 
   // calc naturals here - find out rules for naturalising

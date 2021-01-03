@@ -1,13 +1,7 @@
 import { Pitch, Articulation, EntryType, NoteDuration } from "../defs";
 import shortid from "shortid";
 import { Tone } from "./defs";
-import { Align, buildText, Justify, TextStyles } from "../../../render/text";
-import { getBaseDuration, getIsDotted, Notation } from "../../../parse/notation-track";
-import { Instruction } from "../../../render/instructions";
-import { buildCircle } from "../../../render/circle";
-import { measureWidthUpto, WidthOf } from "../../../parse/measure-width-upto";
-import { HorizontalSpacing } from "../../../parse/measure-tick";
-import { Shunts } from "../../../parse/get-notehead-shunts";
+import { getBaseDuration } from "../../../parse/notation-track";
 
 export function create_tone(
   tick: number,

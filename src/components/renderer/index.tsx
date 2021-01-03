@@ -9,14 +9,17 @@ import { CurveInstruction, getControlPoints } from "../../render/curve";
 import { Text } from "../text";
 import { useStore } from "../../store/use-store";
 import { BoxInstruction } from "../../render/box";
+import { Entry } from "../../store/entries/defs";
 
 import "./styles.css";
 
 interface Props {
   className?: string;
+  selection?: Entry;
+  onSelect?: (data: Entry) => void;
 }
 
-export const Renderer: FC<Props> = memo(({ className, children }) => {
+export const Renderer: FC<Props> = memo(({ selection, className, children, onSelect }) => {
   const [score, flow_key, debug] = useStore((s) => [s.score, s.ui.flow_key, s.developer.debug]);
   const instructions = useParseWorker(score, flow_key, debug);
 
@@ -73,13 +76,15 @@ export const Renderer: FC<Props> = memo(({ className, children }) => {
                     }}
                   >
                     <div
+                      onClick={() => onSelect && text.entry && onSelect(text.entry)}
                       className="renderer__entry-container--text"
                       style={{
                         position: "absolute",
-                        color: text.styles.color,
+                        color:
+                          selection && text.entry && selection.key === text.entry.key ? "#ff00ff" : text.styles.color,
                         fontFamily: text.styles.font,
                         fontSize: text.styles.size * space,
-                        lineHeight: "1em",
+                        lineHeight: text.styles.lineHeight,
                         whiteSpace: "pre",
                         ...textStyle(text.styles.align, text.styles.justify),
                       }}

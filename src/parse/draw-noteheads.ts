@@ -1,5 +1,6 @@
 import { Instruction } from "../render/instructions";
 import { Align, buildText, Justify, TextStyles } from "../render/text";
+import { Tone } from "../store/entries/tone/defs";
 import { glyphFromDuration } from "../store/entries/tone/utils";
 import { Stave } from "../store/score-stave/defs";
 import { Shunts } from "./get-notehead-shunts";
@@ -18,7 +19,7 @@ export function drawNotehead(
   shunt: WidthOf,
   subdivisions: number,
   horizontalSpacing: { [tick: number]: HorizontalSpacing },
-  key: string
+  tone: Tone
 ) {
   const instructions: Instruction<any>[] = [];
   const styles: TextStyles = {
@@ -27,6 +28,7 @@ export function drawNotehead(
     align: Align.Middle,
     size: 4,
     font: `Bravura`,
+    lineHeight: 0.25,
   };
 
   const left = x + measureWidthUpto(horizontalSpacing, 0, tick, shunt);
@@ -34,7 +36,7 @@ export function drawNotehead(
   const glyph = glyphFromDuration(baseDuration);
   const top = y + offset / 2;
 
-  instructions.push(buildText(key, styles, left, top, glyph));
+  instructions.push(buildText(`notehead-${tick}-${tone.key}`, styles, left, top, glyph, tone));
 
   return instructions;
 }
@@ -70,7 +72,7 @@ export function drawNoteheads(
               shunts.get(`${tick}-${tone.key}`),
               subdivisions,
               horizontalSpacing,
-              `notehead-${tick}-${tone.key}`
+              tone
             )
           );
         });

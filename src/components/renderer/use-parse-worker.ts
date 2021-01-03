@@ -1,31 +1,26 @@
-import { useEffect, useState } from "react";
-import { RenderInstructions } from "../../render/instructions";
+import { useMemo } from "react";
+import { parse } from "../../parse";
 import { Score } from "../../store/score/defs";
 import { useMM } from "./use-mm";
 
-const worker = new Worker("../../parse/parse.worker.ts");
-let cache: RenderInstructions;
-
 export function useParseWorker(score: Score, flow_key: string, debug: boolean) {
-  const [instructions, setInstructions] = useState<RenderInstructions | undefined>(cache);
+  if (process.env.NODE_ENV === "development" || debug) {
+    performance.mark("start");
+  }
 
   const mm = useMM();
+  const instructions = useMemo(() => parse(score, flow_key, mm, debug), [score, flow_key, mm, debug]);
 
-  useEffect(() => {
-    worker.postMessage({ mm, score, flow_key, debug });
-  }, [mm, score, flow_key, debug]);
+  if (process.env.NODE_ENV === "development" || debug) {
+    performance.measure("parse", "start");
 
-  useEffect(() => {
-    const cb = (e: any) => {
-      cache = e.data;
-      setInstructions(e.data);
-    };
-
-    worker.addEventListener("message", cb);
-    return () => {
-      worker.removeEventListener("message", cb);
-    };
-  }, []);
+    const entries = performance.getEntriesByType("measure");
+    const duration = entries[entries.length - 1].duration;
+    console.log(
+      `duration: %c${duration}`,
+      (duration < 1000 / 60 && "color: green") || (duration < 1000 / 30 && "color: orange") || "color: red"
+    );
+  }
 
   return instructions;
 }

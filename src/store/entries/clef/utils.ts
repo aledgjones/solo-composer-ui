@@ -48,6 +48,7 @@ export function drawClef(x: number, y: number, clef: Clef) {
     align: Align.Middle,
     size: 4,
     font: `Bravura`,
+    lineHeight: 1,
   };
   return buildText(clef.key, styles, x, y + 0.5 * (clef.offset * -1), glyph);
 }
