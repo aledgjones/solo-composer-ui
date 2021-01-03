@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { useTitle } from "../../ui";
 import { CollpaseDirection, Panel } from "../components/panel";
@@ -6,7 +6,6 @@ import { Popover } from "../components/popover";
 import { RenderRegion } from "../components/render-region";
 import { Renderer } from "../components/renderer";
 import { actions } from "../store/actions";
-import { Entry } from "../store/entries/defs";
 import { PopoverType } from "../store/ui/defs";
 import { useStore } from "../store/use-store";
 import { barCommands, keySignatureCommands, tempoCommands, timeSignatureCommands } from "./hotkeys";
@@ -18,18 +17,15 @@ import "./styles.css";
 const Write: FC = () => {
   useTitle("Solo Composer | Write");
 
-  const [flowKey, panel, popover] = useStore((s) => [
+  const [flowKey, panel, popover, selection, tick] = useStore((s) => [
     s.ui.flow_key || s.score.flows.order[0],
     s.ui.write.panels.elements,
     s.ui.write.popover,
+    s.ui.selection,
+    s.ui.write.tick,
   ]);
 
-  const [selection, setSelection] = useState<Entry>(null);
-  const tick = selection?.tick || 0;
-
-  useHotkeys("esc", () => {
-    setSelection(null);
-  });
+  useHotkeys("esc", actions.ui.selection.clear);
   useHotkeys("shift+k", () => actions.ui.write.popover.show(PopoverType.KeySignature));
   useHotkeys("shift+m", () => actions.ui.write.popover.show(PopoverType.TimeSignature));
   useHotkeys("shift+b", () => actions.ui.write.popover.show(PopoverType.Bar));
@@ -41,8 +37,12 @@ const Write: FC = () => {
         <RenderRegion className="write__renderer">
           <Renderer
             selection={selection}
-            onSelect={(entry) => {
-              setSelection(entry);
+            onSelect={(entry, addative) => {
+              actions.ui.write.tick.set(entry.tick);
+              if (!addative) {
+                actions.ui.selection.clear();
+              }
+              actions.ui.selection.select(entry.key);
             }}
           >
             {popover === PopoverType.KeySignature && (

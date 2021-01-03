@@ -90,15 +90,15 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool
           Articulation.None
         );
 
-        actions.ui.play.selection.clear();
-        actions.ui.play.selection.select(toneKey);
+        actions.ui.selection.clear();
+        actions.ui.selection.select(toneKey);
 
         onEdit(e, toneKey, start, duration, pitch, Articulation.None, true, false, true);
         onAudition(pitch);
       }
 
       if (tool === Tool.Select) {
-        actions.ui.play.selection.clear();
+        actions.ui.selection.clear();
       }
     },
     [flowKey, staveKey, instrumentKey, trackKey, track, ticks, base, slots, tool, snap, audition, zoom, onAudition]
@@ -172,7 +172,7 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool
       const slice = getTickFromXPosition(x, ticks, snap, zoom);
 
       if (slice > start && slice < start + duration) {
-        actions.ui.play.selection.clear();
+        actions.ui.selection.clear();
         actions.score.entries.tone.slice(flowKey, staveKey, trackKey, toneKey, slice);
       }
     },
@@ -181,7 +181,7 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool
 
   const onRemove = useCallback(
     (key: string) => {
-      actions.ui.play.selection.clear();
+      actions.ui.selection.clear();
       actions.score.entries.tone.remove(flowKey, staveKey, trackKey, key);
     },
     [flowKey, staveKey, trackKey]

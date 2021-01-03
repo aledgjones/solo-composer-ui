@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { merge } from "../../../ui";
 import { SLOT_COUNT, SLOT_HEIGHT } from "../const";
 import { Ticks } from "../ticks";
@@ -20,11 +20,8 @@ interface Props {
 }
 
 export const Track: FC<Props> = ({ flowKey, instrumentKey, color, ticks, zoom }) => {
-  const [expanded, tool, base, playing] = useStore(
-    (s) => {
-      const keyboard = s.ui.play.keyboard[instrumentKey];
-      return [s.ui.play.expanded[instrumentKey], s.ui.play.tool, keyboard || 76, s.playback.transport.playing];
-    },
+  const [expanded, tool, base] = useStore(
+    (s) => [s.ui.play.expanded[instrumentKey], s.ui.play.tool, s.ui.play.keyboard[instrumentKey] || 76],
     [instrumentKey]
   );
 

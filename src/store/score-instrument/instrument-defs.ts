@@ -172,7 +172,7 @@ export const instrumentDefs: InstrumentDef[] = [
   {
     id: "guitar.acoustic",
     type: InstrumentType.Melodic,
-    path: ["Guitar", "Acoustic Guitar"],
+    path: ["Guitars", "Acoustic Guitar"],
     long_name: "Acoustic Guitar",
     short_name: "A. Gtr.",
     staves: [
@@ -197,7 +197,7 @@ export const instrumentDefs: InstrumentDef[] = [
   {
     id: "guitar.bass",
     type: InstrumentType.Melodic,
-    path: ["Guitar", "Bass Guitar"],
+    path: ["Guitars", "Bass Guitar"],
     long_name: "Bass Guitar",
     short_name: "B. Gtr.",
     staves: [
@@ -222,7 +222,7 @@ export const instrumentDefs: InstrumentDef[] = [
   {
     id: "guitar.distortion",
     type: InstrumentType.Melodic,
-    path: ["Guitar", "Distortion Guitar"],
+    path: ["Guitars", "Distortion Guitar"],
     long_name: "Distortion Guitar",
     short_name: "Gtr.",
     staves: [

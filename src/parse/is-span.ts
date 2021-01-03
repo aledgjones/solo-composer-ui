@@ -18,10 +18,10 @@ export function isSpan(
 
   // bracket all instruments together apart from keyboard instruments
   if (bracketing === BracketingType.SmallEnsemble) {
-    if (instrumentFamily === "keyboards") {
+    if (instrumentFamily === "keyboard") {
       return BracketSpan.None;
     }
-    if (!previousInstrumentFamily || previousInstrumentFamily === "keyboards") {
+    if (!previousInstrumentFamily || previousInstrumentFamily === "keyboard") {
       return BracketSpan.Start;
     }
     return BracketSpan.Continue;

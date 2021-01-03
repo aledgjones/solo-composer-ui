@@ -60,7 +60,7 @@ export const ToneTrackEntry: FC<Props> = ({
   onSlice,
   onAudition,
 }) => {
-  const selected = useStore((s) => s.ui.play.selected[tone.key], [tone.key]);
+  const selected = useStore((s) => s.ui.selection[tone.key], [tone.key]);
 
   const left = useMemo(() => {
     if (tone.tick >= ticks.list.length) {
@@ -84,8 +84,8 @@ export const ToneTrackEntry: FC<Props> = ({
       e.stopPropagation();
 
       if (tool === Tool.Select && !selected) {
-        actions.ui.play.selection.clear();
-        actions.ui.play.selection.select(tone.key);
+        actions.ui.selection.clear();
+        actions.ui.selection.select(tone.key);
         onAudition(tone.pitch.int);
       }
       if (tool === Tool.Erase) {

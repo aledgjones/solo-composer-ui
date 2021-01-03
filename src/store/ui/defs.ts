@@ -26,6 +26,7 @@ export interface UiDefs {
   view: View;
   snap: NoteDuration;
   flow_key: string;
+  selection: { [key: string]: boolean };
   setup: {
     expanded: { [key: string]: boolean };
     panels: {
@@ -38,9 +39,10 @@ export interface UiDefs {
       elements: boolean;
     };
     popover: PopoverType | null;
+
+    tick: number;
   };
   play: {
-    selected: { [key: string]: boolean };
     expanded: { [key: string]: boolean };
     keyboard: { [key: string]: number };
     tool: Tool;

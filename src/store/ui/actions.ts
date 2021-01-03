@@ -20,6 +20,23 @@ export const uiActions = {
       s.ui.flow_key = key;
     });
   },
+  selection: {
+    select: (key: string) => {
+      store.update((s) => {
+        s.ui.selection[key] = true;
+      });
+    },
+    deselect: (key: string) => {
+      store.update((s) => {
+        delete s.ui.selection[key];
+      });
+    },
+    clear: () => {
+      store.update((s) => {
+        s.ui.selection = {};
+      });
+    },
+  },
   setup: {
     expand: (key: string) => {
       store.update((s) => {
@@ -47,6 +64,13 @@ export const uiActions = {
     },
   },
   write: {
+    tick: {
+      set: (tick: number) => {
+        store.update((s) => {
+          s.ui.write.tick = tick;
+        });
+      },
+    },
     panels: {
       toggle: {
         elements: () => {
@@ -70,23 +94,6 @@ export const uiActions = {
     },
   },
   play: {
-    selection: {
-      select: (key: string) => {
-        store.update((s) => {
-          s.ui.play.selected[key] = true;
-        });
-      },
-      deselect: (key: string) => {
-        store.update((s) => {
-          delete s.ui.play.selected[key];
-        });
-      },
-      clear: () => {
-        store.update((s) => {
-          s.ui.play.selected = {};
-        });
-      },
-    },
     expand: (key: string) => {
       store.update((s) => {
         s.ui.play.expanded[key] = true;
