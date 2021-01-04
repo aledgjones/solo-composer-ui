@@ -43,6 +43,7 @@ export interface UiDefs {
     tick: number;
   };
   play: {
+    stave: { [key: string]: string };
     expanded: { [key: string]: boolean };
     keyboard: { [key: string]: number };
     tool: Tool;

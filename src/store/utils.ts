@@ -79,6 +79,7 @@ export const empty = (): State => {
         tick: 0,
       },
       play: {
+        stave: {},
         expanded: {},
         keyboard: {},
         tool: Tool.Select,

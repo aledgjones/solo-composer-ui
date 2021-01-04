@@ -28,32 +28,37 @@ interface Props {
 export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool, ticks, slots, zoom }) => {
   const track = useRef<HTMLDivElement>(null);
 
-  const [audition, snap, tones, staveKey, trackKey] = useStore(
+  const [audition, snap, tones, disabled, staveKey, trackKey] = useStore(
     (s) => {
       const flow = s.score.flows.by_key[flowKey];
       const instrument = s.score.instruments[instrumentKey];
 
-      // TODO: make trackKey dynamic so it can be selectable by user
-      // == delete ==
-      const staveKey = instrument.staves[0];
+      const staveKey = s.ui.play.stave[instrumentKey] || instrument.staves[0];
       const stave = flow.staves[staveKey];
       const trackKey = stave.tracks.order[0];
-      // == delete ==
+
+      const disabled = new Set();
+      const tones = instrument.staves.reduce<Tone[]>((out, stave_key) => {
+        flow.staves[stave_key].tracks.order.forEach((track_key) => {
+          const track = flow.staves[stave_key].tracks.by_key[track_key];
+          Object.values(track.entries.by_key).forEach((entry) => {
+            if (entry.type === EntryType.Tone) {
+              // only disable tones if there is a selected stave
+              if (s.ui.play.stave[instrumentKey] && stave_key !== staveKey) {
+                disabled.add(entry.key);
+              }
+              out.push(entry as Tone);
+            }
+          });
+        });
+        return out;
+      }, []);
 
       return [
         s.app.audition,
         duration_to_ticks(s.ui.snap, s.score.flows.by_key[flowKey].subdivisions),
-        instrument.staves.reduce<Tone[]>((out, stave_key) => {
-          flow.staves[stave_key].tracks.order.forEach((track_key) => {
-            const track = flow.staves[stave_key].tracks.by_key[track_key];
-            Object.values(track.entries.by_key).forEach((entry) => {
-              if (entry.type === EntryType.Tone) {
-                out.push(entry as Tone);
-              }
-            });
-          });
-          return out;
-        }, []),
+        tones,
+        disabled,
         staveKey,
         trackKey,
       ];
@@ -209,6 +214,7 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool
             onEdit={onEdit}
             onSlice={onSlice}
             onAudition={onAudition}
+            disabled={disabled.has(tone.key)}
           />
         );
       })}

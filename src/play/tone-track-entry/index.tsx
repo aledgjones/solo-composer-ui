@@ -45,6 +45,7 @@ interface Props {
   ) => void;
   onSlice: (e: PointerEvent<HTMLElement>, toneKey: string, start: number, duration: number) => void;
   onAudition: (pitch: number) => void;
+  disabled: boolean;
 }
 
 export const ToneTrackEntry: FC<Props> = ({
@@ -59,6 +60,7 @@ export const ToneTrackEntry: FC<Props> = ({
   onEdit,
   onSlice,
   onAudition,
+  disabled,
 }) => {
   const selected = useStore((s) => s.ui.selection[tone.key], [tone.key]);
 
@@ -121,6 +123,7 @@ export const ToneTrackEntry: FC<Props> = ({
       <div
         className={merge("tone-track-entry", "no-scroll", {
           "tone-track-entry--selected": selected,
+          "tone-track-entry--disabled": disabled,
         })}
         style={{
           position: "absolute",

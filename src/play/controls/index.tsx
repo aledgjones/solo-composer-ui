@@ -1,6 +1,6 @@
 import { FC, useCallback } from "react";
 import { mdiChevronDown, mdiCogOutline, mdiSizeS, mdiSizeM } from "@mdi/js";
-import { Icon, noop, Label, Select, Option } from "../../../ui";
+import { Icon, noop, Label, Select, Option, Subheader } from "../../../ui";
 import { Text } from "../../components/text";
 import { Keyboard } from "../keyboard";
 import { Fader } from "../fader";
@@ -21,7 +21,7 @@ interface Props {
 }
 
 export const Controls: FC<Props> = ({ color, playerType, count, instrumentKey }) => {
-  const [instrument, expanded, volume, mute, solo, staves] = useStore(
+  const [instrument, expanded, volume, mute, solo, staves, stave] = useStore(
     (s) => {
       return [
         s.score.instruments[instrumentKey],
@@ -30,6 +30,7 @@ export const Controls: FC<Props> = ({ color, playerType, count, instrumentKey })
         s.score.instruments[instrumentKey].mute,
         s.score.instruments[instrumentKey].solo,
         s.score.instruments[instrumentKey].staves,
+        s.ui.play.stave[instrumentKey],
       ];
     },
     [instrumentKey]
@@ -98,9 +99,9 @@ export const Controls: FC<Props> = ({ color, playerType, count, instrumentKey })
                   color={color}
                   onChange={(volume: number) => actions.score.instrument.volume(instrument.key, volume)}
                 />
-                <Select value={null} onChange={() => {}}>
-                  <Option value={null} displayAs="All">
-                    All
+                <Select value={stave} onChange={(val) => actions.ui.play.stave.set(instrumentKey, val)}>
+                  <Option value={undefined} displayAs="All staves">
+                    All staves
                   </Option>
                   {staves.map((staveKey, i) => {
                     return (

@@ -94,6 +94,13 @@ export const uiActions = {
     },
   },
   play: {
+    stave: {
+      set: (instrumentKey: string, staveKey?: string) => {
+        store.update((s) => {
+          s.ui.play.stave[instrumentKey] = staveKey;
+        });
+      },
+    },
     expand: (key: string) => {
       store.update((s) => {
         s.ui.play.expanded[key] = true;
