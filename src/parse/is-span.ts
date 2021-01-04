@@ -1,4 +1,6 @@
 import { BracketingType } from "../store/entries/brackets";
+import { Instrument } from "../store/score-instrument/defs";
+import { getInstrumentFamily } from "./get-instrument-family";
 
 export enum BracketSpan {
   None,
@@ -7,8 +9,8 @@ export enum BracketSpan {
 }
 
 export function isSpan(
-  instrumentFamily: string,
-  previousInstrumentFamily: string | undefined,
+  instrument: Instrument,
+  previousInstrument: Instrument | undefined,
   bracketing: BracketingType
 ): BracketSpan {
   // no bracketing between instruments
@@ -18,14 +20,17 @@ export function isSpan(
 
   // bracket all instruments together apart from keyboard instruments
   if (bracketing === BracketingType.SmallEnsemble) {
-    if (instrumentFamily === "keyboard") {
+    if (instrument.staves.length > 1) {
       return BracketSpan.None;
     }
-    if (!previousInstrumentFamily || previousInstrumentFamily === "keyboard") {
+    if (!previousInstrument || previousInstrument.staves.length > 1) {
       return BracketSpan.Start;
     }
     return BracketSpan.Continue;
   }
+
+  const instrumentFamily = getInstrumentFamily(instrument);
+  const previousInstrumentFamily = getInstrumentFamily(previousInstrument);
 
   // bracket together in instrument family groups
   if (bracketing === BracketingType.Orchestral) {

@@ -26,9 +26,7 @@ export function measureVerticalSpans(
         const player = players.by_key[player_key];
         player.instruments.forEach((instrument_key) => {
           const instrument = instruments[instrument_key];
-          const family = getInstrumentFamily(instrument);
-          const previous_family = getInstrumentFamily(previous_instrument);
-          const is_span = isSpan(family, previous_family, config.bracketing);
+          const is_span = isSpan(instrument, previous_instrument, config.bracketing);
 
           // BRACKETS
 

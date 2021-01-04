@@ -1,6 +1,6 @@
 import { FC, useCallback } from "react";
 import { mdiChevronDown, mdiCogOutline, mdiSizeS, mdiSizeM } from "@mdi/js";
-import { Icon, noop, Label } from "../../../ui";
+import { Icon, noop, Label, Select, Option } from "../../../ui";
 import { Text } from "../../components/text";
 import { Keyboard } from "../keyboard";
 import { Fader } from "../fader";
@@ -9,9 +9,9 @@ import { PlayerType } from "../../store/score-player/defs";
 import { useCountStyle } from "../../store/score-config/utils";
 import { instrumentName } from "../../store/score-instrument/utils";
 import { actions } from "../../store/actions";
+import { SLOT_COUNT } from "../const";
 
 import "./styles.css";
-import { SLOT_COUNT } from "../const";
 
 interface Props {
   color: string;
@@ -21,15 +21,15 @@ interface Props {
 }
 
 export const Controls: FC<Props> = ({ color, playerType, count, instrumentKey }) => {
-  const [instrument, expanded, volume, mute, solo] = useStore(
+  const [instrument, expanded, volume, mute, solo, staves] = useStore(
     (s) => {
-      const keyboard = s.ui.play.keyboard[instrumentKey];
       return [
         s.score.instruments[instrumentKey],
         s.ui.play.expanded[instrumentKey],
         s.score.instruments[instrumentKey].volume,
         s.score.instruments[instrumentKey].mute,
         s.score.instruments[instrumentKey].solo,
+        s.score.instruments[instrumentKey].staves,
       ];
     },
     [instrumentKey]
@@ -98,6 +98,16 @@ export const Controls: FC<Props> = ({ color, playerType, count, instrumentKey })
                   color={color}
                   onChange={(volume: number) => actions.score.instrument.volume(instrument.key, volume)}
                 />
+                <Select value={null} onChange={() => {}}>
+                  <Option value={null} displayAs="All">
+                    All
+                  </Option>
+                  {staves.map((staveKey, i) => {
+                    return (
+                      <Option key={staveKey} value={staveKey} displayAs={`Stave ${i + 1}`}>{`Stave ${i + 1}`}</Option>
+                    );
+                  })}
+                </Select>
               </div>
               <div className="controls__sampler-config">
                 <Icon style={{ marginRight: 20 }} path={mdiCogOutline} size={24} onClick={noop} />
