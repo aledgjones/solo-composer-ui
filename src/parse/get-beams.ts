@@ -12,22 +12,15 @@ export interface BeamsByTrack {
   [trackKey: string]: Beams;
 }
 
-function hasSixteenthsOrSmaller(flow: Flow, tick: number, boundries: number[], track: NotationTrack) {
+function getHasSixteenthsOrSmaller(flow: Flow, tick: number, boundries: number[], track: NotationTrack) {
   const sixteenth = duration_to_ticks(NoteDuration.Sixteenth, flow.subdivisions);
 
-  let start = boundries[0];
+  let start = tick;
   let stop = flow.length;
 
   for (let i = tick + 1; i < flow.length; i++) {
     if (boundries.indexOf(i) > -1) {
       stop = i;
-      break;
-    }
-  }
-
-  for (let i = tick; i >= 0; i--) {
-    if (boundries.indexOf(i) > -1) {
-      start = i;
       break;
     }
   }
@@ -44,7 +37,7 @@ function hasSixteenthsOrSmaller(flow: Flow, tick: number, boundries: number[], t
 
 export function getBeamsInTrack(flow: Flow, track: NotationTrack, barlines: Barlines) {
   const spans: number[][] = [];
-  let time: TimeSignature, ticksPerBeat: number, boundries: number[];
+  let time: TimeSignature, ticksPerBeat: number, boundries: number[], hasSixteenthsOrLess: boolean;
 
   for (let tick = 0; tick < flow.length; tick++) {
     if (barlines.has(tick)) {
@@ -54,12 +47,16 @@ export function getBeamsInTrack(flow: Flow, track: NotationTrack, barlines: Barl
     }
 
     if (boundries.includes(tick)) {
+      hasSixteenthsOrLess = getHasSixteenthsOrSmaller(flow, tick, boundries, track);
+    }
+
+    if (boundries.includes(tick)) {
       spans.push([]);
     }
 
     if (
       time.beat_type === NoteDuration.Quarter && // quarter time sigs only
-      hasSixteenthsOrSmaller(flow, tick, boundries, track) && // if sixtens or less
+      getHasSixteenthsOrSmaller(flow, tick, boundries, track) && // if sixtens or less
       (tick - time.tick) % ticksPerBeat === 0 // split at beats
     ) {
       spans.push([]);
