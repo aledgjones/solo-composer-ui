@@ -56,7 +56,7 @@ export function getBeamsInTrack(flow: Flow, track: NotationTrack, barlines: Barl
 
     if (
       time.beat_type === NoteDuration.Quarter && // quarter time sigs only
-      getHasSixteenthsOrSmaller(flow, tick, boundries, track) && // if sixtens or less
+      hasSixteenthsOrLess && // if sixtens or less
       (tick - time.tick) % ticksPerBeat === 0 // split at beats
     ) {
       spans.push([]);
