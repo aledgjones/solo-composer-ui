@@ -9,7 +9,7 @@ import { getIsWritable } from "./get-is-writable";
 import { getBeatGroupingBoundries } from "./get-beat-group-boundries";
 import { Barlines } from "./get-barlines";
 
-function getNextGroupingAndBeat(grouping: number, beatType: NoteDuration) {
+export function getNextGroupingAndBeat(grouping: number, beatType: NoteDuration) {
   switch (grouping) {
     case 2:
       return { groupings: [1, 1], beats: 2, beatType };

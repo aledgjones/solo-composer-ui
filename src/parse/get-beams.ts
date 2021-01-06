@@ -4,23 +4,64 @@ import { NotationTrack, NotationTracks } from "./notation-track";
 import { getBeatGroupingBoundries } from "./get-beat-group-boundries";
 import { getIsBeamable } from "./get-is-beamable";
 import { Barlines } from "./get-barlines";
+import { TimeSignature } from "../store/entries/time-signature/defs";
+import { NoteDuration } from "../store/entries/defs";
 
 export type Beams = Set<number[]>;
 export interface BeamsByTrack {
   [trackKey: string]: Beams;
 }
 
+function hasSixteenthsOrSmaller(flow: Flow, tick: number, boundries: number[], track: NotationTrack) {
+  const sixteenth = duration_to_ticks(NoteDuration.Sixteenth, flow.subdivisions);
+
+  let start = boundries[0];
+  let stop = flow.length;
+
+  for (let i = tick + 1; i < flow.length; i++) {
+    if (boundries.indexOf(i) > -1) {
+      stop = i;
+      break;
+    }
+  }
+
+  for (let i = tick; i >= 0; i--) {
+    if (boundries.indexOf(i) > -1) {
+      start = i;
+      break;
+    }
+  }
+
+  for (let i = start; i < stop; i++) {
+    const entry = track[i];
+    if (entry && entry.duration <= sixteenth) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
 export function getBeamsInTrack(flow: Flow, track: NotationTrack, barlines: Barlines) {
-  let time, boundries;
-  let spans: number[][] = [[]];
+  const spans: number[][] = [];
+  let time: TimeSignature, ticksPerBeat: number, boundries: number[];
+
   for (let tick = 0; tick < flow.length; tick++) {
     if (barlines.has(tick)) {
       time = barlines.get(tick);
-      const ticksPerBeat = duration_to_ticks(time.beat_type, flow.subdivisions);
+      ticksPerBeat = duration_to_ticks(time.beat_type, flow.subdivisions);
       boundries = getBeatGroupingBoundries(tick, ticksPerBeat, time.groupings);
     }
 
     if (boundries.includes(tick)) {
+      spans.push([]);
+    }
+
+    if (
+      time.beat_type === NoteDuration.Quarter && // quarter time sigs only
+      hasSixteenthsOrSmaller(flow, tick, boundries, track) && // if sixtens or less
+      (tick - time.tick) % ticksPerBeat === 0 // split at beats
+    ) {
       spans.push([]);
     }
 

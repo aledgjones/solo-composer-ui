@@ -163,6 +163,28 @@ describe("getBeams (Full bars: simple)", () => {
       "+-------+-------+-------+.......+-------+-------+-------+.......+-------+-------+-------+......."
     );
   });
+  it("beams full bar sixteenths 4/4", () => {
+    const s = 4;
+    const result = parse(s * 16, create_time_signature(0, 4, NoteDuration.Quarter, TimeSignatureDrawType.Regular), [
+      create_tone(0, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s * 2, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s * 3, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s * 4, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s * 5, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s * 6, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s * 7, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s * 8, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s * 9, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s * 10, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s * 11, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s * 12, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s * 13, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s * 14, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+      create_tone(s * 15, s, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    ]);
+    expect(result).toBe("+---+---+---+...+---+---+---+...+---+---+---+...+---+---+---+...");
+  });
 });
 
 // FIXME: These are actually wrong. we can span the whole bar when 2/4 + 3/4 as long as it doesn't look like 6/8!
