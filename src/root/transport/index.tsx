@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { mdiPlay, mdiMetronome, mdiSkipPrevious, mdiPause } from "@mdi/js";
 import { Transport, Player } from "solo-composer-scheduler";
-import { Icon } from "../../../ui";
+import { Icon } from "../../ui";
 import { Expression } from "../../store/score-instrument/defs";
 import { actions } from "../../store/actions";
 import { useStore, store } from "../../store/use-store";

@@ -1,6 +1,6 @@
 import { Progress, Player } from "solo-composer-scheduler";
 import { store } from "../use-store";
-import { download, chooseFiles, wait } from "../../../ui";
+import { download, chooseFiles, wait } from "../../ui";
 import { Meta } from "./defs";
 import { playbackActions } from "../playback";
 import { View } from "../ui/defs";

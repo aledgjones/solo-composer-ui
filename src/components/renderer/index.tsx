@@ -1,5 +1,5 @@
 import { FC, memo } from "react";
-import { merge } from "../../../ui";
+import { merge } from "../../ui";
 import { useParseWorker } from "./use-parse-worker";
 import { Instruction, InstructionType } from "../../render/instructions";
 import { PathInstruction } from "../../render/path";

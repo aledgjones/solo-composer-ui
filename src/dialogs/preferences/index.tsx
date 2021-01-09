@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { Dialog, Button, Subheader, Select, Option, ListItem, Label, Switch } from "../../../ui";
+import { Dialog, Button, Subheader, Select, Option, ListItem, Label, Switch } from "../../ui";
 import { MenuItem } from "../../components/menu-item";
 import { useStore } from "../../store/use-store";
 import { actions } from "../../store/actions";

@@ -1,6 +1,6 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { mdiMenu, mdiPencilOutline, mdiOpenInNew } from "@mdi/js";
-import { Icon, Card, Content, Subheader, Label, List, ListItem, Divider, Button, Link } from "../../../ui";
+import { Icon, Card, Content, Subheader, Label, List, ListItem, Divider, Button, Link } from "../../ui";
 import { About } from "../../dialogs/about";
 import { Preferences } from "../../dialogs/preferences";
 import { Meta } from "../../dialogs/meta";

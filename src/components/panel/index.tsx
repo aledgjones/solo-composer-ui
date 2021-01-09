@@ -1,6 +1,6 @@
 import { mdiChevronLeft, mdiChevronRight } from "@mdi/js";
 import { FC } from "react";
-import { Icon, merge } from "../../../ui";
+import { Icon, merge } from "../../ui";
 
 import "./styles.css";
 

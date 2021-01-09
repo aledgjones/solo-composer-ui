@@ -642,3 +642,14 @@ it("renders correctly - 3/8 [q._|q-]", () => {
 
   expect(log).toBe("o_______________________o--------------¬r------¬");
 });
+
+it("renders correctly - 4/4 [cq.sm]", () => {
+  const sq = 4;
+  const len = sq * 16;
+  const log = parse(len, create_time_signature(0, 4, NoteDuration.Quarter, TimeSignatureDrawType.Regular), [
+    create_tone(0, sq * 7, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+    create_tone(7 * sq, sq * 9, { int: 60, accidental: Accidental.Natural }, 100, Articulation.None),
+  ]);
+
+  expect(log).toBe("o_______________o----------¬o___o------------------------------¬");
+});

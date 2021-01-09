@@ -1,6 +1,6 @@
 import { lazy, FC, Suspense } from "react";
 import { mdiUndo, mdiRedo } from "@mdi/js";
-import { Tabs, Tab, Icon } from "../../ui";
+import { Tabs, Tab, Icon } from "../ui";
 import { TransportComponent } from "./transport";
 import { Loading } from "../components/loading";
 import { useStore } from "../store/use-store";
@@ -10,10 +10,10 @@ import { File } from "./file";
 
 import "./styles.css";
 
-const Setup = lazy(() => import("../setup"));
-const Write = lazy(() => import("../write"));
+const Setup = lazy(() => import("../states/setup"));
+const Write = lazy(() => import("../states/write"));
 // const Engrave = React.lazy(() => import("../../routes/engrave"));
-const Play = lazy(() => import("../play"));
+const Play = lazy(() => import("../states/play"));
 
 export const Root: FC = () => {
   const [view] = useStore((s) => [s.ui.view]);

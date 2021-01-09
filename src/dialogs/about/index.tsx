@@ -1,5 +1,5 @@
 import { mdiClose } from "@mdi/js";
-import { Dialog, Icon, Label, Content, Subheader } from "../../../ui";
+import { Dialog, Icon, Label, Content, Subheader } from "../../ui";
 
 import pkg from "../../../package.json";
 import audiopkg from "solo-composer-scheduler/package.json";

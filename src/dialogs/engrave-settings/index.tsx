@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Dialog, Input, Label, ListItem, Option, Select, Subheader, Switch } from "../../../ui";
+import { Button, Dialog, Input, Label, ListItem, Option, Select, Subheader, Switch } from "../../ui";
 import { LayoutType } from "../../store/defs";
 import { useStore } from "../../store/use-store";
 import { MenuItem } from "../../components/menu-item";

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { DragScroll, merge } from "../../../ui";
+import { DragScroll, merge } from "../../ui";
 
 import "./styles.css";
 

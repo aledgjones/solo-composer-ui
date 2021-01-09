@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { mdiChevronRight } from "@mdi/js";
-import { Dialog, Icon, Button } from "../../../ui";
+import { Dialog, Icon, Button } from "../../ui";
 import { MenuItem } from "../../components/menu-item";
 import { Text } from "../../components/text";
 import { get_full_path_from_partial } from "../../store/score-instrument/utils";

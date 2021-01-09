@@ -1,5 +1,5 @@
 import { FC, CSSProperties } from "react";
-import { Spinner } from "../../../ui";
+import { Spinner } from "../../ui";
 
 import "./styles.css";
 
