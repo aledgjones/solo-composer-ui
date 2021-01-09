@@ -36,7 +36,7 @@ export function drawNotehead(
   const glyph = glyphFromDuration(baseDuration);
   const top = y + offset / 2;
 
-  instructions.push(buildText(`notehead-${tick}-${tone.key}`, styles, left, top, glyph, tone));
+  instructions.push(buildText(`notehead-${tick}-${tone.key}`, styles, left, top, glyph, tone, "notehead"));
 
   return instructions;
 }

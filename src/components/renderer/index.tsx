@@ -9,7 +9,7 @@ import { CurveInstruction, getControlPoints } from "../../render/curve";
 import { Text } from "../text";
 import { useStore } from "../../store/use-store";
 import { BoxInstruction } from "../../render/box";
-import { Entry } from "../../store/entries/defs";
+import { Entry, EntryType } from "../../store/entries/defs";
 
 import "./styles.css";
 
@@ -65,6 +65,7 @@ export const Renderer: FC<Props> = memo(({ selection, className, children, onSel
               }
               case InstructionType.text: {
                 const text = instruction as TextInstruction;
+                console.log(text);
                 return (
                   <foreignObject
                     className="renderer__entry--text no-scroll"
@@ -81,9 +82,13 @@ export const Renderer: FC<Props> = memo(({ selection, className, children, onSel
                           onSelect(text.entry);
                         }
                       }}
-                      className={merge("renderer__entry-container--text", {
-                        "entry--selected": text.entry && selection && selection[text.entry.key],
-                      })}
+                      className={merge(
+                        "renderer__entry-container--text",
+                        {
+                          "entry--selected": text.entry && selection && selection[text.entry.key],
+                        },
+                        text.className
+                      )}
                       style={{
                         position: "absolute",
                         color: text.styles.color,

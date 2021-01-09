@@ -38,3 +38,7 @@
 .entry--selected {
   color: var(--primary-bg) !important;
 }
+
+.renderer .notehead {
+  overflow: hidden;
+}

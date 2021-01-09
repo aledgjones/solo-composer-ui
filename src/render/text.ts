@@ -41,7 +41,8 @@ export function buildText(
   x: number,
   y: number,
   value: string,
-  entry?: Entry
+  entry?: Entry,
+  className?: string
 ): TextInstruction {
   return {
     key,
@@ -51,5 +52,6 @@ export function buildText(
     y,
     value,
     entry,
+    className,
   };
 }
