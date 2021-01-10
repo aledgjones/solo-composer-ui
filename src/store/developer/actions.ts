@@ -10,4 +10,12 @@ export const developerActions = {
       });
     },
   },
+  experimental: {
+    toggle: () => {
+      store.update((s) => {
+        setStorage("sc:experimental/v1", !s.developer.experimental);
+        s.developer.experimental = !s.developer.experimental;
+      });
+    },
+  },
 };

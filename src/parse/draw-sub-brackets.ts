@@ -1,4 +1,4 @@
-import { PathInstruction, buildPath } from "../render/path";
+import { LineInstruction, buildLine } from "../render/line";
 import { VerticalSpacing } from "./measure-verical-spacing";
 import { VerticalSpans } from "./measure-vertical-spans";
 
@@ -9,14 +9,14 @@ export function drawSubBrackets(x: number, y: number, spacing: VerticalSpacing, 
   const left = x - 1.5;
   const styles = { color: "#000000", thickness: 0.125 };
 
-  return spans.subBrackets.reduce((out: PathInstruction[], bracket) => {
+  return spans.subBrackets.reduce((out: LineInstruction[], bracket) => {
     const start = spacing.instruments[bracket.start];
     const stop = spacing.instruments[bracket.stop];
 
     const top = y + start.y;
     const bottom = y + stop.y + stop.height;
 
-    out.push(buildPath(`${bracket.start}-bracket`, styles, [x, top], [left, top], [left, bottom], [x, bottom]));
+    out.push(buildLine(`${bracket.start}-bracket`, styles, [x, top], [left, top], [left, bottom], [x, bottom]));
 
     return out;
   }, []);

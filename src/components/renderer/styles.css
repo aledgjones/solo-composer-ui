@@ -34,11 +34,17 @@
   height: 100%;
   width: 100%;
 }
-
 .entry--selected {
   color: var(--primary-bg) !important;
 }
 
+/* explicitly toggle on touch targets */
+
+.renderer * {
+  pointer-events: none;
+}
+
 .renderer .notehead {
   overflow: hidden;
+  pointer-events: all;
 }

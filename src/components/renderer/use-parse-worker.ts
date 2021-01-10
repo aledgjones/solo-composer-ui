@@ -3,13 +3,19 @@ import { parse } from "../../parse";
 import { Score } from "../../store/score/defs";
 import { useMM } from "./use-mm";
 
-export function useParseWorker(score: Score, flow_key: string, debug: boolean) {
+export function useParseWorker(score: Score, flow_key: string, debug: boolean, experimental: boolean) {
   if (process.env.NODE_ENV === "development" || debug) {
     performance.mark("start");
   }
 
   const mm = useMM();
-  const instructions = useMemo(() => parse(score, flow_key, mm, debug), [score, flow_key, mm, debug]);
+  const instructions = useMemo(() => parse(score, flow_key, mm, debug, experimental), [
+    score,
+    flow_key,
+    mm,
+    debug,
+    experimental,
+  ]);
 
   if (process.env.NODE_ENV === "development" || debug) {
     performance.measure("parse", "start");

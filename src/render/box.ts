@@ -22,15 +22,17 @@ export function buildBox(
   x: number,
   y: number,
   width: number,
-  height: number
+  height: number,
+  className?: string
 ): BoxInstruction {
   return {
     key,
-    type: InstructionType.box,
+    type: InstructionType.Box,
     styles,
     x,
     y,
     width,
     height,
+    className,
   };
 }

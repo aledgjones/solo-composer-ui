@@ -1,5 +1,5 @@
 import { Instruction } from "../render/instructions";
-import { buildPath } from "../render/path";
+import { buildLine } from "../render/line";
 import { VerticalSpacing } from "./measure-verical-spacing";
 import { measureWidthUpto, WidthOf } from "./measure-width-upto";
 import { HorizontalSpacing } from "./measure-tick";
@@ -42,7 +42,7 @@ export function drawStems(
         const stop = y + verticalSpacing.staves[stave.key].y + entry.tail;
 
         instructions.push(
-          buildPath(`stem-${trackKey}-${tick}`, { color: "#000000", thickness: width }, [left, start], [left, stop])
+          buildLine(`stem-${trackKey}-${tick}`, { color: "#000000", thickness: width }, [left, start], [left, stop])
         );
       });
     });

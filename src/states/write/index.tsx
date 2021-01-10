@@ -10,7 +10,6 @@ import { PopoverType } from "../../store/ui/defs";
 import { useStore } from "../../store/use-store";
 import { barCommands, keySignatureCommands, tempoCommands, timeSignatureCommands } from "./hotkeys";
 import { TimeSignaturePanel } from "./panels/time-signature";
-// import { EngraveSettings } from "../../dialogs/engrave-settings";
 
 import "./styles.css";
 
@@ -26,6 +25,7 @@ const Write: FC = () => {
   ]);
 
   useHotkeys("esc", actions.ui.selection.clear);
+
   useHotkeys("shift+k", () => actions.ui.write.popover.show(PopoverType.KeySignature));
   useHotkeys("shift+m", () => actions.ui.write.popover.show(PopoverType.TimeSignature));
   useHotkeys("shift+b", () => actions.ui.write.popover.show(PopoverType.Bar));

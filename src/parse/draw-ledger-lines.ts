@@ -1,5 +1,5 @@
 import { Instruction } from "../render/instructions";
-import { buildPath } from "../render/path";
+import { buildLine } from "../render/line";
 import { Stave } from "../store/score-stave/defs";
 import { Shunts } from "./get-notehead-shunts";
 import { StemDirectionsByTrack, StemDirectionType } from "./get-stem-directions";
@@ -75,7 +75,7 @@ export function drawLedgerLinesForEntry(
       const start = x + measureWidthUpto(horizontalSpacing, 0, tick, startWidthOf(stemDirection, width)) - 0.4;
       const stop = x + measureWidthUpto(horizontalSpacing, 0, tick, stopWidthOf(stemDirection, width)) + 0.4;
       instructions.push(
-        buildPath(`${key}-${i}-low`, { color: "#000000", thickness: 0.1875 }, [start, y + i], [stop, y + i])
+        buildLine(`${key}-${i}-low`, { color: "#000000", thickness: 0.1875 }, [start, y + i], [stop, y + i])
       );
     }
   });
@@ -85,7 +85,7 @@ export function drawLedgerLinesForEntry(
       const start = x + measureWidthUpto(horizontalSpacing, 0, tick, startWidthOf(stemDirection, width)) - 0.4;
       const stop = x + measureWidthUpto(horizontalSpacing, 0, tick, stopWidthOf(stemDirection, width)) + 0.4;
       instructions.push(
-        buildPath(`${key}-${i}-high`, { color: "#000000", thickness: 0.1875 }, [start, y - i], [stop, y - i])
+        buildLine(`${key}-${i}-high`, { color: "#000000", thickness: 0.1875 }, [start, y - i], [stop, y - i])
       );
     }
   });

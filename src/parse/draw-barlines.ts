@@ -1,5 +1,5 @@
 import { Instruction } from "../render/instructions";
-import { buildPath } from "../render/path";
+import { buildLine } from "../render/line";
 import { BarlineDrawType } from "../store/entries/barline/defs";
 import { drawBarline } from "../store/entries/barline/utils";
 import { Flow } from "../store/score-flow/defs";
@@ -32,7 +32,7 @@ export function drawBarlines(
     const tweakForStaveLineWidth = 0.0625;
     const styles = { color: "#000000", thickness: 0.125 };
     instructions.push(
-      buildPath(
+      buildLine(
         "systemic-barline",
         styles,
         [x, y - tweakForStaveLineWidth],

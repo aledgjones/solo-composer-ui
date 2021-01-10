@@ -7,7 +7,7 @@ import { VerticalSpans } from "../../../parse/measure-vertical-spans";
 import { Player } from "../../score-player/defs";
 import { Instrument } from "../../score-instrument/defs";
 import { Flow } from "../../score-flow/defs";
-import { buildPath } from "../../../render/path";
+import { buildLine } from "../../../render/line";
 import { buildCircle } from "../../../render/circle";
 import { buildBox } from "../../../render/box";
 import { Stave } from "../../score-stave/defs";
@@ -89,10 +89,10 @@ export function drawBarline(
     switch (barline) {
       case BarlineDrawType.Double:
         instructions.push(
-          buildPath(`${key}-${entry.start}-barline--1`, { color: "#000000", thickness: 0.125 }, [x, top], [x, bottom])
+          buildLine(`${key}-${entry.start}-barline--1`, { color: "#000000", thickness: 0.125 }, [x, top], [x, bottom])
         );
         instructions.push(
-          buildPath(
+          buildLine(
             `${key}-${entry.start}-barline--2`,
             { color: "#000000", thickness: 0.125 },
             [x + 0.5, top],
@@ -103,7 +103,7 @@ export function drawBarline(
 
       case BarlineDrawType.Final:
         instructions.push(
-          buildPath(
+          buildLine(
             `${key}-${entry.start}-barline--thin`,
             { color: "#000000", thickness: 0.125 },
             [x, top],
@@ -111,7 +111,7 @@ export function drawBarline(
           )
         );
         instructions.push(
-          buildPath(
+          buildLine(
             `${key}-${entry.start}-barline--thick`,
             { color: "#000000", thickness: 0.5 },
             [x + 0.75, top],
@@ -122,7 +122,7 @@ export function drawBarline(
 
       case BarlineDrawType.EndRepeat:
         instructions.push(
-          buildPath(
+          buildLine(
             `${key}-${entry.start}-barline--thin`,
             { color: "#000000", thickness: 0.125 },
             [x + 1, top],
@@ -130,7 +130,7 @@ export function drawBarline(
           )
         );
         instructions.push(
-          buildPath(
+          buildLine(
             `${key}-${entry.start}-barline--thick`,
             { color: "#000000", thickness: 0.5 },
             [x + 1.75, top],
@@ -141,7 +141,7 @@ export function drawBarline(
 
       case BarlineDrawType.StartRepeat:
         instructions.push(
-          buildPath(
+          buildLine(
             `${key}-${entry.start}-barline--thin`,
             { color: "#000000", thickness: 0.125 },
             [x + 1, top],
@@ -149,7 +149,7 @@ export function drawBarline(
           )
         );
         instructions.push(
-          buildPath(
+          buildLine(
             `${key}-${entry.start}-barline--thick`,
             { color: "#000000", thickness: 0.5 },
             [x + 0.25, top],
@@ -160,7 +160,7 @@ export function drawBarline(
 
       case BarlineDrawType.EndStartRepeat:
         instructions.push(
-          buildPath(
+          buildLine(
             `${key}-${entry.start}-barline--thin-end`,
             { color: "#000000", thickness: 0.125 },
             [x + 1, top],
@@ -168,7 +168,7 @@ export function drawBarline(
           )
         );
         instructions.push(
-          buildPath(
+          buildLine(
             `${key}-${entry.start}-barline--thick`,
             { color: "#000000", thickness: 0.5 },
             [x + 1.75, top],
@@ -176,7 +176,7 @@ export function drawBarline(
           )
         );
         instructions.push(
-          buildPath(
+          buildLine(
             `${key}-${entry.start}-barline--thin-start`,
             { color: "#000000", thickness: 0.125 },
             [x + 2.5, top],
@@ -188,7 +188,7 @@ export function drawBarline(
       case BarlineDrawType.Normal:
       default:
         instructions.push(
-          buildPath(`${key}-${entry.start}-barline`, { color: "#000000", thickness: 0.125 }, [x, top], [x, bottom])
+          buildLine(`${key}-${entry.start}-barline`, { color: "#000000", thickness: 0.125 }, [x, top], [x, bottom])
         );
         break;
     }

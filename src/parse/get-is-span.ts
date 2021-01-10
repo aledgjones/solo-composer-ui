@@ -8,7 +8,7 @@ export enum BracketSpan {
   Continue,
 }
 
-export function isSpan(
+export function getIsSpan(
   instrument: Instrument,
   previousInstrument: Instrument | undefined,
   bracketing: BracketingType

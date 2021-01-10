@@ -3,7 +3,7 @@ import { Instruction } from "../render/instructions";
 import { VerticalSpacing } from "./measure-verical-spacing";
 import { EngravingConfig } from "../store/defs";
 import { BracketEndStyle } from "../store/entries/brackets";
-import { buildPath } from "../render/path";
+import { buildLine } from "../render/line";
 import { TextStyles, Justify, Align, buildText } from "../render/text";
 
 export function drawBrackets(
@@ -38,17 +38,17 @@ export function drawBrackets(
     if (config.bracketEndStyle === BracketEndStyle.None) {
       out.push(
         // thick line
-        buildPath(`${bracket.start}-vertical-bar`, thick, [left, top - tweekForStave], [left, bottom + tweekForStave])
+        buildLine(`${bracket.start}-vertical-bar`, thick, [left, top - tweekForStave], [left, bottom + tweekForStave])
       );
     }
 
     if (config.bracketEndStyle === BracketEndStyle.Line) {
       out.push(
         // thick line
-        buildPath(`${bracket.start}-vertical-bar`, thick, [left, top - tweekForStave], [left, bottom + tweekForStave]),
+        buildLine(`${bracket.start}-vertical-bar`, thick, [left, top - tweekForStave], [left, bottom + tweekForStave]),
         // thin lines
-        buildPath(`${bracket.start}-cap--top`, thin, [left - 0.25, top], [x, top]),
-        buildPath(`${bracket.start}-cap--bottom`, thin, [left - 0.25, bottom], [x, bottom])
+        buildLine(`${bracket.start}-cap--top`, thin, [left - 0.25, top], [x, top]),
+        buildLine(`${bracket.start}-cap--bottom`, thin, [left - 0.25, bottom], [x, bottom])
       );
     }
 
@@ -66,7 +66,7 @@ export function drawBrackets(
       };
       out.push(
         // thick line
-        buildPath(`${bracket.start}-vertical-bar`, thick, [left, top - tweekForWing], [left, bottom + tweekForWing]),
+        buildLine(`${bracket.start}-vertical-bar`, thick, [left, top - tweekForWing], [left, bottom + tweekForWing]),
         // wings
         buildText(`${bracket.start}-wing--top`, styles, capLeft, top - tweekForWing, glyphTop),
         buildText(`${bracket.start}-wing--bottom`, styles, capLeft, bottom + tweekForWing, glyphBottom)

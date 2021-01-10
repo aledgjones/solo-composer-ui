@@ -2,7 +2,7 @@ import { FC, memo } from "react";
 import { merge } from "../../ui";
 import { useParseWorker } from "./use-parse-worker";
 import { Instruction, InstructionType } from "../../render/instructions";
-import { PathInstruction } from "../../render/path";
+import { LineInstruction } from "../../render/line";
 import { CircleInstruction } from "../../render/circle";
 import { TextInstruction, textStyle } from "../../render/text";
 import { CurveInstruction, getControlPoints } from "../../render/curve";
@@ -12,16 +12,22 @@ import { BoxInstruction } from "../../render/box";
 import { Entry, EntryType } from "../../store/entries/defs";
 
 import "./styles.css";
+import { ShapeInstruction } from "../../render/shape";
 
 interface Props {
   className?: string;
-  selection?: { [key: string]: boolean };
+  selection?: { [key: string]: Entry };
   onSelect?: (data: Entry) => void;
 }
 
 export const Renderer: FC<Props> = memo(({ selection, className, children, onSelect }) => {
-  const [score, flow_key, debug] = useStore((s) => [s.score, s.ui.flow_key, s.developer.debug]);
-  const instructions = useParseWorker(score, flow_key, debug);
+  const [score, flow_key, debug, experimental] = useStore((s) => [
+    s.score,
+    s.ui.flow_key,
+    s.developer.debug,
+    s.developer.experimental,
+  ]);
+  const instructions = useParseWorker(score, flow_key, debug, experimental);
 
   if (!instructions) {
     return null;
@@ -36,8 +42,8 @@ export const Renderer: FC<Props> = memo(({ selection, className, children, onSel
         <svg className="renderer__svg-layer">
           {entries.map((instruction: Instruction<any>) => {
             switch (instruction.type) {
-              case InstructionType.path: {
-                const path = instruction as PathInstruction;
+              case InstructionType.Line: {
+                const path = instruction as LineInstruction;
                 const def = path.points.map((point, i) => {
                   return `${i === 0 ? "M" : "L"} ${point[0] * space} ${point[1] * space}`;
                 });
@@ -51,7 +57,8 @@ export const Renderer: FC<Props> = memo(({ selection, className, children, onSel
                   />
                 );
               }
-              case InstructionType.circle: {
+
+              case InstructionType.Circle: {
                 const circle = instruction as CircleInstruction;
                 return (
                   <circle
@@ -63,7 +70,8 @@ export const Renderer: FC<Props> = memo(({ selection, className, children, onSel
                   />
                 );
               }
-              case InstructionType.text: {
+
+              case InstructionType.Text: {
                 const text = instruction as TextInstruction;
                 console.log(text);
                 return (
@@ -85,7 +93,7 @@ export const Renderer: FC<Props> = memo(({ selection, className, children, onSel
                       className={merge(
                         "renderer__entry-container--text",
                         {
-                          "entry--selected": text.entry && selection && selection[text.entry.key],
+                          "entry--selected": text.entry && selection && !!selection[text.entry.key],
                         },
                         text.className
                       )}
@@ -104,7 +112,8 @@ export const Renderer: FC<Props> = memo(({ selection, className, children, onSel
                   </foreignObject>
                 );
               }
-              case InstructionType.curve: {
+
+              case InstructionType.Curve: {
                 const curve = instruction as CurveInstruction;
                 const def: string[] = [];
 
@@ -129,7 +138,8 @@ export const Renderer: FC<Props> = memo(({ selection, className, children, onSel
                 //     })}
                 // </>
               }
-              case InstructionType.box: {
+
+              case InstructionType.Box: {
                 const box = instruction as BoxInstruction;
                 return (
                   <rect
@@ -141,8 +151,17 @@ export const Renderer: FC<Props> = memo(({ selection, className, children, onSel
                     fill={box.styles.color}
                     stroke={box.styles.outline ? box.styles.outline.color : undefined}
                     strokeWidth={box.styles.outline ? box.styles.outline.thickness * space : undefined}
+                    className={box.className}
                   />
                 );
+              }
+
+              case InstructionType.Shape: {
+                const path = instruction as ShapeInstruction;
+                const def = path.points.map((point, i) => {
+                  return `${i === 0 ? "M" : "L"} ${point[0] * space} ${point[1] * space}`;
+                });
+                return <path key={path.key} fill={path.styles.color} d={def.join(" ")} stroke={path.styles.color} />;
               }
               default:
                 return null;

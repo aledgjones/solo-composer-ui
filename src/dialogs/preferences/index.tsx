@@ -18,7 +18,11 @@ interface Props {
 }
 
 export const Preferences = Dialog<Props>(({ onClose }) => {
-  const [audition, debug] = useStore((s) => [s.app.audition, s.developer.debug]);
+  const [audition, debug, experimental] = useStore((s) => [
+    s.app.audition,
+    s.developer.debug,
+    s.developer.experimental,
+  ]);
   const [page, setPage] = useState<Page>(Page.General);
 
   return (
@@ -68,7 +72,7 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
           {page === Page.DeveloperTools && (
             <>
               <div className="generic-settings__section" style={{ paddingBottom: 0 }}>
-                <Subheader>Console</Subheader>
+                <Subheader>Developer Tools</Subheader>
               </div>
               <ListItem onClick={() => actions.developer.debug.toggle()}>
                 <Label>
@@ -76,6 +80,13 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
                   <p>Highlight elements on the score with a coloured bounding box</p>
                 </Label>
                 <Switch value={debug} />
+              </ListItem>
+              <ListItem onClick={() => actions.developer.experimental.toggle()}>
+                <Label>
+                  <p>Enable experimental rendering</p>
+                  <p>Render experimental, work in progress items.</p>
+                </Label>
+                <Switch value={experimental} />
               </ListItem>
             </>
           )}

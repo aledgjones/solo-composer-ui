@@ -1,4 +1,4 @@
-import { NoteDuration } from "../entries/defs";
+import { Entry, NoteDuration } from "../entries/defs";
 
 export enum Tool {
   Select,
@@ -26,7 +26,7 @@ export interface UiDefs {
   view: View;
   snap: NoteDuration;
   flow_key: string;
-  selection: { [key: string]: boolean };
+  selection: { [key: string]: Entry };
   setup: {
     expanded: { [key: string]: boolean };
     panels: {

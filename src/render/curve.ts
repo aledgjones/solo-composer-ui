@@ -11,7 +11,7 @@ export type CurveInstruction = Instruction<{ styles: CurveStyles; points: CurveP
 export function buildCurve(key: string, styles: CurveStyles, ...points: CurvePoints): CurveInstruction {
   return {
     key,
-    type: InstructionType.curve,
+    type: InstructionType.Curve,
     styles,
     points,
   };

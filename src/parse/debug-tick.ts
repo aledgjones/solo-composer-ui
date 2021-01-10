@@ -31,7 +31,7 @@ export function debugTick(
   for (let tick = 0; tick < flow.length; tick++) {
     horizontal_spacing[tick].forEach((width, i) => {
       if (width > 0 && i !== WidthOf.NoteSpacing) {
-        instructions.push(buildBox(`${tick}-${i}-DEBUG`, { color: colors[i] }, left, y, width, staveHeight));
+        instructions.push(buildBox(`${tick}-${i}-DEBUG`, { color: colors[i] }, left, y, width, staveHeight, "debug"));
       }
       left = left + width;
     });

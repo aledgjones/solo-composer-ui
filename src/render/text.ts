@@ -46,7 +46,7 @@ export function buildText(
 ): TextInstruction {
   return {
     key,
-    type: InstructionType.text,
+    type: InstructionType.Text,
     styles,
     x,
     y,

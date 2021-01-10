@@ -16,7 +16,7 @@ export function buildCircle(
 ): CircleInstruction {
   return {
     key,
-    type: InstructionType.circle,
+    type: InstructionType.Circle,
     styles,
     x,
     y,

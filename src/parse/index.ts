@@ -38,13 +38,19 @@ import { getDotSlots } from "./get-dot-slots";
 import { drawDots } from "./draw-dots";
 import { drawLedgerLines } from "./draw-ledger-lines";
 
-export function parse(score: Score, flow_key: string, px_per_mm: number, debug: boolean): RenderInstructions {
+export function parse(
+  score: Score,
+  flow_key: string,
+  px_per_mm: number,
+  debug: boolean,
+  experimental: boolean
+): RenderInstructions {
   const drawInstructions: Instruction<any>[] = [];
 
   const flow = score.flows.by_key[flow_key];
   // TODO: make this specific to the part type
   const config = Object.values(score.engraving).find((c) => c.type === LayoutType.Score);
-  const { px, mm, spaces } = getConverter(px_per_mm, config.space, 0);
+  const { px, mm, spaces } = getConverter(px_per_mm, config.space);
   const staves = getStavesAsArray(score.players, score.instruments, flow);
 
   const counts = getCounts(score.players, score.instruments);
@@ -69,15 +75,15 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
 
   const beams = getBeams(flow, notation, barlines);
   const stemDirections = getStemDirections(notation, toneVerticalOffsets, beams);
-  const stemLenghts = getStemLengths(flow, staves, notation, toneVerticalOffsets, stemDirections, beams);
   const shunts = getNoteheadShunts(staves, notation, toneVerticalOffsets, stemDirections);
+
+  const horizontalSpacing = measureHorizontalSpacing(staves, flow, barlines, notation, shunts, config);
+
   const dots = getDotSlots(flow, staves, notation, toneVerticalOffsets);
-  // TODO: draw ledger lines
+  const stemLenghts = getStemLengths(flow, staves, notation, toneVerticalOffsets, stemDirections, beams);
   // TODO: calc stem lengths inside beams
   // TODO: draw beams
   // TODO: accidentals
-
-  const horizontalSpacing = measureHorizontalSpacing(staves, flow, barlines, notation, shunts, config);
 
   let width = 0;
   for (let tick = 0; tick < flow.length; tick++) {
@@ -141,7 +147,7 @@ export function parse(score: Score, flow_key: string, px_per_mm: number, debug: 
     ),
     ...drawDots(x, y, staves, notation, dots, shunts, horizontalSpacing, verticalSpacing),
     ...drawStems(x, y, staves, stemDirections, stemLenghts, horizontalSpacing, verticalSpacing),
-    ...drawBeams(x, y, beams, staves, horizontalSpacing, verticalSpacing, debug)
+    ...drawBeams(x, y, beams, staves, stemDirections, stemLenghts, horizontalSpacing, verticalSpacing, experimental)
   );
 
   if (debug) {

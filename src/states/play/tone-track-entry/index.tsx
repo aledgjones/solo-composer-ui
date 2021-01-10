@@ -122,7 +122,7 @@ export const ToneTrackEntry: FC<Props> = ({
     return (
       <div
         className={merge("tone-track-entry", "no-scroll", {
-          "tone-track-entry--selected": selected,
+          "tone-track-entry--selected": !!selected,
           "tone-track-entry--disabled": disabled,
         })}
         style={{

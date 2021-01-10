@@ -1,11 +1,12 @@
 import { Entry, EntryType } from "../store/entries/defs";
 
 export enum InstructionType {
-  path = 1,
-  text,
-  circle,
-  curve,
-  box,
+  Line = 1,
+  Text,
+  Circle,
+  Curve,
+  Box,
+  Shape,
 }
 
 export interface InstructionBase {

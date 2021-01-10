@@ -1,6 +1,6 @@
 import { Instruction, InstructionType } from "./instructions";
 
-export interface PathStyles {
+export interface LineStyles {
   color: string;
   thickness: number;
 }
@@ -9,12 +9,12 @@ type CoordX = number;
 type CoordY = number;
 type PathPoint = [CoordX, CoordY];
 type Path = PathPoint[];
-export type PathInstruction = Instruction<{ styles: PathStyles; points: Path }>;
+export type LineInstruction = Instruction<{ styles: LineStyles; points: Path }>;
 
-export function buildPath(key: string, styles: PathStyles, ...points: Path): PathInstruction {
+export function buildLine(key: string, styles: LineStyles, ...points: Path): LineInstruction {
   return {
     key,
-    type: InstructionType.path,
+    type: InstructionType.Line,
     styles,
     points,
   };

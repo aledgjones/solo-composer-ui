@@ -3,7 +3,7 @@ import { Player } from "../store/score-player/defs";
 import { EngravingConfig } from "../store/defs";
 import { Flow } from "../store/score-flow/defs";
 import { getInstrumentFamily } from "./get-instrument-family";
-import { isSpan, BracketSpan } from "./is-span";
+import { getIsSpan, BracketSpan } from "./get-is-span";
 
 export interface VerticalSpans {
   brackets: Array<{ start: string; stop: string }>;
@@ -26,7 +26,7 @@ export function measureVerticalSpans(
         const player = players.by_key[player_key];
         player.instruments.forEach((instrument_key) => {
           const instrument = instruments[instrument_key];
-          const is_span = isSpan(instrument, previous_instrument, config.bracketing);
+          const is_span = getIsSpan(instrument, previous_instrument, config.bracketing);
 
           // BRACKETS
 

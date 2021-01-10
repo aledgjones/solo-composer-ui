@@ -88,6 +88,7 @@ export const empty = (): State => {
     },
     developer: {
       debug: getStorage("sc:debug/v1") || false,
+      experimental: getStorage("sc:experimental/v1") || false,
     },
   };
 };
