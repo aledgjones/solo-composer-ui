@@ -1,0 +1,3 @@
+<PropertyGroup>
+  <SonarQubeTestProject>false</SonarQubeTestProject>
+</PropertyGroup>
