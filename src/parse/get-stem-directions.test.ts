@@ -115,7 +115,7 @@ function parse(length: number, time: TimeSignature, tones: Tone[]) {
   });
   const staves = [stave];
   const notation = getWrittenDurations(staves, flow, barlines);
-  const toneVerticalOffsets = getToneVerticalOffsets(staves);
+  const toneVerticalOffsets = getToneVerticalOffsets(flow, staves);
   const beams = getBeamsInTrack(flow, notation[track.key], barlines);
   return getStemDirectionsInTrack(notation[track.key], toneVerticalOffsets, beams);
 }

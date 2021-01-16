@@ -69,7 +69,7 @@ export function parse(
 
   const barlines = getBarlines(flow);
   const notation = getWrittenDurations(staves, flow, barlines);
-  const toneVerticalOffsets = getToneVerticalOffsets(staves);
+  const toneVerticalOffsets = getToneVerticalOffsets(flow, staves);
 
   // sort the tones by pitch
   sortTones(notation, toneVerticalOffsets);
