@@ -7,10 +7,10 @@ import { Stave } from "../store/score-stave/defs";
 import { getBarlineDrawTypeAtTick } from "./get-barline-draw-type-at-tick";
 import { Barlines } from "./get-barlines";
 import { getextrasAtTick } from "./get-extras-at-tick";
+import { HorizontalOffsets, WidthOf } from "./measure-horizonal-offsets";
 import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
 import { VerticalSpans } from "./measure-vertical-spans";
-import { measureWidthUpto, WidthOf } from "./measure-width-upto";
 
 export function drawBarlines(
   x: number,
@@ -19,7 +19,7 @@ export function drawBarlines(
   flow: Flow,
   vertical_spacing: VerticalSpacing,
   vertical_spans: VerticalSpans,
-  horizontalSpacing: { [tick: number]: HorizontalSpacing },
+  horizontalOffsets: HorizontalOffsets,
   staveWidth: number,
   barlines: Barlines,
   drawSystemicBarlineSingleStave: boolean,
@@ -49,7 +49,7 @@ export function drawBarlines(
     if (drawTypeAtTick.endRepeat) {
       instructions.push(
         ...drawBarline(
-          x + measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.EndRepeat),
+          x + horizontalOffsets.get(tick)[WidthOf.EndRepeat],
           y,
           staves,
           vertical_spacing,
@@ -63,7 +63,7 @@ export function drawBarlines(
     if (drawTypeAtTick.draw_type) {
       instructions.push(
         ...drawBarline(
-          x + measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.Barline),
+          x + horizontalOffsets.get(tick)[WidthOf.Barline],
           y,
           staves,
           vertical_spacing,
@@ -77,7 +77,7 @@ export function drawBarlines(
     if (drawTypeAtTick.startRepeat) {
       instructions.push(
         ...drawBarline(
-          x + measureWidthUpto(horizontalSpacing, 0, tick, WidthOf.StartRepeat),
+          x + horizontalOffsets.get(tick)[WidthOf.StartRepeat],
           y,
           staves,
           vertical_spacing,

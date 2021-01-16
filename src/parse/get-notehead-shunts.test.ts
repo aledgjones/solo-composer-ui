@@ -2,7 +2,7 @@ import { Accidental, Articulation } from "../store/entries/defs";
 import { create_tone } from "../store/entries/tone/utils";
 import { getNoteheadShuntsInChord } from "./get-notehead-shunts";
 import { StemDirectionType } from "./get-stem-directions";
-import { WidthOf } from "./measure-width-upto";
+import { WidthOf } from "./measure-horizonal-offsets";
 
 describe("getNoteheadShuntsInChord", () => {
   it("no shunts (1 tone, up)", () => {

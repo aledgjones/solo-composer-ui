@@ -4,8 +4,8 @@ import { Stave } from "../store/score-stave/defs";
 import { Barlines } from "./get-barlines";
 import { getNoteSpacing } from "./get-note-spacing";
 import { Shunts } from "./get-notehead-shunts";
+import { WidthOf } from "./measure-horizonal-offsets";
 import { HorizontalSpacing, measureTick } from "./measure-tick";
-import { WidthOf } from "./measure-width-upto";
 import { NotationTracks } from "./notation-track";
 
 export function measureHorizontalSpacing(

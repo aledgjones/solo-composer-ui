@@ -11,12 +11,12 @@ import { measureBarlineBounds } from "../store/entries/barline/utils";
 import { getextrasAtTick } from "./get-extras-at-tick";
 import { getBarlineDrawTypeAtTick } from "./get-barline-draw-type-at-tick";
 import { Stave } from "../store/score-stave/defs";
-import { EntryType, NoteDuration } from "../store/entries/defs";
+import { EntryType } from "../store/entries/defs";
 import { measureClefBounds } from "../store/entries/clef/utils";
 import { Clef } from "../store/entries/clef/defs";
-import { WidthOf } from "./measure-width-upto";
 import { widthFromDuration } from "../store/entries/tone/utils";
 import { Shunts } from "./get-notehead-shunts";
+import { WidthOf } from "./measure-horizonal-offsets";
 
 export type HorizontalSpacing = [
   number, // pre padding (system start)

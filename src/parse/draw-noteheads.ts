@@ -5,9 +5,8 @@ import { glyphFromDuration } from "../store/entries/tone/utils";
 import { Stave } from "../store/score-stave/defs";
 import { Shunts } from "./get-notehead-shunts";
 import { ToneVerticalOffsets } from "./get-tone-vertical-offsets";
-import { HorizontalSpacing } from "./measure-tick";
+import { HorizontalOffsets, WidthOf } from "./measure-horizonal-offsets";
 import { VerticalSpacing } from "./measure-verical-spacing";
-import { measureWidthUpto, WidthOf } from "./measure-width-upto";
 import { getBaseDuration, NotationTracks } from "./notation-track";
 
 export function drawNotehead(
@@ -18,7 +17,7 @@ export function drawNotehead(
   offset: number,
   shunt: WidthOf,
   subdivisions: number,
-  horizontalSpacing: { [tick: number]: HorizontalSpacing },
+  horizontalOffsets: HorizontalOffsets,
   tone: Tone
 ) {
   const instructions: Instruction<any>[] = [];
@@ -31,7 +30,7 @@ export function drawNotehead(
     lineHeight: 0.25,
   };
 
-  const left = x + measureWidthUpto(horizontalSpacing, 0, tick, shunt);
+  const left = x + horizontalOffsets.get(tick)[shunt];
   const baseDuration = getBaseDuration(duration, subdivisions);
   const glyph = glyphFromDuration(baseDuration);
   const top = y + offset / 2;
@@ -46,7 +45,7 @@ export function drawNoteheads(
   y: number,
   staves: Stave[],
   notation: NotationTracks,
-  horizontalSpacing: { [tick: number]: HorizontalSpacing },
+  horizontalOffsets: HorizontalOffsets,
   verticalSpacing: VerticalSpacing,
   toneVerticalOffsets: ToneVerticalOffsets,
   shunts: Shunts,
@@ -71,7 +70,7 @@ export function drawNoteheads(
               toneVerticalOffsets.get(tone.key),
               shunts.get(`${tick}-${tone.key}`),
               subdivisions,
-              horizontalSpacing,
+              horizontalOffsets,
               tone
             )
           );

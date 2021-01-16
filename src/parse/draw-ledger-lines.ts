@@ -4,9 +4,9 @@ import { Stave } from "../store/score-stave/defs";
 import { Shunts } from "./get-notehead-shunts";
 import { StemDirectionsByTrack, StemDirectionType } from "./get-stem-directions";
 import { ToneVerticalOffsets } from "./get-tone-vertical-offsets";
+import { HorizontalOffsets, WidthOf } from "./measure-horizonal-offsets";
 import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
-import { measureWidthUpto, WidthOf } from "./measure-width-upto";
 import { Notation, NotationTracks } from "./notation-track";
 
 function startWidthOf(stemDirection: StemDirectionType, width: number) {
@@ -41,7 +41,7 @@ export function drawLedgerLinesForEntry(
   offsets: ToneVerticalOffsets,
   stemDirection: StemDirectionType,
   shunts: Shunts,
-  horizontalSpacing: { [tick: number]: HorizontalSpacing },
+  horizontalOffsets: HorizontalOffsets,
   key: string
 ) {
   const instructions: any = [];
@@ -72,8 +72,8 @@ export function drawLedgerLinesForEntry(
 
   lowLedgerLines.forEach((width, i) => {
     if (width > 0) {
-      const start = x + measureWidthUpto(horizontalSpacing, 0, tick, startWidthOf(stemDirection, width)) - 0.4;
-      const stop = x + measureWidthUpto(horizontalSpacing, 0, tick, stopWidthOf(stemDirection, width)) + 0.4;
+      const start = x + horizontalOffsets.get(tick)[startWidthOf(stemDirection, width)] - 0.4;
+      const stop = x + horizontalOffsets.get(tick)[stopWidthOf(stemDirection, width)] + 0.4;
       instructions.push(
         buildLine(`${key}-${i}-low`, { color: "#000000", thickness: 0.1875 }, [start, y + i], [stop, y + i])
       );
@@ -82,8 +82,8 @@ export function drawLedgerLinesForEntry(
 
   highLedgerLines.forEach((width, i) => {
     if (width > 0) {
-      const start = x + measureWidthUpto(horizontalSpacing, 0, tick, startWidthOf(stemDirection, width)) - 0.4;
-      const stop = x + measureWidthUpto(horizontalSpacing, 0, tick, stopWidthOf(stemDirection, width)) + 0.4;
+      const start = x + horizontalOffsets.get(tick)[startWidthOf(stemDirection, width)] - 0.4;
+      const stop = x + horizontalOffsets.get(tick)[stopWidthOf(stemDirection, width)] + 0.4;
       instructions.push(
         buildLine(`${key}-${i}-high`, { color: "#000000", thickness: 0.1875 }, [start, y - i], [stop, y - i])
       );
@@ -98,7 +98,7 @@ export function drawLedgerLines(
   y: number,
   staves: Stave[],
   notation: NotationTracks,
-  horizontalSpacing: { [tick: number]: HorizontalSpacing },
+  horizontalOffsets: HorizontalOffsets,
   verticalSpacing: VerticalSpacing,
   toneVerticalOffsets: ToneVerticalOffsets,
   shunts: Shunts,
@@ -125,7 +125,7 @@ export function drawLedgerLines(
               toneVerticalOffsets,
               directions.get(tick),
               shunts,
-              horizontalSpacing,
+              horizontalOffsets,
               `ledger-line-${trackKey}-${tick}`
             )
           );

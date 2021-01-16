@@ -37,6 +37,7 @@ import { sortTones } from "./sort-tones";
 import { getDotSlots } from "./get-dot-slots";
 import { drawDots } from "./draw-dots";
 import { drawLedgerLines } from "./draw-ledger-lines";
+import { measureHorizontalOffsets } from "./measure-horizonal-offsets";
 
 export function parse(
   score: Score,
@@ -78,6 +79,7 @@ export function parse(
   const shunts = getNoteheadShunts(staves, notation, toneVerticalOffsets, stemDirections);
 
   const horizontalSpacing = measureHorizontalSpacing(staves, flow, barlines, notation, shunts, config);
+  const horizontalOffsets = measureHorizontalOffsets(flow, horizontalSpacing);
 
   const dots = getDotSlots(flow, staves, notation, toneVerticalOffsets);
   const stemLenghts = getStemLengths(flow, staves, notation, toneVerticalOffsets, stemDirections, beams);
@@ -112,23 +114,23 @@ export function parse(
       flow,
       verticalSpacing,
       verticalSpans,
-      horizontalSpacing,
+      horizontalOffsets,
       width,
       barlines,
       config.systemicBarlineSingleInstrumentSystem,
       config.finalBarlineType
     ),
-    ...drawClefs(x, y, staves, flow, verticalSpacing, horizontalSpacing),
-    ...drawTimeSignatures(x, y, staves, flow, verticalSpacing, horizontalSpacing),
-    ...drawKeySignatures(x, y, staves, flow, verticalSpacing, horizontalSpacing),
-    ...drawTempi(x, y, flow, horizontalSpacing, config),
-    ...drawRests(x, y, staves, notation, horizontalSpacing, verticalSpacing, barlines, flow),
+    ...drawClefs(x, y, staves, flow, verticalSpacing, horizontalOffsets),
+    ...drawTimeSignatures(x, y, staves, flow, verticalSpacing, horizontalOffsets),
+    ...drawKeySignatures(x, y, staves, flow, verticalSpacing, horizontalOffsets),
+    ...drawTempi(x, y, flow, horizontalOffsets, config),
+    ...drawRests(x, y, staves, notation, horizontalOffsets, verticalSpacing, barlines, flow),
     ...drawLedgerLines(
       x,
       y,
       staves,
       notation,
-      horizontalSpacing,
+      horizontalOffsets,
       verticalSpacing,
       toneVerticalOffsets,
       shunts,
@@ -139,15 +141,15 @@ export function parse(
       y,
       staves,
       notation,
-      horizontalSpacing,
+      horizontalOffsets,
       verticalSpacing,
       toneVerticalOffsets,
       shunts,
       flow.subdivisions
     ),
-    ...drawDots(x, y, staves, notation, dots, shunts, horizontalSpacing, verticalSpacing),
-    ...drawStems(x, y, staves, stemDirections, stemLenghts, horizontalSpacing, verticalSpacing),
-    ...drawBeams(x, y, beams, staves, stemDirections, stemLenghts, horizontalSpacing, verticalSpacing, experimental)
+    ...drawDots(x, y, staves, notation, dots, shunts, horizontalOffsets, verticalSpacing),
+    ...drawStems(x, y, staves, stemDirections, stemLenghts, horizontalOffsets, verticalSpacing),
+    ...drawBeams(x, y, beams, staves, stemDirections, stemLenghts, horizontalOffsets, verticalSpacing, experimental)
   );
 
   if (debug) {

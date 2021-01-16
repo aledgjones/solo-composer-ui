@@ -1,8 +1,8 @@
 import { buildBox } from "../render/box";
 import { Instruction } from "../render/instructions";
 import { Flow } from "../store/score-flow/defs";
+import { WidthOf } from "./measure-horizonal-offsets";
 import { HorizontalSpacing } from "./measure-tick";
-import { WidthOf } from "./measure-width-upto";
 
 export function debugTick(
   x: number,

@@ -18,85 +18,84 @@ export function measureVerticalSpans(
   config: EngravingConfig,
   flow: Flow
 ): VerticalSpans {
+  const output: VerticalSpans = { brackets: [], subBrackets: [], braces: [], barlines: [] };
+
   let previous_instrument: Instrument;
+  players.order.forEach((player_key) => {
+    if (flow.players[player_key]) {
+      const player = players.by_key[player_key];
+      player.instruments.forEach((instrument_key) => {
+        const instrument = instruments[instrument_key];
+        const is_span = getIsSpan(instrument, previous_instrument, config.bracketing);
 
-  return players.order.reduce<VerticalSpans>(
-    (output, player_key) => {
-      if (flow.players[player_key]) {
-        const player = players.by_key[player_key];
-        player.instruments.forEach((instrument_key) => {
-          const instrument = instruments[instrument_key];
-          const is_span = getIsSpan(instrument, previous_instrument, config.bracketing);
+        // BRACKETS
 
-          // BRACKETS
+        switch (is_span) {
+          case BracketSpan.Start:
+            output.brackets.push({
+              start: instrument.key,
+              stop: instrument.key,
+            });
+            break;
+          case BracketSpan.Continue:
+            output.brackets[output.brackets.length - 1].stop = instrument.key;
+            break;
+          default:
+            break;
+        }
 
-          switch (is_span) {
-            case BracketSpan.Start:
-              output.brackets.push({
-                start: instrument.key,
-                stop: instrument.key,
-              });
-              break;
-            case BracketSpan.Continue:
-              output.brackets[output.brackets.length - 1].stop = instrument.key;
-              break;
-            default:
-              break;
-          }
+        // SUBBRACKETS
 
-          // SUBBRACKETS
-
-          if (
-            config.subBracket &&
-            previous_instrument &&
-            (is_span === BracketSpan.Start || is_span === BracketSpan.Continue) &&
-            instrument.id === previous_instrument.id
-          ) {
-            const subBracketEntry = output.subBrackets[output.subBrackets.length - 1];
-            if (subBracketEntry && subBracketEntry.stop === previous_instrument.key) {
-              subBracketEntry.stop = instrument.key;
-            } else {
-              output.subBrackets.push({
-                start: previous_instrument.key,
-                stop: instrument.key,
-              });
-            }
-          }
-
-          // BRACES
-
-          if (instrument.staves.length > 1) {
-            output.braces.push({
-              start: instrument.staves[0],
-              stop: instrument.staves[instrument.staves.length - 1],
+        if (
+          config.subBracket &&
+          previous_instrument &&
+          (is_span === BracketSpan.Start || is_span === BracketSpan.Continue) &&
+          instrument.id === previous_instrument.id
+        ) {
+          const subBracketEntry = output.subBrackets[output.subBrackets.length - 1];
+          if (subBracketEntry && subBracketEntry.stop === previous_instrument.key) {
+            subBracketEntry.stop = instrument.key;
+          } else {
+            output.subBrackets.push({
+              start: previous_instrument.key,
+              stop: instrument.key,
             });
           }
+        }
 
-          // BARLINES
+        // BRACES
 
-          switch (is_span) {
-            case BracketSpan.Start:
-              output.barlines.push({
-                start: instrument.key,
-                stop: instrument.key,
-              });
-              break;
-            case BracketSpan.Continue:
-              output.barlines[output.barlines.length - 1].stop = instrument.key;
-              break;
-            default:
-              output.barlines.push({
-                start: instrument.key,
-                stop: instrument.key,
-              });
-              break;
-          }
+        if (instrument.staves.length > 1) {
+          output.braces.push({
+            start: instrument.staves[0],
+            stop: instrument.staves[instrument.staves.length - 1],
+          });
+        }
 
-          previous_instrument = instrument;
-        });
-      }
-      return output;
-    },
-    { brackets: [], subBrackets: [], braces: [], barlines: [] }
-  );
+        // BARLINES
+
+        switch (is_span) {
+          case BracketSpan.Start:
+            output.barlines.push({
+              start: instrument.key,
+              stop: instrument.key,
+            });
+            break;
+          case BracketSpan.Continue:
+            output.barlines[output.barlines.length - 1].stop = instrument.key;
+            break;
+          default:
+            output.barlines.push({
+              start: instrument.key,
+              stop: instrument.key,
+            });
+            break;
+        }
+
+        previous_instrument = instrument;
+      });
+    }
+  });
+
+  return output;
 }

@@ -3,8 +3,14 @@ import { parse } from "../../parse";
 import { Score } from "../../store/score/defs";
 import { useMM } from "./use-mm";
 
-export function useParseWorker(score: Score, flow_key: string, debug: boolean, experimental: boolean) {
-  if (process.env.NODE_ENV === "development" || debug) {
+export function useParseWorker(
+  score: Score,
+  flow_key: string,
+  debug: boolean,
+  timings: boolean,
+  experimental: boolean
+) {
+  if (process.env.NODE_ENV === "development" || timings) {
     performance.mark("start");
   }
 
@@ -17,7 +23,7 @@ export function useParseWorker(score: Score, flow_key: string, debug: boolean, e
     experimental,
   ]);
 
-  if (process.env.NODE_ENV === "development" || debug) {
+  if (process.env.NODE_ENV === "development" || timings) {
     performance.measure("parse", "start");
 
     const entries = performance.getEntriesByType("measure");

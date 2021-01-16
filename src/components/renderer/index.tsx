@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import { FC } from "react";
 import { merge } from "../../ui";
 import { useParseWorker } from "./use-parse-worker";
 import { Instruction, InstructionType } from "../../render/instructions";
@@ -20,14 +20,15 @@ interface Props {
   onSelect?: (data: Entry) => void;
 }
 
-export const Renderer: FC<Props> = memo(({ selection, className, children, onSelect }) => {
-  const [score, flow_key, debug, experimental] = useStore((s) => [
+export const Renderer: FC<Props> = ({ selection, className, children, onSelect }) => {
+  const [score, flow_key, debug, timings, experimental] = useStore((s) => [
     s.score,
     s.ui.flow_key,
     s.developer.debug,
+    s.developer.timings,
     s.developer.experimental,
   ]);
-  const instructions = useParseWorker(score, flow_key, debug, experimental);
+  const instructions = useParseWorker(score, flow_key, debug, timings, experimental);
 
   if (!instructions) {
     return null;
@@ -171,4 +172,4 @@ export const Renderer: FC<Props> = memo(({ selection, className, children, onSel
       </div>
     </div>
   );
-});
+};

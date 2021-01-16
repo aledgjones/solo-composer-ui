@@ -3,9 +3,8 @@ import { Instruction } from "../render/instructions";
 import { Stave } from "../store/score-stave/defs";
 import { DotsByTrack } from "./get-dot-slots";
 import { Shunts } from "./get-notehead-shunts";
-import { HorizontalSpacing } from "./measure-tick";
+import { HorizontalOffsets } from "./measure-horizonal-offsets";
 import { VerticalSpacing } from "./measure-verical-spacing";
-import { measureWidthUpto } from "./measure-width-upto";
 import { Notation, NotationTracks } from "./notation-track";
 
 export function drawDot(
@@ -15,11 +14,11 @@ export function drawDot(
   offset: number,
   shunts: Shunts,
   entry: Notation,
-  horizontalSpacing: { [tick: number]: HorizontalSpacing },
+  horizontalOffsets: HorizontalOffsets,
   key: string
 ) {
   const maxWidthOf = Math.max(...entry.tones.map((tone) => shunts.get(`${tick}-${tone.key}`)));
-  const left = x + measureWidthUpto(horizontalSpacing, 0, tick, maxWidthOf + 1);
+  const left = x + horizontalOffsets.get(tick)[maxWidthOf + 1];
   const top = y + offset / 2;
   return buildCircle(key, { color: "#000000" }, left + 0.75, top, 0.2);
 }
@@ -31,7 +30,7 @@ export function drawDots(
   notation: NotationTracks,
   dots: DotsByTrack,
   shunts: Shunts,
-  horizontalSpacing: { [tick: number]: HorizontalSpacing },
+  horizontalOffsets: HorizontalOffsets,
   verticalSpacing: VerticalSpacing
 ) {
   const instructions: Instruction<any>[] = [];
@@ -51,7 +50,7 @@ export function drawDots(
               offset,
               shunts,
               notationTrack[tick],
-              horizontalSpacing,
+              horizontalOffsets,
               `dot-${trackKey}-${tick}-${offset}`
             )
           );

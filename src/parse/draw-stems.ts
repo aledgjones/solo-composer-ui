@@ -1,11 +1,11 @@
 import { Instruction } from "../render/instructions";
 import { buildLine } from "../render/line";
 import { VerticalSpacing } from "./measure-verical-spacing";
-import { measureWidthUpto, WidthOf } from "./measure-width-upto";
 import { HorizontalSpacing } from "./measure-tick";
 import { Stave } from "../store/score-stave/defs";
 import { StemDirectionsByTrack, StemDirectionType } from "./get-stem-directions";
 import { StemLengthsByTrack } from "./get-stem-lengths";
+import { HorizontalOffsets, WidthOf } from "./measure-horizonal-offsets";
 
 export function drawStems(
   x: number,
@@ -13,7 +13,7 @@ export function drawStems(
   staves: Stave[],
   stemDirections: StemDirectionsByTrack,
   stemLengths: StemLengthsByTrack,
-  horizontalSpacing: { [tick: number]: HorizontalSpacing },
+  horizontalOffsets: HorizontalOffsets,
   verticalSpacing: VerticalSpacing
 ) {
   const instructions: Instruction<any>[] = [];
@@ -27,16 +27,9 @@ export function drawStems(
 
       lengths.forEach((entry, tick) => {
         const direction = directions.get(tick);
-
-        const left =
-          x +
-          measureWidthUpto(
-            horizontalSpacing,
-            0,
-            tick,
-            direction === StemDirectionType.Up ? WidthOf.PostNoteSlot : WidthOf.NoteSlot
-          ) +
-          (width / 2) * (direction === StemDirectionType.Up ? -1 : 1);
+        const upto = direction === StemDirectionType.Up ? WidthOf.PostNoteSlot : WidthOf.NoteSlot;
+        const stemModifier = direction === StemDirectionType.Up ? -1 : 1;
+        const left = x + horizontalOffsets.get(tick)[upto] + (width / 2) * stemModifier;
 
         const start = y + verticalSpacing.staves[stave.key].y + entry.head;
         const stop = y + verticalSpacing.staves[stave.key].y + entry.tail;

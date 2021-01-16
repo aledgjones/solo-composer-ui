@@ -1,7 +1,7 @@
 import { Stave } from "../store/score-stave/defs";
 import { StemDirectionsByTrack, StemDirectionType } from "./get-stem-directions";
 import { ToneVerticalOffsets } from "./get-tone-vertical-offsets";
-import { WidthOf } from "./measure-width-upto";
+import { WidthOf } from "./measure-horizonal-offsets";
 import { NotationTracks, Notation } from "./notation-track";
 
 export type Shunts = Map<string, WidthOf>;

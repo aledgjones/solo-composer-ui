@@ -18,9 +18,10 @@ interface Props {
 }
 
 export const Preferences = Dialog<Props>(({ onClose }) => {
-  const [audition, debug, experimental] = useStore((s) => [
+  const [audition, debug, timings, experimental] = useStore((s) => [
     s.app.audition,
     s.developer.debug,
+    s.developer.timings,
     s.developer.experimental,
   ]);
   const [page, setPage] = useState<Page>(Page.General);
@@ -81,10 +82,17 @@ export const Preferences = Dialog<Props>(({ onClose }) => {
                 </Label>
                 <Switch value={debug} />
               </ListItem>
+              <ListItem onClick={() => actions.developer.timings.toggle()}>
+                <Label>
+                  <p>Enable timing</p>
+                  <p>Log time takes for score parsing in milliseconds</p>
+                </Label>
+                <Switch value={timings} />
+              </ListItem>
               <ListItem onClick={() => actions.developer.experimental.toggle()}>
                 <Label>
                   <p>Enable experimental rendering</p>
-                  <p>Render experimental, work in progress items.</p>
+                  <p>Render experimental, work in progress features.</p>
                 </Label>
                 <Switch value={experimental} />
               </ListItem>

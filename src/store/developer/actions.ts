@@ -10,6 +10,14 @@ export const developerActions = {
       });
     },
   },
+  timings: {
+    toggle: () => {
+      store.update((s) => {
+        setStorage("sc:timings/v1", !s.developer.timings);
+        s.developer.timings = !s.developer.timings;
+      });
+    },
+  },
   experimental: {
     toggle: () => {
       store.update((s) => {

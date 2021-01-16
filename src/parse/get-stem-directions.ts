@@ -53,17 +53,17 @@ export function getStemDirectionsInTrack(
   //   - furthest takes precedent
   //   - otherwise down
   beams.forEach((group) => {
-    const directions = group.map((tick) => {
-      return stemDirections.get(tick);
+    let upCount = 0;
+    let downCount = 0;
+
+    group.forEach((tick) => {
+      const direction = stemDirections.get(tick);
+      if (direction === StemDirectionType.Up) {
+        upCount++;
+      } else {
+        downCount++;
+      }
     });
-    // count how many up/down
-    const [upCount, downCount] = directions.reduce(
-      (out, entry) => {
-        out[entry === StemDirectionType.Up ? 0 : 1]++;
-        return out;
-      },
-      [0, 0]
-    );
 
     // we go for whichever is the most...
     if (upCount > downCount) {

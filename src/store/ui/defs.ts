@@ -39,7 +39,6 @@ export interface UiDefs {
       elements: boolean;
     };
     popover: PopoverType | null;
-
     tick: number;
   };
   play: {

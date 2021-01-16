@@ -1,12 +1,12 @@
 import { Instruction } from "../render/instructions";
 import { BeamsByTrack } from "./get-beams";
 import { VerticalSpacing } from "./measure-verical-spacing";
-import { measureWidthUpto, WidthOf } from "./measure-width-upto";
 import { HorizontalSpacing } from "./measure-tick";
 import { Stave } from "../store/score-stave/defs";
 import { StemDirectionsByTrack, StemDirectionType } from "./get-stem-directions";
 import { StemLengthsByTrack } from "./get-stem-lengths";
 import { buildShape } from "../render/shape";
+import { HorizontalOffsets, WidthOf } from "./measure-horizonal-offsets";
 
 export function drawBeams(
   x: number,
@@ -15,7 +15,7 @@ export function drawBeams(
   staves: Stave[],
   stemDirections: StemDirectionsByTrack,
   stemLengths: StemLengthsByTrack,
-  horizontalSpacing: { [tick: number]: HorizontalSpacing },
+  horizontalOffsets: HorizontalOffsets,
   verticalSpacing: VerticalSpacing,
   experimental: boolean
 ) {
@@ -35,14 +35,14 @@ export function drawBeams(
           const startX =
             x +
             (direction === StemDirectionType.Up
-              ? measureWidthUpto(horizontalSpacing, 0, beam[0], WidthOf.NoteSpacing) - stemWidth
-              : measureWidthUpto(horizontalSpacing, 0, beam[0], WidthOf.NoteSlot));
+              ? horizontalOffsets.get(beam[0])[WidthOf.NoteSpacing] - stemWidth
+              : horizontalOffsets.get(beam[0])[WidthOf.NoteSlot]);
 
           const endX =
             x +
             (direction === StemDirectionType.Up
-              ? measureWidthUpto(horizontalSpacing, 0, beam[beam.length - 1], WidthOf.NoteSpacing)
-              : measureWidthUpto(horizontalSpacing, 0, beam[beam.length - 1], WidthOf.NoteSlot) + stemWidth);
+              ? horizontalOffsets.get(beam[beam.length - 1])[WidthOf.NoteSpacing]
+              : horizontalOffsets.get(beam[beam.length - 1])[WidthOf.NoteSlot] + stemWidth);
 
           const startY =
             y +

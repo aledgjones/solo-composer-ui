@@ -7,13 +7,13 @@ import { TimeSignature } from "../store/entries/time-signature/defs";
 import { get_entries_at_tick } from "../store/entries/time-signature/utils";
 import { Flow } from "../store/score-flow/defs";
 import { HorizontalSpacing } from "./measure-tick";
-import { measureWidthUpto, WidthOf } from "./measure-width-upto";
+import { HorizontalOffsets, WidthOf } from "./measure-horizonal-offsets";
 
 export function drawTempi(
   x: number,
   y: number,
   flow: Flow,
-  horizontalSpacing: { [tick: number]: HorizontalSpacing },
+  horizontalOffsets: HorizontalOffsets,
   config: EngravingConfig
 ): Instruction<any>[] {
   const instructions: Instruction<any>[] = [];
@@ -24,7 +24,7 @@ export function drawTempi(
     if (tempo) {
       // Behind Bars p183
       const upto = time ? WidthOf.TimeSignature : WidthOf.StartRepeat;
-      const left = x + measureWidthUpto(horizontalSpacing, 0, tick, upto);
+      const left = x + horizontalOffsets.get(tick)[upto];
       instructions.push(drawAbsoluteTempo(left, y, tempo, config));
     }
   }
