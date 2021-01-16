@@ -54,17 +54,12 @@ export function drawNoteheads(
 ) {
   const instructions: Instruction<any>[] = [];
 
-  for (let i = 0; i < staves.length; i++) {
-    const stave = staves[i];
+  staves.forEach((stave) => {
     const top = y + verticalSpacing.staves[stave.key].y;
-
-    for (let ii = 0; ii < stave.tracks.order.length; ii++) {
-      const trackKey = stave.tracks.order[ii];
+    stave.tracks.order.forEach((trackKey) => {
       const track = notation[trackKey];
       const ticks = Object.keys(track).map((t) => parseInt(t));
-
-      for (let iii = 0; iii < ticks.length; iii++) {
-        const tick = ticks[iii];
+      ticks.forEach((tick) => {
         const entry = track[tick];
         entry.tones.forEach((tone) => {
           instructions.push(
@@ -81,9 +76,9 @@ export function drawNoteheads(
             )
           );
         });
-      }
-    }
-  }
+      });
+    });
+  });
 
   return instructions;
 }
