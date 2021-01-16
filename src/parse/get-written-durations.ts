@@ -9,12 +9,16 @@ import { Barlines } from "./get-barlines";
  * Convert tones into written notation values
  */
 export function getWrittenDurations(staves: Stave[], flow: Flow, barlines: Barlines) {
-  return staves.reduce<NotationTracks>((output, stave) => {
+  const out: NotationTracks = {};
+
+  for (let i = 0; i < staves.length; i++) {
+    const stave = staves[i];
     stave.tracks.order.forEach((track_key) => {
       const track = stave.tracks.by_key[track_key];
       const notation = splitAtToneEvents(flow.length, track);
-      output[track_key] = splitAsPerMeter(flow, notation, barlines);
+      out[track_key] = splitAsPerMeter(flow, notation, barlines);
     }, {});
-    return output;
-  }, {});
+  }
+
+  return out;
 }

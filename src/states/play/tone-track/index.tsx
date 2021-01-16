@@ -84,7 +84,7 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool
         const start = getTickFromXPosition(x, ticks, snap, zoom, "down");
         const duration = getTickFromXPosition(x, ticks, snap, zoom) - start;
         const pitch = getPitchFromYPosition(y, base, slots);
-        const toneKey = actions.score.entries.tone.create(
+        const tone = actions.score.entries.tone.create(
           flowKey,
           staveKey,
           trackKey,
@@ -96,9 +96,9 @@ export const ToneTrack: FC<Props> = ({ flowKey, instrumentKey, color, base, tool
         );
 
         actions.ui.selection.clear();
-        actions.ui.selection.select(toneKey);
+        actions.ui.selection.select(tone);
 
-        onEdit(e, toneKey, start, duration, pitch, Articulation.None, true, false, true);
+        onEdit(e, tone.key, start, duration, pitch, Articulation.None, true, false, true);
         onAudition(pitch);
       }
 

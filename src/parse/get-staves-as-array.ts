@@ -8,7 +8,10 @@ export function getStavesAsArray(
   instruments: { [key: string]: Instrument },
   flow: Flow
 ) {
-  return players.order.reduce<Stave[]>((out, player_key) => {
+  const out: Stave[] = [];
+
+  for (let i = 0; i < players.order.length; i++) {
+    const player_key = players.order[i];
     if (flow.players[player_key]) {
       const player = players.by_key[player_key];
       player.instruments.forEach((instrument_key) => {
@@ -18,6 +21,7 @@ export function getStavesAsArray(
         });
       });
     }
-    return out;
-  }, []);
+  }
+
+  return out;
 }

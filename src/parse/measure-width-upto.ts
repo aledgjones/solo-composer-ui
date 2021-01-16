@@ -24,7 +24,11 @@ export function measureWidthUpto(
 ) {
   let width = 0.0;
   for (let tick = from; tick < to; tick++) {
-    width += horizontalSpacing[tick].reduce((out, w) => out + w, 0.0);
+    const spacing = horizontalSpacing[tick];
+    for (let ii = 0; ii < spacing.length; ii++) {
+      const w = spacing[ii];
+      width += w;
+    }
   }
   const finalWidth = horizontalSpacing[to];
   if (finalWidth) {

@@ -1,6 +1,6 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
-import { useTitle } from "../../ui";
+import { Option, Select, useTitle } from "../../ui";
 import { CollpaseDirection, Panel } from "../../components/panel";
 import { Popover } from "../../components/popover";
 import { RenderRegion } from "../../components/render-region";
@@ -10,8 +10,29 @@ import { PopoverType } from "../../store/ui/defs";
 import { useStore } from "../../store/use-store";
 import { barCommands, keySignatureCommands, tempoCommands, timeSignatureCommands } from "./hotkeys";
 import { TimeSignaturePanel } from "./panels/time-signature";
+import { pitchToParts } from "../../store/entries/utils";
+import { Accidental, EntryType, NoteDuration } from "../../store/entries/defs";
+import { Tone } from "../../store/entries/tone/defs";
+import { Text } from "../../components/text";
 
 import "./styles.css";
+import { Snap } from "../../components/snap";
+
+export function tokenFromAccidentalType(type: Accidental) {
+  switch (type) {
+    case Accidental.DoubleFlat:
+      return "";
+    case Accidental.Flat:
+      return "${flat}";
+    case Accidental.Sharp:
+      return "${sharp}";
+    case Accidental.DoubleSharp:
+      return "";
+    case Accidental.Natural:
+    default:
+      return "";
+  }
+}
 
 const Write: FC = () => {
   useTitle("Solo Composer | Write");
@@ -31,6 +52,28 @@ const Write: FC = () => {
   useHotkeys("shift+b", () => actions.ui.write.popover.show(PopoverType.Bar));
   useHotkeys("shift+t", () => actions.ui.write.popover.show(PopoverType.Tempo));
 
+  const description = useMemo(() => {
+    const keys = Object.keys(selection);
+    const out = keys.map((key) => {
+      const entry = selection[key];
+      switch (entry.type) {
+        case EntryType.Tone: {
+          const tone = entry as Tone;
+          const [letter, accidental, octave] = pitchToParts(tone.pitch);
+          return `${letter}${tokenFromAccidentalType(accidental)}${octave}`;
+        }
+        default:
+          return "";
+      }
+    });
+
+    if (out.length === 0) {
+      return "No Selection";
+    } else {
+      return "Selection: " + out.join(", ");
+    }
+  }, [selection]);
+
   return (
     <>
       <div className="write">
@@ -40,7 +83,7 @@ const Write: FC = () => {
             onSelect={(entry) => {
               actions.ui.write.tick.set(entry.tick);
               actions.ui.selection.clear();
-              actions.ui.selection.select(entry.key);
+              actions.ui.selection.select(entry);
             }}
           >
             {popover === PopoverType.KeySignature && (
@@ -81,6 +124,15 @@ const Write: FC = () => {
         >
           <TimeSignaturePanel />
         </Panel>
+      </div>
+      <div className="write__bottom-panel">
+        <Snap />
+        <div className="write__bottom-panel-section">
+          <div className="write__selection">
+            <Text content={description} />
+          </div>
+        </div>
+        <div style={{ flexGrow: 1 }} />
       </div>
     </>
   );

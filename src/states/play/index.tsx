@@ -10,10 +10,10 @@ import { useCounts } from "../../store/score-instrument/hooks";
 import { useTicks } from "../../store/score-flow/hooks";
 import { actions } from "../../store/actions";
 import { Tool } from "../../store/ui/defs";
-import { NoteDuration } from "../../store/entries/defs";
+import { useHotkeys } from "react-hotkeys-hook";
+import { Snap } from "../../components/snap";
 
 import "./styles.css";
-import { useHotkeys } from "react-hotkeys-hook";
 
 const Play: FC = () => {
   useTitle("Solo Composer | Sequence");
@@ -24,7 +24,6 @@ const Play: FC = () => {
     players,
     tool,
     zoom,
-    snap_duration,
   ] = useStore((s) => {
     const flowKey = s.ui.flow_key;
     const flow_players = s.score.flows.by_key[flowKey].players;
@@ -39,7 +38,6 @@ const Play: FC = () => {
         .map((player_key) => s.score.players.by_key[player_key]),
       s.ui.play.tool,
       s.ui.play.zoom,
-      s.ui.snap,
     ];
   });
 
@@ -154,24 +152,7 @@ const Play: FC = () => {
       </DragScroll>
 
       <div className="play__bottom-panel">
-        <div className="play__bottom-panel-section">
-          <Select
-            className="play__bottom-panel-select play__snap-select"
-            direction="up"
-            value={snap_duration}
-            onChange={(val) => actions.ui.snap(val)}
-          >
-            <Option value={NoteDuration.Eighth} displayAs={"\u{E1D7}"}>
-              {"\u{E1D7}"}
-            </Option>
-            <Option value={NoteDuration.Sixteenth} displayAs={"\u{E1D9}"}>
-              {"\u{E1D9}"}
-            </Option>
-            <Option value={NoteDuration.ThirtySecond} displayAs={"\u{E1DB}"}>
-              {"\u{E1DB}"}
-            </Option>
-          </Select>
-        </div>
+        <Snap />
         <div />
         <div className="play__bottom-panel-section">
           <Icon className="play__bottom-panel-icon" path={mdiMinus} size={22} onClick={desc} />

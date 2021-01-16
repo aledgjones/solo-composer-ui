@@ -77,8 +77,6 @@ export const scoreActions = {
 
       const flowKey = score.flows.order[0];
       const flow = score.flows.by_key[flowKey];
-
-      console.log(flowKey, flow.subdivisions);
     }
   },
   meta: {

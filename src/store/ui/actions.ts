@@ -1,6 +1,6 @@
 import { store } from "../use-store";
 import { View, Tool, PopoverType } from "./defs";
-import { NoteDuration } from "../entries/defs";
+import { Entry, NoteDuration } from "../entries/defs";
 import { Transport } from "solo-composer-scheduler";
 
 export const uiActions = {
@@ -21,9 +21,9 @@ export const uiActions = {
     });
   },
   selection: {
-    select: (key: string) => {
+    select: (entry: Entry) => {
       store.update((s) => {
-        s.ui.selection[key] = true;
+        s.ui.selection[entry.key] = entry;
       });
     },
     deselect: (key: string) => {

@@ -9,10 +9,10 @@ import { CurveInstruction, getControlPoints } from "../../render/curve";
 import { Text } from "../text";
 import { useStore } from "../../store/use-store";
 import { BoxInstruction } from "../../render/box";
-import { Entry, EntryType } from "../../store/entries/defs";
+import { Entry } from "../../store/entries/defs";
+import { ShapeInstruction } from "../../render/shape";
 
 import "./styles.css";
-import { ShapeInstruction } from "../../render/shape";
 
 interface Props {
   className?: string;
@@ -20,7 +20,7 @@ interface Props {
   onSelect?: (data: Entry) => void;
 }
 
-export const Renderer: FC<Props> = memo(({ selection, className, children, onSelect }) => {
+export const Renderer: FC<Props> = ({ selection, className, children, onSelect }) => {
   const [score, flow_key, debug, experimental] = useStore((s) => [
     s.score,
     s.ui.flow_key,
@@ -73,7 +73,6 @@ export const Renderer: FC<Props> = memo(({ selection, className, children, onSel
 
               case InstructionType.Text: {
                 const text = instruction as TextInstruction;
-                console.log(text);
                 return (
                   <foreignObject
                     className="renderer__entry--text no-scroll"
@@ -172,4 +171,4 @@ export const Renderer: FC<Props> = memo(({ selection, className, children, onSel
       </div>
     </div>
   );
-});
+};

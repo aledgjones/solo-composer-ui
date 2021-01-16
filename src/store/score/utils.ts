@@ -38,7 +38,7 @@ export async function importXML(file: File): Promise<Score> {
       },
       true
     )["score-partwise"];
-    console.log(score);
+    // console.log(score);
     return {
       ...empty().score,
       meta: {
@@ -53,6 +53,6 @@ export async function importXML(file: File): Promise<Score> {
       },
     };
   } catch (error) {
-    console.log(error.message);
+    // console.log(error.message);
   }
 }

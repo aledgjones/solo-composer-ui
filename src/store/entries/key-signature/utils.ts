@@ -26,7 +26,7 @@ export function createKeySignature(tick: number, mode: KeySignatureMode, offset:
   };
 }
 
-function glyphFromType(type: Accidental) {
+export function glyphFromAccidentalType(type: Accidental) {
   switch (type) {
     case Accidental.DoubleFlat:
       return "\u{E264}";
@@ -57,7 +57,7 @@ export function drawKeySignature(x: number, y: number, clef: Clef, key: KeySigna
   // calc naturals here - find out rules for naturalising
 
   if (key.offset < 0) {
-    const glyph = glyphFromType(Accidental.Flat);
+    const glyph = glyphFromAccidentalType(Accidental.Flat);
     const pattern = key_signature_patterns[clef.draw_as][clef.offset][Accidental.Flat];
     for (let i = 0; i > key.offset; i--) {
       instructions.push(
@@ -67,7 +67,7 @@ export function drawKeySignature(x: number, y: number, clef: Clef, key: KeySigna
   }
 
   if (key.offset > 0) {
-    const glyph = glyphFromType(Accidental.Sharp);
+    const glyph = glyphFromAccidentalType(Accidental.Sharp);
     const pattern = key_signature_patterns[clef.draw_as][clef.offset][Accidental.Sharp];
     for (let i = 0; i < key.offset; i++) {
       instructions.push(buildText(`${key.key}-${staveKey}-${i}`, styles, x + i, y + 0.5 * (pattern[i] * -1), glyph));

@@ -19,14 +19,14 @@ export const toneActions = {
     pitch: Pitch,
     velocity: number,
     articulation: Articulation
-  ): string => {
+  ): Tone => {
     const tone = create_tone(tick, duration, pitch, velocity, articulation);
 
     store.update((draft, state) => {
       insert_entry(draft.score.flows.by_key[flow_key].staves[stave_key].tracks.by_key[track_key], tone);
     });
 
-    return tone.key;
+    return tone;
   },
   update: (
     flow_key: string,

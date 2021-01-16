@@ -145,24 +145,3 @@
 .play__zoom-select .ui-select__item:first-child {
   display: none;
 }
-
-.play__snap-select {
-  width: 48px;
-}
-
-.play__snap-select .ui-select__item {
-  font-family: Bravura, sans-serif;
-  font-size: 18px;
-  line-height: 0;
-  height: 40px;
-  padding: 18px 0 6px 0;
-  overflow: hidden;
-}
-
-.play__snap-select .ui-input__display {
-  position: relative;
-  font-family: Bravura, sans-serif;
-  font-size: 18px;
-  line-height: 0;
-  top: 5px;
-}
