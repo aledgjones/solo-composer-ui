@@ -20,11 +20,13 @@ export function drawStems(
 
   const width = 0.125;
 
-  staves.forEach((stave) => {
-    stave.tracks.order.forEach((trackKey) => {
+  for (let i = 0; i < staves.length; i++) {
+    const stave = staves[i];
+
+    for (let ii = 0; ii < stave.tracks.order.length; ii++) {
+      const trackKey = stave.tracks.order[ii];
       const directions = stemDirections[trackKey];
       const lengths = stemLengths[trackKey];
-
       lengths.forEach((entry, tick) => {
         const direction = directions.get(tick);
 
@@ -45,8 +47,8 @@ export function drawStems(
           buildLine(`stem-${trackKey}-${tick}`, { color: "#000000", thickness: width }, [left, start], [left, stop])
         );
       });
-    });
-  });
+    }
+  }
 
   return instructions;
 }

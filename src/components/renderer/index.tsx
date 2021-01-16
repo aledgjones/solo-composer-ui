@@ -20,7 +20,7 @@ interface Props {
   onSelect?: (data: Entry) => void;
 }
 
-export const Renderer: FC<Props> = ({ selection, className, children, onSelect }) => {
+export const Renderer: FC<Props> = memo(({ selection, className, children, onSelect }) => {
   const [score, flow_key, debug, experimental] = useStore((s) => [
     s.score,
     s.ui.flow_key,
@@ -171,4 +171,4 @@ export const Renderer: FC<Props> = ({ selection, className, children, onSelect }
       </div>
     </div>
   );
-};
+});

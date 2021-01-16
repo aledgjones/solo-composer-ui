@@ -49,7 +49,8 @@ export function drawLedgerLinesForEntry(
   const highLedgerLines: Array<0 | 1 | 2> = [0, 0, 0];
   const lowLedgerLines: Array<0 | 1 | 2> = [0, 0, 0];
 
-  entry.tones.forEach((tone) => {
+  for (let i = 0; i < entry.tones.length; i++) {
+    const tone = entry.tones[i];
     const offset = offsets.get(tone.key);
     const shunt = shunts.get(`${tick}-${tone.key}`);
     const width = shunt < WidthOf.NoteSlot || shunt > WidthOf.NoteSlot ? 2 : 1;
@@ -68,9 +69,10 @@ export function drawLedgerLinesForEntry(
         }
       }
     }
-  });
+  }
 
-  lowLedgerLines.forEach((width, i) => {
+  for (let i = 0; i < lowLedgerLines.length; i++) {
+    const width = lowLedgerLines[i];
     if (width > 0) {
       const start = x + measureWidthUpto(horizontalSpacing, 0, tick, startWidthOf(stemDirection, width)) - 0.4;
       const stop = x + measureWidthUpto(horizontalSpacing, 0, tick, stopWidthOf(stemDirection, width)) + 0.4;
@@ -78,9 +80,10 @@ export function drawLedgerLinesForEntry(
         buildLine(`${key}-${i}-low`, { color: "#000000", thickness: 0.1875 }, [start, y + i], [stop, y + i])
       );
     }
-  });
+  }
 
-  highLedgerLines.forEach((width, i) => {
+  for (let i = 0; i < highLedgerLines.length; i++) {
+    const width = highLedgerLines[i];
     if (width > 0) {
       const start = x + measureWidthUpto(horizontalSpacing, 0, tick, startWidthOf(stemDirection, width)) - 0.4;
       const stop = x + measureWidthUpto(horizontalSpacing, 0, tick, stopWidthOf(stemDirection, width)) + 0.4;
@@ -88,7 +91,7 @@ export function drawLedgerLinesForEntry(
         buildLine(`${key}-${i}-high`, { color: "#000000", thickness: 0.1875 }, [start, y - i], [stop, y - i])
       );
     }
-  });
+  }
 
   return instructions;
 }
@@ -106,13 +109,18 @@ export function drawLedgerLines(
 ) {
   const instructions: Instruction<any>[] = [];
 
-  staves.forEach((stave) => {
+  for (let i = 0; i < staves.length; i++) {
+    const stave = staves[i];
     const top = y + verticalSpacing.staves[stave.key].y;
-    stave.tracks.order.forEach((trackKey) => {
+
+    for (let ii = 0; ii < stave.tracks.order.length; ii++) {
+      const trackKey = stave.tracks.order[ii];
       const track = notation[trackKey];
       const directions = stemDirections[trackKey];
       const ticks = Object.keys(track).map((t) => parseInt(t));
-      ticks.forEach((tick) => {
+
+      for (let iii = 0; iii < ticks.length; iii++) {
+        const tick = ticks[iii];
         const entry = track[tick];
         // ignore rests
         if (entry.tones.length > 0) {
@@ -130,9 +138,9 @@ export function drawLedgerLines(
             )
           );
         }
-      });
-    });
-  });
+      }
+    }
+  }
 
   return instructions;
 }

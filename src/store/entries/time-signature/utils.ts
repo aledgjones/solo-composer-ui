@@ -202,9 +202,12 @@ export function get_entry_before_tick(_tick: number, track: Track, type: EntryTy
   }
   for (let tick = _tick - (inclusive ? 0 : 1); tick >= 0; tick--) {
     const entries = track.entries.by_tick[tick] || [];
-    const filtered = entries.map((key) => track.entries.by_key[key]).filter((entry) => entry.type === type);
-    if (filtered.length > 0) {
-      return filtered[0];
+    for (let i = 0; i < entries.length; i++) {
+      const entryKey = entries[i];
+      const entry = track.entries.by_key[entryKey];
+      if (entry.type === type) {
+        return entry;
+      }
     }
   }
   return null;

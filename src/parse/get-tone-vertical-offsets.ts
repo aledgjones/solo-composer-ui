@@ -10,19 +10,26 @@ export type ToneVerticalOffsets = Map<string, number>;
 export function getToneVerticalOffsets(staves: Stave[]) {
   const offsets: ToneVerticalOffsets = new Map();
 
-  staves.forEach((stave) => {
-    stave.tracks.order.forEach((trackKey) => {
+  for (let i = 0; i < staves.length; i++) {
+    const stave = staves[i];
+
+    for (let ii = 0; ii < stave.tracks.order.length; ii++) {
+      const trackKey = stave.tracks.order[ii];
       const track = stave.tracks.by_key[trackKey];
       const ticks = Object.keys(track.entries.by_tick).map((k) => parseInt(k));
-      ticks.forEach((tick) => {
+
+      for (let iii = 0; iii < ticks.length; iii++) {
+        const tick = ticks[iii];
         const clef = get_entry_before_tick(tick, stave.master, EntryType.Clef, true) as Clef;
         const tones = get_entries_at_tick(tick, track, EntryType.Tone) as Tone[];
-        tones.forEach((tone) => {
+
+        for (let iiii = 0; iiii < tones.length; iiii++) {
+          const tone = tones[iiii];
           offsets.set(tone.key, clef.offset * -1 - getStepsBetweenPitches(clef.pitch, tone.pitch));
-        });
-      });
-    });
-  });
+        }
+      }
+    }
+  }
 
   return offsets;
 }
