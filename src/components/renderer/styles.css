@@ -47,4 +47,5 @@
 .renderer .notehead {
   overflow: hidden;
   pointer-events: all;
+  padding: 2px 0;
 }
