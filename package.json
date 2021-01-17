@@ -1,6 +1,6 @@
 {
     "name": "solo-composer-ui",
-    "version": "0.8.76",
+    "version": "0.8.77",
     "description": "Music Notation Everywhere",
     "main": "./src/index.tsx",
     "scripts": {

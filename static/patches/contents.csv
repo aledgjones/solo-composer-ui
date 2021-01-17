@@ -12,6 +12,7 @@ timpani, natural, /output/timpani/natural.json
 xylophone, natural, /output/xylophone/natural.json
 timpani, roll, /output/timpani/roll.json
 contrabass-section, natural, /output/contrabass-section/natural.json
+cor-anglais, staccato, /output/cor-anglais/staccato.json
 snare, natural, /output/snare/natural.json
 violin, tremolo, /output/violin/tremolo.json
 viola, natural, /output/viola/natural.json
@@ -24,6 +25,7 @@ violin, pizzicato, /output/violin/pizzicato.json
 viola, pizzicato, /output/viola/pizzicato.json
 violoncello-section, tremolo, /output/violoncello-section/tremolo.json
 violoncello-section, spiccato, /output/violoncello-section/spiccato.json
+cor-anglais, natural, /output/cor-anglais/natural.json
 horn, staccato, /output/horn/staccato.json
 acoustic-guitar, natural, /output/acoustic-guitar/natural.json
 violin-section, natural, /output/violin-section/natural.json
