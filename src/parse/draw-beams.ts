@@ -41,7 +41,7 @@ export function drawBeams(
           const endX =
             x +
             (direction === StemDirectionType.Up
-              ? horizontalOffsets.get(beam[beam.length - 1])[WidthOf.NoteSpacing]
+              ? horizontalOffsets.get(beam[beam.length - 1])[WidthOf.PostNoteSlot]
               : horizontalOffsets.get(beam[beam.length - 1])[WidthOf.NoteSlot] + stemWidth);
 
           const startY =
