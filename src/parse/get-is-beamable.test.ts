@@ -1,4 +1,3 @@
-import { NoteDuration } from "../store/entries/defs";
 import { getIsBeamable } from "./get-is-beamable";
 
 describe("getIsbeamable", () => {
