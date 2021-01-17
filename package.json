@@ -2,7 +2,7 @@
     "name": "solo-composer-ui",
     "version": "0.8.73",
     "description": "Music Notation Everywhere",
-    "main": "./bootstrap.ts",
+    "main": "./src/index.tsx",
     "scripts": {
         "build": "json-bump package.json --patch && json-bump package-lock.json --patch && parcel build ./src/index.html",
         "deploy": "npm run test && npm run build && firebase deploy && git add -A && git commit -m \"deploy\" && git push",
