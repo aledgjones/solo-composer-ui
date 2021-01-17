@@ -8,8 +8,8 @@ export function drawSubBrackets(x: number, y: number, spacing: VerticalSpacing, 
 
   const left = x - 1.5;
   const styles = { color: "#000000", thickness: 0.125 };
-
-  return spans.subBrackets.reduce((out: LineInstruction[], bracket) => {
+  const out: LineInstruction[] = [];
+  spans.subBrackets.forEach((bracket) => {
     const start = spacing.instruments[bracket.start];
     const stop = spacing.instruments[bracket.stop];
 
@@ -17,7 +17,6 @@ export function drawSubBrackets(x: number, y: number, spacing: VerticalSpacing, 
     const bottom = y + stop.y + stop.height;
 
     out.push(buildLine(`${bracket.start}-bracket`, styles, [x, top], [left, top], [left, bottom], [x, bottom]));
-
-    return out;
-  }, []);
+  });
+  return out;
 }

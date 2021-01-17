@@ -21,7 +21,7 @@ export enum WidthOf {
 export type HorizontalOffsets = Map<number, number[]>;
 
 export function measureHorizontalOffsets(flow: Flow, horizontalSpacing: { [tick: number]: HorizontalSpacing }) {
-  const out: HorizontalOffsets = new Map();
+  const horizontalOffsets: HorizontalOffsets = new Map();
 
   let width = 0.0;
   for (let tick = 0; tick < flow.length; tick++) {
@@ -31,7 +31,7 @@ export function measureHorizontalOffsets(flow: Flow, horizontalSpacing: { [tick:
       offsets[ii] = width;
       width += spacing[ii];
     }
-    out.set(tick, offsets);
+    horizontalOffsets.set(tick, offsets);
   }
-  return out;
+  return { horizontalOffsets, width };
 }

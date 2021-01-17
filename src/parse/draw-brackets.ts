@@ -21,10 +21,14 @@ export function drawBrackets(
   const thick = { color: "#000000", thickness: 0.5 };
   const thin = { color: "#000000", thickness: 0.125 };
 
-  return spans.brackets.reduce((out: Instruction<any>, bracket) => {
+  const out: Instruction<any> = [];
+
+  for (let i = 0; i < spans.brackets.length; i++) {
+    const bracket = spans.brackets[i];
+
     // short circuit if its a single stave and we don't want single staves bracketed.
     if (!config.bracketSingleStaves && bracket.start === bracket.stop) {
-      return out;
+      continue;
     }
 
     const start = spacing.instruments[bracket.start];
@@ -72,7 +76,7 @@ export function drawBrackets(
         buildText(`${bracket.start}-wing--bottom`, styles, capLeft, bottom + tweekForWing, glyphBottom)
       );
     }
+  }
 
-    return out;
-  }, []);
+  return out;
 }

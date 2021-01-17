@@ -79,18 +79,13 @@ export function parse(
   const shunts = getNoteheadShunts(staves, notation, toneVerticalOffsets, stemDirections);
 
   const horizontalSpacing = measureHorizontalSpacing(staves, flow, barlines, notation, shunts, config);
-  const horizontalOffsets = measureHorizontalOffsets(flow, horizontalSpacing);
+  const { horizontalOffsets, width } = measureHorizontalOffsets(flow, horizontalSpacing);
 
   const dots = getDotSlots(flow, staves, notation, toneVerticalOffsets);
   const stemLenghts = getStemLengths(flow, staves, notation, toneVerticalOffsets, stemDirections, beams);
   // TODO: calc stem lengths inside beams
   // TODO: draw beams
   // TODO: accidentals
-
-  let width = 0;
-  for (let tick = 0; tick < flow.length; tick++) {
-    width += horizontalSpacing[tick].reduceRight((out, val) => out + val, 0);
-  }
 
   drawInstructions.push(
     ...drawNames(

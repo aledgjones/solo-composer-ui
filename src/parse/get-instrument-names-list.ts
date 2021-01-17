@@ -11,7 +11,8 @@ export function getInstrumentNamesList(
   count_styles: { [type in PlayerType]: AutoCountStyle },
   flow: Flow
 ) {
-  return players.order.reduce<{ [key: string]: string }>((out, player_key) => {
+  const out: { [key: string]: string } = {};
+  players.order.forEach((player_key) => {
     if (flow.players[player_key]) {
       const player = players.by_key[player_key];
       player.instruments.forEach((instrument_key) => {
@@ -19,7 +20,6 @@ export function getInstrumentNamesList(
         out[instrument_key] = instrumentName(instrument, count_styles[player.type], counts[instrument_key]);
       });
     }
-
-    return out;
-  }, {});
+  });
+  return out;
 }
