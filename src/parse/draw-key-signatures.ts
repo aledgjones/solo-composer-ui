@@ -6,7 +6,6 @@ import { drawKeySignature } from "../store/entries/key-signature/utils";
 import { get_entries_at_tick } from "../store/entries/time-signature/utils";
 import { Flow } from "../store/score-flow/defs";
 import { Stave } from "../store/score-stave/defs";
-import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
 import { HorizontalOffsets, WidthOf } from "./measure-horizonal-offsets";
 

@@ -6,7 +6,6 @@ import { drawAbsoluteTempo } from "../store/entries/absolute-tempo/utils";
 import { TimeSignature } from "../store/entries/time-signature/defs";
 import { get_entries_at_tick } from "../store/entries/time-signature/utils";
 import { Flow } from "../store/score-flow/defs";
-import { HorizontalSpacing } from "./measure-tick";
 import { HorizontalOffsets, WidthOf } from "./measure-horizonal-offsets";
 
 export function drawTempi(

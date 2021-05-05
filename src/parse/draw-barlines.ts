@@ -8,7 +8,6 @@ import { getBarlineDrawTypeAtTick } from "./get-barline-draw-type-at-tick";
 import { Barlines } from "./get-barlines";
 import { getextrasAtTick } from "./get-extras-at-tick";
 import { HorizontalOffsets, WidthOf } from "./measure-horizonal-offsets";
-import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
 import { VerticalSpans } from "./measure-vertical-spans";
 

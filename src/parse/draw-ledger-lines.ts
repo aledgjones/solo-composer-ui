@@ -5,7 +5,6 @@ import { Shunts } from "./get-notehead-shunts";
 import { StemDirectionsByTrack, StemDirectionType } from "./get-stem-directions";
 import { ToneVerticalOffsets } from "./get-tone-vertical-offsets";
 import { HorizontalOffsets, WidthOf } from "./measure-horizonal-offsets";
-import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
 import { Notation, NotationTracks } from "./notation-track";
 

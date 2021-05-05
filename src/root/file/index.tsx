@@ -25,7 +25,7 @@ export const File: FC = () => {
   const [importer, setImporter] = useState(false);
   const [library, setLibrary] = useState(false);
 
-  const [update, setUpdate] = useState<() => void>();
+  const [update] = useState<() => void>();
 
   // auto close
   useEffect(() => {

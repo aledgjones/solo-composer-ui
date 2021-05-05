@@ -2,7 +2,6 @@ import { Instrument } from "../store/score-instrument/defs";
 import { EngravingConfig } from "../store/defs";
 import { Flow } from "../store/score-flow/defs";
 import { Player } from "../store/score-player/defs";
-import { Stave } from "../store/score-stave/defs";
 
 export interface VerticalSpacing {
   height: number;

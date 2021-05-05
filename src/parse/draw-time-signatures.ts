@@ -4,7 +4,6 @@ import { Flow } from "../store/score-flow/defs";
 import { Stave } from "../store/score-stave/defs";
 import { getextrasAtTick } from "./get-extras-at-tick";
 import { HorizontalOffsets, WidthOf } from "./measure-horizonal-offsets";
-import { HorizontalSpacing } from "./measure-tick";
 import { VerticalSpacing } from "./measure-verical-spacing";
 
 export function drawTimeSignatures(

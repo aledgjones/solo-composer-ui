@@ -1,4 +1,4 @@
-import { Entry, EntryType } from "../store/entries/defs";
+import { Entry } from "../store/entries/defs";
 
 export enum InstructionType {
   Line = 1,

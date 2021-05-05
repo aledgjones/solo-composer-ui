@@ -1,7 +1,6 @@
 import { Instruction } from "../render/instructions";
 import { buildLine } from "../render/line";
 import { VerticalSpacing } from "./measure-verical-spacing";
-import { HorizontalSpacing } from "./measure-tick";
 import { Stave } from "../store/score-stave/defs";
 import { StemDirectionsByTrack, StemDirectionType } from "./get-stem-directions";
 import { StemLengthsByTrack } from "./get-stem-lengths";

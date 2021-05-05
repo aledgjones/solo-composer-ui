@@ -5,7 +5,7 @@ import { Instruction, InstructionType } from "../../render/instructions";
 import { LineInstruction } from "../../render/line";
 import { CircleInstruction } from "../../render/circle";
 import { TextInstruction } from "../../render/text";
-import { CurveInstruction, getControlPoints } from "../../render/curve";
+import { CurveInstruction } from "../../render/curve";
 import { useStore } from "../../store/use-store";
 import { BoxInstruction } from "../../render/box";
 import { Entry } from "../../store/entries/defs";

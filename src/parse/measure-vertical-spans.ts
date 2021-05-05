@@ -2,7 +2,6 @@ import { Instrument } from "../store/score-instrument/defs";
 import { Player } from "../store/score-player/defs";
 import { EngravingConfig } from "../store/defs";
 import { Flow } from "../store/score-flow/defs";
-import { getInstrumentFamily } from "./get-instrument-family";
 import { getIsSpan, BracketSpan } from "./get-is-span";
 
 export interface VerticalSpans {
